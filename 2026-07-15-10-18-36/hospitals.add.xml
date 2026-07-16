@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <poi id="A1100011_가톨릭대학교 여의도성모병원" type="hospital" color="255,165,0" layer="10" lon="126.93673129599132" lat="37.51827233800711" width="30" height="30"/>
+    <poi id="A1121013_가톨릭대학교은평성모병원" type="hospital" color="255,165,0" layer="10" lon="126.91615048739686" lat="37.63360840972685" width="30" height="30"/>
+    <poi id="A1100047_강남고려병원" type="hospital" color="0,255,0" layer="10" lon="126.9567817" lat="37.48561884" width="30" height="30"/>
+    <poi id="A1123234_강남더드림병원" type="hospital" color="0,255,0" layer="10" lon="127.0509673" lat="37.50099026" width="30" height="30"/>
+    <poi id="A1100141_강남베드로병원" type="hospital" color="0,255,0" layer="10" lon="127.0395873429168" lat="37.48561217992573" width="30" height="30"/>
+    <poi id="A1100076_강남힐병원" type="hospital" color="0,255,0" layer="10" lon="126.9116481" lat="37.48165134" width="30" height="30"/>
+    <poi id="A1100043_강동경희대학교의대병원" type="hospital" color="255,0,0" layer="10" lon="127.1570848" lat="37.55204593" width="30" height="30"/>
+    <poi id="A1100006_강북삼성병원" type="hospital" color="255,165,0" layer="10" lon="126.96793805451702" lat="37.56849763123383" width="30" height="30"/>
+    <poi id="A1121842_강북으뜸병원" type="hospital" color="0,255,0" layer="10" lon="127.0261845" lat="37.62542056" width="30" height="30"/>
+    <poi id="A1117285_강서케이병원" type="hospital" color="0,255,0" layer="10" lon="126.836699" lat="37.53735762" width="30" height="30"/>
+    <poi id="A1100002_건국대학교병원" type="hospital" color="255,165,0" layer="10" lon="127.0721229093036" lat="37.54084479467721" width="30" height="30"/>
+    <poi id="A1100039_경찰병원" type="hospital" color="255,165,0" layer="10" lon="127.123487935032" lat="37.49641321356079" width="30" height="30"/>
+    <poi id="A1100001_경희대학교병원" type="hospital" color="255,165,0" layer="10" lon="127.05183223390304" lat="37.59387655" width="30" height="30"/>
+    <poi id="A1100014_고려대학교의과대학부속구로병원" type="hospital" color="255,0,0" layer="10" lon="126.8847449363546" lat="37.49211114525054" width="30" height="30"/>
+    <poi id="A1100026_구로성심병원" type="hospital" color="255,165,0" layer="10" lon="126.86636039556484" lat="37.49964578669388" width="30" height="30"/>
+    <poi id="A1100052_국립중앙의료원" type="hospital" color="255,165,0" layer="10" lon="127.00579539705473" lat="37.56733955813183" width="30" height="30"/>
+    <poi id="A1100048_노원을지대학교병원" type="hospital" color="255,165,0" layer="10" lon="127.07000281991384" lat="37.636442927386746" width="30" height="30"/>
+    <poi id="A1100044_녹색병원" type="hospital" color="255,165,0" layer="10" lon="127.08605546969356" lat="37.58362083896108" width="30" height="30"/>
+    <poi id="A1100037_대림성모병원" type="hospital" color="255,165,0" layer="10" lon="126.90716948025135" lat="37.49068925436284" width="30" height="30"/>
+    <poi id="A1100024_명지성모병원" type="hospital" color="255,165,0" layer="10" lon="126.89925446922592" lat="37.49385071" width="30" height="30"/>
+    <poi id="A1100046_미즈메디병원" type="hospital" color="0,255,0" layer="10" lon="126.83602535156236" lat="37.55225379358291" width="30" height="30"/>
+    <poi id="A1100036_부민병원" type="hospital" color="255,165,0" layer="10" lon="126.8509495053918" lat="37.55694089289359" width="30" height="30"/>
+    <poi id="A1100148_사랑의병원" type="hospital" color="0,255,0" layer="10" lon="126.9562858" lat="37.47962478" width="30" height="30"/>
+    <poi id="A1100010_삼성서울병원" type="hospital" color="255,165,0" layer="10" lon="127.08668245340024" lat="37.48851613490445" width="30" height="30"/>
+    <poi id="A1100021_삼육서울병원" type="hospital" color="255,165,0" layer="10" lon="127.0653288266823" lat="37.5879920013054" width="30" height="30"/>
+    <poi id="A1100017_서울대학교병원" type="hospital" color="255,0,0" layer="10" lon="126.99896308412193" lat="37.57966608924356" width="30" height="30"/>
+    <poi id="A1107402_서울대학교치과병원" type="hospital" color="0,255,0" layer="10" lon="126.9971964" lat="37.58045239" width="30" height="30"/>
+    <poi id="A1100050_서울성심병원" type="hospital" color="255,165,0" layer="10" lon="127.04983805981972" lat="37.58419129209865" width="30" height="30"/>
+    <poi id="A1100029_서울적십자병원" type="hospital" color="255,165,0" layer="10" lon="126.96699861289684" lat="37.56715536263689" width="30" height="30"/>
+    <poi id="A1100022_서울특별시 동부병원" type="hospital" color="255,165,0" layer="10" lon="127.03140257525509" lat="37.57539886464885" width="30" height="30"/>
+    <poi id="A1100040_서울특별시보라매병원" type="hospital" color="255,165,0" layer="10" lon="126.92404876254014" lat="37.4937184" width="30" height="30"/>
+    <poi id="A1100223_서울특별시서남병원" type="hospital" color="255,165,0" layer="10" lon="126.8331299304024" lat="37.51201935883779" width="30" height="30"/>
+    <poi id="A1100035_서울특별시서울의료원" type="hospital" color="255,0,0" layer="10" lon="127.0980910949257" lat="37.61286931510163" width="30" height="30"/>
+    <poi id="A1100172_서울현대병원" type="hospital" color="0,255,0" layer="10" lon="127.0285044" lat="37.64025592" width="30" height="30"/>
+    <poi id="A1100028_성심의료재단강동성심병원" type="hospital" color="255,165,0" layer="10" lon="127.13526354631516" lat="37.53598408220376" width="30" height="30"/>
+    <poi id="A1100054_성애의료재단성애병원" type="hospital" color="255,165,0" layer="10" lon="126.92236733617032" lat="37.51205044957338" width="30" height="30"/>
+    <poi id="A1100032_세란병원" type="hospital" color="255,165,0" layer="10" lon="126.9577071892358" lat="37.57534016994642" width="30" height="30"/>
+    <poi id="A1100004_순천향대학교 부속 서울병원" type="hospital" color="255,165,0" layer="10" lon="127.00441798640304" lat="37.53384172231443" width="30" height="30"/>
+    <poi id="A1100063_신촌연세병원" type="hospital" color="0,255,0" layer="10" lon="126.9337347" lat="37.55258927" width="30" height="30"/>
+    <poi id="A1100045_씨엠병원" type="hospital" color="0,255,0" layer="10" lon="126.90367981067836" lat="37.51884832876216" width="30" height="30"/>
+    <poi id="A1100015_연세대학교의과대학강남세브란스병원" type="hospital" color="255,165,0" layer="10" lon="127.04631254186796" lat="37.49280698464548" width="30" height="30"/>
+    <poi id="A1100007_연세대학교의과대학세브란스병원" type="hospital" color="255,165,0" layer="10" lon="126.94082769649864" lat="37.56211711412639" width="30" height="30"/>
+    <poi id="A1100042_우리들병원" type="hospital" color="0,255,0" layer="10" lon="126.7963653099318" lat="37.56199597494205" width="30" height="30"/>
+    <poi id="A1100152_은평연세병원" type="hospital" color="0,255,0" layer="10" lon="126.9174722" lat="37.61469222" width="30" height="30"/>
+    <poi id="A1100025_의료법인동신의료재단동신병원" type="hospital" color="255,165,0" layer="10" lon="126.93658306608872" lat="37.58110428173239" width="30" height="30"/>
+    <poi id="A1100041_의료법인서울효천의료재단에이치플러스양지병원" type="hospital" color="255,165,0" layer="10" lon="126.93253922577289" lat="37.48427507045319" width="30" height="30"/>
+    <poi id="A1100030_의료법인성화의료재단대한병원" type="hospital" color="0,255,0" layer="10" lon="127.02267251878474" lat="37.63547043209498" width="30" height="30"/>
+    <poi id="A1100255_의료법인인봉의료재단영등포병원" type="hospital" color="0,255,0" layer="10" lon="126.895614" lat="37.52685809" width="30" height="30"/>
+    <poi id="A1100023_의료법인청구성심병원" type="hospital" color="255,165,0" layer="10" lon="126.91955399169244" lat="37.62079154435882" width="30" height="30"/>
+    <poi id="A1100075_의료법인풍산의료재단동부제일병원" type="hospital" color="255,165,0" layer="10" lon="127.1090292210168" lat="37.60067564592665" width="30" height="30"/>
+    <poi id="A1100020_의료법인한전의료재단한일병원" type="hospital" color="255,165,0" layer="10" lon="127.02902417950423" lat="37.64611570419094" width="30" height="30"/>
+    <poi id="A1100005_이화여자대학교의과대학부속목동병원" type="hospital" color="255,0,0" layer="10" lon="126.8862159683056" lat="37.53654282637804" width="30" height="30"/>
+    <poi id="A1120796_이화여자대학교의과대학부속서울병원" type="hospital" color="255,165,0" layer="10" lon="126.8362659" lat="37.55726115" width="30" height="30"/>
+    <poi id="A1100016_인제대학교상계백병원" type="hospital" color="255,165,0" layer="10" lon="127.06311619032103" lat="37.64858127" width="30" height="30"/>
+    <poi id="A1100033_인제대학교서울백병원" type="hospital" color="255,165,0" layer="10" lon="126.98884533055192" lat="37.56507317" width="30" height="30"/>
+    <poi id="A1122381_재단법인베스티안재단베스티안서울병원" type="hospital" color="0,255,0" layer="10" lon="127.0280198" lat="37.56511028" width="30" height="30"/>
+    <poi id="A1100018_재단법인베스티안재단베스티안서울병원" type="hospital" color="0,255,0" layer="10" lon="127.05726710883552" lat="37.49807126965969" width="30" height="30"/>
+    <poi id="A1100009_재단법인아산사회복지재단서울아산병원" type="hospital" color="255,165,0" layer="10" lon="127.10823825113609" lat="37.526563966361216" width="30" height="30"/>
+    <poi id="A1100003_중앙대학교병원" type="hospital" color="255,165,0" layer="10" lon="126.96079378447554" lat="37.50707428493414" width="30" height="30"/>
+    <poi id="A1100057_차의과학대학교 강남차병원" type="hospital" color="0,255,0" layer="10" lon="127.03466865188072" lat="37.50680002585087" width="30" height="30"/>
+    <poi id="A1117070_최원호병원" type="hospital" color="0,255,0" layer="10" lon="126.9238558" lat="37.60476959" width="30" height="30"/>
+    <poi id="A1100012_학교법인가톨릭학원가톨릭대학교서울성모병원" type="hospital" color="255,165,0" layer="10" lon="127.00472725970135" lat="37.50180080478528" width="30" height="30"/>
+    <poi id="A1100008_학교법인고려중앙학원고려대학교의과대학부속병원(안암병원)" type="hospital" color="255,0,0" layer="10" lon="127.02647086385966" lat="37.58715608002366" width="30" height="30"/>
+    <poi id="A1100163_한강수병원" type="hospital" color="0,255,0" layer="10" lon="126.8909137" lat="37.52240478" width="30" height="30"/>
+    <poi id="A1100053_한국보훈복지의료공단중앙보훈병원" type="hospital" color="255,165,0" layer="10" lon="127.14671886173552" lat="37.52822090089664" width="30" height="30"/>
+    <poi id="A1100027_한국원자력의학원원자력병원" type="hospital" color="255,165,0" layer="10" lon="127.08269315796588" lat="37.62881598133036" width="30" height="30"/>
+    <poi id="A1100055_한림대학교강남성심병원" type="hospital" color="255,165,0" layer="10" lon="126.9086725" lat="37.49324929" width="30" height="30"/>
+    <poi id="A1100038_한림대학교한강성심병원" type="hospital" color="0,255,0" layer="10" lon="126.91033000120588" lat="37.52346674579277" width="30" height="30"/>
+    <poi id="A1100013_한양대학교병원" type="hospital" color="255,0,0" layer="10" lon="127.04488284061982" lat="37.559944533564746" width="30" height="30"/>
+    <poi id="A1100051_혜민병원" type="hospital" color="255,165,0" layer="10" lon="127.08360130258502" lat="37.535315660180416" width="30" height="30"/>
+    <poi id="A1100019_홍익병원" type="hospital" color="255,165,0" layer="10" lon="126.8636640030062" lat="37.52844147447355" width="30" height="30"/>
+    <poi id="A1100049_희명병원" type="hospital" color="255,165,0" layer="10" lon="126.90056251863876" lat="37.45567063464179" width="30" height="30"/>
+</additional>
