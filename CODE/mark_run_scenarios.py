@@ -340,10 +340,10 @@ if __name__ == "__main__":
         print(f"완료(reward : {res_dqn['reward']:.1f}, time : {elapsed_d:.1f}s)")
 
         print(f"\n[시나리오 {sc['id']} 상세 지표 요약]")
-        print(f"  · 최단거리    | 평균보상: {res_nearest['avg_reward']:6.1f} | 골든타임 성공률: {res_nearest['golden_success_rate']:5.1f}% | 거부: {res_nearest['rejections']:2d} | 평균소요시간: {res_nearest['avg_time']:5.1f}s | 부하편차: {res_nearest['load_std']:.2f}")
-        print(f"  · 규칙기반    | 평균보상: {res_rule['avg_reward']:6.1f} | 골든타임 성공률: {res_rule['golden_success_rate']:5.1f}% | 거부: {res_rule['rejections']:2d} | 평균소요시간: {res_rule['avg_time']:5.1f}s | 부하편차: {res_rule['load_std']:.2f}")
-        print(f"  · 휴리스틱    | 평균보상: {res_heur['avg_reward']:6.1f} | 골든타임 성공률: {res_heur['golden_success_rate']:5.1f}% | 거부: {res_heur['rejections']:2d} | 평균소요시간: {res_heur['avg_time']:5.1f}s | 부하편차: {res_heur['load_std']:.2f}")
-        print(f"  · DQN 에이전트| 평균보상: {res_dqn['avg_reward']:6.1f} | 골든타임 성공률: {res_dqn['golden_success_rate']:5.1f}% | 거부: {res_dqn['rejections']:2d} | 평균소요시간: {res_dqn['avg_time']:5.1f}s | 부하편차: {res_dqn['load_std']:.2f}")
+        print(f"  · 최단거리    | 보상 : {res_nearest['reward']:6.1f} | 평균보상: {res_nearest['avg_reward']:6.1f} | 골든타임 성공률: {res_nearest['golden_success_rate']:5.1f}% | 거부: {res_nearest['rejections']:2d} | 평균소요시간: {res_nearest['avg_time']:5.1f}s | 부하편차: {res_nearest['load_std']:.2f}")
+        print(f"  · 규칙기반    | 보상 : {res_rule['reward']:6.1f} | 평균보상: {res_rule['avg_reward']:6.1f} | 골든타임 성공률: {res_rule['golden_success_rate']:5.1f}% | 거부: {res_rule['rejections']:2d} | 평균소요시간: {res_rule['avg_time']:5.1f}s | 부하편차: {res_rule['load_std']:.2f}")
+        print(f"  · 휴리스틱    | 보상 : {res_heur['reward']:6.1f} | 평균보상: {res_heur['avg_reward']:6.1f} | 골든타임 성공률: {res_heur['golden_success_rate']:5.1f}% | 거부: {res_heur['rejections']:2d} | 평균소요시간: {res_heur['avg_time']:5.1f}s | 부하편차: {res_heur['load_std']:.2f}")
+        print(f"  · DQN 에이전트| 보상 : {res_dqn['reward']:6.1f} | 평균보상: {res_dqn['avg_reward']:6.1f} | 골든타임 성공률: {res_dqn['golden_success_rate']:5.1f}% | 거부: {res_dqn['rejections']:2d} | 평균소요시간: {res_dqn['avg_time']:5.1f}s | 부하편차: {res_dqn['load_std']:.2f}")
         print("-" * 80)
 
     print("\n모든 시나리오 평가가 성공적으로 완료되었습니다.")

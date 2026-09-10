@@ -1,5 +1,6 @@
 #run_scenarios.py
 #!/usr/bin/env python3
+## 라이브러리 ##
 import os
 import sys
 import time
@@ -15,11 +16,22 @@ from environment import SumoMedicalEnvironment
 from dqn_agent import DQNAmbulanceAgent
 from baselines import HospitalRouters
 
+## SUMO 로그 출력을 억제하기 위해 traci.init_log를 무시하도록 설정 ##
 traci.init_log = lambda *args, **kwargs: None
 
-MAX_STEPS = 600
-GOLDEN_TIME_LIMIT = 240
+## 시나리오 설정 ##
+MAX_STEPS = 400            # 최대 시뮬레이션 스텝 수
+GOLDEN_TIME_LIMIT = 240     # 골든타임 기준 (초 단위)
 
+## 시나리오 정의 ##
+'''
+    id : 시나리오 ID
+    patient_freq : 환자 발생 빈도 (원활, 보통, 혼잡)
+    traffic : 교통 상황 (원활, 보통, 혼잡)
+    complexity : 시나리오 복잡도 (1~6)
+    prob : 환자 발생 확률 (0~1)
+    scale : SUMO 시뮬레이션 스케일 (0~1)
+'''
 SCENARIOS = [
     {"id": 1, "patient_freq": "원활", "traffic": "원활", "complexity": 2, "prob": 0.05, "scale": 0.3},
     {"id": 2, "patient_freq": "원활", "traffic": "보통", "complexity": 3, "prob": 0.05, "scale": 0.5},
@@ -32,6 +44,7 @@ SCENARIOS = [
     {"id": 9, "patient_freq": "혼잡", "traffic": "혼잡", "complexity": 6, "prob": 0.15, "scale": 0.8},
 ]
 
+# SUMO 출력 억제 컨텍스트 매니저 #
 @contextlib.contextmanager
 def suppress_sumo_stdout():
     original_stdout_fd = sys.stdout.fileno()
@@ -49,36 +62,48 @@ def suppress_sumo_stdout():
             os.close(saved_stdout_fd)
             os.close(saved_stderr_fd)
 
+
+## 병원과 환자 위치를 기반으로 가장 가까운 엣지 ID를 반환하는 함수 ##
 def get_closest_edge_id(net, x, y):
-    radius = 50
+    radius = 50             # 초기 탐색 반경 (미터 단위)
+
+    # 엣지 탐색을 위한 반경을 점진적으로 증가시키며 가장 가까운 엣지를 찾음
     while radius < 3000:
+        # 주변 엣지 검색
         edges = net.getNeighboringEdges(x, y, radius)
+        # 엣지가 존재하면 거리 기준으로 정렬 후 가장 가까운 엣지 ID 반환
         if edges:
             sorted_edges = sorted(edges, key=lambda e: e[1])
             for edge, dist in sorted_edges:
                 edge_id = edge.getID()
                 if not edge_id.startswith(':'):
                     return edge_id
-        radius += 100
+        radius += 100   # 탐색 반경 증가
     return None
 
+## 환자 위치를 기반으로 접근 가능한 엣지 ID를 반환하는 함수 ##
 def get_reachable_patient_edge(net, amb_x, amb_y, valid_edges):
-    radius = 200
+    radius = 200            # 초기 탐색 반경 (미터 단위)
+    # 주변 엣지 탐색을 위한 반경을 점진적으로 증가시키며 접근 가능한 엣지를 찾음
     while radius < 4000:
         edges = net.getNeighboringEdges(amb_x, amb_y, radius)
+        # 접근 가능한 엣지 중 유효한 엣지 필터링
         if edges:
             candidates = [e[0].getID() for e in edges if not e[0].getID().startswith(':')]
             if candidates:
-                return random.choice(candidates)
-        radius += 200
+                return random.choice(candidates)    # 접근 가능한 엣지 중 무작위 선택
+        radius += 200   # 탐색 반경 증가
     return random.choice(valid_edges)
 
+## 단일 시나리오 실행 함수 ##
 def run_single_scenario(scenario, initial_hospitals, seed_val, mode='dqn', agent=None):
     env = SumoMedicalEnvironment()
-    
+
+    # 시드 값 설정 (재현성을 위해)
     random.seed(seed_val)
     np.random.seed(seed_val)
 
+    # SUMO 실행 파일 경로 확인 및 시뮬레이션 구성 설정
     sumo_binary = sumolib.checkBinary("sumo")
     # 불필요한 에러 및 경고 출력을 막기 위한 플래그 추가
     sumo_config = [
@@ -334,11 +359,19 @@ if __name__ == "__main__":
 
     for sc in SCENARIOS:
         print(f"\n[진행 중] 시나리오 {sc['id']} / 9 (복잡도: {sc['complexity']} | 환자: {sc['patient_freq']} | 교통: {sc['traffic']}) 실행 중...")
-        
+
+        # 시나리오 지표 총합 저장용 리스트 초기화 #
+        reward = [0, 0, 0, 0]
+        golden_success_rate = [0.0, 0.0, 0.0, 0.0]
+        rejections = [0, 0, 0, 0]
+        avg_time = [0.0, 0.0, 0.0, 0.0]
+        load_std = [0.0, 0.0, 0.0, 0.0]
+
+
         base_seed = sc['id'] * 100
         scenario_hospitals = copy.deepcopy(temp_env.get_hospitals())
 
-        sys.stdout.write("  -> 최단 거리 알고리즘 평가 중... ")
+        sys.stdout.write("\n  -> 최단 거리 알고리즘 평가 중... ")
         sys.stdout.flush()
         start_t = time.time()
         res_nearest = run_single_scenario(sc, scenario_hospitals, base_seed, mode='nearest')
@@ -347,7 +380,7 @@ if __name__ == "__main__":
         if res_nearest['reward'] == 0:
             print(f"    [원인 분석] {res_nearest['zero_reason']}")
 
-        sys.stdout.write("  -> 규칙 기반 알고리즘 평가 중... ")
+        sys.stdout.write("\n  -> 규칙 기반 알고리즘 평가 중... ")
         sys.stdout.flush()
         start_t = time.time()
         res_rule = run_single_scenario(sc, scenario_hospitals, base_seed, mode='rule')
@@ -356,7 +389,7 @@ if __name__ == "__main__":
         if res_rule['reward'] == 0:
             print(f"    [원인 분석] {res_rule['zero_reason']}")
 
-        sys.stdout.write("  -> 휴리스틱 알고리즘 평가 중... ")
+        sys.stdout.write("\n  -> 휴리스틱 알고리즘 평가 중... ")
         sys.stdout.flush()
         start_t = time.time()
         res_heur = run_single_scenario(sc, scenario_hospitals, base_seed, mode='heuristic')
@@ -365,7 +398,7 @@ if __name__ == "__main__":
         if res_heur['reward'] == 0:
             print(f"    [원인 분석] {res_heur['zero_reason']}")
 
-        sys.stdout.write("  -> DQN 에이전트 학습 및 평가 중... ")
+        sys.stdout.write("\n  -> DQN 에이전트 학습 및 평가 중... ")
         sys.stdout.flush()
         start_t = time.time()
         res_dqn = run_single_scenario(sc, scenario_hospitals, base_seed, mode='dqn', agent=dqn_agent)
@@ -375,10 +408,29 @@ if __name__ == "__main__":
             print(f"    [원인 분석] {res_dqn['zero_reason']}")
 
         print(f"\n[시나리오 {sc['id']} 상세 지표 요약]")
-        print(f"  · 최단거리    | 평균보상: {res_nearest['avg_reward']:6.1f} | 골든타임 성공률: {res_nearest['golden_success_rate']:5.1f}% | 거부: {res_nearest['rejections']:2d} | 평균소요시간: {res_nearest['avg_time']:5.1f}s | 부하편차: {res_nearest['load_std']:.2f}")
-        print(f"  · 규칙기반    | 평균보상: {res_rule['avg_reward']:6.1f} | 골든타임 성공률: {res_rule['golden_success_rate']:5.1f}% | 거부: {res_rule['rejections']:2d} | 평균소요시간: {res_rule['avg_time']:5.1f}s | 부하편차: {res_rule['load_std']:.2f}")
-        print(f"  · 휴리스틱    | 평균보상: {res_heur['avg_reward']:6.1f} | 골든타임 성공률: {res_heur['golden_success_rate']:5.1f}% | 거부: {res_heur['rejections']:2d} | 평균소요시간: {res_heur['avg_time']:5.1f}s | 부하편차: {res_heur['load_std']:.2f}")
-        print(f"  · DQN 에이전트| 평균보상: {res_dqn['avg_reward']:6.1f} | 골든타임 성공률: {res_dqn['golden_success_rate']:5.1f}% | 거부: {res_dqn['rejections']:2d} | 평균소요시간: {res_dqn['avg_time']:5.1f}s | 부하편차: {res_dqn['load_std']:.2f}")
+        print(f"  · 최단거리    | 보상 : {res_nearest['reward']:6.1f} | 평균보상: {res_nearest['avg_reward']:6.1f} | 골든타임 성공률: {res_nearest['golden_success_rate']:5.1f}% | 거부: {res_nearest['rejections']:2d} | 평균소요시간: {res_nearest['avg_time']:5.1f}s | 부하편차: {res_nearest['load_std']:.2f}")
+        print(f"  · 규칙기반    | 보상 : {res_rule['reward']:6.1f} | 평균보상: {res_rule['avg_reward']:6.1f} | 골든타임 성공률: {res_rule['golden_success_rate']:5.1f}% | 거부: {res_rule['rejections']:2d} | 평균소요시간: {res_rule['avg_time']:5.1f}s | 부하편차: {res_rule['load_std']:.2f}")
+        print(f"  · 휴리스틱    | 보상 : {res_heur['reward']:6.1f} | 평균보상: {res_heur['avg_reward']:6.1f} | 골든타임 성공률: {res_heur['golden_success_rate']:5.1f}% | 거부: {res_heur['rejections']:2d} | 평균소요시간: {res_heur['avg_time']:5.1f}s | 부하편차: {res_heur['load_std']:.2f}")
+        print(f"  · DQN 에이전트| 보상 : {res_dqn['reward']:6.1f} | 평균보상: {res_dqn['avg_reward']:6.1f} | 골든타임 성공률: {res_dqn['golden_success_rate']:5.1f}% | 거부: {res_dqn['rejections']:2d} | 평균소요시간: {res_dqn['avg_time']:5.1f}s | 부하편차: {res_dqn['load_std']:.2f}")
         print("-" * 80)
+
+        # 전체 시나리오 평가용 데이터 수집 #
+        for i in range(4):
+            reward[i] += [res_nearest, res_rule, res_heur, res_dqn][i]['reward']
+            golden_success_rate[i] += [res_nearest, res_rule, res_heur, res_dqn][i]['golden_success_rate']
+            rejections[i] += [res_nearest, res_rule, res_heur, res_dqn][i]['rejections']
+            avg_time[i] += [res_nearest, res_rule, res_heur, res_dqn][i]['avg_time']
+            load_std[i] += [res_nearest, res_rule, res_heur, res_dqn][i]['load_std']
+        
+
+    # 전체 시나리오 평가 상세 지표 #
+    print("\n=== 전체 시나리오 평가 상세 지표 ===")
+    print(f"  · 최단거리    | 총 보상 : {reward[0]:6.1f} | 평균 골든타임 성공률: {golden_success_rate[0]/9:.1f}% | 총 거부: {rejections[0]:2d} | 평균 소요시간: {avg_time[0]/9:.1f}s | 평균 부하편차: {load_std[0]/9:.2f}")
+    print(f"  · 규칙기반    | 총 보상 : {reward[1]:6.1f} | 평균 골든타임 성공률: {golden_success_rate[1]/9:.1f}% | 총 거부: {rejections[1]:2d} | 평균 소요시간: {avg_time[1]/9:.1f}s | 평균 부하편차: {load_std[1]/9:.2f}")
+    print(f"  · 휴리스틱    | 총 보상 : {reward[2]:6.1f} | 평균 골든타임 성공률: {golden_success_rate[2]/9:.1f}% | 총 거부: {rejections[2]:2d} | 평균 소요시간: {avg_time[2]/9:.1f}s | 평균 부하편차: {load_std[2]/9:.2f}")
+    print(f"  · DQN 에이전트| 총 보상 : {reward[3]:6.1f} | 평균 골든타임 성공률: {golden_success_rate[3]/9:.1f}% | 총 거부: {rejections[3]:2d} | 평균 소요시간: {avg_time[3]/9:.1f}s | 평균 부하편차: {load_std[3]/9:.2f}")
+    print(f"  · 평가 완료 시점 | 총 시나리오 수: 9 | 총 평가 시간: {sum([elapsed_n, elapsed_r, elapsed_h, elapsed_d]):.1f}s")
+    print("=" * 80)
+
 
     print("\n모든 시나리오 평가가 성공적으로 완료되었습니다.")
