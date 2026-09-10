@@ -1,26 +1,41 @@
 import gzip
 import os
-import xml.etree.ElementTree as ET
 import pandas as pd
 from pyproj import Transformer
 import sumolib
 
 def get_valid_nearest_edge(net, x, y):
     """
-    반경을 넓혀가며 탐색하되, 네트워크에 실제로 존재하는(hasEdge) 
+    반경을 넓혀가며 탐색하되, 네트워크에 실제로 존재하는 
     유효한 Edge ID만 확실하게 반환합니다.
     """
     radius = 100
     while True:
         edges = net.getNeighboringEdges(x, y, radius)
         if edges:
-            # 거리 순으로 정렬 후 실제 존재하는 엣지인지 확인
             sorted_edges = sorted(edges, key=lambda e: e[1])
             for edge, dist in sorted_edges:
                 edge_id = edge.getID()
                 if net.hasEdge(edge_id) and not edge_id.startswith(':'):
                     return edge_id
         radius += 300
+
+def get_connected_route_edges(net, start_edge_id, num_edges=10):
+    """
+    출발 엣지로부터 연결된 여러 개의 도로 엣지 시퀀스를 생성합니다.
+    """
+    edge_list = [start_edge_id]
+    curr_edge = net.getEdge(start_edge_id)
+    for _ in range(num_edges - 1):
+        to_node = curr_edge.getToNode()
+        out_edges = to_node.getOutgoing()
+        valid_out = [e for e in out_edges if not e.getID().startswith(':')]
+        if not valid_out:
+            break
+        next_edge = valid_out[0]
+        edge_list.append(next_edge.getID())
+        curr_edge = next_edge
+    return " ".join(edge_list)
 
 def main():
     net_filename = 'SUMO/강남/osm.net.xml'
@@ -52,15 +67,17 @@ def main():
             amb_id = f"amb_{row['서ㆍ센터ID']}"
             
             if closest_edge:
+                # 단일 엣지가 아닌 연결된 다중 엣지 시퀀스 생성 (기본 10개 엣지 연결)
+                route_edges = get_connected_route_edges(net, closest_edge, num_edges=10)
+                
                 f.write(f'    <vehicle id="{amb_id}" type="ambulance" depart="0.00">\n')
-                f.write(f'        <route edges="{closest_edge}"/>\n')
-                f.write(f'        <stop lane="{closest_edge}_0" endPos="10" duration="99999"/>\n')
+                f.write(f'        <route edges="{route_edges}"/>\n')
                 f.write('    </vehicle>\n')
-                print(f"[{row['서ㆍ센터명']}] 검증 완료 -> Edge: {closest_edge}")
+                print(f"[{row['서ㆍ센터명']}] 검증 완료 -> 연결된 Edge 수: {len(route_edges.split())}개")
 
         f.write('</routes>')
         
-    print("\n유효한 Edge로만 구성된 ambulance_routes.rou.xml 재생성 완료!")
+    print("\n연결된 다중 엣지로 구성된 ambulance_routes.rou.xml 재생성 완료!")
 
 if __name__ == "__main__":
     main()

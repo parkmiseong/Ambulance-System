@@ -5,723 +5,543 @@
     </vType>
 
     <vehicle id="amb_1110108" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1125000" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1125101" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1125201" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1113105" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1103108" type="ambulance" depart="0.00">
         <route edges="1414486722#1"/>
-        <stop lane="1414486722#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1103000" type="ambulance" depart="0.00">
         <route edges="1414486722#1"/>
-        <stop lane="1414486722#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1103102" type="ambulance" depart="0.00">
         <route edges="1414486722#1"/>
-        <stop lane="1414486722#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1112105" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1112202" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1116102" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1120106" type="ambulance" depart="0.00">
         <route edges="358372844#1"/>
-        <stop lane="358372844#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1113103" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1119108" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1108000" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1108101" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1108201" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1114000" type="ambulance" depart="0.00">
-        <route edges="218683621#0"/>
-        <stop lane="218683621#0_0" endPos="10" duration="99999"/>
+        <route edges="218683621#0 218683624 579996452#0 -1528035974#7 -1528035974#6 -1528035974#5 -1528035974#4 -1528035974#3 -1528035974#2 -1528035974#1"/>
     </vehicle>
     <vehicle id="amb_1114402" type="ambulance" depart="0.00">
-        <route edges="218683621#0"/>
-        <stop lane="218683621#0_0" endPos="10" duration="99999"/>
+        <route edges="218683621#0 218683624 579996452#0 -1528035974#7 -1528035974#6 -1528035974#5 -1528035974#4 -1528035974#3 -1528035974#2 -1528035974#1"/>
     </vehicle>
     <vehicle id="amb_1114401" type="ambulance" depart="0.00">
-        <route edges="-1528035974#10"/>
-        <stop lane="-1528035974#10_0" endPos="10" duration="99999"/>
+        <route edges="-1528035974#10 -1528035974#9 -1528035974#7 -1528035974#6 -1528035974#5 -1528035974#4 -1528035974#3 -1528035974#2 -1528035974#1 -1528035974#0"/>
     </vehicle>
     <vehicle id="amb_1117104" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1108103" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1115104" type="ambulance" depart="0.00">
-        <route edges="1044253264#1"/>
-        <stop lane="1044253264#1_0" endPos="10" duration="99999"/>
+        <route edges="1044253264#1 1044253265#1 1044253265#2 -365022596#4 -365022596#3 -167022957#1 -167022957#0 -218857638#1 -218857638#0 -560607461#13"/>
     </vehicle>
     <vehicle id="amb_1123101" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1113106" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1118000" type="ambulance" depart="0.00">
         <route edges="46676451#1"/>
-        <stop lane="46676451#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1122102" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1122103" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1120102" type="ambulance" depart="0.00">
         <route edges="358372844#1"/>
-        <stop lane="358372844#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1118101" type="ambulance" depart="0.00">
         <route edges="46676451#1"/>
-        <stop lane="46676451#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1118103" type="ambulance" depart="0.00">
         <route edges="46676451#1"/>
-        <stop lane="46676451#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1118104" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1118201" type="ambulance" depart="0.00">
         <route edges="46676451#1"/>
-        <stop lane="46676451#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1110106" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1122104" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1109103" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1109104" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1125102" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1125103" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1111000" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1110000" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1111102" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1116000" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1114103" type="ambulance" depart="0.00">
-        <route edges="-219076293#5"/>
-        <stop lane="-219076293#5_0" endPos="10" duration="99999"/>
+        <route edges="-219076293#5 -219076293#3 -219076293#2 -219076293#1 -218906059#12 -218906059#11 -218906059#10 -218906059#8 -218906059#6 -218906059#4"/>
     </vehicle>
     <vehicle id="amb_1116401" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1128102" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1115102" type="ambulance" depart="0.00">
-        <route edges="1518059200#4"/>
-        <stop lane="1518059200#4_0" endPos="10" duration="99999"/>
+        <route edges="1518059200#4 -157476668#1 -157476668#0 -1467614243 -418148887 -156298912#2 -156298912#1 -156298912#0 -156298101#0 -251118731#8"/>
     </vehicle>
     <vehicle id="amb_1115105" type="ambulance" depart="0.00">
-        <route edges="185582682#2"/>
-        <stop lane="185582682#2_0" endPos="10" duration="99999"/>
+        <route edges="185582682#2 -185582682#2 -185582679#2 -185582679#1 -185582672#1 -185582672#0 -522799177#16 -522799177#15 -522799177#13 -522799177#12"/>
     </vehicle>
     <vehicle id="amb_1116402" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1116104" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1103106" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1115000" type="ambulance" depart="0.00">
-        <route edges="1232132204#3"/>
-        <stop lane="1232132204#3_0" endPos="10" duration="99999"/>
+        <route edges="1232132204#3 1232132204#4 1232132204#5 -412953586#0 -523144216#10 -523144216#9 -256650674#3 -256650674#2 -256650674#1 -256650674#0"/>
     </vehicle>
     <vehicle id="amb_1108102" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1106105" type="ambulance" depart="0.00">
         <route edges="1091571410"/>
-        <stop lane="1091571410_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1115401" type="ambulance" depart="0.00">
-        <route edges="1232132204#3"/>
-        <stop lane="1232132204#3_0" endPos="10" duration="99999"/>
+        <route edges="1232132204#3 1232132204#4 1232132204#5 -412953586#0 -523144216#10 -523144216#9 -256650674#3 -256650674#2 -256650674#1 -256650674#0"/>
     </vehicle>
     <vehicle id="amb_1115402" type="ambulance" depart="0.00">
-        <route edges="1232132204#3"/>
-        <stop lane="1232132204#3_0" endPos="10" duration="99999"/>
+        <route edges="1232132204#3 1232132204#4 1232132204#5 -412953586#0 -523144216#10 -523144216#9 -256650674#3 -256650674#2 -256650674#1 -256650674#0"/>
     </vehicle>
     <vehicle id="amb_1119000" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1119102" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1119401" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1119103" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1119107" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1108104" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1119104" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1119402" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1112108" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1121103" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1121102" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1115106" type="ambulance" depart="0.00">
-        <route edges="-368612538"/>
-        <stop lane="-368612538_0" endPos="10" duration="99999"/>
+        <route edges="-368612538 -368612537#2 -368612537#1 1232404767#5 1232404750#1 1232404773#1 1232404773#2 1232404782#1 1232404782#2 -1263449021#2"/>
     </vehicle>
     <vehicle id="amb_1115103" type="ambulance" depart="0.00">
-        <route edges="-182205806#1"/>
-        <stop lane="-182205806#1_0" endPos="10" duration="99999"/>
+        <route edges="-182205806#1 -182205806#0 -182205795#3 -182205795#2 -182205795#1 -182205737 -182205815#0 -417991408#2 -182205781#1 -182205781#0"/>
     </vehicle>
     <vehicle id="amb_1114104" type="ambulance" depart="0.00">
-        <route edges="525738548#3"/>
-        <stop lane="525738548#3_0" endPos="10" duration="99999"/>
+        <route edges="525738548#3 -117795636#2 -117795636#1 -117795636#0 -417927288#3 -117795651 -210332893#1 -117795653 -417927288#3 -117795651"/>
     </vehicle>
     <vehicle id="amb_1114106" type="ambulance" depart="0.00">
-        <route edges="183669462#2"/>
-        <stop lane="183669462#2_0" endPos="10" duration="99999"/>
+        <route edges="183669462#2 -183669462#2 -183669462#0 -183669490#3 -183669490#2 -183669490#1 -183669490#0 -297298686#1 -297298686#0 -297298685#2"/>
     </vehicle>
     <vehicle id="amb_1114105" type="ambulance" depart="0.00">
         <route edges="358372844#1"/>
-        <stop lane="358372844#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1120104" type="ambulance" depart="0.00">
         <route edges="358372844#1"/>
-        <stop lane="358372844#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1113000" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1113102" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1123103" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1113201" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1113104" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1112106" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1123102" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1112107" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1103104" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1106103" type="ambulance" depart="0.00">
         <route edges="1414486722#1"/>
-        <stop lane="1414486722#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1103201" type="ambulance" depart="0.00">
         <route edges="1414486722#1"/>
-        <stop lane="1414486722#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1123104" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1100106" type="ambulance" depart="0.00">
         <route edges="1414486722#1"/>
-        <stop lane="1414486722#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1104103" type="ambulance" depart="0.00">
         <route edges="1414486722#1"/>
-        <stop lane="1414486722#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1106104" type="ambulance" depart="0.00">
-        <route edges="-454158885#0"/>
-        <stop lane="-454158885#0_0" endPos="10" duration="99999"/>
+        <route edges="-454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0"/>
     </vehicle>
     <vehicle id="amb_1126306" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1117103" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1117102" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1121101" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1117000" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1117401" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1117402" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1121201" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1126503" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1121104" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1102103" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1108105" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1116103" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1102102" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1102104" type="ambulance" depart="0.00">
-        <route edges="560659940#1"/>
-        <stop lane="560659940#1_0" endPos="10" duration="99999"/>
+        <route edges="560659940#1 -560659940#1 -1384270199#1 -1526305278#5 -1526305278#4 -1526305278#2 -1526305278#1 -1526305278#0 1526305278#0 -1526305278#0"/>
     </vehicle>
     <vehicle id="amb_1103105" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1112000" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1111104" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1111101" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1110102" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1110201" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1111201" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1126502" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1110103" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1120000" type="ambulance" depart="0.00">
         <route edges="358372844#1"/>
-        <stop lane="358372844#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1120103" type="ambulance" depart="0.00">
         <route edges="358372844#1"/>
-        <stop lane="358372844#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1120401" type="ambulance" depart="0.00">
         <route edges="358372844#1"/>
-        <stop lane="358372844#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1120402" type="ambulance" depart="0.00">
         <route edges="358372844#1"/>
-        <stop lane="358372844#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1122000" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1122101" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1122201" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1118105" type="ambulance" depart="0.00">
         <route edges="46676451#1"/>
-        <stop lane="46676451#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1107104" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1103109" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1107000" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1107101" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1107103" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1109102" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1107201" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1104000" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1104401" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1104402" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1104105" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1104106" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1118102" type="ambulance" depart="0.00">
         <route edges="46676451#1"/>
-        <stop lane="46676451#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1111105" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1111106" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1109101" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1109201" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1109000" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1107102" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1125104" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1117105" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1123201" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1123000" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1106000" type="ambulance" depart="0.00">
-        <route edges="-454158885#0"/>
-        <stop lane="-454158885#0_0" endPos="10" duration="99999"/>
+        <route edges="-454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0"/>
     </vehicle>
     <vehicle id="amb_1106101" type="ambulance" depart="0.00">
-        <route edges="-454158885#0"/>
-        <stop lane="-454158885#0_0" endPos="10" duration="99999"/>
+        <route edges="-454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0"/>
     </vehicle>
     <vehicle id="amb_1106201" type="ambulance" depart="0.00">
-        <route edges="-454158885#0"/>
-        <stop lane="-454158885#0_0" endPos="10" duration="99999"/>
+        <route edges="-454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0 -454158885#0 454158885#0"/>
     </vehicle>
     <vehicle id="amb_1102000" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1102101" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1102201" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1120105" type="ambulance" depart="0.00">
-        <route edges="170333423#0"/>
-        <stop lane="170333423#0_0" endPos="10" duration="99999"/>
+        <route edges="170333423#0 170333423#1 -170333434 -170333425#0 -920648903#1 -920648903#0 218790194#4 -218969108#3 -170333428 -920648903#0"/>
     </vehicle>
     <vehicle id="amb_1107105" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1121105" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1113107" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1106102" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1121000" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1100212" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1126305" type="ambulance" depart="0.00">
         <route edges="617416464"/>
-        <stop lane="617416464_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1100211" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1100213" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1127301" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1105107" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1127302" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1127303" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1127402" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1127401" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1127000" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1105103" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1126304" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1105000" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1105402" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1105401" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1114107" type="ambulance" depart="0.00">
-        <route edges="277554691"/>
-        <stop lane="277554691_0" endPos="10" duration="99999"/>
+        <route edges="277554691 277554691-AddedOffRampEdge 277554573 277554571 277554572 417952865#0 -183669514#5 -183669514#4 -183669514#3 -183669514#2"/>
     </vehicle>
     <vehicle id="amb_1100512" type="ambulance" depart="0.00">
         <route edges="1414486722#1"/>
-        <stop lane="1414486722#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1117106" type="ambulance" depart="0.00">
-        <route edges="474954574#0"/>
-        <stop lane="474954574#0_0" endPos="10" duration="99999"/>
+        <route edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
     </vehicle>
     <vehicle id="amb_1118106" type="ambulance" depart="0.00">
         <route edges="46676451#1"/>
-        <stop lane="46676451#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1126307" type="ambulance" depart="0.00">
         <route edges="46676451#1"/>
-        <stop lane="46676451#1_0" endPos="10" duration="99999"/>
     </vehicle>
     <vehicle id="amb_1127304" type="ambulance" depart="0.00">
-        <route edges="46709879"/>
-        <stop lane="46709879_0" endPos="10" duration="99999"/>
+        <route edges="46709879 65369551#0 1336765175#0 -1336765180 -1336765178#3 -1336765178#2 -1336765178#1 -1336765178#0 -1336765177 -1336765176#1"/>
     </vehicle>
     <vehicle id="amb_1128000" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1128401" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
     <vehicle id="amb_1128402" type="ambulance" depart="0.00">
-        <route edges="1526903725#0"/>
-        <stop lane="1526903725#0_0" endPos="10" duration="99999"/>
+        <route edges="1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0 1526903725#0 -1526903725#0"/>
     </vehicle>
 </routes>

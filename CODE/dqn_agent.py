@@ -1,3 +1,4 @@
+#dqn_agent.py
 #!/usr/bin/env python3
 import random
 import numpy as np
@@ -10,11 +11,11 @@ class DQNNetwork(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(DQNNetwork, self).__init__()
         self.fc = nn.Sequential(
-            nn.Linear(state_dim, 128),
+            nn.Linear(state_dim, 256),
             nn.ReLU(),
-            nn.Linear(128, 128),
+            nn.Linear(256, 256),
             nn.ReLU(),
-            nn.Linear(128, action_dim)
+            nn.Linear(256, action_dim)
         )
 
     def forward(self, x):
@@ -24,12 +25,12 @@ class DQNAmbulanceAgent:
     def __init__(self, state_dim, action_dim):
         self.state_dim = state_dim
         self.action_dim = action_dim
-        self.memory = deque(maxlen=10000)
-        self.gamma = 0.99
+        self.memory = deque(maxlen=20000)
+        self.gamma = 0.95
         self.epsilon = 1.0
         self.epsilon_min = 0.05
         self.epsilon_decay = 0.995
-        self.learning_rate = 0.001
+        self.learning_rate = 0.0005
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = DQNNetwork(state_dim, action_dim).to(self.device)
@@ -40,13 +41,13 @@ class DQNAmbulanceAgent:
     def update_target_network(self):
         self.target_model.load_state_dict(self.model.state_dict())
 
-    def select_action(self, state, action_dim):
+    def select_action(self, state):
         if np.random.rand() <= self.epsilon:
-            return random.randrange(action_dim)
+            return random.randrange(self.action_dim)
         state_tensor = torch.FloatTensor(state).unsqueeze(0).to(self.device)
         with torch.no_grad():
             q_values = self.model(state_tensor)
-        return torch.argmax(q_values[:, :action_dim]).item()
+        return torch.argmax(q_values).item()
 
     def store_transition(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
