@@ -1,5 +1,6 @@
-#dqn_agent.py
 #!/usr/bin/env python3
+
+import os
 import random
 import numpy as np
 import torch
@@ -25,11 +26,11 @@ class DQNAmbulanceAgent:
     def __init__(self, state_dim, action_dim):
         self.state_dim = state_dim
         self.action_dim = action_dim
-        self.memory = deque(maxlen=20000)
+        self.memory = deque(maxlen=30000)
         self.gamma = 0.95
         self.epsilon = 1.0
         self.epsilon_min = 0.05
-        self.epsilon_decay = 0.995
+        self.epsilon_decay = 0.98
         self.learning_rate = 0.0005
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -52,7 +53,7 @@ class DQNAmbulanceAgent:
     def store_transition(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
 
-    def train_step(self, batch_size=64):
+    def train_step(self, batch_size=32):
         if len(self.memory) < batch_size:
             return
 
@@ -76,3 +77,23 @@ class DQNAmbulanceAgent:
 
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
+
+    def save_model(self, filepath="dqn_ambulance_model.pth"):
+        torch.save({
+            'model_state_dict': self.model.state_dict(),
+            'target_model_state_dict': self.target_model.state_dict(),
+            'optimizer_state_dict': self.optimizer.state_dict(),
+            'epsilon': self.epsilon
+        }, filepath)
+        print(f"\n[DQN 에이전트] 가중치 저장 완료: {filepath}")
+
+    def load_model(self, filepath="dqn_ambulance_model.pth"):
+        if os.path.exists(filepath):
+            checkpoint = torch.load(filepath, map_location=self.device)
+            self.model.load_state_dict(checkpoint['model_state_dict'])
+            self.target_model.load_state_dict(checkpoint['target_model_state_dict'])
+            self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+            self.epsilon = checkpoint.get('epsilon', self.epsilon_min)
+            print(f"\n[DQN 에이전트] 학습 모델 로드 완료: {filepath} (현재 Epsilon: {self.epsilon:.4f})")
+        else:
+            print(f"\n[DQN 에이전트] 저장된 모델 파일이 없어 새로 시작합니다.")
