@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-20T21:32:51.909113+09:00 by Eclipse SUMO sumo 1.27.1
+<!-- generated on 2026-09-20T21:42:19.123744+09:00 by Eclipse SUMO sumo 1.27.1
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -16,7 +16,7 @@
 
     <processing>
         <ignore-route-errors value="true"/>
-        <scale value="0.5"/>
+        <scale value="0.8"/>
         <tls.actuated.jam-threshold value="30"/>
     </processing>
 
@@ -34,11 +34,11 @@
     </report>
 
     <traci_server>
-        <remote-port value="50061"/>
+        <remote-port value="65039"/>
     </traci_server>
 
     <random_number>
-        <seed value="78214"/>
+        <seed value="79214"/>
     </random_number>
 
     <gui_only>
@@ -47,3 +47,17 @@
     </gui_only>
 
 </sumoConfiguration>
+-->
+
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
+    <performance clockBegin="261223.12" clockEnd="261298.85" clockDuration="75.74" traciDuration="0.00" realTimeFactor="7.92" vehicleUpdatesPerSecond="0.00" personUpdatesPerSecond="0.00" begin="0.00" end="600.00" duration="600.00"/>
+    <vehicles loaded="2663" inserted="2101" running="1061" waiting="0"/>
+    <teleports total="6" jam="0" yield="1" wrongLane="5"/>
+    <safety collisions="0" emergencyStops="0" emergencyBraking="1"/>
+    <persons loaded="0" running="0" jammed="0"/>
+    <personTeleports total="0" abortWait="0" wrongDest="0"/>
+    <vehicleTripStatistics count="1040" routeLength="3623.23" speed="15.11" duration="240.41" waitingTime="31.89" timeLoss="82.15" departDelay="2.70" departDelayWaiting="-1.00" totalTravelTime="250025.00" totalDepartDelay="2811.13"/>
+    <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
+    <rideStatistics number="0"/>
+    <transportStatistics number="0"/>
+</statistics>
