@@ -14,6 +14,14 @@ from environment import SumoMedicalEnvironment
 from dqn_agent import DQNAmbulanceAgent
 from baselines import HospitalRouters
 
+# 보상 함수 설정
+GOLDEN_REWARD = 10.0
+TIME_WEIGHT = 3.0           # 이송시간 패널티
+OVERTIME_WEIGHT = 5.0       # 골든타임 초과 패널티
+MISMATCH_PENALTY = 8.0      # 중증도-병원 유형 불일치 패널티
+REJECTION_PENALTY = 4.0     # 병원 거부 패널티
+OCCUPANCY_WEIGHT = 2.0      # 병원 혼잡도 패널티
+
 MODEL_PATH = "dqn_ambulance_model.pth"
 MAX_STEPS = 500
 MAX_AMBULANCES = 30
@@ -60,6 +68,45 @@ def get_closest_edge_id(net, x, y):
                     return edge_id
         radius += 200
     return None
+
+def calculate_reward(travel_time, severity, hospital, golden_limit, rejection_count, occupancy_at_selection) :
+    '''
+    응급실 선택 결과에 대한 최종 보상 계산
+        보상 우선순위
+        1. 골든타임 성공
+        2. 적절한 병원 선택
+        3. 병원 거부 최소화
+        4. 이송시간 최소화
+        5. 병원 혼잡도 최소화
+    '''
+    # 이송시간 정규화
+    time_ratio = travel_time / max(golden_limit, 1.0)
+    time_penalty = -TIME_WEIGHT * min(time_ratio, 2.0)  # 최대 2배까지만 시간 패널티 반영
+
+    # 골든 타임 보상
+    if travel_time <= golden_limit:
+        golden_reward = GOLDEN_REWARD
+    else:
+        overtime_ratio = time_ratio - 1.0
+        golden_reward = -OVERTIME_WEIGHT * min(overtime_ratio, 1.0)
+
+    # 병원 적합성 패널티
+    mismatch_penalty = 0.0
+    # 중증 환자(3, 4)는 일반 병원보다 권역/지역 응급의료기관을 우선하도록 학습
+    if severity >= 3:
+        if '일반' in hospital['type']:
+            mismatch_penalty = -MISMATCH_PENALTY
+
+    # 병원 거부 패널티
+    rejection_penalty = (-REJECTION_PENALTY * rejection_count)
+
+    # 병원 혼잡도 패널티
+    occupancy_penalty = (-OCCUPANCY_WEIGHT * occupancy_at_selection)
+
+    # 최종 보상
+    reward = (golden_reward + time_penalty + mismatch_penalty + rejection_penalty + occupancy_penalty)
+
+    return float(reward)
 
 def generate_fixed_patient_schedule(scenario, valid_edges, seed_val):
     random.seed(seed_val)
@@ -167,13 +214,13 @@ def train_dqn_fast(num_episodes=50):
                         chosen_hosp = mission['hospital']
                         mission_rejections = mission.get('rejections', 0)
                         
-                        mismatch_penalty = 50.0 if (severity >= 3 and '일반' in chosen_hosp['type']) else 0.0
-                        rejection_penalty = mission_rejections * REJECTION_PENALTY_WEIGHT
+                        golden_limit = GOLDEN_TIME_LIMITS.get(severity,240)
+                        occupancy_at_selection = mission.get('occupancy_at_selection', chosen_hosp['occupancy'])
+                        reward = calculate_reward(travel_time, severity, chosen_hosp, golden_limit, mission.get('rejections', 0), occupancy_at_selection)
                         
-                        reward = - (travel_time * 0.1) - (chosen_hosp['occupancy'] * 20.0) - mismatch_penalty - rejection_penalty
-                        next_state = build_state_vector(mission['target_pos'], severity, hospitals)
+                        next_state = np.zeros_like(mission['state_vector'], dtype=np.float32)
 
-                        agent.store_transition(mission['state_vector'], mission['action'], reward, next_state, False)
+                        agent.store_transition(mission['state_vector'], mission['action'], reward, next_state, True)
                         for _ in range(5):
                             agent.train_step()
 
@@ -213,6 +260,7 @@ def train_dqn_fast(num_episodes=50):
                                 continue
                             
                             selected_hosp = candidate_hosp
+                            occupancy_at_selection = candidate_hosp['occupancy']    # 병원 선택 순간의 혼잡도 저장
                             break
 
                         if selected_hosp is None:
@@ -236,14 +284,23 @@ def train_dqn_fast(num_episodes=50):
                                 traci.vehicle.add(vehID=amb_id, routeID=route_id, typeID="ambulance_custom", depart="now")
 
                                 active_missions[amb_id] = {
-                                    'pat_pos': patient_pos,
-                                    'hospital': selected_hosp,
                                     'severity': severity,
+                                    'hospital': selected_hosp,
+                                    # 이송 시작 시점
                                     'elapsed_time': 0,
+                                    # 병원 선택 과정에서 발생한 거부 횟수
                                     'rejections': mission_rejection_count,
+                                    # DQN이 선택한 상태
                                     'state_vector': state,
+                                    # DQN action
                                     'action': action,
-                                    'target_pos': (selected_hosp['sumo_x'], selected_hosp['sumo_y'])
+                                    # 병원 선택 당시 occupancy
+                                    'occupancy_at_selection': occupancy_at_selection,
+                                    # 병원 위치
+                                    'target_pos': (
+                                        selected_hosp['sumo_x'],
+                                        selected_hosp['sumo_y']
+                                    )
                                 }
                     except Exception:
                         continue

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-13T22:36:21.477123+09:00 by Eclipse SUMO sumo 1.27.1
+<!-- generated on 2026-09-20T21:32:51.908638+09:00 by Eclipse SUMO sumo 1.27.1
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -34,11 +34,11 @@
     </report>
 
     <traci_server>
-        <remote-port value="57221"/>
+        <remote-port value="50061"/>
     </traci_server>
 
     <random_number>
-        <seed value="930208"/>
+        <seed value="78214"/>
     </random_number>
 
     <gui_only>
@@ -47,17 +47,3 @@
     </gui_only>
 
 </sumoConfiguration>
--->
-
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="amb_1114103" depart="0.00" departLane="-219076293#5_0" departPos="6.60" departSpeed="27.78" departDelay="0.00" arrival="40.00" arrivalLane="-218906059#4_0" arrivalPos="40.15" arrivalSpeed="27.04" duration="40.00" routeLength="1078.30" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.93" rerouteNo="0" devices="tripinfo_amb_1114103 bluelight_amb_1114103" vType="ambulance" speedFactor="1.00" vaporized="">
-        <bluelight/>
-    </tripinfo>
-    <tripinfo id="amb_1106105" depart="0.00" departLane="1091571410_0" departPos="6.60" departSpeed="16.67" departDelay="0.00" arrival="53.00" arrivalLane="1091571410_0" arrivalPos="855.89" arrivalSpeed="15.45" duration="53.00" routeLength="849.29" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.00" rerouteNo="0" devices="tripinfo_amb_1106105 bluelight_amb_1106105" vType="ambulance" speedFactor="1.00" vaporized="">
-        <bluelight/>
-    </tripinfo>
-    <tripinfo id="amb_1115105" depart="0.00" departLane="185582682#2_0" departPos="6.60" departSpeed="13.89" departDelay="0.00" arrival="61.00" arrivalLane="-522799177#12_0" arrivalPos="8.84" arrivalSpeed="26.93" duration="61.00" routeLength="710.26" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.92" rerouteNo="0" devices="tripinfo_amb_1115105 bluelight_amb_1115105" vType="ambulance" speedFactor="1.00" vaporized="">
-        <bluelight/>
-    </tripinfo>
-    <tripinfo id="veh30" depart="8.00" departLane="220412431#4_0" departPos="5.10" departSpeed="11.81" departDelay="0.66" arrival="75.00" arrivalLane="379452223_0" arrivalPos="43.47" arrivalSpeed="11.08" duration="67.00" routeLength="604.78" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="11.72" rerouteNo="1" devices="tripinfo_veh30 routing_veh30" vType="veh_passenger" speedFactor="0.85" vaporized=""/>
-</tripinfos>

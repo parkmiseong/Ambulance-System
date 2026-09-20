@@ -67,16 +67,21 @@ class DQNAmbulanceAgent:
         dones = torch.FloatTensor(dones).unsqueeze(1).to(self.device)
 
         current_q = self.model(states).gather(1, actions)
-        max_next_q = self.target_model(next_states).max(1)[0].unsqueeze(1)
-        target_q = rewards + (self.gamma * max_next_q * (1 - dones))
+        with torch.no_grad():
+            next_actions = self.model(next_states).argmax(dim=1, keepdim=True)
+            max_next_q = self.target_model(next_states).gater(1, next_actions)
+            target_q = rewards + (self.gamma * max_next_q * (1 - dones))
 
-        loss = nn.MSELoss()(current_q, target_q)
+        loss = nn.SmoothL1Loss()(current_q, target_q)
         self.optimizer.zero_grad()
         loss.backward()
+
+        torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=5.0)
         self.optimizer.step()
 
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
+            self.epsilon = max(self.epsilon, self.epsilon_min)
 
     def save_model(self, filepath="dqn_ambulance_model.pth"):
         torch.save({
