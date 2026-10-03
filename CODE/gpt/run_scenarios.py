@@ -223,9 +223,20 @@ def start_sumo(
             "emergency"
         )
 
+    # ========================================================
+    # ★ 중요
+    # 병원의 위도/경도 정보를 SUMO 좌표(x, y)로 변환
+    # ========================================================
+    env.update_hospital_coordinates()
+
     delta_t = float(
         traci.simulation.getDeltaT()
     )
+
+    if delta_t <= 0:
+        delta_t = 1.0
+
+    return delta_t
 
     if delta_t <= 0:
         delta_t = 1.0
@@ -518,12 +529,38 @@ def prepare_hospitals(
     initial_hospitals,
     env
 ):
+    """
+    평가에 사용할 병원 정보를 준비합니다.
+
+    환경에서 SUMO 좌표가 최신 상태인지 확인한 뒤
+    평가용 hospitals에 좌표를 복사합니다.
+    """
+
+    # --------------------------------------------------------
+    # 환경의 병원 좌표가 없는 경우 한 번 더 갱신
+    # --------------------------------------------------------
+
+    env_hospitals = env.get_hospitals()
+
+    if any(
+        h.get("sumo_x") is None
+        or h.get("sumo_y") is None
+        for h in env_hospitals
+    ):
+        env.update_hospital_coordinates()
+        env_hospitals = env.get_hospitals()
+
+    # --------------------------------------------------------
+    # 평가용 병원 데이터 복사
+    # --------------------------------------------------------
 
     hospitals = copy.deepcopy(
         initial_hospitals
     )
 
-    env_hospitals = env.get_hospitals()
+    # --------------------------------------------------------
+    # 병원 ID → SUMO 좌표
+    # --------------------------------------------------------
 
     coordinate_map = {
         h["id"]: (
@@ -533,21 +570,23 @@ def prepare_hospitals(
         for h in env_hospitals
     }
 
+    # --------------------------------------------------------
+    # 평가용 hospitals에 SUMO 좌표 반영
+    # --------------------------------------------------------
+
     for hospital in hospitals:
 
-        if hospital["id"] in coordinate_map:
+        hospital_id = hospital.get("id")
 
-            x, y = coordinate_map[
-                hospital["id"]
-            ]
+        if hospital_id not in coordinate_map:
+            continue
 
-            hospital[
-                "sumo_x"
-            ] = x
+        x, y = coordinate_map[
+            hospital_id
+        ]
 
-            hospital[
-                "sumo_y"
-            ] = y
+        hospital["sumo_x"] = x
+        hospital["sumo_y"] = y
 
     return hospitals
 
