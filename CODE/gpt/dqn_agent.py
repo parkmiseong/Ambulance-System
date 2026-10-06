@@ -15,20 +15,39 @@ import torch.optim as optim
 # ============================================================
 
 class DQNNetwork(nn.Module):
-    def __init__(self, state_dim, action_dim):
+
+    def __init__(
+        self,
+        state_dim,
+        action_dim
+    ):
+
         super().__init__()
 
         self.fc = nn.Sequential(
-            nn.Linear(state_dim, 256),
+
+            nn.Linear(
+                state_dim,
+                256
+            ),
+
             nn.ReLU(),
 
-            nn.Linear(256, 256),
+            nn.Linear(
+                256,
+                256
+            ),
+
             nn.ReLU(),
 
-            nn.Linear(256, action_dim),
+            nn.Linear(
+                256,
+                action_dim
+            ),
         )
 
     def forward(self, x):
+
         return self.fc(x)
 
 
@@ -38,7 +57,11 @@ class DQNNetwork(nn.Module):
 
 class DQNAmbulanceAgent:
 
-    def __init__(self, state_dim, action_dim):
+    def __init__(
+        self,
+        state_dim,
+        action_dim
+    ):
 
         self.state_dim = state_dim
         self.action_dim = action_dim
@@ -55,6 +78,7 @@ class DQNAmbulanceAgent:
         # DQN Hyperparameters
         # ----------------------------------------------------
 
+        # 할인율
         self.gamma = 0.95
 
         # 초기 탐험률
@@ -63,7 +87,7 @@ class DQNAmbulanceAgent:
         # 최소 탐험률
         self.epsilon_min = 0.05
 
-        # 기존 0.995보다 조금 완만하게 감소
+        # 탐험률 감소
         self.epsilon_decay = 0.999
 
         # 학습률
@@ -110,7 +134,7 @@ class DQNAmbulanceAgent:
             lr=self.learning_rate
         )
 
-        # 초기에는 두 네트워크를 동일하게 설정
+        # 처음에는 두 네트워크를 동일하게 설정
         self.update_target_network()
 
     # ========================================================
@@ -118,6 +142,7 @@ class DQNAmbulanceAgent:
     # ========================================================
 
     def update_target_network(self):
+
         """
         Online Network의 가중치를
         Target Network에 복사합니다.
@@ -128,6 +153,44 @@ class DQNAmbulanceAgent:
         )
 
     # ========================================================
+    # Action Mask 생성
+    # ========================================================
+
+    def create_action_mask(
+        self,
+        valid_actions
+    ):
+
+        """
+        선택 가능한 action만 True가 되는
+        Boolean mask를 생성합니다.
+
+        예:
+
+        valid_actions = [1, 3, 5]
+
+        →
+
+        [False, True, False, True, False, True, ...]
+        """
+
+        mask = torch.zeros(
+            self.action_dim,
+            dtype=torch.bool,
+            device=self.device
+        )
+
+        for action in valid_actions:
+
+            action = int(action)
+
+            if 0 <= action < self.action_dim:
+
+                mask[action] = True
+
+        return mask
+
+    # ========================================================
     # Action 선택
     # ========================================================
 
@@ -136,25 +199,16 @@ class DQNAmbulanceAgent:
         state,
         valid_actions=None
     ):
+
         """
         ε-greedy 방식으로 행동을 선택합니다.
 
-        Parameters
-        ----------
-        state : numpy array
-            현재 상태
-
-        valid_actions : list
-            현재 상황에서 선택 가능한 병원 action 목록
-
-        Returns
-        -------
-        int
-            선택된 병원 action index
+        valid_actions가 주어지면
+        선택 가능한 병원 중에서만 행동을 선택합니다.
         """
 
         # ----------------------------------------------------
-        # valid_actions가 없으면 모든 action 허용
+        # valid_actions가 없으면 전체 action 사용
         # ----------------------------------------------------
 
         if (
@@ -167,17 +221,22 @@ class DQNAmbulanceAgent:
             )
 
         # ----------------------------------------------------
-        # Action index 정리
+        # 잘못된 action 제거
         # ----------------------------------------------------
 
         valid_actions = [
+
             int(action)
+
             for action in valid_actions
+
             if 0 <= int(action) < self.action_dim
         ]
 
+        # ----------------------------------------------------
         # 모든 action이 제거된 경우
-        # 안전하게 전체 action을 사용
+        # ----------------------------------------------------
+
         if len(valid_actions) == 0:
 
             valid_actions = list(
@@ -185,31 +244,19 @@ class DQNAmbulanceAgent:
             )
 
         # ====================================================
-        # 1. Exploration
-        # ====================================================
-        #
-        # 기존 코드의 문제:
-        #
-        # if np.random.rand() <= valid_actions:
-        #
-        # valid_actions는 list이므로 잘못된 비교입니다.
-        #
-        # 올바른 ε-greedy:
-        #
-        # random < epsilon
-        #
+        # Exploration
         # ====================================================
 
         if np.random.rand() < self.epsilon:
 
-            selected_action = random.choice(
-                valid_actions
+            return int(
+                random.choice(
+                    valid_actions
+                )
             )
 
-            return int(selected_action)
-
         # ====================================================
-        # 2. Exploitation
+        # Exploitation
         # ====================================================
 
         state_tensor = torch.as_tensor(
@@ -227,34 +274,24 @@ class DQNAmbulanceAgent:
         # ----------------------------------------------------
         # Invalid Action Mask
         # ----------------------------------------------------
-        #
-        # 선택 불가능한 병원의 Q-value를
-        # 매우 작은 값으로 변경합니다.
-        #
-        # 따라서 argmax를 수행해도
-        # valid_actions 중에서만 선택됩니다.
-        # ----------------------------------------------------
 
-        masked_q = torch.full_like(
-            q_values,
-            -1e9
+        action_mask = self.create_action_mask(
+            valid_actions
         )
 
-        valid_indices = torch.as_tensor(
-            valid_actions,
-            dtype=torch.long,
-            device=self.device
-        )
+        masked_q = q_values.clone()
 
-        masked_q[valid_indices] = (
-            q_values[valid_indices]
-        )
+        masked_q[
+            ~action_mask
+        ] = -1e9
 
         selected_action = torch.argmax(
             masked_q
         ).item()
 
-        return int(selected_action)
+        return int(
+            selected_action
+        )
 
     # ========================================================
     # Replay Memory 저장
@@ -266,8 +303,10 @@ class DQNAmbulanceAgent:
         action,
         reward,
         next_state,
-        done
+        done,
+        next_valid_actions=None
     ):
+
         """
         하나의 transition을 Replay Memory에 저장합니다.
 
@@ -282,9 +321,30 @@ class DQNAmbulanceAgent:
             next_state
               ↓
             done
+
+        next_valid_actions는
+        다음 상태에서 실제로 선택 가능한 action입니다.
         """
 
+        if next_valid_actions is None:
+
+            next_valid_actions = list(
+                range(self.action_dim)
+            )
+
+        else:
+
+            next_valid_actions = [
+
+                int(action)
+
+                for action in next_valid_actions
+
+                if 0 <= int(action) < self.action_dim
+            ]
+
         self.memory.append(
+
             (
                 np.asarray(
                     state,
@@ -301,6 +361,8 @@ class DQNAmbulanceAgent:
                 ),
 
                 bool(done),
+
+                next_valid_actions,
             )
         )
 
@@ -309,12 +371,10 @@ class DQNAmbulanceAgent:
     # ========================================================
 
     def get_memory_size(self):
-        """
-        현재 Replay Memory에 저장된
-        transition 개수를 반환합니다.
-        """
 
-        return len(self.memory)
+        return len(
+            self.memory
+        )
 
     # ========================================================
     # DQN 학습
@@ -324,15 +384,16 @@ class DQNAmbulanceAgent:
         self,
         batch_size=32
     ):
+
         """
         Replay Memory에서 batch를 추출하여
         DQN을 한 번 학습합니다.
 
-        Double DQN 방식을 사용합니다.
+        Double DQN + Action Mask를 사용합니다.
         """
 
         # ----------------------------------------------------
-        # 충분한 데이터가 없으면 학습하지 않음
+        # 학습 가능한 데이터가 부족한 경우
         # ----------------------------------------------------
 
         if len(self.memory) < batch_size:
@@ -340,7 +401,7 @@ class DQNAmbulanceAgent:
             return None
 
         # ----------------------------------------------------
-        # Random Mini-batch
+        # Mini Batch
         # ----------------------------------------------------
 
         batch = random.sample(
@@ -353,7 +414,8 @@ class DQNAmbulanceAgent:
             actions,
             rewards,
             next_states,
-            dones
+            dones,
+            next_valid_actions
         ) = zip(*batch)
 
         # ----------------------------------------------------
@@ -391,7 +453,7 @@ class DQNAmbulanceAgent:
         ).unsqueeze(1)
 
         # ====================================================
-        # Current Q Value
+        # Current Q
         # ====================================================
 
         current_q = self.model(
@@ -404,37 +466,65 @@ class DQNAmbulanceAgent:
         # ====================================================
         # Double DQN
         # ====================================================
-        #
-        # Online Network:
-        #   다음 행동 선택
-        #
-        # Target Network:
-        #   선택된 행동의 Q-value 평가
-        #
-        # 이렇게 하면 일반 DQN의
-        # Q-value 과대평가 문제를 줄일 수 있습니다.
-        # ====================================================
 
         with torch.no_grad():
+
+            # ------------------------------------------------
+            # Online Network Q-value
+            # ------------------------------------------------
+
+            next_online_q = self.model(
+                next_states
+            )
+
+            # ------------------------------------------------
+            # Invalid Action Mask
+            # ------------------------------------------------
+
+            masked_next_q = next_online_q.clone()
+
+            for i in range(batch_size):
+
+                valid_actions = (
+                    next_valid_actions[i]
+                )
+
+                if (
+                    valid_actions is None
+                    or len(valid_actions) == 0
+                ):
+
+                    valid_actions = list(
+                        range(self.action_dim)
+                    )
+
+                action_mask = self.create_action_mask(
+                    valid_actions
+                )
+
+                masked_next_q[i][
+                    ~action_mask
+                ] = -1e9
 
             # ------------------------------------------------
             # Online Network가 다음 행동 선택
             # ------------------------------------------------
 
-            next_actions = self.model(
-                next_states
-            ).argmax(
+            next_actions = torch.argmax(
+                masked_next_q,
                 dim=1,
                 keepdim=True
             )
 
             # ------------------------------------------------
-            # Target Network가 Q-value 평가
+            # Target Network가 평가
             # ------------------------------------------------
 
-            next_q = self.target_model(
+            next_target_q = self.target_model(
                 next_states
-            ).gather(
+            )
+
+            next_q = next_target_q.gather(
                 1,
                 next_actions
             )
@@ -444,7 +534,9 @@ class DQNAmbulanceAgent:
             # ------------------------------------------------
 
             target_q = (
+
                 rewards
+
                 + self.gamma
                 * next_q
                 * (1.0 - dones)
@@ -478,21 +570,15 @@ class DQNAmbulanceAgent:
         # ====================================================
         # Epsilon 감소
         # ====================================================
-        #
-        # train_step이 호출될 때마다
-        # 탐험률을 조금씩 감소시킵니다.
-        #
-        # epsilon_decay = 0.999
-        #
-        # 기존 0.995보다 천천히 감소하기 때문에
-        # 충분한 탐험을 유지할 수 있습니다.
-        # ====================================================
 
         if self.epsilon > self.epsilon_min:
 
             self.epsilon = max(
+
                 self.epsilon_min,
-                self.epsilon * self.epsilon_decay
+
+                self.epsilon
+                * self.epsilon_decay
             )
 
         return float(
@@ -507,12 +593,15 @@ class DQNAmbulanceAgent:
         self,
         filepath="dqn_ambulance_model_v2.pth"
     ):
+
         """
-        학습된 DQN 모델을 저장합니다.
+        학습된 DQN 모델과 학습 상태를 저장합니다.
         """
 
         torch.save(
+
             {
+
                 "model_state_dict":
                     self.model.state_dict(),
 
@@ -530,7 +619,21 @@ class DQNAmbulanceAgent:
 
                 "action_dim":
                     self.action_dim,
+
+                "gamma":
+                    self.gamma,
+
+                "learning_rate":
+                    self.learning_rate,
+
+                "epsilon_min":
+                    self.epsilon_min,
+
+                "epsilon_decay":
+                    self.epsilon_decay,
+
             },
+
             filepath
         )
 
@@ -547,20 +650,18 @@ class DQNAmbulanceAgent:
         self,
         filepath="dqn_ambulance_model_v2.pth"
     ):
+
         """
         저장된 DQN 모델을 불러옵니다.
-
-        Returns
-        -------
-        bool
-            로드 성공 여부
         """
 
         # ----------------------------------------------------
-        # 파일 존재 여부 확인
+        # 파일 존재 여부
         # ----------------------------------------------------
 
-        if not os.path.exists(filepath):
+        if not os.path.exists(
+            filepath
+        ):
 
             print(
                 f"\n[DQN 에이전트] "
@@ -575,9 +676,47 @@ class DQNAmbulanceAgent:
         # ----------------------------------------------------
 
         checkpoint = torch.load(
+
             filepath,
+
             map_location=self.device
         )
+
+        # ----------------------------------------------------
+        # State Dimension 확인
+        # ----------------------------------------------------
+
+        saved_state_dim = checkpoint.get(
+            "state_dim",
+            self.state_dim
+        )
+
+        saved_action_dim = checkpoint.get(
+            "action_dim",
+            self.action_dim
+        )
+
+        if saved_state_dim != self.state_dim:
+
+            raise ValueError(
+
+                "저장된 모델의 state_dim과 "
+                "현재 state_dim이 다릅니다. "
+
+                f"(저장: {saved_state_dim}, "
+                f"현재: {self.state_dim})"
+            )
+
+        if saved_action_dim != self.action_dim:
+
+            raise ValueError(
+
+                "저장된 모델의 action_dim과 "
+                "현재 action_dim이 다릅니다. "
+
+                f"(저장: {saved_action_dim}, "
+                f"현재: {self.action_dim})"
+            )
 
         # ----------------------------------------------------
         # Online Network
@@ -594,8 +733,11 @@ class DQNAmbulanceAgent:
         # ----------------------------------------------------
 
         self.target_model.load_state_dict(
+
             checkpoint.get(
+
                 "target_model_state_dict",
+
                 checkpoint[
                     "model_state_dict"
                 ]
@@ -606,11 +748,15 @@ class DQNAmbulanceAgent:
         # Optimizer
         # ----------------------------------------------------
 
-        if "optimizer_state_dict" in checkpoint:
+        if (
+            "optimizer_state_dict"
+            in checkpoint
+        ):
 
             try:
 
                 self.optimizer.load_state_dict(
+
                     checkpoint[
                         "optimizer_state_dict"
                     ]
@@ -618,12 +764,38 @@ class DQNAmbulanceAgent:
 
             except Exception:
 
-                # Optimizer 구조가 달라도
-                # 모델 자체는 로드할 수 있도록 처리
-                pass
+                print(
+                    "[DQN] "
+                    "Optimizer 상태는 "
+                    "불러오지 않고 모델만 복원합니다."
+                )
 
         # ----------------------------------------------------
-        # Epsilon
+        # Hyperparameter 복원
+        # ----------------------------------------------------
+
+        self.gamma = checkpoint.get(
+            "gamma",
+            self.gamma
+        )
+
+        self.epsilon_min = checkpoint.get(
+            "epsilon_min",
+            self.epsilon_min
+        )
+
+        self.epsilon_decay = checkpoint.get(
+            "epsilon_decay",
+            self.epsilon_decay
+        )
+
+        self.learning_rate = checkpoint.get(
+            "learning_rate",
+            self.learning_rate
+        )
+
+        # ----------------------------------------------------
+        # Epsilon 복원
         # ----------------------------------------------------
 
         self.epsilon = checkpoint.get(
@@ -632,6 +804,7 @@ class DQNAmbulanceAgent:
         )
 
         print(
+
             f"\n[DQN 에이전트] "
             f"학습 모델 로드 완료: {filepath} "
             f"(Epsilon: {self.epsilon:.4f})"

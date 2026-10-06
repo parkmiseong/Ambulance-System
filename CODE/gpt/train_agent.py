@@ -15,7 +15,6 @@ from dqn_agent import DQNAmbulanceAgent
 from environment import SumoMedicalEnvironment
 from reward import (
     GOLDEN_TIME_LIMITS,
-    REJECTION_PENALTY,
     calculate_reward,
 )
 
@@ -24,9 +23,13 @@ from reward import (
 # 학습 설정
 # ============================================================
 
-MODEL_PATH = "dqn_ambulance_model_v3.pth"
+# 수정된 모델은 v4로 별도 저장
+MODEL_PATH = "dqn_ambulance_model_v4.pth"
 
+# 한 Episode에서 진행할 최대 SUMO step
 MAX_STEPS = 500
+
+# 동시에 운용할 수 있는 최대 구급차 수
 MAX_AMBULANCES = 30
 
 # 하나의 이송이 지나치게 오래 지속되는 것을 방지
@@ -36,10 +39,11 @@ MISSION_TIMEOUT_SECONDS = 350.0
 ARRIVAL_DISTANCE = 120.0
 
 # 병원 혼잡도 기준
+# 이 값 이상이면 일반적인 선택 후보에서 제외
 HOSPITAL_FULL_THRESHOLD = 0.85
 
-# 상태에 사용할 예상 이동시간의 최대값
-# 이 값을 넘는 이동시간은 이 값으로 clipping
+# 상태 벡터에서 사용하는 예상 이동시간의 최대값
+# 600초 이상은 600초로 clipping
 MAX_ESTIMATED_TRAVEL_TIME = 600.0
 
 
@@ -129,14 +133,25 @@ SCENARIOS = [
 
 @contextlib.contextmanager
 def suppress_sumo_stdout():
+    """
+    SUMO/TraCI에서 발생하는 불필요한 stdout/stderr 출력 억제.
+    """
+
     original_stdout = sys.stdout
     original_stderr = sys.stderr
 
     try:
-        with open(os.devnull, "w", encoding="utf-8") as devnull:
+        with open(
+            os.devnull,
+            "w",
+            encoding="utf-8",
+        ) as devnull:
+
             sys.stdout = devnull
             sys.stderr = devnull
+
             yield
+
     finally:
         sys.stdout = original_stdout
         sys.stderr = original_stderr
@@ -163,28 +178,36 @@ def get_reachable_edge_id(
     radius = 100.0
     visited_edges = set()
 
-    # 출발 Edge 자체가 유효한지 먼저 확인
+    # --------------------------------------------------------
+    # 출발 Edge가 지정된 경우 먼저 확인
+    # --------------------------------------------------------
+
     if from_edge is not None:
 
         try:
-            from_edge_obj = net.getEdge(from_edge)
 
-            # 차량 유형이 해당 Edge를 이용할 수 있는지 확인
+            from_edge_obj = net.getEdge(
+                from_edge
+            )
+
             lanes = from_edge_obj.getLanes()
 
             allowed = False
 
             for lane in lanes:
-                try:
-                    permissions = lane.getPermissions()
 
-                    # permissions가 없거나 비어 있으면
+                try:
+
+                    permissions = (
+                        lane.getPermissions()
+                    )
+
+                    # permission 정보가 없으면
                     # 일반적으로 접근 가능하다고 판단
                     if not permissions:
                         allowed = True
                         break
 
-                    # emergency 차량이 허용되는지 확인
                     if (
                         "emergency"
                         in permissions
@@ -195,6 +218,7 @@ def get_reachable_edge_id(
                         break
 
                 except Exception:
+
                     allowed = True
                     break
 
@@ -204,15 +228,22 @@ def get_reachable_edge_id(
         except Exception:
             return None
 
+    # --------------------------------------------------------
+    # 주변 Edge 탐색
+    # --------------------------------------------------------
+
     while radius <= 5000.0:
 
         try:
+
             nearby = net.getNeighboringEdges(
                 x,
                 y,
                 radius,
             )
+
         except Exception:
+
             nearby = []
 
         for edge, _distance in sorted(
@@ -222,40 +253,48 @@ def get_reachable_edge_id(
 
             edge_id = edge.getID()
 
-            # SUMO 내부 edge 제외
+            # SUMO 내부 Edge 제외
             if edge_id.startswith(":"):
                 continue
 
-            # 이미 검사한 edge 제외
+            # 이미 검사한 Edge 제외
             if edge_id in visited_edges:
                 continue
 
             visited_edges.add(edge_id)
 
-            # 출발 Edge와 동일하면 바로 사용
+            # ------------------------------------------------
+            # 출발 Edge와 동일한 경우
+            # ------------------------------------------------
+
             if from_edge is not None:
+
                 if edge_id == from_edge:
                     return edge_id
 
-            # 출발지가 없는 경우
+            # ------------------------------------------------
+            # 출발 Edge가 없는 경우
+            # ------------------------------------------------
+
             if from_edge is None:
                 return edge_id
 
             # ------------------------------------------------
-            # 해당 Edge에 실제로 접근 가능한지 확인
+            # 실제 접근 가능 여부 확인
             # ------------------------------------------------
 
             try:
 
-                # SUMO 오류 출력을 숨김
                 with suppress_sumo_stdout():
 
-                    route = traci.simulation.findRoute(
-                        from_edge,
-                        edge_id,
-                        vType=vtype,
-                        depart=-1,
-                        routingMode=0,
+                    route = (
+                        traci.simulation.findRoute(
+                            from_edge,
+                            edge_id,
+                            vType=vtype,
+                            depart=-1,
+                            routingMode=0,
+                        )
                     )
 
                 if (
@@ -265,10 +304,11 @@ def get_reachable_edge_id(
                     return edge_id
 
             except traci.TraCIException:
-                # 접근 불가능한 Edge는 조용히 건너뜀
+
                 continue
 
             except Exception:
+
                 continue
 
         radius += 200.0
@@ -286,14 +326,14 @@ def generate_fixed_patient_schedule(
     seed_val,
 ):
     """
-    구급차가 사용할 수 있는 일반 도로 Edge 중에서
-    환자 발생 위치를 생성한다.
+    동일 seed를 사용하면 동일한 환자 발생 스케줄을 생성한다.
+
+    학습 결과의 재현성을 확보하기 위한 함수.
     """
 
     random.seed(seed_val)
     np.random.seed(seed_val)
 
-    # 내부 Edge 및 비정상 Edge 제거
     usable_edges = [
         edge_id
         for edge_id in valid_edges
@@ -302,6 +342,7 @@ def generate_fixed_patient_schedule(
     ]
 
     if not usable_edges:
+
         raise RuntimeError(
             "사용 가능한 환자 발생 Edge가 없습니다."
         )
@@ -334,7 +375,9 @@ def generate_fixed_patient_schedule(
 # 병원 치료역량 인코딩
 # ============================================================
 
-def encode_hospital_type(hospital):
+def encode_hospital_type(
+    hospital,
+):
     """
     병원 유형을 수치화한다.
 
@@ -344,7 +387,10 @@ def encode_hospital_type(hospital):
     """
 
     hospital_type = str(
-        hospital.get("type", "")
+        hospital.get(
+            "type",
+            "",
+        )
     )
 
     if "권역" in hospital_type:
@@ -365,19 +411,30 @@ def get_hospital_suitability(
     hospital,
 ):
     """
-    환자 중증도와 병원 치료역량의 적합도를 계산한다.
+    환자 중증도와 병원 치료역량의 적합도 계산.
 
-    반환값:
-        1.0 = 매우 적합
-        0.5 = 일반적으로 가능
-        0.0 = 부적합 가능성이 높음
+    중증 환자:
+        권역 = 1.0
+        지역 = 0.8
+        일반 = 0.0
+
+    경증/중등도:
+        권역 = 0.8
+        지역 = 1.0
+        일반 = 0.7
     """
 
     hospital_type = str(
-        hospital.get("type", "")
+        hospital.get(
+            "type",
+            "",
+        )
     )
 
+    # --------------------------------------------------------
     # 중증 환자
+    # --------------------------------------------------------
+
     if severity >= 3:
 
         if "권역" in hospital_type:
@@ -388,7 +445,10 @@ def get_hospital_suitability(
 
         return 0.0
 
-    # 경증/중등도
+    # --------------------------------------------------------
+    # 경증 / 중등도 환자
+    # --------------------------------------------------------
+
     if "권역" in hospital_type:
         return 0.8
 
@@ -409,62 +469,95 @@ def calculate_hospital_routes(
 ):
     """
     현재 환자 위치에서 모든 병원까지의
-    최소 예상 이동시간 경로를 계산한다.
+    예상 이동시간 경로 계산.
 
-    반환:
-        hospital_routes = [
-            {
-                "edge_id": ...,
-                "route": ...,
-                "travel_time": ...
-            },
-            ...
-        ]
+    반환값:
+
+    [
+        {
+            "edge_id": ...,
+            "route": ...,
+            "travel_time": ...
+        },
+        ...
+    ]
     """
 
     hospital_routes = []
 
     for hospital in hospitals:
 
-        x = hospital.get("sumo_x")
-        y = hospital.get("sumo_y")
+        x = hospital.get(
+            "sumo_x"
+        )
+
+        y = hospital.get(
+            "sumo_y"
+        )
 
         result = {
             "edge_id": None,
             "route": None,
-            "travel_time": MAX_ESTIMATED_TRAVEL_TIME,
+            "travel_time":
+                MAX_ESTIMATED_TRAVEL_TIME,
         }
 
         if x is None or y is None:
-            hospital_routes.append(result)
+
+            hospital_routes.append(
+                result
+            )
+
             continue
 
-        # 병원 좌표를 실제 SUMO road edge로 변환
-        hospital_edge = get_reachable_edge_id(
-            net,
-            x,
-            y,
-            from_edge=patient_edge,
-            vtype="ambulance_custom",
+        # ----------------------------------------------------
+        # 병원 좌표 → SUMO Edge
+        # ----------------------------------------------------
+
+        hospital_edge = (
+            get_reachable_edge_id(
+                net,
+                x,
+                y,
+                from_edge=patient_edge,
+                vtype="ambulance_custom",
+            )
         )
 
         if hospital_edge is None:
-            hospital_routes.append(result)
+
+            hospital_routes.append(
+                result
+            )
+
             continue
 
-        result["edge_id"] = hospital_edge
+        result["edge_id"] = (
+            hospital_edge
+        )
+
+        # ----------------------------------------------------
+        # 실제 route 계산
+        # ----------------------------------------------------
 
         try:
 
-            route = traci.simulation.findRoute(
-                patient_edge,
-                hospital_edge,
-                vType="ambulance_custom",
-                depart=-1,
-                routingMode=0,
-            )
+            with suppress_sumo_stdout():
 
-            if route and len(route.edges) > 0:
+                route = (
+                    traci.simulation.findRoute(
+                        patient_edge,
+                        hospital_edge,
+                        vType="ambulance_custom",
+                        depart=-1,
+                        routingMode=0,
+                    )
+                )
+
+            if (
+                route
+                and len(route.edges) > 0
+            ):
 
                 travel_time = float(
                     max(
@@ -474,6 +567,7 @@ def calculate_hospital_routes(
                 )
 
                 result["route"] = route
+
                 result["travel_time"] = min(
                     travel_time,
                     MAX_ESTIMATED_TRAVEL_TIME,
@@ -482,13 +576,15 @@ def calculate_hospital_routes(
         except Exception:
             pass
 
-        hospital_routes.append(result)
+        hospital_routes.append(
+            result
+        )
 
     return hospital_routes
 
 
 # ============================================================
-# 상태 벡터
+# State Vector
 # ============================================================
 
 def build_state_vector(
@@ -500,35 +596,48 @@ def build_state_vector(
     """
     DQN 상태 벡터.
 
-    구성:
+    상태 구성:
 
     [환자 정보]
-        환자 X
-        환자 Y
-        중증도
+        1. 환자 X
+        2. 환자 Y
+        3. 중증도
 
     [병원별 정보]
-        예상 이동시간
-        병상 점유율
-        치료역량
-        환자-병원 적합도
+        4. 예상 이동시간
+        5. 병상 점유율
+        6. 치료역량
+        7. 환자-병원 적합도
 
-    따라서 DQN은 단순 거리만 보는 것이 아니라
-    이동시간 + 병상 + 치료역량을 함께 고려한다.
+    따라서 전체 State Dimension은
+
+        3 + (병원 수 × 4)
+
+    이 된다.
     """
 
-    hospital_count = len(hospitals)
+    hospital_count = len(
+        hospitals
+    )
 
     # --------------------------------------------------------
     # 환자 위치
     # --------------------------------------------------------
 
-    patient_x = float(patient_pos[0]) / 10000.0
-    patient_y = float(patient_pos[1]) / 10000.0
+    patient_x = (
+        float(patient_pos[0])
+        / 10000.0
+    )
 
-    normalized_severity = float(
-        severity
-    ) / 4.0
+    patient_y = (
+        float(patient_pos[1])
+        / 10000.0
+    )
+
+    normalized_severity = (
+        float(severity)
+        / 4.0
+    )
 
     state = [
         patient_x,
@@ -550,11 +659,14 @@ def build_state_vector(
         )
 
         normalized_time = min(
-            travel_time / MAX_ESTIMATED_TRAVEL_TIME,
+            travel_time
+            / MAX_ESTIMATED_TRAVEL_TIME,
             1.0,
         )
 
-        state.append(normalized_time)
+        state.append(
+            normalized_time
+        )
 
     # --------------------------------------------------------
     # 병원별 병상 점유율
@@ -571,10 +683,15 @@ def build_state_vector(
 
         occupancy = max(
             0.0,
-            min(1.0, occupancy),
+            min(
+                1.0,
+                occupancy,
+            ),
         )
 
-        state.append(occupancy)
+        state.append(
+            occupancy
+        )
 
     # --------------------------------------------------------
     # 병원별 치료역량
@@ -583,7 +700,9 @@ def build_state_vector(
     for hospital in hospitals:
 
         state.append(
-            encode_hospital_type(hospital)
+            encode_hospital_type(
+                hospital
+            )
         )
 
     # --------------------------------------------------------
@@ -632,8 +751,14 @@ def _start_sumo(
     scenario,
     seed_val,
 ):
-    sumo_binary = sumolib.checkBinary(
-        "sumo"
+    """
+    SUMO 실행 및 ambulance_custom 차량 유형 생성.
+    """
+
+    sumo_binary = (
+        sumolib.checkBinary(
+            "sumo"
+        )
     )
 
     config = [
@@ -661,10 +786,14 @@ def _start_sumo(
 
     with suppress_sumo_stdout():
 
-        traci.start(config)
+        traci.start(
+            config
+        )
 
-        # 기본 차량 유형을 복사하여
-        # 구급차 전용 차량 유형 생성
+        # ----------------------------------------------------
+        # 구급차 전용 차량 유형
+        # ----------------------------------------------------
+
         traci.vehicletype.copy(
             "DEFAULT_VEHTYPE",
             "ambulance_custom",
@@ -693,25 +822,27 @@ def _start_sumo(
 
 
 # ============================================================
-# 실제 이동용 최단 시간 경로
+# 실제 이동용 최단시간 경로
 # ============================================================
-
 
 def _find_route(
     from_edge,
     to_edge,
 ):
     """
-    출발 Edge → 목적지 Edge의 이동시간 최소 경로를 계산한다.
+    출발 Edge → 목적지 Edge의
+    이동시간 최소 경로를 계산한다.
 
-    잘못된 Edge나 차량 유형이 접근할 수 없는 Edge가 들어오면
-    오류를 출력하지 않고 None을 반환한다.
+    오류 발생 시 None 반환.
+    SUMO 내부 오류 출력은 억제한다.
     """
 
-    if not from_edge or not to_edge:
+    if not from_edge:
         return None
 
-    # SUMO 내부 Edge는 목적지로 사용하지 않음
+    if not to_edge:
+        return None
+
     if str(from_edge).startswith(":"):
         return None
 
@@ -722,12 +853,14 @@ def _find_route(
 
         with suppress_sumo_stdout():
 
-            route = traci.simulation.findRoute(
-                from_edge,
-                to_edge,
-                vType="ambulance_custom",
-                depart=-1,
-                routingMode=0,
+            route = (
+                traci.simulation.findRoute(
+                    from_edge,
+                    to_edge,
+                    vType="ambulance_custom",
+                    depart=-1,
+                    routingMode=0,
+                )
             )
 
         if (
@@ -737,16 +870,18 @@ def _find_route(
             return route
 
     except traci.TraCIException:
+
         return None
 
     except Exception:
+
         return None
 
     return None
 
 
 # ============================================================
-# DQN Action
+# Valid Actions
 # ============================================================
 
 def _get_valid_actions(
@@ -754,17 +889,20 @@ def _get_valid_actions(
     severity,
 ):
     """
-    현재 환자가 갈 수 있는 병원 Action.
+    현재 상태에서 선택 가능한 병원 Action.
 
-    병상이 사실상 가득 찬 병원은 제외한다.
+    병상 점유율이 85% 이상이면
+    일반적인 선택 후보에서 제외한다.
 
-    단, 치료역량은 가능한 한 reward가 학습하도록
-    상태에 포함하고 지나치게 강한 masking은 하지 않는다.
+    치료역량은 강제로 mask하지 않고
+    State + Reward를 통해 학습하도록 한다.
     """
 
     valid_actions = []
 
-    for index, hospital in enumerate(hospitals):
+    for index, hospital in enumerate(
+        hospitals
+    ):
 
         occupancy = float(
             hospital.get(
@@ -773,16 +911,21 @@ def _get_valid_actions(
             )
         )
 
-        if occupancy >= HOSPITAL_FULL_THRESHOLD:
+        if (
+            occupancy
+            >= HOSPITAL_FULL_THRESHOLD
+        ):
             continue
 
-        valid_actions.append(index)
+        valid_actions.append(
+            index
+        )
 
     return valid_actions
 
 
 # ============================================================
-# fallback action
+# Fallback Action
 # ============================================================
 
 def _get_fallback_actions(
@@ -790,7 +933,7 @@ def _get_fallback_actions(
 ):
     """
     모든 병원이 가득 찬 경우
-    가장 여유 있는 병원을 선택 후보로 반환한다.
+    가장 여유 있는 병원을 선택 후보로 반환.
     """
 
     if not hospitals:
@@ -808,7 +951,9 @@ def _get_fallback_actions(
 
     return [
         index
-        for index, hospital in enumerate(hospitals)
+        for index, hospital in enumerate(
+            hospitals
+        )
         if float(
             hospital.get(
                 "occupancy",
@@ -820,31 +965,44 @@ def _get_fallback_actions(
 
 
 # ============================================================
-# DQN 학습
+# 학습
 # ============================================================
 
 def train_dqn_fast(
     num_episodes=50,
 ):
+    """
+    DQN 학습 함수.
+
+    주요 변경사항:
+
+    1. 기존 v4 모델이 있으면 이어서 학습
+    2. epsilon을 강제로 1.0으로 초기화하지 않음
+    3. 병원 occupancy 초기값을 seed 기반으로 생성
+    4. 평균 이송시간 계산
+    5. 골든타임 성공률 계산
+    """
+
+    # --------------------------------------------------------
+    # Environment
+    # --------------------------------------------------------
 
     env = SumoMedicalEnvironment()
 
-    valid_edges = env.get_valid_edges()
+    valid_edges = (
+        env.get_valid_edges()
+    )
 
-    temp_hospitals = env.get_hospitals()
+    temp_hospitals = (
+        env.get_hospitals()
+    )
 
     action_dim = len(
         temp_hospitals
     )
 
     # --------------------------------------------------------
-    # 새로운 상태 차원
-    #
-    # 3
-    # + 병원별 예상 이동시간
-    # + 병원별 occupancy
-    # + 병원별 치료역량
-    # + 병원별 적합도
+    # State Dimension
     # --------------------------------------------------------
 
     state_dim = (
@@ -852,36 +1010,139 @@ def train_dqn_fast(
         + action_dim * 4
     )
 
+    # --------------------------------------------------------
+    # DQN Agent
+    # --------------------------------------------------------
+
     agent = DQNAmbulanceAgent(
         state_dim,
         action_dim,
     )
 
-    # 새 모델로 학습
-    agent.epsilon = 1.0
+    # --------------------------------------------------------
+    # 기존 모델이 있으면 이어서 학습
+    # --------------------------------------------------------
+
+    if os.path.exists(
+        MODEL_PATH
+    ):
+
+        print()
+        print(
+            f"[모델 발견] {MODEL_PATH}"
+        )
+
+        try:
+
+            loaded = (
+                agent.load_model(
+                    MODEL_PATH
+                )
+            )
+
+            if loaded:
+
+                print(
+                    "기존 모델의 학습 상태를 "
+                    "불러와 이어서 학습합니다."
+                )
+
+            else:
+
+                print(
+                    "기존 모델을 불러오지 못했습니다."
+                )
+
+                print(
+                    "새로운 모델로 학습합니다."
+                )
+
+        except Exception as exc:
+
+            print(
+                "기존 모델 로드 실패:"
+            )
+
+            print(
+                f"  {exc}"
+            )
+
+            print(
+                "새로운 모델로 학습합니다."
+            )
+
+    else:
+
+        print(
+            "기존 모델이 없습니다."
+        )
+
+        print(
+            "새로운 DQN 모델로 학습을 시작합니다."
+        )
+
+    # --------------------------------------------------------
+    # 학습 시작 출력
+    # --------------------------------------------------------
 
     print()
-    print("=" * 70)
-    print("DQN 구급차 병원 선택 학습 시작")
-    print("=" * 70)
-    print(f"State Dimension : {state_dim}")
-    print(f"Action Dimension: {action_dim}")
-    print(f"Episodes        : {num_episodes}")
-    print("=" * 70)
+    print(
+        "=" * 70
+    )
+    print(
+        "DQN 구급차 병원 선택 학습 시작"
+    )
+    print(
+        "=" * 70
+    )
+    print(
+        f"Model Path      : {MODEL_PATH}"
+    )
+    print(
+        f"State Dimension : {state_dim}"
+    )
+    print(
+        f"Action Dimension: {action_dim}"
+    )
+    print(
+        f"Episodes        : {num_episodes}"
+    )
+    print(
+        f"Hospital Count  : {action_dim}"
+    )
+    print(
+        "=" * 70
+    )
+
+    # ========================================================
+    # Episode
+    # ========================================================
 
     for episode in range(
         1,
         num_episodes + 1,
     ):
 
+        # ----------------------------------------------------
+        # Scenario 선택
+        # ----------------------------------------------------
+
         scenario = random.choice(
             SCENARIOS
         )
+
+        # ----------------------------------------------------
+        # Episode별 seed
+        # ----------------------------------------------------
 
         seed_val = (
             10000
             + episode
         )
+
+        # ----------------------------------------------------
+        # 환자 발생 스케줄
+        # ----------------------------------------------------
 
         patient_schedule = (
             generate_fixed_patient_schedule(
@@ -891,30 +1152,84 @@ def train_dqn_fast(
             )
         )
 
+        # ----------------------------------------------------
+        # 병원 정보 복사
+        # ----------------------------------------------------
+
         hospitals = copy.deepcopy(
             temp_hospitals
         )
 
-        # 병원 점유율을 매 episode마다
-        # 새롭게 초기화
-        for hospital in hospitals:
+        # ----------------------------------------------------
+        # 수정:
+        # seed 기반으로 occupancy 생성
+        #
+        # 기존:
+        # random.uniform(0.2, 0.6)
+        #
+        # 문제:
+        # 실행할 때마다 병원 상태가 달라짐
+        #
+        # 수정:
+        # episode seed + hospital index
+        # ----------------------------------------------------
 
-            hospital["occupancy"] = random.uniform(
+        for hospital_index, hospital in enumerate(
+            hospitals
+        ):
+
+            hospital_rng = random.Random(
+                seed_val
+                + hospital_index
+            )
+
+            hospital[
+                "occupancy"
+            ] = hospital_rng.uniform(
                 0.2,
                 0.6,
             )
 
+        # ----------------------------------------------------
+        # Mission
+        # ----------------------------------------------------
+
         active_missions = {}
 
+        # ----------------------------------------------------
+        # Episode 통계
+        # ----------------------------------------------------
+
         episode_reward = 0.0
+
         episode_losses = []
 
         completed_missions = 0
+
         failed_missions = 0
 
         rejection_total = 0
 
+        # ----------------------------------------------------
+        # 수정:
+        # 평균 이송시간 계산용
+        # 실제 도착한 임무만 포함
+        # ----------------------------------------------------
+
+        episode_travel_times = []
+
+        # ----------------------------------------------------
+        # 수정:
+        # 골든타임 성공 횟수
+        # ----------------------------------------------------
+
+        golden_success_count = 0
+
         step_length = 1.0
+
+        # ====================================================
+        # SUMO 실행
+        # ====================================================
 
         try:
 
@@ -925,7 +1240,7 @@ def train_dqn_fast(
             )
 
             # ------------------------------------------------
-            # Simulation
+            # Simulation Step
             # ------------------------------------------------
 
             for step in range(
@@ -935,64 +1250,84 @@ def train_dqn_fast(
 
                 traci.simulationStep()
 
-                # ------------------------------------------------
+                # ============================================
                 # 병원 점유율 자연 감소
-                # ------------------------------------------------
+                # ============================================
 
                 for hospital in hospitals:
 
-                    hospital["occupancy"] = max(
-                        0.0,
-                        float(
-                            hospital.get(
-                                "occupancy",
-                                0.0,
-                            )
-                        ) - 0.0005,
+                    current_occupancy = float(
+                        hospital.get(
+                            "occupancy",
+                            0.0,
+                        )
                     )
 
-                # ------------------------------------------------
+                    hospital[
+                        "occupancy"
+                    ] = max(
+                        0.0,
+                        current_occupancy
+                        - 0.0005,
+                    )
+
+                # ============================================
                 # 현재 구급차 확인
-                # ------------------------------------------------
+                # ============================================
 
                 ambulance_ids = [
                     vid
-                    for vid in traci.vehicle.getIDList()
-                    if "ambulance" in vid.lower()
+                    for vid in (
+                        traci.vehicle.getIDList()
+                    )
+                    if "ambulance"
+                    in vid.lower()
                 ]
 
-                # ------------------------------------------------
-                # 기존 임무 처리
-                # ------------------------------------------------
+                # ============================================
+                # 기존 Mission 처리
+                # ============================================
 
                 finished_ids = []
 
-                for ambulance_id, mission in list(
+                for (
+                    ambulance_id,
+                    mission,
+                ) in list(
                     active_missions.items()
                 ):
 
-                    if ambulance_id not in ambulance_ids:
+                    # ----------------------------------------
+                    # 차량이 SUMO에서 사라진 경우
+                    # ----------------------------------------
 
-                        reward = calculate_reward(
-                            travel_time=mission[
-                                "elapsed_time"
-                            ],
-                            severity=mission[
-                                "severity"
-                            ],
-                            hospital=mission[
-                                "hospital"
-                            ],
-                            golden_limit=mission[
-                                "golden_limit"
-                            ],
-                            rejection_count=mission[
-                                "rejection_count"
-                            ],
-                            occupancy_at_selection=mission[
-                                "occupancy_at_selection"
-                            ],
-                            route_failed=True,
+                    if (
+                        ambulance_id
+                        not in ambulance_ids
+                    ):
+
+                        reward = (
+                            calculate_reward(
+                                travel_time=mission[
+                                    "elapsed_time"
+                                ],
+                                severity=mission[
+                                    "severity"
+                                ],
+                                hospital=mission[
+                                    "hospital"
+                                ],
+                                golden_limit=mission[
+                                    "golden_limit"
+                                ],
+                                rejection_count=mission[
+                                    "rejection_count"
+                                ],
+                                occupancy_at_selection=mission[
+                                    "occupancy_at_selection"
+                                ],
+                                route_failed=True,
+                            )
                         )
 
                         zero_state = np.zeros(
@@ -1008,14 +1343,19 @@ def train_dqn_fast(
                             True,
                         )
 
-                        loss = agent.train_step()
+                        loss = (
+                            agent.train_step()
+                        )
 
                         if loss is not None:
+
                             episode_losses.append(
                                 loss
                             )
 
-                        episode_reward += reward
+                        episode_reward += (
+                            reward
+                        )
 
                         failed_missions += 1
 
@@ -1029,9 +1369,13 @@ def train_dqn_fast(
                     # 경과시간
                     # ----------------------------------------
 
-                    mission["elapsed_time"] += (
-                        step_length
-                    )
+                    mission[
+                        "elapsed_time"
+                    ] += step_length
+
+                    # ----------------------------------------
+                    # 구급차 현재 위치
+                    # ----------------------------------------
 
                     try:
 
@@ -1041,9 +1385,11 @@ def train_dqn_fast(
                             )
                         )
 
-                        target_pos = mission[
-                            "target_pos"
-                        ]
+                        target_pos = (
+                            mission[
+                                "target_pos"
+                            ]
+                        )
 
                         distance = (
                             (
@@ -1059,40 +1405,62 @@ def train_dqn_fast(
 
                     except Exception:
 
-                        distance = float("inf")
+                        distance = float(
+                            "inf"
+                        )
+
+                    # ----------------------------------------
+                    # 도착 여부
+                    # ----------------------------------------
 
                     arrived = (
                         distance
                         <= ARRIVAL_DISTANCE
                     )
 
+                    # ----------------------------------------
+                    # Timeout 여부
+                    # ----------------------------------------
+
                     timeout = (
-                        mission["elapsed_time"]
+                        mission[
+                            "elapsed_time"
+                        ]
                         >= MISSION_TIMEOUT_SECONDS
                     )
 
+                    # ----------------------------------------
+                    # 도착 또는 Timeout
+                    # ----------------------------------------
+
                     if arrived or timeout:
 
-                        reward = calculate_reward(
-                            travel_time=mission[
+                        elapsed_time = (
+                            mission[
                                 "elapsed_time"
-                            ],
-                            severity=mission[
-                                "severity"
-                            ],
-                            hospital=mission[
-                                "hospital"
-                            ],
-                            golden_limit=mission[
-                                "golden_limit"
-                            ],
-                            rejection_count=mission[
-                                "rejection_count"
-                            ],
-                            occupancy_at_selection=mission[
-                                "occupancy_at_selection"
-                            ],
-                            route_failed=not arrived,
+                            ]
+                        )
+
+                        reward = (
+                            calculate_reward(
+                                travel_time=elapsed_time,
+                                severity=mission[
+                                    "severity"
+                                ],
+                                hospital=mission[
+                                    "hospital"
+                                ],
+                                golden_limit=mission[
+                                    "golden_limit"
+                                ],
+                                rejection_count=mission[
+                                    "rejection_count"
+                                ],
+                                occupancy_at_selection=mission[
+                                    "occupancy_at_selection"
+                                ],
+                                route_failed=not arrived,
+                            )
                         )
 
                         zero_state = np.zeros(
@@ -1108,23 +1476,61 @@ def train_dqn_fast(
                             True,
                         )
 
-                        loss = agent.train_step()
+                        loss = (
+                            agent.train_step()
+                        )
 
                         if loss is not None:
+
                             episode_losses.append(
                                 loss
                             )
 
-                        episode_reward += reward
+                        episode_reward += (
+                            reward
+                        )
+
+                        # ------------------------------------
+                        # 성공
+                        # ------------------------------------
 
                         if arrived:
+
                             completed_missions += 1
+
+                            # 평균 이송시간
+                            episode_travel_times.append(
+                                elapsed_time
+                            )
+
+                            # --------------------------------
+                            # 골든타임 성공 여부
+                            # --------------------------------
+
+                            if (
+                                elapsed_time
+                                <= mission[
+                                    "golden_limit"
+                                ]
+                            ):
+
+                                golden_success_count += 1
+
+                        # ------------------------------------
+                        # 실패
+                        # ------------------------------------
+
                         else:
+
                             failed_missions += 1
 
                         finished_ids.append(
                             ambulance_id
                         )
+
+                # ============================================
+                # 완료된 Mission 제거
+                # ============================================
 
                 for ambulance_id in finished_ids:
 
@@ -1133,51 +1539,66 @@ def train_dqn_fast(
                         None,
                     )
 
-                # ------------------------------------------------
+                # ============================================
                 # 새로운 환자 발생
-                # ------------------------------------------------
+                # ============================================
 
-                patient = patient_schedule.get(
-                    step
+                patient = (
+                    patient_schedule.get(
+                        step
+                    )
                 )
 
                 if patient is None:
                     continue
 
-                if len(ambulance_ids) >= MAX_AMBULANCES:
+                # ============================================
+                # 최대 구급차 수 제한
+                # ============================================
+
+                if (
+                    len(ambulance_ids)
+                    >= MAX_AMBULANCES
+                ):
                     continue
 
-                patient_edge = patient[
-                    "edge_id"
-                ]
+                # ============================================
+                # 환자 정보
+                # ============================================
 
-                severity = int(
-                    patient[
-                        "severity"
-                    ]
+                patient_edge = (
+                    patient["edge_id"]
                 )
 
-                # ------------------------------------------------
+                severity = int(
+                    patient["severity"]
+                )
+
+                # ============================================
                 # 환자 위치
-                # ------------------------------------------------
+                # ============================================
 
                 try:
 
-                    edge_obj = env.net.getEdge(
-                        patient_edge
+                    edge_obj = (
+                        env.net.getEdge(
+                            patient_edge
+                        )
                     )
 
                     patient_pos = (
-                        edge_obj.getFromNode().getCoord()
+                        edge_obj
+                        .getFromNode()
+                        .getCoord()
                     )
 
                 except Exception:
 
                     continue
 
-                # ------------------------------------------------
-                # 병원별 예상 경로 계산
-                # ------------------------------------------------
+                # ============================================
+                # 병원별 예상 경로
+                # ============================================
 
                 hospital_routes = (
                     calculate_hospital_routes(
@@ -1187,25 +1608,33 @@ def train_dqn_fast(
                     )
                 )
 
-                # ------------------------------------------------
-                # DQN State 생성
-                # ------------------------------------------------
+                # ============================================
+                # DQN State
+                # ============================================
 
-                state = build_state_vector(
-                    patient_pos,
-                    severity,
-                    hospitals,
-                    hospital_routes,
+                state = (
+                    build_state_vector(
+                        patient_pos,
+                        severity,
+                        hospitals,
+                        hospital_routes,
+                    )
                 )
 
-                # ------------------------------------------------
-                # 선택 가능한 병원
-                # ------------------------------------------------
+                # ============================================
+                # Valid Actions
+                # ============================================
 
-                valid_actions = _get_valid_actions(
-                    hospitals,
-                    severity,
+                valid_actions = (
+                    _get_valid_actions(
+                        hospitals,
+                        severity,
+                    )
                 )
+
+                # ============================================
+                # 모든 병원이 가득 찬 경우
+                # ============================================
 
                 if not valid_actions:
 
@@ -1218,20 +1647,24 @@ def train_dqn_fast(
                 if not valid_actions:
                     continue
 
-                # ------------------------------------------------
-                # 초기 학습에서는 일부 rule-based 행동
-                # ------------------------------------------------
+                # ============================================
+                # 초기 Exploration
+                # ============================================
 
                 if (
                     episode <= 10
-                    and random.random() < 0.25
+                    and random.random()
+                    < 0.25
                 ):
 
-                    # 가장 빠른 병원 선택
+                    # 초기에는 일부를
+                    # shortest-time 방식으로 선택
                     selected_action = min(
                         valid_actions,
                         key=lambda index:
-                            hospital_routes[index][
+                            hospital_routes[
+                                index
+                            ][
                                 "travel_time"
                             ],
                     )
@@ -1249,18 +1682,15 @@ def train_dqn_fast(
                     selected_action
                 )
 
-                selected_hospital = hospitals[
-                    selected_action
-                ]
+                selected_hospital = (
+                    hospitals[
+                        selected_action
+                    ]
+                )
 
-                # ------------------------------------------------
+                # ============================================
                 # 병상 거부 처리
-                #
-                # 여기서는 별도의 terminal transition을
-                # 만들지 않는다.
-                #
-                # 최종 reward에서 rejection_count를 반영한다.
-                # ------------------------------------------------
+                # ============================================
 
                 rejection_count = 0
 
@@ -1282,7 +1712,8 @@ def train_dqn_fast(
                     alternative_actions = [
                         action
                         for action in valid_actions
-                        if action != selected_action
+                        if action
+                        != selected_action
                     ]
 
                     if not alternative_actions:
@@ -1295,13 +1726,15 @@ def train_dqn_fast(
                         )
                     )
 
-                    selected_hospital = hospitals[
-                        selected_action
-                    ]
+                    selected_hospital = (
+                        hospitals[
+                            selected_action
+                        ]
+                    )
 
-                # ------------------------------------------------
-                # 선택 당시 병원 상태 기록
-                # ------------------------------------------------
+                # ============================================
+                # 선택 당시 occupancy 기록
+                # ============================================
 
                 occupancy_at_selection = float(
                     selected_hospital.get(
@@ -1310,9 +1743,9 @@ def train_dqn_fast(
                     )
                 )
 
-                # ------------------------------------------------
+                # ============================================
                 # 병원 수용 처리
-                # ------------------------------------------------
+                # ============================================
 
                 selected_hospital[
                     "occupancy"
@@ -1322,9 +1755,9 @@ def train_dqn_fast(
                     + 0.08,
                 )
 
-                # ------------------------------------------------
-                # 선택 병원의 route
-                # ------------------------------------------------
+                # ============================================
+                # 선택 병원 Route
+                # ============================================
 
                 route_info = (
                     hospital_routes[
@@ -1344,11 +1777,14 @@ def train_dqn_fast(
                     )
                 )
 
-                # route가 사전에 계산되지 않았으면
-                # 다시 계산
+                # --------------------------------------------
+                # Route가 없으면 다시 계산
+                # --------------------------------------------
+
                 if (
                     route is None
-                    and hospital_edge is not None
+                    and hospital_edge
+                    is not None
                 ):
 
                     route = _find_route(
@@ -1356,9 +1792,9 @@ def train_dqn_fast(
                         hospital_edge,
                     )
 
-                # ------------------------------------------------
-                # route 실패
-                # ------------------------------------------------
+                # ============================================
+                # Route 실패
+                # ============================================
 
                 if (
                     hospital_edge is None
@@ -1366,17 +1802,19 @@ def train_dqn_fast(
                     or len(route.edges) == 0
                 ):
 
-                    reward = calculate_reward(
-                        travel_time=0.0,
-                        severity=severity,
-                        hospital=selected_hospital,
-                        golden_limit=GOLDEN_TIME_LIMITS.get(
-                            severity,
-                            300.0,
-                        ),
-                        rejection_count=rejection_count,
-                        occupancy_at_selection=occupancy_at_selection,
-                        route_failed=True,
+                    reward = (
+                        calculate_reward(
+                            travel_time=0.0,
+                            severity=severity,
+                            hospital=selected_hospital,
+                            golden_limit=GOLDEN_TIME_LIMITS.get(
+                                severity,
+                                300.0,
+                            ),
+                            rejection_count=rejection_count,
+                            occupancy_at_selection=occupancy_at_selection,
+                            route_failed=True,
+                        )
                     )
 
                     zero_state = np.zeros(
@@ -1392,40 +1830,61 @@ def train_dqn_fast(
                         True,
                     )
 
-                    loss = agent.train_step()
+                    loss = (
+                        agent.train_step()
+                    )
 
                     if loss is not None:
+
                         episode_losses.append(
                             loss
                         )
 
-                    episode_reward += reward
+                    episode_reward += (
+                        reward
+                    )
 
                     failed_missions += 1
 
                     continue
 
-                # ------------------------------------------------
+                # ============================================
                 # 구급차 생성
-                # ------------------------------------------------
+                # ============================================
 
                 ambulance_id = (
-                    f"ambulance_{episode}_{step}"
+                    f"ambulance_"
+                    f"{episode}_"
+                    f"{step}"
                 )
 
                 route_id = (
-                    f"route_{episode}_{step}"
+                    f"route_"
+                    f"{episode}_"
+                    f"{step}"
                 )
+
+                # --------------------------------------------
+                # 기존 route ID 제거
+                # --------------------------------------------
 
                 try:
 
-                    if route_id in traci.route.getIDList():
+                    if (
+                        route_id
+                        in traci.route.getIDList()
+                    ):
+
                         traci.route.remove(
                             route_id
                         )
 
                 except Exception:
                     pass
+
+                # ============================================
+                # SUMO 구급차 등록
+                # ============================================
 
                 try:
 
@@ -1442,17 +1901,19 @@ def train_dqn_fast(
 
                 except Exception:
 
-                    reward = calculate_reward(
-                        travel_time=0.0,
-                        severity=severity,
-                        hospital=selected_hospital,
-                        golden_limit=GOLDEN_TIME_LIMITS.get(
-                            severity,
-                            300.0,
-                        ),
-                        rejection_count=rejection_count,
-                        occupancy_at_selection=occupancy_at_selection,
-                        route_failed=True,
+                    reward = (
+                        calculate_reward(
+                            travel_time=0.0,
+                            severity=severity,
+                            hospital=selected_hospital,
+                            golden_limit=GOLDEN_TIME_LIMITS.get(
+                                severity,
+                                300.0,
+                            ),
+                            rejection_count=rejection_count,
+                            occupancy_at_selection=occupancy_at_selection,
+                            route_failed=True,
+                        )
                     )
 
                     zero_state = np.zeros(
@@ -1468,22 +1929,27 @@ def train_dqn_fast(
                         True,
                     )
 
-                    loss = agent.train_step()
+                    loss = (
+                        agent.train_step()
+                    )
 
                     if loss is not None:
+
                         episode_losses.append(
                             loss
                         )
 
-                    episode_reward += reward
+                    episode_reward += (
+                        reward
+                    )
 
                     failed_missions += 1
 
                     continue
 
-                # ------------------------------------------------
-                # 실제 예상 이동시간
-                # ------------------------------------------------
+                # ============================================
+                # 예상 이동시간
+                # ============================================
 
                 estimated_travel_time = float(
                     max(
@@ -1492,18 +1958,22 @@ def train_dqn_fast(
                     )
                 )
 
-                # ------------------------------------------------
+                # ============================================
                 # 목표 위치
-                # ------------------------------------------------
+                # ============================================
 
                 try:
 
-                    target_edge = env.net.getEdge(
-                        hospital_edge
+                    target_edge = (
+                        env.net.getEdge(
+                            hospital_edge
+                        )
                     )
 
                     target_pos = (
-                        target_edge.getToNode().getCoord()
+                        target_edge
+                        .getToNode()
+                        .getCoord()
                     )
 
                 except Exception:
@@ -1519,17 +1989,22 @@ def train_dqn_fast(
                         ),
                     )
 
-                # ------------------------------------------------
+                # ============================================
                 # Mission 등록
-                # ------------------------------------------------
+                # ============================================
 
                 active_missions[
                     ambulance_id
                 ] = {
-                    "hospital": selected_hospital,
-                    "severity": severity,
 
-                    "elapsed_time": 0.0,
+                    "hospital":
+                        selected_hospital,
+
+                    "severity":
+                        severity,
+
+                    "elapsed_time":
+                        0.0,
 
                     "estimated_travel_time":
                         estimated_travel_time,
@@ -1556,6 +2031,10 @@ def train_dqn_fast(
                         ),
                 }
 
+        # ====================================================
+        # SUMO 오류
+        # ====================================================
+
         except traci.TraCIException as exc:
 
             print(
@@ -1563,36 +2042,45 @@ def train_dqn_fast(
                 f"SUMO 오류: {exc}"
             )
 
+        # ====================================================
+        # Episode 종료 처리
+        # ====================================================
+
         finally:
 
-            # ----------------------------------------------------
-            # 아직 도착하지 못한 임무 처리
-            # ----------------------------------------------------
+            # ------------------------------------------------
+            # 아직 완료되지 않은 Mission
+            # ------------------------------------------------
 
-            for ambulance_id, mission in list(
+            for (
+                ambulance_id,
+                mission,
+            ) in list(
                 active_missions.items()
             ):
 
-                reward = calculate_reward(
-                    travel_time=mission[
-                        "elapsed_time"
-                    ],
-                    severity=mission[
-                        "severity"
-                    ],
-                    hospital=mission[
-                        "hospital"
-                    ],
-                    golden_limit=mission[
-                        "golden_limit"
-                    ],
-                    rejection_count=mission[
-                        "rejection_count"
-                    ],
-                    occupancy_at_selection=mission[
-                        "occupancy_at_selection"
-                    ],
-                    route_failed=True,
+                reward = (
+                    calculate_reward(
+                        travel_time=mission[
+                            "elapsed_time"
+                        ],
+                        severity=mission[
+                            "severity"
+                        ],
+                        hospital=mission[
+                            "hospital"
+                        ],
+                        golden_limit=mission[
+                            "golden_limit"
+                        ],
+                        rejection_count=mission[
+                            "rejection_count"
+                        ],
+                        occupancy_at_selection=mission[
+                            "occupancy_at_selection"
+                        ],
+                        route_failed=True,
+                    )
                 )
 
                 zero_state = np.zeros(
@@ -1608,36 +2096,49 @@ def train_dqn_fast(
                     True,
                 )
 
-                loss = agent.train_step()
+                loss = (
+                    agent.train_step()
+                )
 
                 if loss is not None:
+
                     episode_losses.append(
                         loss
                     )
 
-                episode_reward += reward
+                episode_reward += (
+                    reward
+                )
 
                 failed_missions += 1
 
             active_missions.clear()
 
+            # ------------------------------------------------
+            # SUMO 종료
+            # ------------------------------------------------
+
             if traci.isLoaded():
 
                 try:
+
                     traci.close()
+
                 except Exception:
+
                     pass
 
-        # --------------------------------------------------------
-        # Target Network
-        # --------------------------------------------------------
+        # ====================================================
+        # Target Network 업데이트
+        # ====================================================
 
         if episode % 5 == 0:
+
             agent.update_target_network()
 
-        # --------------------------------------------------------
+        # ====================================================
         # 모델 저장
-        # --------------------------------------------------------
+        # ====================================================
 
         if episode % 5 == 0:
 
@@ -1645,15 +2146,65 @@ def train_dqn_fast(
                 MODEL_PATH
             )
 
-        # --------------------------------------------------------
-        # 통계
-        # --------------------------------------------------------
+            print(
+                f"[Checkpoint] "
+                f"{MODEL_PATH} 저장 완료"
+            )
 
-        avg_loss = (
-            float(np.mean(episode_losses))
-            if episode_losses
-            else 0.0
-        )
+        # ====================================================
+        # Episode 통계
+        # ====================================================
+
+        # ----------------------------------------------------
+        # 평균 이송시간
+        # ----------------------------------------------------
+
+        if episode_travel_times:
+
+            avg_travel_time = float(
+                np.mean(
+                    episode_travel_times
+                )
+            )
+
+        else:
+
+            avg_travel_time = 0.0
+
+        # ----------------------------------------------------
+        # 골든타임 성공률
+        # ----------------------------------------------------
+
+        if completed_missions > 0:
+
+            golden_success_rate = (
+                golden_success_count
+                / completed_missions
+            )
+
+        else:
+
+            golden_success_rate = 0.0
+
+        # ----------------------------------------------------
+        # 평균 Loss
+        # ----------------------------------------------------
+
+        if episode_losses:
+
+            avg_loss = float(
+                np.mean(
+                    episode_losses
+                )
+            )
+
+        else:
+
+            avg_loss = 0.0
+
+        # ====================================================
+        # Episode 결과 출력
+        # ====================================================
 
         print(
             f"[Episode {episode:03d}] "
@@ -1662,23 +2213,33 @@ def train_dqn_fast(
             f"Completed={completed_missions:3d} | "
             f"Failed={failed_missions:3d} | "
             f"Reject={rejection_total:3d} | "
+            f"AvgTime={avg_travel_time:7.2f}s | "
+            f"GoldenRate={golden_success_rate:6.2%} | "
             f"Loss={avg_loss:.5f} | "
             f"Epsilon={agent.epsilon:.4f}"
         )
 
-    # ------------------------------------------------------------
-    # 최종 저장
-    # ------------------------------------------------------------
+    # ========================================================
+    # 최종 모델 저장
+    # ========================================================
 
     agent.save_model(
         MODEL_PATH
     )
 
     print()
-    print("=" * 70)
-    print("DQN 학습 완료")
-    print(f"모델: {MODEL_PATH}")
-    print("=" * 70)
+    print(
+        "=" * 70
+    )
+    print(
+        "DQN 학습 완료"
+    )
+    print(
+        f"최종 모델: {MODEL_PATH}"
+    )
+    print(
+        "=" * 70
+    )
 
 
 # ============================================================
