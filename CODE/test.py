@@ -1,17 +1,11 @@
 # environment.py
-#!/usr/bin/env python3
-
 import json
 import os
 import random
 import sys
 from pathlib import Path
 
-
-# ============================================================
-# 1. SUMO 환경 설정
-# ============================================================
-
+## SUMO 환경 설정 ##
 if "SUMO_HOME" not in os.environ:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
