@@ -30,3 +30,14 @@
 - 종합휴리스틱 : 시간 + 병상 + 적합도
 - DQN : 학습된 Q-value
 
+### 실험 로그에 저장되는 정보
+- logged_at : 실행 시간과 시간, 시간대
+- run_id : 각 실행을 구분하는 고유 ID
+- run_type : 학습 또는 평가
+- record_type : 실행 시작, 에피소드, 환자별 결과, 실행 종료 등
+- epixode : 에피소드 번호
+- scenario_id : DQN 또는 비교 전략
+- ambulance_limit : 최대 구급차 대수
+- model_path : 사용한 모델 파일
+- duration_sconds : 실행 시작 이후 경과 시간
+- metrics_json : 보상, Loss, Epsilon, 환자 수, 대기시간, 성공과 실패 등
