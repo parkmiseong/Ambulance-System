@@ -19,6 +19,7 @@ import random
 import sys
 import argparse
 import time
+from collections import Counter
 from experiment_log import append_record, new_run_id, LOG_PATH
 
 import numpy as np
@@ -230,7 +231,7 @@ def get_reachable_hospital_routes(env, patient_edge, hospitals):
     return result, failures
 
 
-def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANCES):
+def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANCES, eval_every=5):
     ambulance_count = max(1, min(MAX_AMBULANCES, int(ambulance_count)))
     print(f"[설정] SUMO 모드={'GUI' if gui else '백그라운드'}, 구급차={ambulance_count}/{MAX_AMBULANCES}")
     env = SumoMedicalEnvironment()
@@ -269,7 +270,10 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
     append_record(run_id, "training", "run_start", status="started",
                   ambulance_limit=ambulance_count, model_path=MODEL_PATH,
                   metrics={"requested_episodes": num_episodes, "gui": gui,
-                           "ambulance_edges": len(ambulance_edges)})
+                           "ambulance_edges": len(ambulance_edges),
+                           "queue_policy": "pre_ktas_priority_fifo_tie",
+                           "epsilon_decay": agent.epsilon_decay,
+                           "eval_every": eval_every})
     print(f"[통합 실험 로그] {LOG_PATH} | 실행 ID: {run_id}")
 
     best_reward = -float("inf")
@@ -288,6 +292,7 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
         generated = len(schedule)
         valid_patients = 0
         route_failures = 0
+        route_diagnostics = Counter()
         missions = 0
         episode_reward = 0.0
         losses = []
@@ -304,16 +309,20 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
                 patient_pos = env.net.getEdge(edge_id).getFromNode().getCoord()[:2]
             except Exception:
                 route_failures += 1
+                route_diagnostics["invalid_patient_edge"] += 1
                 return None
             routed, failures = get_reachable_hospital_routes(env, edge_id, hospitals)
             route_failures += failures
+            route_diagnostics["hospital_candidate_route_failure"] += failures
             actions = valid_actions(routed)
             if not actions:
+                route_diagnostics["no_reachable_hospital"] += 1
                 return None
             valid_patients += 1
             state = build_state_vector(patient_pos, ktas, routed)
             action = int(agent.select_action(state, actions))
             if action not in actions:
+                route_diagnostics["invalid_dqn_action"] += 1
                 return None
             selected = copy.deepcopy(routed[action])
             occupancy = float(selected.get("occupancy", 0.))
@@ -332,6 +341,7 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
             failed = not arrived
             if failed:
                 route_failures += 1
+                route_diagnostics["mission_failure"] += 1
             reward = calculate_reward(
                 travel_time=elapsed, ktas=ktas, hospital=selected,
                 golden_limit=GOLDEN_TIME_LIMITS[ktas],
@@ -374,6 +384,8 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
             except Exception:
                 pass
 
+        print(f"[실패 원인] {dict(manager.failure_reasons)} | 경로 진단={dict(route_diagnostics)}")
+        print(f"[중증도별] {manager.ktas_stats}")
         print(f"[대기열] 최대 동시운행={manager.peak_active}/{ambulance_count}, "
               f"최대 대기={manager.peak_waiting}, 도착={manager.completed}, "
               f"실패={manager.failed}, 평균 대기="
@@ -417,7 +429,11 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
                      "peak_active": manager.peak_active,
                      "peak_waiting": manager.peak_waiting,
                      "arrived": manager.completed, "failed": manager.failed,
-                     "avg_wait_seconds": manager.wait_total/max(1, manager.wait_count)}
+                     "avg_wait_seconds": manager.wait_total/max(1, manager.wait_count),
+                     "failure_reasons": dict(manager.failure_reasons),
+                     "route_diagnostics": dict(route_diagnostics),
+                     "ktas_stats": manager.ktas_stats,
+                     "epsilon_decay": agent.epsilon_decay}
         )
 
         history["episode"].append(episode)
@@ -429,6 +445,32 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
         if missions > 0 and episode_reward > best_reward:
             best_reward = episode_reward
             agent.save_model(MODEL_PATH)
+
+        if eval_every > 0 and episode % eval_every == 0:
+            # Fixed evaluation uses a separate SUMO run and epsilon=0.
+            from run_scenarios import run_single, SCENARIOS as EVAL_SCENARIOS
+            original_epsilon = agent.epsilon
+            was_training = agent.model.training
+            try:
+                agent.epsilon = 0.0
+                agent.model.eval()
+                fixed_scenario = EVAL_SCENARIOS[0]
+                fixed_seed = 30000 + fixed_scenario['id']
+                evaluation = run_single(env, base_hospitals, fixed_scenario,
+                                        fixed_seed, 'dqn', agent=agent, gui=False,
+                                        ambulance_count=ambulance_count)
+                append_record(run_id, 'training', 'fixed_evaluation',
+                              episode=episode, scenario_id=fixed_scenario['id'],
+                              scenario_name=fixed_scenario['name'], strategy='DQN',
+                              status='completed', ambulance_limit=ambulance_count,
+                              model_path=MODEL_PATH, metrics={
+                                  **evaluation, 'seed': fixed_seed, 'epsilon': 0.0,
+                                  'queue_policy': 'pre_ktas_priority_fifo_tie'})
+                print(f"[고정 평가] Episode {episode} | 보상 {evaluation['avg_reward']:.2f} "
+                      f"| 도착 {evaluation['arrived']} | 골든타임 {evaluation['golden_rate']:.1f}%")
+            finally:
+                agent.epsilon = original_epsilon
+                agent.model.train(was_training)
 
         # 환자 0이 반복되면 100회 학습을 낭비하지 않도록 즉시 중단
         if episode >= 1 and generated > 0 and valid_patients == 0:
@@ -477,8 +519,9 @@ def save_training_graphs(history, results_dir, timestamp):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="구급차 DQN 학습")
     parser.add_argument("--gui", action="store_true", help="SUMO-GUI로 실행")
+    parser.add_argument("--eval-every", type=int, default=5, help="고정 평가 간격(0=비활성화)")
     parser.add_argument("--episodes", type=int, default=NUM_EPISODES)
     parser.add_argument("--ambulances", type=int, default=DEFAULT_AMBULANCES,
                         help="구급차 대수(최대 10)")
     args = parser.parse_args()
-    train(args.episodes, gui=args.gui, ambulance_count=args.ambulances)
+    train(args.episodes, gui=args.gui, ambulance_count=args.ambulances, eval_every=args.eval_every)

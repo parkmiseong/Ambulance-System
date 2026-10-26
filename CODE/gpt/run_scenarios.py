@@ -10,6 +10,7 @@ import random
 import sys
 import argparse
 import time
+from collections import Counter
 from experiment_log import append_record, new_run_id, LOG_PATH
 
 import numpy as np
@@ -219,6 +220,7 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
     golden_success = 0
     missions = 0
     route_failures = 0
+    route_diagnostics = Counter()
     assignments = {h.get("id", str(i)): 0 for i, h in enumerate(hospitals)}
 
     manager = MissionManager(max_ambulances=ambulance_count, timeout=1800,
@@ -230,16 +232,19 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             patient_pos = env.net.getEdge(patient['edge_id']).getFromNode().getCoord()[:2]
         except Exception:
             route_failures += 1
+            route_diagnostics["invalid_patient_edge"] += 1
             return None
         ktas = normalize_ktas(patient['ktas'])
         routed = hospital_routes(env, patient['edge_id'], hospitals)
         actions = valid_actions(routed)
         if not actions:
+            route_diagnostics["no_reachable_hospital"] += 1
             return None
         state = build_state_vector(patient_pos, ktas, routed)
         action = choose(mode, router, patient_pos, ktas,
                         routed, state, agent, actions)
         if action not in actions:
+            route_diagnostics["invalid_action"] += 1
             return None
         selected = copy.deepcopy(routed[action])
         return selected['hospital_edge'], (action, selected, float(selected.get('occupancy', 0.)))
@@ -255,6 +260,7 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         failed = not arrived
         if failed:
             route_failures += 1
+            route_diagnostics["mission_failure"] += 1
         reward = calculate_reward(
             travel_time=elapsed, ktas=ktas,
             pre_ktas=patient.get('pre_ktas', ktas),
@@ -312,6 +318,9 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         "avg_wait": manager.wait_total / max(1, manager.wait_count),
         "arrived": manager.completed,
         "failed": manager.failed,
+        "failure_reasons": dict(manager.failure_reasons),
+        "route_diagnostics": dict(route_diagnostics),
+        "ktas_stats": manager.ktas_stats,
     }
 
 

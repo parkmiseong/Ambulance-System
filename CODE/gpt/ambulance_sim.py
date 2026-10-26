@@ -3,7 +3,7 @@
 
 Only MissionManager.step() advances SUMO. Never call await_arrival() from training.
 """
-from collections import deque
+from collections import deque, Counter
 from dataclasses import dataclass
 import traci
 
@@ -68,10 +68,26 @@ class MissionManager:
         self.wait_total = 0.0
         self.wait_count = 0
         self._serial = 0
+        self.failure_reasons = Counter()
+        self.ktas_stats = {k: {"arrived": 0, "failed": 0, "wait_total": 0.0, "count": 0} for k in range(1, 6)}
 
     def enqueue(self, patient):
         self.waiting.append(patient)
         self.peak_waiting = max(self.peak_waiting, len(self.waiting))
+
+    def _priority_key(self, patient):
+        # Pre-KTAS 1 (most urgent) first; ties are FIFO.
+        ktas = int(patient.get('ktas', patient.get('pre_ktas', 5)))
+        return (max(1, min(5, ktas)), float(patient['occurrence_time']))
+
+    def _record(self, patient, arrived, wait, reason):
+        ktas = max(1, min(5, int(patient.get('ktas', patient.get('pre_ktas', 5)))))
+        stats = self.ktas_stats[ktas]
+        stats['count'] += 1
+        stats['wait_total'] += wait
+        stats['arrived' if arrived else 'failed'] += 1
+        if not arrived:
+            self.failure_reasons[reason.split(':', 1)[0]] += 1
 
     def _complete(self, mission, arrived, now, reason, finish):
         patient = mission.patient
@@ -83,21 +99,34 @@ class MissionManager:
             self.completed += 1
         else:
             self.failed += 1
+        self._record(patient, arrived, wait, reason)
         finish(patient, mission.payload, arrived, elapsed, wait, reason)
 
     def _expire_waiting(self, now, finish):
-        while self.waiting and now - float(self.waiting[0]['occurrence_time']) >= self.max_wait:
+        # Scan the entire queue: high-priority selection must not prevent expiration.
+        survivors = deque()
+        while self.waiting:
             patient = self.waiting.popleft()
-            wait = max(0., now - float(patient['occurrence_time']))
-            self.failed += 1
-            self.wait_total += wait
-            self.wait_count += 1
-            finish(patient, None, False, wait, wait, 'waiting_timeout')
+            if now - float(patient['occurrence_time']) >= self.max_wait:
+                wait = max(0., now - float(patient['occurrence_time']))
+                self.failed += 1
+                self.wait_total += wait
+                self.wait_count += 1
+                self._record(patient, False, wait, 'waiting_timeout')
+                finish(patient, None, False, wait, wait, 'waiting_timeout')
+            else:
+                survivors.append(patient)
+        self.waiting = survivors
+
+    def _pop_priority(self):
+        best = min(self.waiting, key=self._priority_key)
+        self.waiting.remove(best)
+        return best
 
     def _dispatch(self, now, dispatch, finish, prefix):
         # The manager's registry includes pending departures, unlike getIDList().
         while self.waiting and len(self.active) < self.limit:
-            patient = self.waiting.popleft()
+            patient = self._pop_priority()
             self._serial += 1
             vid = f"{prefix}{self._serial}"
             try:
@@ -107,6 +136,7 @@ class MissionManager:
                     wait = max(0., now - float(patient['occurrence_time']))
                     self.wait_total += wait
                     self.wait_count += 1
+                    self._record(patient, False, wait, 'no_valid_hospital')
                     finish(patient, None, False, wait, wait, 'no_valid_hospital')
                     continue
                 hospital_edge, payload = assignment
@@ -117,6 +147,7 @@ class MissionManager:
                     wait = max(0., now - float(patient['occurrence_time']))
                     self.wait_total += wait
                     self.wait_count += 1
+                    self._record(patient, False, wait, reason)
                     finish(patient, payload, False, wait, wait, reason)
                     continue
                 self.active[vid] = Mission(patient, vid, now, payload)
@@ -130,6 +161,7 @@ class MissionManager:
                 wait = max(0., now - float(patient['occurrence_time']))
                 self.wait_total += wait
                 self.wait_count += 1
+                self._record(patient, False, wait, 'dispatch_exception')
                 finish(patient, None, False, wait, wait, f'dispatch_exception: {exc}')
 
     def step(self, dispatch, finish, prefix='amb_e'):
@@ -173,6 +205,7 @@ class MissionManager:
             self.failed += 1
             self.wait_total += wait
             self.wait_count += 1
+            self._record(patient, False, wait, 'horizon_waiting')
             finish(patient, None, False, wait, wait, 'horizon_waiting')
 
 
