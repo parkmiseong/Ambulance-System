@@ -233,7 +233,7 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
     manager = MissionManager(max_ambulances=ambulance_count, timeout=1800,
                              max_wait=1800, verbose=False, queue_policy=queue_policy, aging_seconds=aging_seconds)
     outcome_rows = []
-    selected_suitability = []
+    patient_records = []
     def dispatch(patient, vid):
         nonlocal route_failures
         try:
@@ -255,9 +255,51 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             route_diagnostics["invalid_action"] += 1
             return None
         selected = copy.deepcopy(routed[action])
+        # 선택 가능한 병원 집합에서의 반사실적 최단시간 대안.
+        # 대기열에서 dispatch가 호출되는 시점의 병원 상태를 기록한다.
+        alternatives = [(i, float(routed[i].get("estimated_travel_time", MAX_ESTIMATED_TRAVEL_TIME)))
+                        for i in actions]
+        fastest_idx, fastest_time = min(alternatives, key=lambda pair: pair[1])
+        patient["_dispatch_time"] = float(traci.simulation.getTime())
+        patient["_candidate_count"] = len(actions)
+        patient["_fastest_hospital_id"] = str(routed[fastest_idx].get("id", fastest_idx))
+        patient["_fastest_hospital_type"] = str(routed[fastest_idx].get("type", "unknown"))
+        patient["_fastest_estimated_time"] = fastest_time
+        patient["_selected_time_rank"] = 1 + sum(t < float(selected["estimated_travel_time"]) - 1e-6
+                                                  for _, t in alternatives)
+        patient["_extra_estimated_time"] = max(0.0, float(selected["estimated_travel_time"]) - fastest_time)
+        patient["_selected_hospital_type"] = str(selected.get("type", "unknown"))
+        patient["_selected_hospital_id"] = str(selected.get("id", action))
+        patient["_selected_estimated_time"] = selected.get("estimated_travel_time")
+        patient["_selected_occupancy"] = float(selected.get("occupancy", 0.0))
         return selected['hospital_edge'], (action, selected, float(selected.get('occupancy', 0.)))
 
     def finish(patient, payload, arrived, elapsed, wait, reason):
+        # finish 호출 시점은 임무 종료 시각이며 구급차 재가용 시각과 같다고 보장할 수 없다.
+        patient_records.append({
+            "occurrence_time": patient.get("occurrence_time", ""),
+            "pre_ktas": patient.get("pre_ktas", ""),
+            "ktas": patient.get("ktas", ""),
+            "patient_edge": patient.get("edge_id", ""),
+            "hospital_id": (str(payload[1].get("id", payload[0])) if payload is not None else ""),
+            "hospital_type": (str(payload[1].get("type", "unknown")) if payload is not None else ""),
+            "estimated_travel_time_sec": (payload[1].get("estimated_travel_time", "") if payload is not None else ""),
+            "occupancy_at_selection": (payload[2] if payload is not None else ""),
+            "arrived": int(bool(arrived)),
+            "wait_sec": wait,
+            "elapsed_sec": elapsed,
+            "failure_reason": reason or "",
+            "was_dispatched": int(payload is not None),
+            "selected_hospital_id_at_dispatch": patient.get("_selected_hospital_id", ""),
+            "dispatch_time": patient.get("_dispatch_time", ""),
+            "finish_callback_time": (float(traci.simulation.getTime()) if traci.isLoaded() else ""),
+            "candidate_count": patient.get("_candidate_count", ""),
+            "fastest_hospital_id": patient.get("_fastest_hospital_id", ""),
+            "fastest_hospital_type": patient.get("_fastest_hospital_type", ""),
+            "fastest_estimated_time_sec": patient.get("_fastest_estimated_time", ""),
+            "selected_time_rank": patient.get("_selected_time_rank", ""),
+            "extra_estimated_time_sec": patient.get("_extra_estimated_time", ""),
+        })
         nonlocal total_reward, total_time, golden_success, missions, route_failures
         if payload is None:
             route_failures += 1
@@ -326,6 +368,7 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
           f"실패={manager.failed}, 평균 대기={manager.wait_total/max(1,manager.wait_count):.1f}s")
 
     return {
+        "patient_records": patient_records,
         "reward": total_reward,
         "reward_profile": REWARD_PROFILE,
         "reward_components_sum": dict(reward_breakdown),
@@ -509,6 +552,7 @@ def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
     run_id = new_run_id("compare")
     started = time.monotonic()
     all_rows = []
+    all_patients = []
     modes = [(mode, label, None) for mode, label in STRATEGIES if mode != "dqn"]
     modes += [("dqn", f"dqn_{profile}", agents[profile]) for profile in profiles]
     print(f"[비교 실험] {len(scenarios)}개 시나리오 × {repeats}회 × {len(modes)}개 전략")
@@ -528,6 +572,11 @@ def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
                                     agent=agent, gui=gui, ambulance_count=ambulance_count,
                                     queue_policy=queue_policy, aging_seconds=aging_seconds)
                 print_result(label, result)
+                for patient_row in result.pop("patient_records", []):
+                    all_patients.append({"scenario_id": scenario["id"],
+                                         "repeat": repeat + 1, "seed": seed,
+                                         "strategy": label, **patient_row})
+                write_csv(os.path.join(results_dir, f"comparison_patients_{timestamp}.csv"), all_patients)
                 row = flatten_result(scenario, repeat, seed, label, result)
                 all_rows.append(row)
                 append_record(run_id, "evaluation", "strategy_result",

@@ -1,0 +1,11 @@
+﻿strategy,reason,count
+병상기반,waiting_timeout,38
+병상기반,horizon_timeout,10
+치료역량기반,waiting_timeout,38
+치료역량기반,horizon_timeout,10
+종합휴리스틱,waiting_timeout,20
+종합휴리스틱,horizon_timeout,10
+dqn_strong_mismatch,waiting_timeout,34
+dqn_strong_mismatch,horizon_timeout,10
+dqn_balanced,waiting_timeout,35
+dqn_balanced,horizon_timeout,9

@@ -1,0 +1,8 @@
+﻿strategy,patients,arrived,arrival_rate_pct,dispatched_with_payload,mean_wait_sec,mean_selected_estimated_sec,mean_extra_vs_fastest_sec,pct_selected_fastest,waiting_timeout,horizon_timeout
+최단거리,115,115,100.0,115,670.03,130.98,9.19,80.0,0,0
+최단시간,115,115,100.0,115,602.2,122.25,0.0,100.0,0,0
+병상기반,115,67,58.26,77,1089.56,212.31,89.35,36.36,38,10
+치료역량기반,115,68,59.13,77,1069.44,207.21,90.22,31.17,38,9
+종합휴리스틱,115,91,79.13,100,881.7,162.7,48.44,53.0,15,9
+dqn_strong_mismatch,115,71,61.74,81,1063.65,209.44,67.0,43.21,34,10
+dqn_balanced,115,71,61.74,81,1047.95,215.26,61.12,49.38,34,10
