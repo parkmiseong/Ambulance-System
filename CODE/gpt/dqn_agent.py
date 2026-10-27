@@ -3,6 +3,7 @@
 
 import os
 import random
+import copy
 from collections import deque
 
 import numpy as np
@@ -120,24 +121,46 @@ class DQNAmbulanceAgent:
 
         return float(loss.item())
 
-    def save_model(self, filepath="dqn_ambulance_model_ktas_v2.pth"):
+    def save_model(self, filepath="dqn_ambulance_model_ktas_v2.pth", *, episode=None, full_state=False):
         os.makedirs(os.path.dirname(filepath) or ".", exist_ok=True)
-        torch.save({
+        payload = {
             "model_state_dict": self.model.state_dict(),
             "target_model_state_dict": self.target_model.state_dict(),
             "optimizer_state_dict": self.optimizer.state_dict(),
             "epsilon": self.epsilon,
-        }, filepath)
-        print(f"[DQN 에이전트] 가중치 저장 완료: {filepath}")
+            "episode": episode,
+            "state_dim": self.state_dim,
+            "action_dim": self.action_dim,
+        }
+        if full_state:
+            payload["replay_memory"] = list(self.memory)
+            payload["python_random_state"] = random.getstate()
+            payload["numpy_random_state"] = np.random.get_state()
+            payload["torch_random_state"] = torch.get_rng_state()
+        torch.save(payload, filepath)
+        print(f"[DQN 에이전트] 저장 완료: {filepath}")
 
-    def load_model(self, filepath="dqn_ambulance_model_ktas_v2.pth"):
+    def load_model(self, filepath="dqn_ambulance_model_ktas_v2.pth", *, resume=False):
         if not os.path.exists(filepath):
             return False
-
-        checkpoint = torch.load(filepath, map_location=self.device)
+        # 최신 PyTorch는 weights_only=True가 기본이며 전체 학습 체크포인트는
+        # deque/NumPy RNG 객체를 포함하므로 신뢰하는 로컬 파일만 로드한다.
+        checkpoint = torch.load(filepath, map_location=self.device, weights_only=False)
+        if checkpoint.get("state_dim", self.state_dim) != self.state_dim or checkpoint.get("action_dim", self.action_dim) != self.action_dim:
+            raise ValueError("체크포인트의 상태/행동 차원이 현재 환경과 다릅니다")
         self.model.load_state_dict(checkpoint["model_state_dict"])
         self.target_model.load_state_dict(checkpoint["target_model_state_dict"])
-        if "optimizer_state_dict" in checkpoint:
-            self.optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
-        self.epsilon = float(checkpoint.get("epsilon", self.epsilon_min))
+        if resume:
+            if "optimizer_state_dict" in checkpoint:
+                self.optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+            self.epsilon = float(checkpoint.get("epsilon", 1.0))
+            if "replay_memory" in checkpoint:
+                self.memory.clear()
+                self.memory.extend(checkpoint["replay_memory"])
+            if "python_random_state" in checkpoint:
+                random.setstate(checkpoint["python_random_state"])
+            if "numpy_random_state" in checkpoint:
+                np.random.set_state(checkpoint["numpy_random_state"])
+            if "torch_random_state" in checkpoint:
+                torch.set_rng_state(checkpoint["torch_random_state"])
         return True

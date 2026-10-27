@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# train_agent.py
 """KTAS DQN 학습.
 
 핵심 수정:
@@ -14,26 +15,29 @@ import contextlib
 import copy
 import csv
 import datetime
+import math
 import os
 import random
 import sys
 import argparse
 import time
+from pathlib import Path
 from collections import Counter
 from experiment_log import append_record, new_run_id, LOG_PATH
 
 import numpy as np
+import torch
 import sumolib
 import traci
 
 from baseline import HospitalRouters, build_state_vector
 from dqn_agent import DQNAmbulanceAgent
 from environment import SumoMedicalEnvironment
-from reward import GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas
+from reward import GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, normalize_hospital_type, reward_components, REWARD_PROFILE, WEIGHTS
 from ambulance_sim import MissionManager
 
 
-MODEL_PATH = "dqn_ambulance_model_ktas_v2.pth"
+MODEL_PATH = os.path.join("results", "models", REWARD_PROFILE, "dqn_ambulance_model_ktas_v2.pth")
 NUM_EPISODES = 100
 MAX_AMBULANCES = 10  # 구급차 최대 대수
 DEFAULT_AMBULANCES = 10
@@ -208,6 +212,10 @@ def get_reachable_hospital_routes(env, patient_edge, hospitals):
                     length = float(getattr(route, "length", 0.0))
                     travel = float(getattr(route, "travelTime", 0.0))
 
+                    if not math.isfinite(length) or length < 0:
+                        continue
+                    if not math.isfinite(travel):
+                        continue
                     if travel <= 0:
                         travel = max(length / 13.9, 1.0)
 
@@ -231,9 +239,15 @@ def get_reachable_hospital_routes(env, patient_edge, hospitals):
     return result, failures
 
 
-def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANCES, eval_every=5):
+def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANCES, eval_every=5, resume=False, queue_policy="severity", aging_seconds=300, experiment_seed=20261007):
     ambulance_count = max(1, min(MAX_AMBULANCES, int(ambulance_count)))
     print(f"[설정] SUMO 모드={'GUI' if gui else '백그라운드'}, 구급차={ambulance_count}/{MAX_AMBULANCES}")
+    # 모든 보상 프로필에서 동일한 초기 DQN 가중치 및 난수 상태를 사용한다.
+    random.seed(experiment_seed)
+    np.random.seed(experiment_seed % (2**32))
+    torch.manual_seed(experiment_seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(experiment_seed)
     env = SumoMedicalEnvironment()
 
     action_dim = len(env.get_hospitals())
@@ -241,6 +255,21 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
 
     agent = DQNAmbulanceAgent(state_dim, action_dim)
     router = HospitalRouters(env.get_hospitals())
+    checkpoint_path = os.path.join("results", "training", REWARD_PROFILE, "latest_training_checkpoint.pth")
+    os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+    os.makedirs(os.path.dirname(checkpoint_path), exist_ok=True)
+    start_episode = 1
+    if not resume and os.path.exists(checkpoint_path):
+        raise FileExistsError(
+            f"기존 체크포인트가 존재합니다: {checkpoint_path}. "
+            "보존하려면 --resume을 사용하거나 기존 파일을 백업한 뒤 새 실험을 시작하세요."
+        )
+    if resume:
+        if not agent.load_model(checkpoint_path, resume=True):
+            raise FileNotFoundError(f"이어 학습 체크포인트가 없습니다: {checkpoint_path}")
+        checkpoint_meta = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
+        start_episode = int(checkpoint_meta.get("episode", 0)) + 1
+        print(f"[이어 학습] 에피소드 {start_episode}부터, epsilon={agent.epsilon:.4f}, memory={len(agent.memory)}")
 
     print(f"[KTAS DQN] state_dim={state_dim}, action_dim={action_dim}")
     print(f"[KTAS DQN] 모델={MODEL_PATH}")
@@ -260,6 +289,8 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
 
     print(f"[검증 완료] 구급차 출발 가능 Edge 후보: {len(ambulance_edges)}개")
     base_hospitals = copy.deepcopy(env.get_hospitals())
+    for h in base_hospitals:
+        normalize_hospital_type(h.get("type"))  # 병원 데이터 불일치 시 학습 전에 감지
 
     results_dir = os.path.join("results", "training")
     os.makedirs(results_dir, exist_ok=True)
@@ -271,21 +302,28 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
                   ambulance_limit=ambulance_count, model_path=MODEL_PATH,
                   metrics={"requested_episodes": num_episodes, "gui": gui,
                            "ambulance_edges": len(ambulance_edges),
-                           "queue_policy": "pre_ktas_priority_fifo_tie",
+                           "queue_policy": queue_policy,
+                           "aging_seconds": aging_seconds,
+                           "resume": resume,
+                           "start_episode": start_episode,
                            "epsilon_decay": agent.epsilon_decay,
-                           "eval_every": eval_every})
+                           "eval_every": eval_every,
+                           "experiment_seed": experiment_seed,
+                           "reward_profile": REWARD_PROFILE,
+                           "reward_weights": vars(WEIGHTS)})
     print(f"[통합 실험 로그] {LOG_PATH} | 실행 ID: {run_id}")
 
     best_reward = -float("inf")
     history = {"episode": [], "reward": [], "avg_reward": [], "avg_loss": [], "missions": []}
 
-    for episode in range(1, num_episodes + 1):
+    for episode in range(start_episode, start_episode + num_episodes):
         scenario = SCENARIOS[(episode - 1) % len(SCENARIOS)]
-        seed = 10000 + episode
+        seed = 10000 + episode  # 모든 프로필에 공통인 환자/SUMO 시드
 
         hospitals = copy.deepcopy(base_hospitals)
+        occupancy_rng = random.Random(experiment_seed + 100000 + episode)
         for h in hospitals:
-            h["occupancy"] = random.uniform(0.20, 0.60)
+            h["occupancy"] = occupancy_rng.uniform(0.20, 0.60)
 
         schedule = generate_schedule(scenario, ambulance_edges, seed)
 
@@ -296,9 +334,11 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
         missions = 0
         episode_reward = 0.0
         losses = []
+        component_totals = Counter()
+        hospital_type_counts = Counter()
 
         manager = MissionManager(max_ambulances=ambulance_count, timeout=1800,
-                                 max_wait=1800, verbose=False)
+                                 max_wait=1800, verbose=False, queue_policy=queue_policy, aging_seconds=aging_seconds)
         outcome_rows = []
 
         def dispatch(patient, vid):
@@ -342,12 +382,22 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
             if failed:
                 route_failures += 1
                 route_diagnostics["mission_failure"] += 1
+            if not math.isfinite(float(elapsed)) or elapsed < 0:
+                raise ValueError(f"이송 경과시간 오류: {elapsed!r}, reason={reason!r}")
             reward = calculate_reward(
                 travel_time=elapsed, ktas=ktas, hospital=selected,
                 golden_limit=GOLDEN_TIME_LIMITS[ktas],
                 rejection_count=0, occupancy_at_selection=occupancy,
                 route_failed=failed, pre_ktas=ktas,
             )
+            parts = reward_components(
+                travel_time=elapsed, ktas=ktas, hospital=selected,
+                golden_limit=GOLDEN_TIME_LIMITS[ktas],
+                rejection_count=0, occupancy_at_selection=occupancy,
+                route_failed=failed, pre_ktas=ktas,
+            )
+            component_totals.update(parts)
+            hospital_type_counts[str(selected.get("type", "unknown"))] += 1
             agent.store_transition(state, action, reward,
                                    np.zeros(state_dim, dtype=np.float32), True)
             loss = agent.train_step(BATCH_SIZE)
@@ -403,7 +453,7 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
         avg_loss = float(np.mean(losses)) if losses else 0.0
 
         print(
-            f"Episode {episode:3d}/{num_episodes} | "
+            f"Episode {episode:3d}/{start_episode + num_episodes - 1} | "
             f"Scenario {scenario['id']} | "
             f"생성 {generated:3d} | 유효 {valid_patients:3d} | "
             f"경로실패 {route_failures:3d} | "
@@ -433,6 +483,9 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
                      "failure_reasons": dict(manager.failure_reasons),
                      "route_diagnostics": dict(route_diagnostics),
                      "ktas_stats": manager.ktas_stats,
+                     "reward_components_sum": dict(component_totals),
+                     "hospital_type_assignments": dict(hospital_type_counts),
+                     "reward_profile": REWARD_PROFILE,
                      "epsilon_decay": agent.epsilon_decay}
         )
 
@@ -446,6 +499,9 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
             best_reward = episode_reward
             agent.save_model(MODEL_PATH)
 
+        # 매 에피소드 최신 상태 저장: 학습 중단 후 이어서 실행 가능
+        agent.save_model(checkpoint_path, episode=episode, full_state=True)
+
         if eval_every > 0 and episode % eval_every == 0:
             # Fixed evaluation uses a separate SUMO run and epsilon=0.
             from run_scenarios import run_single, SCENARIOS as EVAL_SCENARIOS
@@ -456,19 +512,23 @@ def train(num_episodes=NUM_EPISODES, gui=False, ambulance_count=DEFAULT_AMBULANC
                 agent.model.eval()
                 fixed_scenario = EVAL_SCENARIOS[0]
                 fixed_seed = 30000 + fixed_scenario['id']
+                rng_state = random.getstate()
+                np_state = np.random.get_state()
                 evaluation = run_single(env, base_hospitals, fixed_scenario,
                                         fixed_seed, 'dqn', agent=agent, gui=False,
-                                        ambulance_count=ambulance_count)
+                                        ambulance_count=ambulance_count, queue_policy=queue_policy, aging_seconds=aging_seconds)
                 append_record(run_id, 'training', 'fixed_evaluation',
                               episode=episode, scenario_id=fixed_scenario['id'],
                               scenario_name=fixed_scenario['name'], strategy='DQN',
                               status='completed', ambulance_limit=ambulance_count,
                               model_path=MODEL_PATH, metrics={
                                   **evaluation, 'seed': fixed_seed, 'epsilon': 0.0,
-                                  'queue_policy': 'pre_ktas_priority_fifo_tie'})
+                                  'queue_policy': queue_policy})
                 print(f"[고정 평가] Episode {episode} | 보상 {evaluation['avg_reward']:.2f} "
                       f"| 도착 {evaluation['arrived']} | 골든타임 {evaluation['golden_rate']:.1f}%")
             finally:
+                random.setstate(rng_state)
+                np.random.set_state(np_state)
                 agent.epsilon = original_epsilon
                 agent.model.train(was_training)
 
@@ -519,9 +579,13 @@ def save_training_graphs(history, results_dir, timestamp):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="구급차 DQN 학습")
     parser.add_argument("--gui", action="store_true", help="SUMO-GUI로 실행")
+    parser.add_argument("--seed", type=int, default=20261007, help="DQN 초기화 및 병원 점유율 시드")
     parser.add_argument("--eval-every", type=int, default=5, help="고정 평가 간격(0=비활성화)")
-    parser.add_argument("--episodes", type=int, default=NUM_EPISODES)
+    parser.add_argument("--episodes", type=int, default=NUM_EPISODES, help="이번 실행에서 추가로 학습할 에피소드 수")
+    parser.add_argument("--resume", action="store_true", help="latest_training_checkpoint.pth에서 이어 학습")
+    parser.add_argument("--queue-policy", choices=["fifo", "severity", "hybrid"], default="severity")
+    parser.add_argument("--aging-seconds", type=float, default=300, help="혼합 대기열에서 우선순위 한 단계 상쇄에 필요한 대기시간")
     parser.add_argument("--ambulances", type=int, default=DEFAULT_AMBULANCES,
                         help="구급차 대수(최대 10)")
     args = parser.parse_args()
-    train(args.episodes, gui=args.gui, ambulance_count=args.ambulances, eval_every=args.eval_every)
+    train(args.episodes, gui=args.gui, ambulance_count=args.ambulances, eval_every=args.eval_every, resume=args.resume, queue_policy=args.queue_policy, aging_seconds=args.aging_seconds, experiment_seed=args.seed)

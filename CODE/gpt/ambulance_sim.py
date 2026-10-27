@@ -54,7 +54,11 @@ class MissionManager:
     finish(patient, payload, arrived, elapsed, wait, reason)->None.
     Patient dict must contain occurrence_time and edge_id.
     """
-    def __init__(self, max_ambulances=10, timeout=1800, max_wait=1800, verbose=False):
+    def __init__(self, max_ambulances=10, timeout=1800, max_wait=1800, verbose=False, queue_policy="severity", aging_seconds=300):
+        if queue_policy not in ("fifo", "severity", "hybrid"):
+            raise ValueError(f"unknown queue_policy: {queue_policy}")
+        self.queue_policy = queue_policy
+        self.aging_seconds = max(1, float(aging_seconds))
         self.limit = max(1, min(MAX_AMBULANCES, int(max_ambulances)))
         self.timeout = float(timeout)
         self.max_wait = float(max_wait)
@@ -75,10 +79,18 @@ class MissionManager:
         self.waiting.append(patient)
         self.peak_waiting = max(self.peak_waiting, len(self.waiting))
 
-    def _priority_key(self, patient):
+    def _priority_key(self, patient, now=None):
         # Pre-KTAS 1 (most urgent) first; ties are FIFO.
         ktas = int(patient.get('ktas', patient.get('pre_ktas', 5)))
-        return (max(1, min(5, ktas)), float(patient['occurrence_time']))
+        ktas = max(1, min(5, ktas))
+        occurrence = float(patient["occurrence_time"])
+        if self.queue_policy == "fifo":
+            return (occurrence,)
+        if self.queue_policy == "hybrid":
+            wait = max(0., float(now) - occurrence)
+            # 한 단계 우선순위 차이를 aging_seconds 대기로 상쇄
+            return (max(1, ktas - int(wait // self.aging_seconds)), occurrence)
+        return (ktas, occurrence)
 
     def _record(self, patient, arrived, wait, reason):
         ktas = max(1, min(5, int(patient.get('ktas', patient.get('pre_ktas', 5)))))
@@ -118,15 +130,15 @@ class MissionManager:
                 survivors.append(patient)
         self.waiting = survivors
 
-    def _pop_priority(self):
-        best = min(self.waiting, key=self._priority_key)
+    def _pop_priority(self, now):
+        best = min(self.waiting, key=lambda p: self._priority_key(p, now))
         self.waiting.remove(best)
         return best
 
     def _dispatch(self, now, dispatch, finish, prefix):
         # The manager's registry includes pending departures, unlike getIDList().
         while self.waiting and len(self.active) < self.limit:
-            patient = self._pop_priority()
+            patient = self._pop_priority(now)
             self._serial += 1
             vid = f"{prefix}{self._serial}"
             try:

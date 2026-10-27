@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
+# run_scenarios.py
 """KTAS DQN + 5개 baseline 평가."""
 
 import contextlib
 import copy
 import csv
 import datetime
+import math
 import os
 import random
 import sys
 import argparse
 import time
+import json
 from collections import Counter
 from experiment_log import append_record, new_run_id, LOG_PATH
 
@@ -20,14 +23,14 @@ import traci
 from baseline import HospitalRouters, build_state_vector
 from dqn_agent import DQNAmbulanceAgent
 from environment import SumoMedicalEnvironment
-from reward import GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas
+from reward import GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, normalize_hospital_type, reward_components, REWARD_PROFILE
 from ambulance_sim import MissionManager
 
 
 MAX_STEPS = 600
 MAX_AMBULANCES = 10
 DEFAULT_AMBULANCES = 10
-MODEL_PATH = "dqn_ambulance_model_ktas_v2.pth"
+MODEL_PATH = os.path.join("results", "models", REWARD_PROFILE, "dqn_ambulance_model_ktas_v2.pth")
 MAX_ESTIMATED_TRAVEL_TIME = 600.0
 HOSPITAL_FULL_THRESHOLD = 0.85
 
@@ -144,6 +147,10 @@ def hospital_routes(env, patient_edge, hospitals):
 
                     length = float(getattr(route, "length", 0.0))
                     travel = float(getattr(route, "travelTime", 0.0))
+                    if not math.isfinite(length) or length < 0:
+                        continue
+                    if not math.isfinite(travel):
+                        continue
                     if travel <= 0:
                         travel = max(length / 13.9, 1.0)
 
@@ -198,24 +205,24 @@ def choose(mode, router, patient_pos, ktas, hospitals, state, agent, actions):
     raise ValueError(mode)
 
 
-def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False, ambulance_count=DEFAULT_AMBULANCES):
+def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False, ambulance_count=DEFAULT_AMBULANCES, queue_policy="severity", aging_seconds=300):
     ambulance_count = max(1, min(MAX_AMBULANCES, int(ambulance_count)))
     random.seed(seed)
     np.random.seed(seed)
 
     hospitals = copy.deepcopy(base_hospitals)
     for h in hospitals:
+        normalize_hospital_type(h.get("type"))
+    for h in hospitals:
         h["occupancy"] = random.uniform(0.20, 0.60)
 
-    patients = schedule(
-        scenario,
-        [e for e in env.get_valid_edges() if any(l.allows("emergency") for l in env.net.getEdge(e).getLanes())],
-        seed,
-    )
+    patients = None  # SUMO 시작 후 실제 ambulance_custom 출발 가능 Edge로 생성
 
     router = HospitalRouters(hospitals)
 
     total_reward = 0.0
+    reward_breakdown = Counter()
+    hospital_type_assignments = Counter()
     total_time = 0.0
     golden_success = 0
     missions = 0
@@ -224,8 +231,9 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
     assignments = {h.get("id", str(i)): 0 for i, h in enumerate(hospitals)}
 
     manager = MissionManager(max_ambulances=ambulance_count, timeout=1800,
-                             max_wait=1800, verbose=False)
+                             max_wait=1800, verbose=False, queue_policy=queue_policy, aging_seconds=aging_seconds)
     outcome_rows = []
+    selected_suitability = []
     def dispatch(patient, vid):
         nonlocal route_failures
         try:
@@ -261,11 +269,20 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         if failed:
             route_failures += 1
             route_diagnostics["mission_failure"] += 1
+        if not math.isfinite(float(elapsed)) or elapsed < 0:
+            raise ValueError(f"평가 이송 경과시간 오류: {elapsed!r}, reason={reason!r}")
         reward = calculate_reward(
             travel_time=elapsed, ktas=ktas,
             pre_ktas=patient.get('pre_ktas', ktas),
             hospital=selected, golden_limit=GOLDEN_TIME_LIMITS[ktas],
             occupancy_at_selection=occupancy, route_failed=failed)
+        parts = reward_components(
+            travel_time=elapsed, ktas=ktas,
+            pre_ktas=patient.get('pre_ktas', ktas),
+            hospital=selected, golden_limit=GOLDEN_TIME_LIMITS[ktas],
+            occupancy_at_selection=occupancy, route_failed=failed)
+        reward_breakdown.update(parts)
+        hospital_type_assignments[str(selected.get("type", "unknown"))] += 1
         total_reward += reward
         total_time += elapsed
         missions += 1
@@ -285,6 +302,10 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         for idx, hospital in enumerate(hospitals):
             hospital['sumo_x'] = fresh[idx].get('sumo_x')
             hospital['sumo_y'] = fresh[idx].get('sumo_y')
+        # 학습과 동일한 검증된 출발 Edge 후보군 사용 (실제 TraCI 차량 타입 검사)
+        from train_agent import build_ambulance_edges
+        ambulance_edges = build_ambulance_edges(env, max_check=1200)
+        patients = schedule(scenario, ambulance_edges, seed)
         traci.simulationStep()  # time=1: 이벤트 시각과 실제 출동 시각 정렬
         for step in range(1, MAX_STEPS + 1800 + 1):
             if step <= MAX_STEPS and step in patients:
@@ -306,6 +327,9 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
 
     return {
         "reward": total_reward,
+        "reward_profile": REWARD_PROFILE,
+        "reward_components_sum": dict(reward_breakdown),
+        "hospital_type_assignments": dict(hospital_type_assignments),
         "avg_reward": total_reward / missions if missions else 0.0,
         "golden_rate": 100.0 * golden_success / missions if missions else 0.0,
         "rejections": 0,
@@ -313,6 +337,7 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         "missions": missions,
         "route_failures": route_failures,
         "load_std": float(np.std(list(assignments.values()))),
+        "queue_policy": queue_policy,
         "peak_active": manager.peak_active,
         "peak_waiting": manager.peak_waiting,
         "avg_wait": manager.wait_total / max(1, manager.wait_count),
@@ -321,6 +346,10 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         "failure_reasons": dict(manager.failure_reasons),
         "route_diagnostics": dict(route_diagnostics),
         "ktas_stats": manager.ktas_stats,
+        "golden_success": golden_success,
+        "patients_total": manager.completed + manager.failed,
+        "arrival_rate": 100.0 * manager.completed / max(1, manager.completed + manager.failed),
+        "failure_rate": 100.0 * manager.failed / max(1, manager.completed + manager.failed),
     }
 
 
@@ -337,143 +366,207 @@ def print_result(label, result):
     )
 
 
-def main(gui=False, ambulance_count=DEFAULT_AMBULANCES):
-    env = SumoMedicalEnvironment()
-    base_hospitals = copy.deepcopy(env.get_hospitals())
+PROFILES = ("baseline", "strong_mismatch", "balanced")
+MODEL_FILENAME = "dqn_ambulance_model_ktas_v2.pth"
 
-    state_dim = 3 + len(base_hospitals) * 4
-    agent = DQNAmbulanceAgent(state_dim, len(base_hospitals))
 
-    if not agent.load_model(MODEL_PATH):
-        print(f"[오류] 모델을 찾을 수 없습니다: {MODEL_PATH}")
-        print("먼저 train_agent.py를 실행하세요.")
+def load_agents(hospitals, profiles):
+    state_dim = 3 + len(hospitals) * 4
+    agents = {}
+    for profile in profiles:
+        path = os.path.join("results", "models", profile, MODEL_FILENAME)
+        if not os.path.isfile(path):
+            raise FileNotFoundError(f"[{profile}] 모델이 없습니다: {path}")
+        agent = DQNAmbulanceAgent(state_dim, len(hospitals))
+        if not agent.load_model(path):
+            raise RuntimeError(f"[{profile}] 모델 로딩 실패: {path}")
+        agent.epsilon = 0.0
+        agent.model.eval()
+        agents[profile] = agent
+        print(f"[모델 로딩] {profile}: {path}")
+    return agents
+
+
+def flatten_result(scenario, repeat, seed, strategy, result):
+    total = result["arrived"] + result["failed"]
+    row = {
+        "scenario_id": scenario["id"], "scenario_name": scenario["name"],
+        "repeat": repeat + 1, "seed": seed, "strategy": strategy,
+        "arrived": result["arrived"], "failed": result["failed"],
+        "patients_total": total,
+        "missions": result["missions"],
+        "arrival_rate_pct": 100.0 * result["arrived"] / total if total else 0.0,
+        "failure_rate_pct": 100.0 * result["failed"] / total if total else 0.0,
+        "golden_success": result.get("golden_success", 0),
+        "golden_rate_pct": result["golden_rate"],
+        "avg_wait_sec": result["avg_wait"],
+        "avg_mission_sec": result["avg_time"],
+        "peak_waiting": result["peak_waiting"],
+        "route_failures": result["route_failures"],
+        "hospital_load_std": result["load_std"],
+        "evaluation_reward_profile": REWARD_PROFILE,
+        "reward_sum": result["reward"],
+        "failure_reasons_json": json.dumps(result["failure_reasons"], ensure_ascii=False),
+        "route_diagnostics_json": json.dumps(result["route_diagnostics"], ensure_ascii=False),
+        "hospital_types_json": json.dumps(result["hospital_type_assignments"], ensure_ascii=False),
+    }
+    for ktas in range(1, 6):
+        stats = result["ktas_stats"].get(ktas, result["ktas_stats"].get(str(ktas), {}))
+        arrived = int(stats.get("arrived", 0))
+        failed = int(stats.get("failed", 0))
+        row[f"ktas{ktas}_arrived"] = arrived
+        row[f"ktas{ktas}_failed"] = failed
+        row[f"ktas{ktas}_arrival_rate_pct"] = 100.0 * arrived / (arrived + failed) if arrived + failed else ""
+    return row
+
+
+def write_csv(path, rows):
+    if not rows:
         return
-
-    agent.epsilon = 0.0
-    agent.model.eval()
-
-    selected = input("실행할 시나리오 번호(0=전체): ").strip()
-
-    if selected == "0":
-        scenarios = SCENARIOS
-    else:
-        try:
-            sid = int(selected)
-            scenarios = [s for s in SCENARIOS if s["id"] == sid]
-        except ValueError:
-            scenarios = []
-
-    if not scenarios:
-        print("[오류] 시나리오 번호가 올바르지 않습니다.")
-        return
-
-    results_dir = os.path.join("results", "evaluation")
-    os.makedirs(results_dir, exist_ok=True)
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_id = new_run_id("eval")
-    run_started = time.monotonic()
-    append_record(run_id, "evaluation", "run_start", status="started",
-                  ambulance_limit=ambulance_count, model_path=MODEL_PATH,
-                  metrics={"scenario_ids": [s["id"] for s in scenarios],
-                           "gui": gui, "strategies": [label for _, label in STRATEGIES]})
-    print(f"[통합 실험 로그] {LOG_PATH} | 실행 ID: {run_id}")
-
-    overall = {mode: [] for mode, _ in STRATEGIES}
-
-    for scenario in scenarios:
-        seed = 30000 + scenario["id"]
-
-        print(
-            f"\n{'=' * 90}\n"
-            f"시나리오 {scenario['id']} 평가: {scenario['name']}\n"
-            f"{'=' * 90}"
-        )
-
-        for mode, label in STRATEGIES:
-            result = run_single(
-                env,
-                base_hospitals,
-                scenario,
-                seed,
-                mode,
-                agent if mode == "dqn" else None,
-                gui=gui, ambulance_count=ambulance_count,
-            )
-
-            overall[mode].append(result)
-            print_result(label, result)
-
-            append_record(
-                run_id, "evaluation", "strategy_result",
-                scenario_id=scenario["id"], scenario_name=scenario["name"],
-                strategy=label, status="completed",
-                ambulance_limit=ambulance_count, model_path=MODEL_PATH,
-                duration_seconds=round(time.monotonic() - run_started, 2),
-                metrics=result
-            )
-
-    print("\n" + "=" * 90)
-    print("최종 평균 결과")
-    print("=" * 90)
-
-    for mode, label in STRATEGIES:
-        rs = overall[mode]
-        if not rs:
-            continue
-
-        line = (
-            f"{label:<14} | "
-            f"보상 {sum(r['reward'] for r in rs):10.2f} | "
-            f"골든타임 {np.mean([r['golden_rate'] for r in rs]):6.1f}% | "
-            f"완료 {sum(r['missions'] for r in rs):4d} | "
-            f"평균시간 {np.mean([r['avg_time'] for r in rs]):7.1f}s"
-        )
-        print(line)
-
-        append_record(run_id, "evaluation", "strategy_average", strategy=label,
-                      status="completed", ambulance_limit=ambulance_count,
-                      model_path=MODEL_PATH,
-                      metrics={"reward_sum": sum(r["reward"] for r in rs),
-                               "golden_rate_mean": float(np.mean([r["golden_rate"] for r in rs])),
-                               "missions_sum": sum(r["missions"] for r in rs),
-                               "avg_time_mean": float(np.mean([r["avg_time"] for r in rs]))})
-
-    save_evaluation_graphs(overall, results_dir, timestamp)
-    append_record(run_id, "evaluation", "run_end", status="completed",
-                  ambulance_limit=ambulance_count, model_path=MODEL_PATH,
-                  duration_seconds=round(time.monotonic() - run_started, 2),
-                  metrics={"evaluated_scenarios": len(scenarios)})
-    print(f"\n통합 실험 로그 CSV: {LOG_PATH}")
-    print(f"실행 ID: {run_id}")
+    with open(path, "w", newline="", encoding="utf-8-sig") as file:
+        writer = csv.DictWriter(file, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
+    print(f"[CSV 저장] {path}")
 
 
-def save_evaluation_graphs(overall, results_dir, timestamp):
+def make_summary(rows):
+    by_strategy = {}
+    for row in rows:
+        by_strategy.setdefault(row["strategy"], []).append(row)
+    summary = []
+    for strategy, group in by_strategy.items():
+        total = sum(x["patients_total"] for x in group)
+        arrived = sum(x["arrived"] for x in group)
+        failed = sum(x["failed"] for x in group)
+        # 골든타임은 실제 평가된 유효 임무(missions) 기준으로 집계한다.
+        golden_success = sum(x["golden_success"] for x in group)
+        missions = sum(x["missions"] for x in group) if "missions" in group[0] else 0
+        record = {
+            "strategy": strategy, "runs": len(group), "patients_total": total,
+            "arrived": arrived, "failed": failed,
+            "arrival_rate_pct": 100.0 * arrived / total if total else 0.0,
+            "failure_rate_pct": 100.0 * failed / total if total else 0.0,
+            "golden_rate_pct": 100.0 * golden_success / missions if missions else 0.0,
+            "avg_wait_sec": float(np.mean([x["avg_wait_sec"] for x in group])),
+            "avg_mission_sec": float(np.mean([x["avg_mission_sec"] for x in group])),
+            "peak_waiting_mean": float(np.mean([x["peak_waiting"] for x in group])),
+        }
+        for ktas in range(1, 6):
+            a = sum(x[f"ktas{ktas}_arrived"] for x in group)
+            f = sum(x[f"ktas{ktas}_failed"] for x in group)
+            record[f"ktas{ktas}_arrival_rate_pct"] = 100.0 * a / (a + f) if a + f else ""
+        summary.append(record)
+    return summary
+
+
+def save_comparison_graphs(summary, output_dir, timestamp):
     try:
         import matplotlib
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
-        labels = [label for _, label in STRATEGIES]
-        rewards = [np.mean([r["avg_reward"] for r in overall[mode]]) if overall[mode] else 0
-                   for mode, _ in STRATEGIES]
-        golden = [np.mean([r["golden_rate"] for r in overall[mode]]) if overall[mode] else 0
-                  for mode, _ in STRATEGIES]
-        for values, title, ylabel, suffix in [
-            (rewards, "Average Reward by Strategy", "Average reward", "avg_reward"),
-            (golden, "Golden-Time Success Rate by Strategy", "Success rate (%)", "golden_rate"),
-        ]:
-            plt.figure(figsize=(10, 5)); plt.bar(labels, values)
-            plt.title(title); plt.ylabel(ylabel); plt.xticks(rotation=20, ha="right")
-            plt.grid(axis="y", alpha=0.3); plt.tight_layout()
-            out = os.path.join(results_dir, f"{suffix}_{timestamp}.png")
-            plt.savefig(out, dpi=150); plt.close(); print(f"그래프 저장: {out}")
     except ImportError:
-        print("[안내] 그래프 저장을 위해 'pip install matplotlib'을 실행하세요.")
+        print("[안내] 그래프를 저장하려면 pip install matplotlib")
+        return
+    labels = [r["strategy"] for r in summary]
+    for key, title, ylabel in [
+        ("arrival_rate_pct", "Patient Arrival Rate", "Arrival rate (%)"),
+        ("golden_rate_pct", "Golden-Time Success Rate", "Success rate (%)"),
+        ("avg_wait_sec", "Average Queue Waiting Time", "Seconds"),
+    ]:
+        plt.figure(figsize=(12, 5))
+        plt.bar(labels, [r[key] for r in summary])
+        plt.title(title)
+        plt.ylabel(ylabel)
+        plt.xticks(rotation=30, ha="right")
+        plt.grid(axis="y", alpha=0.25)
+        plt.tight_layout()
+        path = os.path.join(output_dir, f"comparison_{key}_{timestamp}.png")
+        plt.savefig(path, dpi=150)
+        plt.close()
+        print(f"[그래프 저장] {path}")
+
+
+def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
+         repeats=1, profiles=None, seed_base=30000, queue_policy="severity",
+         aging_seconds=300):
+    if repeats < 1:
+        raise ValueError("--repeats는 1 이상이어야 합니다")
+    profiles = list(PROFILES if profiles is None else profiles)
+    env = SumoMedicalEnvironment()
+    base_hospitals = copy.deepcopy(env.get_hospitals())
+    for hospital in base_hospitals:
+        normalize_hospital_type(hospital.get("type"))
+    agents = load_agents(base_hospitals, profiles)
+    scenarios = [s for s in SCENARIOS if scenario_ids is None or s["id"] in scenario_ids]
+    if not scenarios:
+        raise ValueError("선택된 시나리오가 없습니다")
+    if gui and (len(scenarios) * repeats * (len(agents) + 5) > 1):
+        print("[주의] GUI 모드에서는 SUMO 창이 실험마다 실행됩니다")
+    results_dir = os.path.join("results", "evaluation")
+    os.makedirs(results_dir, exist_ok=True)
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_id = new_run_id("compare")
+    started = time.monotonic()
+    all_rows = []
+    modes = [(mode, label, None) for mode, label in STRATEGIES if mode != "dqn"]
+    modes += [("dqn", f"dqn_{profile}", agents[profile]) for profile in profiles]
+    print(f"[비교 실험] {len(scenarios)}개 시나리오 × {repeats}회 × {len(modes)}개 전략")
+    print(f"[공통 평가 보상 프로필] {REWARD_PROFILE} (모델 학습 프로필과 별개)")
+    append_record(run_id, "evaluation", "run_start", status="started",
+                  ambulance_limit=ambulance_count,
+                  metrics={"scenarios": [s["id"] for s in scenarios],
+                           "repeats": repeats, "profiles": profiles,
+                           "seed_base": seed_base, "evaluation_reward_profile": REWARD_PROFILE})
+    for scenario in scenarios:
+        for repeat in range(repeats):
+            seed = seed_base + scenario["id"] + repeat * 1000
+            print(f"\n{'=' * 76}\n시나리오 {scenario['id']} ({scenario['name']}) "
+                  f"반복 {repeat+1}/{repeats} | seed={seed}\n{'=' * 76}")
+            for mode, label, agent in modes:
+                result = run_single(env, base_hospitals, scenario, seed, mode,
+                                    agent=agent, gui=gui, ambulance_count=ambulance_count,
+                                    queue_policy=queue_policy, aging_seconds=aging_seconds)
+                print_result(label, result)
+                row = flatten_result(scenario, repeat, seed, label, result)
+                all_rows.append(row)
+                append_record(run_id, "evaluation", "strategy_result",
+                              scenario_id=scenario["id"], scenario_name=scenario["name"],
+                              strategy=label, status="completed",
+                              ambulance_limit=ambulance_count,
+                              model_path=os.path.join("results", "models", label[4:], MODEL_FILENAME)
+                              if label.startswith("dqn_") else "",
+                              duration_seconds=round(time.monotonic() - started, 2),
+                              metrics=result)
+                # 중간에 실행이 중단되어도 완료된 평가를 보존한다.
+                write_csv(os.path.join(results_dir, f"comparison_detail_{timestamp}.csv"), all_rows)
+    summary = make_summary(all_rows)
+    write_csv(os.path.join(results_dir, f"comparison_summary_{timestamp}.csv"), summary)
+    print("\n" + "=" * 76 + "\n최종 비교 (도착률 / 골든타임 / 평균 대기)\n" + "=" * 76)
+    for row in summary:
+        print(f"{row['strategy']:<23} | {row['arrival_rate_pct']:5.1f}% | "
+              f"{row['golden_rate_pct']:5.1f}% | {row['avg_wait_sec']:7.1f}s")
+    save_comparison_graphs(summary, results_dir, timestamp)
+    append_record(run_id, "evaluation", "run_end", status="completed",
+                  ambulance_limit=ambulance_count,
+                  duration_seconds=round(time.monotonic() - started, 2),
+                  metrics={"rows": len(all_rows), "summary": summary})
+    print(f"\n[완료] 실행 ID: {run_id} | 결과 폴더: {results_dir}")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="구급차 경로 전략 평가")
-    parser.add_argument("--gui", action="store_true", help="SUMO-GUI로 실행")
-    parser.add_argument("--ambulances", type=int, default=DEFAULT_AMBULANCES,
-                        help="구급차 대수(최대 10)")
+    parser = argparse.ArgumentParser(description="KTAS 구급차 병원배정 전략 및 DQN 보상 프로필 비교")
+    parser.add_argument("--gui", action="store_true")
+    parser.add_argument("--ambulances", type=int, default=DEFAULT_AMBULANCES)
+    parser.add_argument("--scenarios", nargs="+", type=int, choices=range(1, 10),
+                        metavar="ID", help="시나리오 번호 1~9 (기본: 전체)")
+    parser.add_argument("--repeats", type=int, default=1)
+    parser.add_argument("--profiles", nargs="+", choices=PROFILES, default=list(PROFILES))
+    parser.add_argument("--seed-base", type=int, default=30000)
+    parser.add_argument("--queue-policy", choices=["fifo", "severity", "hybrid"], default="severity")
+    parser.add_argument("--aging-seconds", type=int, default=300)
     args = parser.parse_args()
-    main(gui=args.gui, ambulance_count=args.ambulances)
+    main(gui=args.gui, ambulance_count=args.ambulances,
+         scenario_ids=args.scenarios, repeats=args.repeats,
+         profiles=args.profiles, seed_base=args.seed_base,
+         queue_policy=args.queue_policy, aging_seconds=args.aging_seconds)
