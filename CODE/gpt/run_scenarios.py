@@ -23,7 +23,7 @@ import traci
 from baseline import HospitalRouters, build_state_vector
 from dqn_agent import DQNAmbulanceAgent
 from environment import SumoMedicalEnvironment
-from reward import GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, normalize_hospital_type, reward_components, REWARD_PROFILE
+from reward import GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, normalize_hospital_type, reward_components, get_hospital_suitability, REWARD_PROFILE
 from ambulance_sim import MissionManager
 
 
@@ -234,6 +234,18 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
                              max_wait=1800, verbose=False, queue_policy=queue_policy, aging_seconds=aging_seconds)
     outcome_rows = []
     patient_records = []
+    candidate_reachable_counts = []
+    hospital_diagnostics = [dict(hospital_index=i, hospital_id=str(h.get('id', i)),
+                                 hospital_type=str(h.get('type', '')),
+                                 checked=0, reachable=0, valid_action=0, selected=0)
+                            for i, h in enumerate(hospitals)]
+    # Each observation is taken BEFORE one MissionManager.step (one SUMO second).
+    active_vehicle_seconds = 0
+    full_capacity_seconds = 0
+    queued_patient_seconds = 0
+    observed_seconds = 0
+    dispatched_service_seconds = 0.0
+    completed_dispatches = 0
     def dispatch(patient, vid):
         nonlocal route_failures
         try:
@@ -244,7 +256,13 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             return None
         ktas = normalize_ktas(patient['ktas'])
         routed = hospital_routes(env, patient['edge_id'], hospitals)
+        candidate_reachable_counts.append(sum(bool(h.get("reachable")) for h in routed))
         actions = valid_actions(routed)
+        for i, h in enumerate(routed):
+            stat = hospital_diagnostics[i]
+            stat['checked'] += 1
+            stat['reachable'] += int(bool(h.get('reachable', False)))
+            stat['valid_action'] += int(i in actions)
         if not actions:
             route_diagnostics["no_reachable_hospital"] += 1
             return None
@@ -255,6 +273,7 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             route_diagnostics["invalid_action"] += 1
             return None
         selected = copy.deepcopy(routed[action])
+        hospital_diagnostics[action]['selected'] += 1
         # 선택 가능한 병원 집합에서의 반사실적 최단시간 대안.
         # 대기열에서 dispatch가 호출되는 시점의 병원 상태를 기록한다.
         alternatives = [(i, float(routed[i].get("estimated_travel_time", MAX_ESTIMATED_TRAVEL_TIME)))
@@ -272,9 +291,20 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         patient["_selected_hospital_id"] = str(selected.get("id", action))
         patient["_selected_estimated_time"] = selected.get("estimated_travel_time")
         patient["_selected_occupancy"] = float(selected.get("occupancy", 0.0))
+        # 선택 가능한 후보에 한정한 연구용 병원 적합도 진단.
+        fits = [(i, get_hospital_suitability(ktas, routed[i])) for i in actions]
+        best_fit_idx, best_fit = max(fits, key=lambda pair: pair[1])
+        patient["_selected_suitability"] = get_hospital_suitability(ktas, selected)
+        patient["_best_candidate_suitability"] = best_fit
+        patient["_best_fit_hospital_id"] = str(routed[best_fit_idx].get("id", best_fit_idx))
+        patient["_suitability_gap"] = max(0.0, best_fit - patient["_selected_suitability"])
         return selected['hospital_edge'], (action, selected, float(selected.get('occupancy', 0.)))
 
     def finish(patient, payload, arrived, elapsed, wait, reason):
+        nonlocal dispatched_service_seconds, completed_dispatches
+        if payload is not None:
+            dispatched_service_seconds += max(0.0, float(elapsed) - float(wait))
+            completed_dispatches += 1
         # finish 호출 시점은 임무 종료 시각이며 구급차 재가용 시각과 같다고 보장할 수 없다.
         patient_records.append({
             "occurrence_time": patient.get("occurrence_time", ""),
@@ -288,6 +318,7 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             "arrived": int(bool(arrived)),
             "wait_sec": wait,
             "elapsed_sec": elapsed,
+            "post_dispatch_sec": (max(0.0, float(elapsed) - float(wait)) if payload is not None else ""),
             "failure_reason": reason or "",
             "was_dispatched": int(payload is not None),
             "selected_hospital_id_at_dispatch": patient.get("_selected_hospital_id", ""),
@@ -299,6 +330,10 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             "fastest_estimated_time_sec": patient.get("_fastest_estimated_time", ""),
             "selected_time_rank": patient.get("_selected_time_rank", ""),
             "extra_estimated_time_sec": patient.get("_extra_estimated_time", ""),
+            "selected_suitability": patient.get("_selected_suitability", ""),
+            "best_candidate_suitability": patient.get("_best_candidate_suitability", ""),
+            "best_fit_hospital_id": patient.get("_best_fit_hospital_id", ""),
+            "suitability_gap": patient.get("_suitability_gap", ""),
         })
         nonlocal total_reward, total_time, golden_success, missions, route_failures
         if payload is None:
@@ -314,12 +349,12 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         if not math.isfinite(float(elapsed)) or elapsed < 0:
             raise ValueError(f"평가 이송 경과시간 오류: {elapsed!r}, reason={reason!r}")
         reward = calculate_reward(
-            travel_time=elapsed, ktas=ktas,
+            travel_time=max(0.0, elapsed - wait), ktas=ktas,
             pre_ktas=patient.get('pre_ktas', ktas),
             hospital=selected, golden_limit=GOLDEN_TIME_LIMITS[ktas],
             occupancy_at_selection=occupancy, route_failed=failed)
         parts = reward_components(
-            travel_time=elapsed, ktas=ktas,
+            travel_time=max(0.0, elapsed - wait), ktas=ktas,
             pre_ktas=patient.get('pre_ktas', ktas),
             hospital=selected, golden_limit=GOLDEN_TIME_LIMITS[ktas],
             occupancy_at_selection=occupancy, route_failed=failed)
@@ -354,6 +389,11 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
                 patient = dict(patients[step])
                 patient['occurrence_time'] = float(step)
                 manager.enqueue(patient)
+            # Sample capacity and queue BEFORE the step; does not advance SUMO.
+            active_vehicle_seconds += len(manager.active)
+            full_capacity_seconds += int(len(manager.active) >= manager.limit)
+            queued_patient_seconds += len(manager.waiting)
+            observed_seconds += 1
             manager.step(dispatch, finish, prefix=f'amb_eval_{mode}_{scenario["id"]}_')
             if step >= MAX_STEPS and not manager.active and not manager.waiting:
                 break
@@ -363,12 +403,32 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             traci.close()
         except Exception:
             pass
+    if candidate_reachable_counts:
+        print(f"[병원 후보 진단] {mode} 검사 환자={len(candidate_reachable_counts)}, "
+              f"도달 가능 병원 평균={np.mean(candidate_reachable_counts):.2f}/10, "
+              f"0개={sum(v == 0 for v in candidate_reachable_counts)}, "
+              f"1~3개={sum(1 <= v <= 3 for v in candidate_reachable_counts)}, "
+              f"4~7개={sum(4 <= v <= 7 for v in candidate_reachable_counts)}, "
+              f"8~10개={sum(8 <= v <= 10 for v in candidate_reachable_counts)}")
+    utilization = active_vehicle_seconds / (ambulance_count * observed_seconds) if observed_seconds else 0.0
+    print(f"[가용성 진단] {mode} 차량점유율={100*utilization:.1f}% "
+          f"전대운행시간비율={100*full_capacity_seconds/max(1,observed_seconds):.1f}% "
+          f"평균대기열={queued_patient_seconds/max(1,observed_seconds):.1f}명 "
+          f"출동임무평균점유시간={dispatched_service_seconds/max(1,completed_dispatches):.1f}s")
+    print(f"[병원별 도달성] {mode} " + ', '.join(
+        f"{h['hospital_index']}:{h['reachable']}/{h['checked']}"
+        for h in hospital_diagnostics))
     print(f"[대기열] {mode} 최대 운행={manager.peak_active}/{ambulance_count}, "
           f"최대 대기={manager.peak_waiting}, 도착={manager.completed}, "
           f"실패={manager.failed}, 평균 대기={manager.wait_total/max(1,manager.wait_count):.1f}s")
 
     return {
         "patient_records": patient_records,
+        "hospital_diagnostics": hospital_diagnostics,
+        "vehicle_utilization_pct": 100.0 * utilization,
+        "full_capacity_pct": 100.0 * full_capacity_seconds / max(1, observed_seconds),
+        "mean_queue_length": queued_patient_seconds / max(1, observed_seconds),
+        "mean_dispatch_service_sec": dispatched_service_seconds / max(1, completed_dispatches),
         "reward": total_reward,
         "reward_profile": REWARD_PROFILE,
         "reward_components_sum": dict(reward_breakdown),
@@ -388,6 +448,8 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         "failed": manager.failed,
         "failure_reasons": dict(manager.failure_reasons),
         "route_diagnostics": dict(route_diagnostics),
+        "candidate_reachable_mean": float(np.mean(candidate_reachable_counts)) if candidate_reachable_counts else None,
+        "candidate_reachable_zero": sum(v == 0 for v in candidate_reachable_counts),
         "ktas_stats": manager.ktas_stats,
         "golden_success": golden_success,
         "patients_total": manager.completed + manager.failed,
@@ -409,7 +471,7 @@ def print_result(label, result):
     )
 
 
-PROFILES = ("baseline", "strong_mismatch", "balanced")
+PROFILES = ("baseline", "strong_mismatch", "balanced", "travel_guard", "fit_guard")
 MODEL_FILENAME = "dqn_ambulance_model_ktas_v2.pth"
 
 
@@ -446,11 +508,17 @@ def flatten_result(scenario, repeat, seed, strategy, result):
         "avg_mission_sec": result["avg_time"],
         "peak_waiting": result["peak_waiting"],
         "route_failures": result["route_failures"],
+        "vehicle_utilization_pct": result.get("vehicle_utilization_pct"),
+        "full_capacity_pct": result.get("full_capacity_pct"),
+        "mean_queue_length": result.get("mean_queue_length"),
+        "mean_dispatch_service_sec": result.get("mean_dispatch_service_sec"),
         "hospital_load_std": result["load_std"],
         "evaluation_reward_profile": REWARD_PROFILE,
         "reward_sum": result["reward"],
         "failure_reasons_json": json.dumps(result["failure_reasons"], ensure_ascii=False),
         "route_diagnostics_json": json.dumps(result["route_diagnostics"], ensure_ascii=False),
+        "candidate_reachable_mean": result.get("candidate_reachable_mean"),
+        "candidate_reachable_zero": result.get("candidate_reachable_zero"),
         "hospital_types_json": json.dumps(result["hospital_type_assignments"], ensure_ascii=False),
     }
     for ktas in range(1, 6):
@@ -508,6 +576,8 @@ def save_comparison_graphs(summary, output_dir, timestamp):
         import matplotlib
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
+        plt.rcParams["font.family"] = "Malgun Gothic"
+        plt.rcParams["axes.unicode_minus"] = False
     except ImportError:
         print("[안내] 그래프를 저장하려면 pip install matplotlib")
         return
@@ -553,6 +623,7 @@ def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
     started = time.monotonic()
     all_rows = []
     all_patients = []
+    all_hospitals = []
     modes = [(mode, label, None) for mode, label in STRATEGIES if mode != "dqn"]
     modes += [("dqn", f"dqn_{profile}", agents[profile]) for profile in profiles]
     print(f"[비교 실험] {len(scenarios)}개 시나리오 × {repeats}회 × {len(modes)}개 전략")
@@ -572,6 +643,11 @@ def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
                                     agent=agent, gui=gui, ambulance_count=ambulance_count,
                                     queue_policy=queue_policy, aging_seconds=aging_seconds)
                 print_result(label, result)
+                for h in result.pop('hospital_diagnostics', []):
+                    all_hospitals.append({'scenario_id': scenario['id'],
+                                          'repeat': repeat + 1, 'seed': seed,
+                                          'strategy': label, **h})
+                write_csv(os.path.join(results_dir, f"hospital_reachability_{timestamp}.csv"), all_hospitals)
                 for patient_row in result.pop("patient_records", []):
                     all_patients.append({"scenario_id": scenario["id"],
                                          "repeat": repeat + 1, "seed": seed,
@@ -590,6 +666,18 @@ def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
                 # 중간에 실행이 중단되어도 완료된 평가를 보존한다.
                 write_csv(os.path.join(results_dir, f"comparison_detail_{timestamp}.csv"), all_rows)
     summary = make_summary(all_rows)
+    # 환자 단위 선택 기록으로 별도 진단 지표 집계 (미출동 환자 제외).
+    for record in summary:
+        selected = [p for p in all_patients if p["strategy"] == record["strategy"]
+                    and p.get("selected_suitability", "") != ""]
+        severe = [p for p in selected if int(p["pre_ktas"]) in (1, 2)]
+        record["dispatched_count"] = len(selected)
+        record["mean_selected_suitability"] = (float(np.mean([float(p["selected_suitability"]) for p in selected])) if selected else "")
+        record["mean_suitability_gap"] = (float(np.mean([float(p["suitability_gap"]) for p in selected])) if selected else "")
+        record["mean_extra_estimated_time_sec"] = (float(np.mean([float(p["extra_estimated_time_sec"]) for p in selected])) if selected else "")
+        record["severe_dispatched_count"] = len(severe)
+        record["severe_low_fit_count"] = sum(float(p["selected_suitability"]) < 0.5 for p in severe)
+        record["severe_low_fit_pct"] = (100.0 * record["severe_low_fit_count"] / len(severe) if severe else "")
     write_csv(os.path.join(results_dir, f"comparison_summary_{timestamp}.csv"), summary)
     print("\n" + "=" * 76 + "\n최종 비교 (도착률 / 골든타임 / 평균 대기)\n" + "=" * 76)
     for row in summary:

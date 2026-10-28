@@ -41,6 +41,9 @@ class RewardWeights:
     rejection: float = 12.0
     route_failure: float = 20.0
     overcrowding: float = 5.0
+    under_capacity: float = 0.0
+    over_capacity: float = 0.0
+    exact_capacity_bonus: float = 0.0
 
 
 REWARD_PROFILES = {
@@ -51,6 +54,18 @@ REWARD_PROFILES = {
         travel=6.0,
         occupancy=12.0,
     ),
+    "capacity_guard": RewardWeights(
+        mismatch=0.0,
+        under_capacity=20.0,
+        over_capacity=8.0,
+        exact_capacity_bonus=5.0,
+        travel=6.0,
+        occupancy=12.0,
+    ),
+    # 실험 A: Balanced 대비 이동시간 패널티만 강화
+    "travel_guard": RewardWeights(mismatch=36.0, travel=10.0, occupancy=12.0),
+    # 실험 B: Balanced 대비 부적합 패널티만 강화
+    "fit_guard": RewardWeights(mismatch=48.0, travel=6.0, occupancy=12.0),
 }
 
 REWARD_PROFILE = os.getenv(
@@ -151,6 +166,27 @@ def get_hospital_suitability(
     )
 
 
+
+# 연구용 3단계 병원 역량 모델 (실제 진료과별 수용능력과는 구분)
+HOSPITAL_CAPACITY_LEVELS = {
+    "권역응급의료센터": 3,
+    "지역응급의료센터": 2,
+    "지역응급의료기관": 1,
+    "응급실운영신고기관": 1,
+}
+PATIENT_REQUIRED_CAPACITY = {1: 3, 2: 3, 3: 2, 4: 1, 5: 1}
+
+def capacity_penalty_components(pre_ktas, hospital, under_weight=0.0,
+                                over_weight=0.0, exact_bonus=0.0):
+    k = normalize_ktas(pre_ktas)
+    hospital_type = normalize_hospital_type(hospital.get("type"))
+    gap = HOSPITAL_CAPACITY_LEVELS[hospital_type] - PATIENT_REQUIRED_CAPACITY[k]
+    return {
+        "under_capacity": -float(under_weight) * max(-gap, 0) ** 2,
+        "over_capacity": -float(over_weight) * max(gap, 0) ** 2,
+        "exact_capacity_bonus": float(exact_bonus) if gap == 0 else 0.0,
+    }
+
 def reward_components(
     travel_time,
     ktas,
@@ -209,6 +245,10 @@ def reward_components(
     )
 
     # 6. 보상 계산
+    capacity_parts = capacity_penalty_components(
+        k, hospital, weights.under_capacity, weights.over_capacity,
+        weights.exact_capacity_bonus,
+    )
     return {
         "golden": (
             weights.golden
@@ -240,6 +280,7 @@ def reward_components(
             -weights.route_failure
             if route_failed else 0.0
         ),
+        **capacity_parts,
     }
 
 

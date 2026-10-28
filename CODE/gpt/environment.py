@@ -4,7 +4,8 @@
 핵심 수정:
 1) SUMO 시작 전 convertGeo()를 호출하지 않음.
 2) 병원 원본 위경도를 보관하고 SUMO 시작 후 update_hospital_coordinates()에서 변환.
-3) ambulance_custom이 실제로 출발할 수 있는 edge 후보를 별도로 관리.
+3) 병원 수를 고정하지 않고 지도 내부의 가까운 주행 가능 edge를 가진 병원만 등록.
+4) ambulance_custom이 실제로 출발할 수 있는 edge 후보를 별도로 관리.
 """
 
 import json
@@ -65,53 +66,77 @@ class SumoMedicalEnvironment:
         print(f"병원 수 : {len(self.hospitals)}")
 
     def _load_hospitals(self):
-        hospitals = []
+        """도로망 경계와 도로 접근성으로 실제 응급실 후보를 선정한다.
 
-        try:
-            with open(self.json_path, "r", encoding="utf-8") as f:
-                raw = json.load(f)
+        주의: 이 검사는 정적 도로 접근성 검사이며, TraCI 주행 경로 검사는 별도다.
+        """
+        with open(self.json_path, "r", encoding="utf-8") as f:
+            raw = json.load(f)
 
-            for h in raw.get("DATA", [])[:10]:
-                try:
-                    lat = float(h["wgs84lat"])
-                    lon = float(h["wgs84lon"])
-                except (KeyError, TypeError, ValueError):
-                    continue
+        boundary = self.net.getBoundary()  # SUMO XY: xmin, ymin, xmax, ymax
+        candidates = []
+        rejected = {"invalid_coordinate": 0, "outside_network": 0,
+                    "no_nearby_road": 0, "duplicate_id": 0}
+        seen_ids = set()
+        for h in raw.get("DATA", []):
+            try:
+                lat, lon = float(h["wgs84lat"]), float(h["wgs84lon"])
+                if not (-90 <= lat <= 90 and -180 <= lon <= 180):
+                    raise ValueError("invalid latitude/longitude")
+                x, y = self.net.convertLonLat2XY(lon, lat)
+            except (KeyError, TypeError, ValueError, OverflowError):
+                rejected["invalid_coordinate"] += 1
+                continue
 
-                hospitals.append({
-                    "id": h.get("hpid", f"H{len(hospitals)+1}"),
-                    "name": h.get("dutyname", "응급실"),
-                    "lat": lat,
-                    "lon": lon,
-                    "sumo_x": None,
-                    "sumo_y": None,
-                    "type": h.get("dutyemclsname", "응급실운영신고기관"),
-                    "occupancy": random.uniform(0.20, 0.60),
-                })
+            if not (boundary[0] <= x <= boundary[2] and boundary[1] <= y <= boundary[3]):
+                rejected["outside_network"] += 1
+                continue
 
-        except Exception as e:
-            print(f"[경고] 응급실 데이터 로딩 실패: {e}")
+            # 도로와의 직선거리가 500m 이하인 후보만 허용한다.
+            nearby = self.net.getNeighboringEdges(x, y, r=500.0)
+            nearby = [(edge, dist) for edge, dist in nearby
+                      if not edge.getID().startswith(":")
+                      and any(lane.allows("emergency") or lane.allows("passenger")
+                              for lane in edge.getLanes())]
+            if not nearby:
+                rejected["no_nearby_road"] += 1
+                continue
 
-        if not hospitals:
-            hospitals = [
-                {
-                    "id": "H1", "name": "강남성모", "lat": None, "lon": None,
-                    "sumo_x": 1000.0, "sumo_y": 1000.0,
-                    "type": "권역응급의료센터", "occupancy": 0.40
-                },
-                {
-                    "id": "H2", "name": "강남세브란스", "lat": None, "lon": None,
-                    "sumo_x": 3000.0, "sumo_y": 2500.0,
-                    "type": "지역응급의료센터", "occupancy": 0.50
-                },
-                {
-                    "id": "H3", "name": "서울아산", "lat": None, "lon": None,
-                    "sumo_x": 5000.0, "sumo_y": 4000.0,
-                    "type": "지역응급의료기관", "occupancy": 0.30
-                },
-            ]
+            hospital_id = h.get("hpid") or f"H_{len(candidates)+1}"
+            if hospital_id in seen_ids:
+                rejected["duplicate_id"] += 1
+                continue
+            seen_ids.add(hospital_id)
+            nearest_edge, nearest_dist = min(nearby, key=lambda pair: pair[1])
+            candidates.append({
+                "id": hospital_id,
+                "name": h.get("dutyname", "응급실"),
+                "lat": lat, "lon": lon,
+                "sumo_x": None, "sumo_y": None,
+                "type": h.get("dutyemclsname", "응급실운영신고기관"),
+                "occupancy": random.uniform(0.20, 0.60),
+                "nearest_edge": nearest_edge.getID(),
+                "nearest_edge_distance_m": round(nearest_dist, 1),
+            })
 
-        return hospitals
+        # 병원 수를 강제로 10개로 맞추지 않고, 실제 도로 접근 후보만 사용한다.
+        # 동일한 JSON/도로망에서 병원 인덱스가 재현되도록 ID로 정렬한다.
+        candidates.sort(key=lambda h: str(h["id"]))
+        print(f"[Step17] 전체 데이터={len(raw.get('DATA', []))}, "
+              f"도로 접근 후보={len(candidates)}, 제외={rejected}")
+        if not candidates:
+            raise RuntimeError(
+                "SUMO 도로망에서 접근 가능한 병원이 0개입니다. "
+                "JSON 좌표와 도로망 범위, 탐색 반경을 확인하세요."
+            )
+        for i, h in enumerate(candidates, 1):
+            print(f"[Step17] {i:02d} {h['name']} / {h['id']} / "
+                  f"연결 후보 엣지 {h['nearest_edge']} ({h['nearest_edge_distance_m']}m)")
+        print(f"[Step17] DQN 차원: 상태={3 + 4 * len(candidates)}, "
+              f"행동={len(candidates)}")
+        print("[Step17] 주의: 가까운 엣지 존재만으로 모든 환자 지점에서의 경로가 "
+              "보장되지는 않습니다. 실제 배정 시 findRoute 검증을 유지하세요.")
+        return candidates
 
     def update_hospital_coordinates(self):
         """SUMO가 연결된 뒤 병원 위경도를 SUMO 좌표로 변환."""
