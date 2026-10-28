@@ -1,0 +1,13 @@
+***Starting server on port 49204 ***
+Loading net-file from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.net.xml.gz' ... done (3720ms).
+Loading additional-files from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\output.add.xml' ... done (48ms).
+Loading additional-files from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\hospitals.add.xml' ... done (3ms).
+Loading additional-files from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\fire_stations.add.xml' ... done (1ms).
+Loading route-files incrementally from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.passenger.trips.xml'
+Loading route-files incrementally from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\ambulance_routes.rou.xml'
+Loading done.
+Simulation version 1.27.1 started with time: 0.00.
+DijkstraRouter answered 1543 queries and explored 1323.60 edges on average.
+DijkstraRouter spent 4.48s answering queries (2.90ms on average).
+DijkstraRouter answered 3834 queries and explored 7768.79 edges on average.
+DijkstraRouter spent 42.10s answering queries (10.98ms on average).

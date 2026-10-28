@@ -24,7 +24,8 @@ from baseline import HospitalRouters, build_state_vector
 from dqn_agent import DQNAmbulanceAgent
 from environment import SumoMedicalEnvironment
 from reward import GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, normalize_hospital_type, reward_components, get_hospital_suitability, REWARD_PROFILE
-from ambulance_sim import MissionManager
+from CODE.불필요코드.ambulance_sim import MissionManager
+from gui_ambulance_camera import AmbulanceFollowCamera
 
 
 MAX_STEPS = 600
@@ -205,7 +206,7 @@ def choose(mode, router, patient_pos, ktas, hospitals, state, agent, actions):
     raise ValueError(mode)
 
 
-def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False, ambulance_count=DEFAULT_AMBULANCES, queue_policy="severity", aging_seconds=300):
+def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False, ambulance_count=DEFAULT_AMBULANCES, queue_policy="severity", aging_seconds=300, gui_zoom=900.0):
     ambulance_count = max(1, min(MAX_AMBULANCES, int(ambulance_count)))
     random.seed(seed)
     np.random.seed(seed)
@@ -234,18 +235,6 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
                              max_wait=1800, verbose=False, queue_policy=queue_policy, aging_seconds=aging_seconds)
     outcome_rows = []
     patient_records = []
-    candidate_reachable_counts = []
-    hospital_diagnostics = [dict(hospital_index=i, hospital_id=str(h.get('id', i)),
-                                 hospital_type=str(h.get('type', '')),
-                                 checked=0, reachable=0, valid_action=0, selected=0)
-                            for i, h in enumerate(hospitals)]
-    # Each observation is taken BEFORE one MissionManager.step (one SUMO second).
-    active_vehicle_seconds = 0
-    full_capacity_seconds = 0
-    queued_patient_seconds = 0
-    observed_seconds = 0
-    dispatched_service_seconds = 0.0
-    completed_dispatches = 0
     def dispatch(patient, vid):
         nonlocal route_failures
         try:
@@ -256,13 +245,7 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             return None
         ktas = normalize_ktas(patient['ktas'])
         routed = hospital_routes(env, patient['edge_id'], hospitals)
-        candidate_reachable_counts.append(sum(bool(h.get("reachable")) for h in routed))
         actions = valid_actions(routed)
-        for i, h in enumerate(routed):
-            stat = hospital_diagnostics[i]
-            stat['checked'] += 1
-            stat['reachable'] += int(bool(h.get('reachable', False)))
-            stat['valid_action'] += int(i in actions)
         if not actions:
             route_diagnostics["no_reachable_hospital"] += 1
             return None
@@ -273,7 +256,6 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             route_diagnostics["invalid_action"] += 1
             return None
         selected = copy.deepcopy(routed[action])
-        hospital_diagnostics[action]['selected'] += 1
         # 선택 가능한 병원 집합에서의 반사실적 최단시간 대안.
         # 대기열에서 dispatch가 호출되는 시점의 병원 상태를 기록한다.
         alternatives = [(i, float(routed[i].get("estimated_travel_time", MAX_ESTIMATED_TRAVEL_TIME)))
@@ -301,10 +283,6 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         return selected['hospital_edge'], (action, selected, float(selected.get('occupancy', 0.)))
 
     def finish(patient, payload, arrived, elapsed, wait, reason):
-        nonlocal dispatched_service_seconds, completed_dispatches
-        if payload is not None:
-            dispatched_service_seconds += max(0.0, float(elapsed) - float(wait))
-            completed_dispatches += 1
         # finish 호출 시점은 임무 종료 시각이며 구급차 재가용 시각과 같다고 보장할 수 없다.
         patient_records.append({
             "occurrence_time": patient.get("occurrence_time", ""),
@@ -383,18 +361,16 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         from train_agent import build_ambulance_edges
         ambulance_edges = build_ambulance_edges(env, max_check=1200)
         patients = schedule(scenario, ambulance_edges, seed)
+        camera = AmbulanceFollowCamera(zoom=gui_zoom) if gui else None
         traci.simulationStep()  # time=1: 이벤트 시각과 실제 출동 시각 정렬
         for step in range(1, MAX_STEPS + 1800 + 1):
             if step <= MAX_STEPS and step in patients:
                 patient = dict(patients[step])
                 patient['occurrence_time'] = float(step)
                 manager.enqueue(patient)
-            # Sample capacity and queue BEFORE the step; does not advance SUMO.
-            active_vehicle_seconds += len(manager.active)
-            full_capacity_seconds += int(len(manager.active) >= manager.limit)
-            queued_patient_seconds += len(manager.waiting)
-            observed_seconds += 1
             manager.step(dispatch, finish, prefix=f'amb_eval_{mode}_{scenario["id"]}_')
+            if camera is not None:
+                camera.update(manager.active)
             if step >= MAX_STEPS and not manager.active and not manager.waiting:
                 break
         manager.close_unfinished(finish)
@@ -403,32 +379,12 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
             traci.close()
         except Exception:
             pass
-    if candidate_reachable_counts:
-        print(f"[병원 후보 진단] {mode} 검사 환자={len(candidate_reachable_counts)}, "
-              f"도달 가능 병원 평균={np.mean(candidate_reachable_counts):.2f}/10, "
-              f"0개={sum(v == 0 for v in candidate_reachable_counts)}, "
-              f"1~3개={sum(1 <= v <= 3 for v in candidate_reachable_counts)}, "
-              f"4~7개={sum(4 <= v <= 7 for v in candidate_reachable_counts)}, "
-              f"8~10개={sum(8 <= v <= 10 for v in candidate_reachable_counts)}")
-    utilization = active_vehicle_seconds / (ambulance_count * observed_seconds) if observed_seconds else 0.0
-    print(f"[가용성 진단] {mode} 차량점유율={100*utilization:.1f}% "
-          f"전대운행시간비율={100*full_capacity_seconds/max(1,observed_seconds):.1f}% "
-          f"평균대기열={queued_patient_seconds/max(1,observed_seconds):.1f}명 "
-          f"출동임무평균점유시간={dispatched_service_seconds/max(1,completed_dispatches):.1f}s")
-    print(f"[병원별 도달성] {mode} " + ', '.join(
-        f"{h['hospital_index']}:{h['reachable']}/{h['checked']}"
-        for h in hospital_diagnostics))
     print(f"[대기열] {mode} 최대 운행={manager.peak_active}/{ambulance_count}, "
           f"최대 대기={manager.peak_waiting}, 도착={manager.completed}, "
           f"실패={manager.failed}, 평균 대기={manager.wait_total/max(1,manager.wait_count):.1f}s")
 
     return {
         "patient_records": patient_records,
-        "hospital_diagnostics": hospital_diagnostics,
-        "vehicle_utilization_pct": 100.0 * utilization,
-        "full_capacity_pct": 100.0 * full_capacity_seconds / max(1, observed_seconds),
-        "mean_queue_length": queued_patient_seconds / max(1, observed_seconds),
-        "mean_dispatch_service_sec": dispatched_service_seconds / max(1, completed_dispatches),
         "reward": total_reward,
         "reward_profile": REWARD_PROFILE,
         "reward_components_sum": dict(reward_breakdown),
@@ -448,8 +404,6 @@ def run_single(env, base_hospitals, scenario, seed, mode, agent=None, gui=False,
         "failed": manager.failed,
         "failure_reasons": dict(manager.failure_reasons),
         "route_diagnostics": dict(route_diagnostics),
-        "candidate_reachable_mean": float(np.mean(candidate_reachable_counts)) if candidate_reachable_counts else None,
-        "candidate_reachable_zero": sum(v == 0 for v in candidate_reachable_counts),
         "ktas_stats": manager.ktas_stats,
         "golden_success": golden_success,
         "patients_total": manager.completed + manager.failed,
@@ -471,7 +425,7 @@ def print_result(label, result):
     )
 
 
-PROFILES = ("baseline", "strong_mismatch", "balanced", "travel_guard", "fit_guard")
+PROFILES = ("baseline", "strong_mismatch", "balanced", "travel_guard", "fit_guard", "capacity_guard")
 MODEL_FILENAME = "dqn_ambulance_model_ktas_v2.pth"
 
 
@@ -508,17 +462,11 @@ def flatten_result(scenario, repeat, seed, strategy, result):
         "avg_mission_sec": result["avg_time"],
         "peak_waiting": result["peak_waiting"],
         "route_failures": result["route_failures"],
-        "vehicle_utilization_pct": result.get("vehicle_utilization_pct"),
-        "full_capacity_pct": result.get("full_capacity_pct"),
-        "mean_queue_length": result.get("mean_queue_length"),
-        "mean_dispatch_service_sec": result.get("mean_dispatch_service_sec"),
         "hospital_load_std": result["load_std"],
         "evaluation_reward_profile": REWARD_PROFILE,
         "reward_sum": result["reward"],
         "failure_reasons_json": json.dumps(result["failure_reasons"], ensure_ascii=False),
         "route_diagnostics_json": json.dumps(result["route_diagnostics"], ensure_ascii=False),
-        "candidate_reachable_mean": result.get("candidate_reachable_mean"),
-        "candidate_reachable_zero": result.get("candidate_reachable_zero"),
         "hospital_types_json": json.dumps(result["hospital_type_assignments"], ensure_ascii=False),
     }
     for ktas in range(1, 6):
@@ -576,6 +524,7 @@ def save_comparison_graphs(summary, output_dir, timestamp):
         import matplotlib
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
+
         plt.rcParams["font.family"] = "Malgun Gothic"
         plt.rcParams["axes.unicode_minus"] = False
     except ImportError:
@@ -602,7 +551,7 @@ def save_comparison_graphs(summary, output_dir, timestamp):
 
 def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
          repeats=1, profiles=None, seed_base=30000, queue_policy="severity",
-         aging_seconds=300):
+         aging_seconds=300, gui_zoom=900.0):
     if repeats < 1:
         raise ValueError("--repeats는 1 이상이어야 합니다")
     profiles = list(PROFILES if profiles is None else profiles)
@@ -623,7 +572,6 @@ def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
     started = time.monotonic()
     all_rows = []
     all_patients = []
-    all_hospitals = []
     modes = [(mode, label, None) for mode, label in STRATEGIES if mode != "dqn"]
     modes += [("dqn", f"dqn_{profile}", agents[profile]) for profile in profiles]
     print(f"[비교 실험] {len(scenarios)}개 시나리오 × {repeats}회 × {len(modes)}개 전략")
@@ -641,13 +589,8 @@ def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
             for mode, label, agent in modes:
                 result = run_single(env, base_hospitals, scenario, seed, mode,
                                     agent=agent, gui=gui, ambulance_count=ambulance_count,
-                                    queue_policy=queue_policy, aging_seconds=aging_seconds)
+                                    queue_policy=queue_policy, aging_seconds=aging_seconds, gui_zoom=gui_zoom)
                 print_result(label, result)
-                for h in result.pop('hospital_diagnostics', []):
-                    all_hospitals.append({'scenario_id': scenario['id'],
-                                          'repeat': repeat + 1, 'seed': seed,
-                                          'strategy': label, **h})
-                write_csv(os.path.join(results_dir, f"hospital_reachability_{timestamp}.csv"), all_hospitals)
                 for patient_row in result.pop("patient_records", []):
                     all_patients.append({"scenario_id": scenario["id"],
                                          "repeat": repeat + 1, "seed": seed,
@@ -694,6 +637,7 @@ def main(gui=False, ambulance_count=DEFAULT_AMBULANCES, scenario_ids=None,
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="KTAS 구급차 병원배정 전략 및 DQN 보상 프로필 비교")
     parser.add_argument("--gui", action="store_true")
+    parser.add_argument("--gui-zoom", type=float, default=900.0, help="구급차 추적 카메라 확대 수준")
     parser.add_argument("--ambulances", type=int, default=DEFAULT_AMBULANCES)
     parser.add_argument("--scenarios", nargs="+", type=int, choices=range(1, 10),
                         metavar="ID", help="시나리오 번호 1~9 (기본: 전체)")
@@ -706,4 +650,4 @@ if __name__ == "__main__":
     main(gui=args.gui, ambulance_count=args.ambulances,
          scenario_ids=args.scenarios, repeats=args.repeats,
          profiles=args.profiles, seed_base=args.seed_base,
-         queue_policy=args.queue_policy, aging_seconds=args.aging_seconds)
+         queue_policy=args.queue_policy, aging_seconds=args.aging_seconds, gui_zoom=args.gui_zoom)
