@@ -1,0 +1,20 @@
+***Starting server on port 49676 ***
+Loading net-file from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.net.xml.gz' ... done (4210ms).
+Loading additional-files from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\quiet_smoke\sumo\train_20261101_010143_92dcf7\episode1\output.add.xml' ... done (77ms).
+Loading additional-files from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\hospitals.add.xml' ... done (3ms).
+Loading additional-files from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\fire_stations.add.xml' ... done (1ms).
+Loading route-files incrementally from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.passenger.trips.xml'
+Loading route-files incrementally from 'C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\ambulance_routes.rou.xml'
+Loading done.
+Simulation version 1.27.1 started with time: 0.00.
+Simulation ended at time: 2.00.
+Reason: TraCI requested termination.
+Statistics (avg of 0):
+ RouteLength: 0.00
+ Speed: 0.00
+ Duration: 0.00
+ WaitingTime: 0.00
+ TimeLoss: 0.00
+ DepartDelay: 0.00
+DijkstraRouter answered 3 queries and explored 7095.67 edges on average.
+DijkstraRouter spent 0.04s answering queries (11.67ms on average).

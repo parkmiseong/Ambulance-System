@@ -35,7 +35,7 @@ from baseline import HospitalRouters, build_state_vector
 from dqn_agent import DQNAmbulanceAgent
 from environment import SumoMedicalEnvironment
 from reward import GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, normalize_hospital_type, reward_components, REWARD_PROFILE, WEIGHTS
-from CODE.불필요코드.ambulance_sim import MissionManager
+from ambulance_sim import MissionManager
 from gui_ambulance_camera import AmbulanceFollowCamera
 
 
@@ -158,19 +158,15 @@ def generate_schedule(scenario, ambulance_edges, seed):
     return schedule
 
 
-def valid_actions(hospitals):
-    actions = [
-        i for i, h in enumerate(hospitals)
-        if h.get("reachable", False)
-        and float(h.get("occupancy", 1.0)) < HOSPITAL_FULL_THRESHOLD
-    ]
-
-    if actions:
-        return actions
+def valid_actions(hospitals, ktas):
+    required = {1: 3, 2: 3, 3: 2, 4: 1, 5: 1}[ktas]
 
     return [
         i for i, h in enumerate(hospitals)
         if h.get("reachable", False)
+        and h.get("accepting", True)
+        and float(h.get("occupancy", 1.0)) < 0.85
+        and int(h.get("capability", 0)) >= required
     ]
 
 

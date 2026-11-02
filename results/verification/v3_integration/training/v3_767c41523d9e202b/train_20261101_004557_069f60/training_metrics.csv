@@ -1,0 +1,2 @@
+﻿episode,scenario,patients,missions,arrived,failed,reward,avg_reward,avg_loss,epsilon,episode_seconds
+2,2,23,23,23,0,-336.8088441771226,-14.643862790309678,17.665218477663785,0.9880687476628001,68.34400000001187

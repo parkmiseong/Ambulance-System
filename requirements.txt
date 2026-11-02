@@ -1,0 +1,9 @@
+# Recorded from the project's Python 3.11 environment; install SUMO separately.
+numpy==2.4.6
+torch==2.14.0
+sumolib==1.28.0
+traci==1.28.0
+matplotlib==3.11.2
+pandas==3.0.3
+pyproj==3.7.2
+openpyxl==3.1.5
