@@ -275,6 +275,7 @@ class SharedEngineTests(unittest.TestCase):
         self.assertEqual(result["failure_reasons"], {"waiting_timeout": 1})
         self.assertAlmostEqual(result["avg_reward"], sum(r["reward"] for r in rows) / 2)
         self.assertEqual(rows[1]["reward"], -20)
+        self.assertGreater(result["route_diagnostics"].get("masked_route_reuses", 0), 0)
         self.assertAlmostEqual(sum(r[0][2] for r in agent.records), result["learning_reward"])
 
     def test_spawn_failure_rolls_back_reservations_without_fake_censoring(self):
@@ -329,6 +330,23 @@ class SharedEngineTests(unittest.TestCase):
 
 
 class ModelSelectionTests(unittest.TestCase):
+    def test_validation_failure_keeps_completed_episode_checkpoint(self):
+        agent = FakeAgent()
+        result = dict(generated_patients=2, missions=2, arrived=1, failed=1, censored=0,
+                      golden_rate=50., avg_wait=1., reward=-40., avg_reward=-20., avg_loss=.1)
+        with tempfile.TemporaryDirectory() as directory, \
+             patch.object(train_agent, "prepare_environment", return_value=(None, [hospital()], ["e"], [["h"]])), \
+             patch.object(train_agent, "make_manifest", return_value={"version":3}), \
+             patch.object(train_agent, "DQNAmbulanceAgent", return_value=agent), \
+             patch.object(train_agent, "run_episode", return_value=result), \
+             patch.object(train_agent, "validate_panel", side_effect=RuntimeError("validation stopped")), \
+             patch.object(train_agent, "append_record"):
+            with self.assertRaisesRegex(RuntimeError, "validation stopped"):
+                train_agent.train(num_episodes=1, eval_every=1, quiet=True,
+                                  config=SimulationConfig(arrival_steps=2), output_root=directory)
+        checkpoint = [s for s in agent.saves if s[1].get("full_state")]
+        self.assertEqual(checkpoint[-1][1]["episode"], 1)
+
     def test_best_validation_model_is_not_overwritten_by_last_episode(self):
         agent = FakeAgent()
         result = dict(generated_patients=2, missions=2, arrived=1, failed=1, censored=0,

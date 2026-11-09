@@ -45,12 +45,18 @@ def validate_panel(env, hospitals, agent, config, scenario_ids, seeds,
             for scenario_id in scenario_ids:
                 scenario = SCENARIOS[scenario_id - 1]
                 for seed in seeds:
+                    panel_started = time.monotonic()
+                    print(f"[Validation {len(results) + 1}/{len(scenario_ids) * len(seeds)}] "
+                          f"scenario={scenario_id} seed={seed} demand x{config.demand_scale:g} started",
+                          flush=True)
                     results.append(run_episode(
                         env, hospitals, scenario, seed, "dqn", config, agent=agent,
                         ambulance_count=ambulance_count, queue_policy=queue_policy,
                         aging_seconds=aging_seconds,
                         output_dir=Path(output_dir) / f"scenario{scenario_id}_seed{seed}",
                         quiet=quiet))
+                    print(f"[Validation] seed={seed} completed in "
+                          f"{time.monotonic() - panel_started:.1f}s", flush=True)
     finally:
         agent.epsilon = epsilon
         agent.model.train(training)
@@ -115,6 +121,10 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     if resume:
         agent.load_model(str(checkpoint_path), resume=True)
         start_episode = int(agent.loaded_episode) + 1
+    previous_episodes = start_episode - 1
+    target_episode = previous_episodes + num_episodes
+    print(f"[Training] previous={previous_episodes} episodes | "
+          f"additional={num_episodes} | target_total={target_episode}", flush=True)
     best_score = agent.metadata.get("best_validation_reward")
     metrics_dir = root / "training" / tag / run_id
     csv_path = metrics_dir / "training_metrics.csv"
@@ -123,6 +133,8 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
            ambulance_limit=ambulance_count, model_path=str(model_path),
            metrics={"config": config.to_dict(), "manifest_path": str(manifest_path),
                     "requested_episodes": num_episodes, "resume": resume,
+                    "previous_episodes": previous_episodes,
+                    "target_total_episodes": target_episode,
                     "queue_policy": queue_policy, "curriculum": list(curriculum),
                     "eval_every": eval_every, "validation_seeds": list(validation_seeds),
                     "validation_scenarios": list(validation_scenarios),
@@ -157,18 +169,27 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
                    duration_seconds=time.monotonic() - episode_started, metrics=result)
             append_episode_metrics(csv_path, {
                 "episode": episode, "scenario": scenario["id"],
+                "previous_episodes": previous_episodes,
+                "run_episode": episode - previous_episodes,
                 "patients": result["generated_patients"], "missions": result["missions"],
                 "arrived": result["arrived"], "failed": result["failed"],
                 "reward": result["reward"], "avg_reward": result["avg_reward"],
                 "avg_loss": result["avg_loss"], "epsilon": agent.epsilon,
                 "episode_seconds": time.monotonic() - episode_started})
-            print(f"Episode {episode} | demand x{episode_config.demand_scale:g} | "
+            print(f"Episode {episode}/{target_episode} "
+                  f"(previous={previous_episodes}, "
+                  f"this_run={episode - previous_episodes}/{num_episodes}) | "
+                  f"demand x{episode_config.demand_scale:g} | "
                   f"generated={result['generated_patients']} arrived={result['arrived']} "
                   f"failed={result['failed']} censored={result['censored']} | "
                   f"golden={result['golden_rate']:.1f}% wait={result['avg_wait']:.1f}s | "
                   f"reward/patient={result['avg_reward']:.3f} loss={result['avg_loss']:.4f} "
-                  f"epsilon={agent.epsilon:.4f}")
+                  f"epsilon={agent.epsilon:.4f}", flush=True)
             if eval_every and episode % eval_every == 0:
+                # Keep completed training even if the following evaluation fails.
+                with suppress_stdout(quiet):
+                    agent.save_model(str(model_path), episode=episode)
+                    agent.save_model(str(checkpoint_path), episode=episode, full_state=True)
                 validation = validate_panel(
                     env, hospitals, agent, config, validation_scenarios, validation_seeds,
                     ambulance_count, queue_policy, aging_seconds, output / f"validation{episode}", quiet=quiet)
@@ -193,14 +214,19 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     record(run_id, "training", "run_end", status="completed", model_path=str(model_path),
            duration_seconds=time.monotonic() - started,
            metrics={"completed_episodes": num_episodes, "best_validation_reward": best_score,
+                    "previous_episodes": previous_episodes,
+                    "total_completed_episodes": target_episode,
                     "best_model": str(best_path) if best_score is not None else None,
                     "last_model": str(model_path)})
+    print(f"[Training completed] previous={previous_episodes} + "
+          f"this_run={num_episodes} = total={target_episode} episodes", flush=True)
     return model_path
 
 
 def main():
     parser = argparse.ArgumentParser(description="Sequential ambulance DQN training")
-    parser.add_argument("--episodes", type=int, default=100)
+    parser.add_argument("--episodes", type=int, default=100,
+                        help="Additional episodes in this run; with --resume, add to the saved total.")
     parser.add_argument("--eval-every", type=int, default=5)
     parser.add_argument("--ambulances", type=int, default=10)
     parser.add_argument("--gui", action="store_true")

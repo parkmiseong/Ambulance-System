@@ -3,6 +3,7 @@ from collections import Counter
 import copy
 from pathlib import Path
 import random
+import time
 
 import numpy as np
 import traci
@@ -55,12 +56,14 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
     manager = MissionManager(ambulance_count, timeout=config.mission_timeout,
                              max_wait=config.max_wait, queue_policy=queue_policy,
                              aging_seconds=aging_seconds)
-    traffic = TrafficRouter(refresh_interval=30)
+    traffic = TrafficRouter(refresh_interval=30, net=env.net)
     router = HospitalRouters(hospitals)
     transitions = EpisodeTransitions(agent) if training else None
     outcomes = []
     diagnostics = Counter()
     rejection_pairs = Counter()
+    reachability = {}
+    progress_at = time.monotonic()
 
     def dispatch(patient, vid):
         now = float(traci.simulation.getTime())
@@ -68,7 +71,17 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
         edge_id = patient["edge_id"]
         ktas = normalize_ktas(patient["ktas"])
         patient_pos = env.net.getEdge(edge_id).getFromNode().getCoord()[:2]
-        routed, failures = get_reachable_hospital_routes(env, edge_id, hospitals, access)
+        # If every hospital is currently masked even assuming a route exists,
+        # no route costs can affect a decision. Reuse only static reachability
+        # for rejection accounting; recompute travel times before any assignment.
+        optimistic = [dict(h, reachable=True) for h in hospitals]
+        if edge_id in reachability and not valid_actions(optimistic, ktas, config.occupancy_limit):
+            flags, failures = reachability[edge_id]
+            routed = [dict(h, reachable=flag) for h, flag in zip(hospitals, flags)]
+            diagnostics["masked_route_reuses"] += 1
+        else:
+            routed, failures = get_reachable_hospital_routes(env, edge_id, hospitals, access)
+            reachability[edge_id] = ([h.get("reachable", False) for h in routed], failures)
         diagnostics["hospital_candidate_route_failure"] += failures
         actions = valid_actions(routed, ktas, config.occupancy_limit)
         if not actions:
@@ -148,6 +161,12 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
             if int(now) in schedule:
                 manager.enqueue(dict(schedule[int(now)]))
             manager.step(dispatch, finish, prefix="amb_e_" if training else "amb_eval_")
+            if time.monotonic() - progress_at >= 60:
+                print(f"[Progress] {Path(output_dir).name if output_dir else mode} | "
+                      f"sim={now:.0f}s | waiting={len(manager.waiting)} "
+                      f"active={len(manager.active)} completed={len(outcomes)}/{len(schedule)}",
+                      flush=True)
+                progress_at = time.monotonic()
             if now >= config.arrival_steps and not manager.active and not manager.waiting:
                 break
         manager.close_unfinished(finish)

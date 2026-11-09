@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+   <edgeData id="wizard_example" period="3600" file="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\sumo\train_20261103_092351_ef8cc0\episode38\edgeData.xml" />
+</additional>
