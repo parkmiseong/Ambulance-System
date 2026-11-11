@@ -196,13 +196,16 @@ class FakeModel:
 
 
 class FakeAgent:
-    def __init__(self, state_dim=24, action_dim=1):
-        self.state_dim, self.action_dim = state_dim, action_dim
+    def __init__(self, state_dim=None, action_dim=1):
+        self.state_dim, self.action_dim = state_dimension(action_dim) if state_dim is None else state_dim, action_dim
         self.records, self.saves, self.memory = [], [], []
         self.epsilon, self.metadata, self.model = .5, {}, FakeModel()
 
     def select_action(self, state, valid_actions):
         return valid_actions[0]
+
+    def q_values(self, state):
+        return np.zeros(self.action_dim)
 
     def store_transition(self, *args, **kwargs):
         self.records.append((args, kwargs))
@@ -219,7 +222,8 @@ class FakeAgent:
 
 
 class SharedEngineTests(unittest.TestCase):
-    def run_case(self, config=None, duration=2, spawn_failure=False, training=True):
+    def run_case(self, config=None, duration=2, spawn_failure=False, training=True, on_decision=None,
+                 ambulance_count=1):
         import ambulance_sim
         fake = FakeTraCI(duration)
         config = config or SimulationConfig(arrival_steps=2, max_wait=20, mission_timeout=10,
@@ -231,7 +235,7 @@ class SharedEngineTests(unittest.TestCase):
         edge = SimpleNamespace(getFromNode=lambda: SimpleNamespace(getCoord=lambda:(0., 0.)))
         env = SimpleNamespace(ambulance_edges=["e"], hospital_access_edges=[["h"]],
                               net=SimpleNamespace(getEdge=lambda edge_id: edge))
-        agent, rows = FakeAgent(), []
+        agent, rows = FakeAgent(state_dimension(1, config.observation_version)), []
         def capacity(hospitals, config):
             for h in hospitals:
                 h["occupancy"] = .7
@@ -251,8 +255,19 @@ class SharedEngineTests(unittest.TestCase):
                           side_effect=(lambda *a, **k:(False, "spawn_failed")) if spawn_failure else fake.spawn):
             result = simulation.run_episode(
                 env, [hospital()], dict(id=1, prob=.2, scale=.3), 42, "dqn", config,
-                agent=agent, training=training, ambulance_count=1, on_outcome=rows.append)
+                agent=agent, training=training, ambulance_count=ambulance_count, on_outcome=rows.append,
+                on_decision=on_decision)
         return result, rows, agent
+
+    def test_decision_trace_records_pre_reservation_candidates(self):
+        decisions = []
+        result, rows, _ = self.run_case(on_decision=decisions.append)
+        self.assertEqual(len(decisions), 2)
+        self.assertEqual(decisions[0]["candidates"][0]["occupancy"], .7)
+        self.assertTrue(all(d["candidates"][d["selected_action"]]["valid"] for d in decisions))
+        self.assertTrue(all(d["extra_estimated_seconds"] == 0. for d in decisions))
+        self.assertEqual(len(decisions[0]["state"]), state_dimension(1))
+        self.assertEqual(result["selected_hospitals"], {0: 2})
 
     def test_temporary_capacity_shortage_is_retried_until_discharge(self):
         result, rows, agent = self.run_case()
@@ -266,7 +281,7 @@ class SharedEngineTests(unittest.TestCase):
 
     def test_waiting_failure_is_in_reward_and_all_patient_denominators(self):
         config = SimulationConfig(arrival_steps=2, max_wait=2, mission_timeout=10,
-                                  treatment_seconds=10, bed_fraction=.1)
+                                  treatment_seconds=10, bed_fraction=.1, reward_version=3)
         result, rows, agent = self.run_case(config)
         self.assertEqual(result["generated_patients"], 2)
         self.assertEqual((result["arrived"], result["failed"]), (1, 1))

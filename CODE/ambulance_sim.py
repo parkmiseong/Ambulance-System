@@ -52,6 +52,7 @@ class Mission:
     dispatch_time: float
     payload: object
     appeared: bool = False
+    estimated_reward: float = 0.
 
 
 class MissionManager:
@@ -148,7 +149,9 @@ class MissionManager:
             if not ok:
                 self._record_outcome(patient, payload, False, now, now, reason, finish)
                 continue
-            self.active[vid] = Mission(patient, vid, now, payload)
+            self.active[vid] = Mission(
+                patient, vid, now, payload,
+                estimated_reward=float(selected.get("estimated_reward_at_dispatch", 0.)) if selected else 0.)
             self.peak_active = max(self.peak_active, len(self.active))
 
     @staticmethod

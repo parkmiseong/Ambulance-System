@@ -24,8 +24,10 @@ def _distance(patient_pos, h):
     )
 
 
-def state_dimension(hospital_count):
-    return 3 + 12 + 9 * hospital_count
+def state_dimension(hospital_count, observation_version=4):
+    if observation_version not in (3, 4):
+        raise ValueError("Unsupported observation version.")
+    return (16 if observation_version == 4 else 15) + 9 * hospital_count
 
 
 def build_state_vector(patient_pos, ktas, hospitals, *, patient=None, manager=None,
@@ -50,6 +52,12 @@ def build_state_vector(patient_pos, ktas, hospitals, *, patient=None, manager=No
         max(0., oldest) / config.max_wait,
         (sum(remaining) / len(remaining) / config.mission_timeout) if remaining else 0.,
     ]
+    if config.observation_version == 4:
+        # Predictions are fixed at dispatch, before any future outcome is known.
+        # Keep an equal-shape zero-feature arm for a one-factor comparison.
+        pending_reward = (sum(float(getattr(m, "estimated_reward", 0.)) for m in active)
+                          if config.pending_reward_feature == "estimate" else 0.)
+        state.append(pending_reward / 100.)
     for h in hospitals:
         state.extend([
             min(_travel(h) / MAX_ESTIMATED_TRAVEL_TIME, 5.),
@@ -63,7 +71,7 @@ def build_state_vector(patient_pos, ktas, hospitals, *, patient=None, manager=No
             float(bool(h.get("can_admit", True))),
         ])
     result = np.asarray(state, dtype=np.float32)
-    if result.shape != (state_dimension(len(hospitals)),) or not np.isfinite(result).all():
+    if result.shape != (state_dimension(len(hospitals), config.observation_version),) or not np.isfinite(result).all():
         raise ValueError("Invalid observation shape or nonfinite features.")
     return result
 

@@ -1,0 +1,1068 @@
+{
+  "environment": "independent scripted patient rewards with logical observation delay; not SUMO",
+  "decision_budget_per_run": 3600,
+  "evaluation_seed": 92001,
+  "target_sync": "every 100 actual gradient updates in every profile",
+  "assumptions": [
+    "two hospitals, no queues/capacity competition/traffic",
+    "same observation for corresponding sequential/delayed patient contexts",
+    "only result notification order changes within each matched patient-count pair",
+    "no production checkpoints or parameters updated"
+  ],
+  "summary": [
+    {
+      "profile": "single",
+      "choice_rates": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_choice_rate": 1.0,
+      "mean_return_regret": 0.0
+    },
+    {
+      "profile": "sequential_2",
+      "choice_rates": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_choice_rate": 1.0,
+      "mean_return_regret": 0.0
+    },
+    {
+      "profile": "overlap_2",
+      "choice_rates": [
+        0.6796875,
+        0.87890625,
+        0.642578125
+      ],
+      "mean_choice_rate": 0.7337239583333334,
+      "mean_return_regret": 12.583965693984593
+    },
+    {
+      "profile": "sequential_3",
+      "choice_rates": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_choice_rate": 1.0,
+      "mean_return_regret": 0.0
+    },
+    {
+      "profile": "overlap_3",
+      "choice_rates": [
+        0.4296875,
+        0.68359375,
+        0.6015625
+      ],
+      "mean_choice_rate": 0.5716145833333334,
+      "mean_return_regret": 25.83936445191529
+    },
+    {
+      "profile": "reverse_3",
+      "choice_rates": [
+        0.4296875,
+        0.68359375,
+        0.6015625
+      ],
+      "mean_choice_rate": 0.5716145833333334,
+      "mean_return_regret": 25.83936445191529
+    }
+  ],
+  "results": [
+    {
+      "profile": "single",
+      "seed": 42,
+      "patients": 1,
+      "delayed": false,
+      "reversed_completion": false,
+      "training_episodes": 3600,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 5.672000000020489,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 0.0,
+          "mean_patient_reward_regret": 22.646765313907665,
+          "mean_discounted_episode_return_regret": 22.646765313907665
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        }
+      ]
+    },
+    {
+      "profile": "single",
+      "seed": 43,
+      "patients": 1,
+      "delayed": false,
+      "reversed_completion": false,
+      "training_episodes": 3600,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 5.672000000020489,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        }
+      ]
+    },
+    {
+      "profile": "single",
+      "seed": 44,
+      "patients": 1,
+      "delayed": false,
+      "reversed_completion": false,
+      "training_episodes": 3600,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 5.734000000054948,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 0.0078125,
+          "mean_patient_reward_regret": 22.439325913323284,
+          "mean_discounted_episode_return_regret": 22.439325913323284
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 256,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        }
+      ]
+    },
+    {
+      "profile": "sequential_2",
+      "seed": 42,
+      "patients": 2,
+      "delayed": false,
+      "reversed_completion": false,
+      "training_episodes": 1800,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.875,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.0,
+          "mean_patient_reward_regret": 22.32814273661736,
+          "mean_discounted_episode_return_regret": 43.555809465268354
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        }
+      ]
+    },
+    {
+      "profile": "sequential_2",
+      "seed": 43,
+      "patients": 2,
+      "delayed": false,
+      "reversed_completion": false,
+      "training_episodes": 1800,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.155999999959022,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.99609375,
+          "mean_patient_reward_regret": 0.00907453049003896,
+          "mean_discounted_episode_return_regret": 0.017241607931074023
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        }
+      ]
+    },
+    {
+      "profile": "sequential_2",
+      "seed": 44,
+      "patients": 2,
+      "delayed": false,
+      "reversed_completion": false,
+      "training_episodes": 1800,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.141000000061467,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.00390625,
+          "mean_patient_reward_regret": 22.224423036325163,
+          "mean_discounted_episode_return_regret": 43.34837006468398
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        }
+      ]
+    },
+    {
+      "profile": "overlap_2",
+      "seed": 42,
+      "patients": 2,
+      "delayed": true,
+      "reversed_completion": false,
+      "training_episodes": 1800,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.156000000075437,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.0,
+          "mean_patient_reward_regret": 22.32814273661736,
+          "mean_discounted_episode_return_regret": 42.42347119957297
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.931640625,
+          "mean_patient_reward_regret": 1.323055442777286,
+          "mean_discounted_episode_return_regret": 2.5138053412768437
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.720703125,
+          "mean_patient_reward_regret": 6.021728894439233,
+          "mean_discounted_episode_return_regret": 11.441284899434542
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.6796875,
+          "mean_patient_reward_regret": 7.393293777643747,
+          "mean_discounted_episode_return_regret": 14.047258177523116
+        }
+      ]
+    },
+    {
+      "profile": "overlap_2",
+      "seed": 43,
+      "patients": 2,
+      "delayed": true,
+      "reversed_completion": false,
+      "training_episodes": 1800,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.155999999959022,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.99609375,
+          "mean_patient_reward_regret": 0.00907453049003896,
+          "mean_discounted_episode_return_regret": 0.017241607931074023
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.984375,
+          "mean_patient_reward_regret": 0.3444199299542272,
+          "mean_discounted_episode_return_regret": 0.6543978669130317
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.9921875,
+          "mean_patient_reward_regret": 0.04084349286096972,
+          "mean_discounted_episode_return_regret": 0.07760263643584248
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.87890625,
+          "mean_patient_reward_regret": 3.2470447672838816,
+          "mean_discounted_episode_return_regret": 6.169385057839374
+        }
+      ]
+    },
+    {
+      "profile": "overlap_2",
+      "seed": 44,
+      "patients": 2,
+      "delayed": true,
+      "reversed_completion": false,
+      "training_episodes": 1800,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.312999999965541,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.00390625,
+          "mean_patient_reward_regret": 22.224423036325163,
+          "mean_discounted_episode_return_regret": 42.226403769017814
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.904296875,
+          "mean_patient_reward_regret": 2.171921932345886,
+          "mean_discounted_episode_return_regret": 4.126651671457184
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.740234375,
+          "mean_patient_reward_regret": 7.1780655422254815,
+          "mean_discounted_episode_return_regret": 13.638324530228413
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 512,
+          "best_patient_reward_choice_rate": 0.642578125,
+          "mean_patient_reward_regret": 9.22908097189015,
+          "mean_discounted_episode_return_regret": 17.53525384659129
+        }
+      ]
+    },
+    {
+      "profile": "sequential_3",
+      "seed": 42,
+      "patients": 3,
+      "delayed": false,
+      "reversed_completion": false,
+      "training_episodes": 1200,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.187000000034459,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.0,
+          "mean_patient_reward_regret": 22.336580170072782,
+          "mean_discounted_episode_return_regret": 63.7298026361461
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        }
+      ]
+    },
+    {
+      "profile": "sequential_3",
+      "seed": 43,
+      "patients": 3,
+      "delayed": false,
+      "reversed_completion": false,
+      "training_episodes": 1200,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.078000000095926,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.9986979166666666,
+          "mean_patient_reward_regret": 0.0028427489132469724,
+          "mean_discounted_episode_return_regret": 0.007696742682616178
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        }
+      ]
+    },
+    {
+      "profile": "sequential_3",
+      "seed": 44,
+      "patients": 3,
+      "delayed": false,
+      "reversed_completion": false,
+      "training_episodes": 1200,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.077999999979511,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.0026041666666666665,
+          "mean_patient_reward_regret": 22.267433703211324,
+          "mean_discounted_episode_return_regret": 63.52236323556171
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        }
+      ]
+    },
+    {
+      "profile": "overlap_3",
+      "seed": 42,
+      "patients": 3,
+      "delayed": true,
+      "reversed_completion": false,
+      "training_episodes": 1200,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.281000000075437,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.0,
+          "mean_patient_reward_regret": 22.336580170072782,
+          "mean_discounted_episode_return_regret": 60.476290810472065
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.9986979166666666,
+          "mean_patient_reward_regret": 0.025846149202455967,
+          "mean_discounted_episode_return_regret": 0.06997844896564953
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.7213541666666666,
+          "mean_patient_reward_regret": 6.468744620222952,
+          "mean_discounted_episode_return_regret": 17.51412605925364
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.5833333333333334,
+          "mean_patient_reward_regret": 8.617170092696705,
+          "mean_discounted_episode_return_regret": 23.330988025976332
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.4296875,
+          "mean_patient_reward_regret": 12.97501731115773,
+          "mean_discounted_episode_return_regret": 35.129859369959554
+        }
+      ]
+    },
+    {
+      "profile": "overlap_3",
+      "seed": 43,
+      "patients": 3,
+      "delayed": true,
+      "reversed_completion": false,
+      "training_episodes": 1200,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.343999999924563,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.9986979166666666,
+          "mean_patient_reward_regret": 0.0028427489132469724,
+          "mean_discounted_episode_return_regret": 0.007696742682616171
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.4778645833333333,
+          "mean_patient_reward_regret": 11.618056761292067,
+          "mean_discounted_episode_return_regret": 31.455888681198275
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.65234375,
+          "mean_patient_reward_regret": 7.68738359075608,
+          "mean_discounted_episode_return_regret": 20.813591071972088
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.68359375,
+          "mean_patient_reward_regret": 6.922860410863538,
+          "mean_discounted_episode_return_regret": 18.743644562413024
+        }
+      ]
+    },
+    {
+      "profile": "overlap_3",
+      "seed": 44,
+      "patients": 3,
+      "delayed": true,
+      "reversed_completion": false,
+      "training_episodes": 1200,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.157000000006519,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.0026041666666666665,
+          "mean_patient_reward_regret": 22.267433703211324,
+          "mean_discounted_episode_return_regret": 60.28907675144467
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.6276041666666666,
+          "mean_patient_reward_regret": 8.37861791143635,
+          "mean_discounted_episode_return_regret": 22.68510799521392
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.7473958333333334,
+          "mean_patient_reward_regret": 5.543511712882531,
+          "mean_discounted_episode_return_regret": 15.009057962629456
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.6015625,
+          "mean_patient_reward_regret": 8.732997016943047,
+          "mean_discounted_episode_return_regret": 23.644589423373297
+        }
+      ]
+    },
+    {
+      "profile": "reverse_3",
+      "seed": 42,
+      "patients": 3,
+      "delayed": true,
+      "reversed_completion": true,
+      "training_episodes": 1200,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.092999999993481,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.0,
+          "mean_patient_reward_regret": 22.336580170072782,
+          "mean_discounted_episode_return_regret": 60.476290810472065
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.9986979166666666,
+          "mean_patient_reward_regret": 0.025846149202455967,
+          "mean_discounted_episode_return_regret": 0.06997844896564953
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.7213541666666666,
+          "mean_patient_reward_regret": 6.468744620222952,
+          "mean_discounted_episode_return_regret": 17.51412605925364
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.5833333333333334,
+          "mean_patient_reward_regret": 8.617170092696705,
+          "mean_discounted_episode_return_regret": 23.330988025976332
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.4296875,
+          "mean_patient_reward_regret": 12.97501731115773,
+          "mean_discounted_episode_return_regret": 35.129859369959554
+        }
+      ]
+    },
+    {
+      "profile": "reverse_3",
+      "seed": 43,
+      "patients": 3,
+      "delayed": true,
+      "reversed_completion": true,
+      "training_episodes": 1200,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 7.0,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.9986979166666666,
+          "mean_patient_reward_regret": 0.0028427489132469724,
+          "mean_discounted_episode_return_regret": 0.007696742682616171
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.4778645833333333,
+          "mean_patient_reward_regret": 11.618056761292067,
+          "mean_discounted_episode_return_regret": 31.455888681198275
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.65234375,
+          "mean_patient_reward_regret": 7.68738359075608,
+          "mean_discounted_episode_return_regret": 20.813591071972088
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.68359375,
+          "mean_patient_reward_regret": 6.922860410863538,
+          "mean_discounted_episode_return_regret": 18.743644562413024
+        }
+      ]
+    },
+    {
+      "profile": "reverse_3",
+      "seed": 44,
+      "patients": 3,
+      "delayed": true,
+      "reversed_completion": true,
+      "training_episodes": 1200,
+      "replay": 3600,
+      "updates": 3569,
+      "target_updates": 35,
+      "epsilon": 0.16780607634687641,
+      "seconds": 6.967999999993481,
+      "curve": [
+        {
+          "decisions": 0,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.0026041666666666665,
+          "mean_patient_reward_regret": 22.267433703211324,
+          "mean_discounted_episode_return_regret": 60.28907675144467
+        },
+        {
+          "decisions": 300,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 1.0,
+          "mean_patient_reward_regret": 0.0,
+          "mean_discounted_episode_return_regret": 0.0
+        },
+        {
+          "decisions": 900,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.6276041666666666,
+          "mean_patient_reward_regret": 8.37861791143635,
+          "mean_discounted_episode_return_regret": 22.68510799521392
+        },
+        {
+          "decisions": 1800,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.7473958333333334,
+          "mean_patient_reward_regret": 5.543511712882531,
+          "mean_discounted_episode_return_regret": 15.009057962629456
+        },
+        {
+          "decisions": 3600,
+          "evaluation_episodes": 256,
+          "patient_choices": 768,
+          "best_patient_reward_choice_rate": 0.6015625,
+          "mean_patient_reward_regret": 8.732997016943047,
+          "mean_discounted_episode_return_regret": 23.644589423373297
+        }
+      ]
+    }
+  ],
+  "source_checkpoint": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\training\\checkpoint_v4_9fcc8308c8f256a7.pth",
+  "checkpoint_sha256": "cabbc5074aa3cd95544e436db9a763d641decdc7b0fbf11c375fe6c7f1de1df9"
+}

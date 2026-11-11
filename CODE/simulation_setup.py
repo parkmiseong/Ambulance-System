@@ -421,16 +421,18 @@ def manifest_signature(manifest):
 
 def make_manifest(env, hospitals, edges, access, config, ambulance_count, queue_policy,
                   aging_seconds, curriculum):
-    from experiment_config import EXPERIMENT_VERSION, STATE_SCHEMA_VERSION
+    from experiment_config import EXPERIMENT_VERSION, network_architecture
     from dataclasses import asdict
     manifest = {
-        "version": EXPERIMENT_VERSION, "state_schema_version": STATE_SCHEMA_VERSION,
+        "version": EXPERIMENT_VERSION, "state_schema_version": config.observation_version,
         "config": config.to_dict(), "ambulance_count": ambulance_count,
         "queue_policy": queue_policy, "aging_seconds": aging_seconds,
         "curriculum": list(curriculum), "hospitals": hospitals,
         "ambulance_edges": edges, "hospital_access_edges": access,
         "network_sha256": network_digest(env),
         "reward_weights": asdict(WEIGHTS), "golden_time_limits": {str(k): v for k, v in GOLDEN_TIME_LIMITS.items()},
+        "agent_architecture": network_architecture(config),
+        "learning_reward_scale": 100. if config.reward_version == 4 else 1.,
     }
     manifest["signature"] = manifest_signature(manifest)
     return manifest
@@ -439,19 +441,31 @@ def make_manifest(env, hospitals, edges, access, config, ambulance_count, queue_
 def load_experiment(model_path):
     """Reconstruct the exact hospital order and verified origins used in training."""
     import torch
-    from experiment_config import EXPERIMENT_VERSION, SimulationConfig
+    from experiment_config import EXPERIMENT_VERSION, SimulationConfig, network_architecture
     from baseline import state_dimension
     path = Path(model_path).resolve()
     checkpoint = torch.load(path, map_location="cpu", weights_only=False)
     metadata = checkpoint.get("metadata", {})
     manifest_path = Path(metadata.get("manifest_path", ""))
     if not manifest_path.is_file():
-        raise ValueError("This model has no v3 experiment manifest. Train a new model.")
+        raise ValueError("This model has no experiment manifest. Train a new model.")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if (manifest.get("version") != EXPERIMENT_VERSION
+    if (manifest.get("version") not in (3, 4, EXPERIMENT_VERSION)
             or manifest_signature(manifest) != manifest.get("signature")
             or metadata.get("experiment_signature") != manifest.get("signature")):
         raise ValueError("Model and experiment manifest do not match.")
+    if manifest["version"] >= 4 and (
+            checkpoint.get("architecture") != manifest.get("agent_architecture")
+            or checkpoint.get("reward_scale") != manifest.get("learning_reward_scale")):
+        raise ValueError("Model architecture/scaling and manifest do not match.")
+    settings = dict(manifest["config"])
+    settings.setdefault("reward_version", 3 if manifest["version"] == 3 else 4)
+    settings.setdefault("observation_version", manifest.get("state_schema_version", 3))
+    settings.setdefault("pending_reward_feature", "zero" if settings["observation_version"] == 3 else "estimate")
+    config = SimulationConfig(**settings)
+    if (manifest.get("state_schema_version", 3) != config.observation_version
+            or checkpoint.get("architecture", "flat_v3") != network_architecture(config)):
+        raise ValueError("Observation version and model architecture do not match.")
     env = SumoMedicalEnvironment()
     if network_digest(env) != manifest["network_sha256"]:
         raise ValueError("The SUMO network changed since training.")
@@ -459,16 +473,20 @@ def load_experiment(model_path):
     env._coordinates_ready = True
     env.ambulance_edges = list(manifest["ambulance_edges"])
     env.hospital_access_edges = manifest["hospital_access_edges"]
-    agent = DQNAmbulanceAgent(state_dimension(len(env.hospitals)), len(env.hospitals))
+    agent = DQNAmbulanceAgent(
+        state_dimension(len(env.hospitals), config.observation_version), len(env.hospitals),
+        architecture=checkpoint.get("architecture", "flat_v3"),
+        reward_scale=checkpoint.get("reward_scale", 1.))
     agent.load_model(str(path))
     agent.epsilon = 0.
     agent.model.eval()
-    return env, copy.deepcopy(env.hospitals), agent, SimulationConfig(**manifest["config"]), manifest
+    return env, copy.deepcopy(env.hospitals), agent, config, manifest
 
 
 def latest_model(output_root=None):
     root = Path(output_root) if output_root else Path(__file__).resolve().parents[1] / "results"
-    choices = list((root / "models").glob("dqn_v3_*_last.pth"))
+    choices = [path for version in (3, 4, 5)
+               for path in (root / "models").glob(f"dqn_v{version}_*_last.pth")]
     if not choices:
-        raise FileNotFoundError("No v3 model found; run train_agent.py first or provide --model.")
+        raise FileNotFoundError("No model found; run train_agent.py first or provide --model.")
     return max(choices, key=lambda p: p.stat().st_mtime)

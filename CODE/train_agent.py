@@ -6,6 +6,7 @@ import os
 from dataclasses import replace
 from functools import partial
 import json
+from itertools import product
 from pathlib import Path
 import time
 
@@ -14,7 +15,8 @@ import numpy as np
 from baseline import state_dimension
 from dqn_agent import DQNAmbulanceAgent
 from experiment_config import (SimulationConfig, SCENARIOS, isolated_random_state,
-                               parse_numbers, seed_everything, curriculum_multiplier)
+                               parse_numbers, seed_everything, curriculum_multiplier,
+                               network_architecture)
 from experiment_log import append_record, new_run_id
 from simulation import run_episode
 from simulation_setup import prepare_environment, make_manifest, manifest_signature
@@ -35,28 +37,30 @@ def suppress_stdout(enabled):
 
 
 def validate_panel(env, hospitals, agent, config, scenario_ids, seeds,
-                   ambulance_count, queue_policy, aging_seconds, output_dir, quiet=False):
+                   ambulance_count, queue_policy, aging_seconds, output_dir, quiet=False,
+                   demand_levels=None):
     results = []
+    levels = tuple(demand_levels) if demand_levels is not None else (config.demand_scale,)
+    if not levels:
+        raise ValueError("Validation demand levels must not be empty.")
     epsilon, training = agent.epsilon, agent.model.training
     try:
         with isolated_random_state():
             agent.epsilon = 0.
             agent.model.eval()
-            for scenario_id in scenario_ids:
+            for scenario_id, seed, demand in product(scenario_ids, seeds, levels):
                 scenario = SCENARIOS[scenario_id - 1]
-                for seed in seeds:
-                    panel_started = time.monotonic()
-                    print(f"[Validation {len(results) + 1}/{len(scenario_ids) * len(seeds)}] "
-                          f"scenario={scenario_id} seed={seed} demand x{config.demand_scale:g} started",
-                          flush=True)
-                    results.append(run_episode(
-                        env, hospitals, scenario, seed, "dqn", config, agent=agent,
-                        ambulance_count=ambulance_count, queue_policy=queue_policy,
-                        aging_seconds=aging_seconds,
-                        output_dir=Path(output_dir) / f"scenario{scenario_id}_seed{seed}",
-                        quiet=quiet))
-                    print(f"[Validation] seed={seed} completed in "
-                          f"{time.monotonic() - panel_started:.1f}s", flush=True)
+                panel_started = time.monotonic()
+                print(f"[Validation {len(results) + 1}/{len(scenario_ids) * len(seeds) * len(levels)}] "
+                      f"scenario={scenario_id} seed={seed} demand x{demand:g} started", flush=True)
+                results.append(run_episode(
+                    env, hospitals, scenario, seed, "dqn", replace(config, demand_scale=demand), agent=agent,
+                    ambulance_count=ambulance_count, queue_policy=queue_policy,
+                    aging_seconds=aging_seconds,
+                    output_dir=Path(output_dir) / f"scenario{scenario_id}_seed{seed}_d{demand:g}",
+                    quiet=quiet))
+                print(f"[Validation] seed={seed} demand x{demand:g} completed in "
+                      f"{time.monotonic() - panel_started:.1f}s", flush=True)
     finally:
         agent.epsilon = epsilon
         agent.model.train(training)
@@ -74,7 +78,8 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
           queue_policy="severity", aging_seconds=300, virtual_count=0,
           virtual_strategy="far", placement_seed=42, config=None, curriculum=(),
           validation_seeds=(30001, 30002, 30003), validation_scenarios=(1,),
-          output_root=None, quiet=False):
+          output_root=None, quiet=False, trace_decisions=False, validation_demands=None,
+          cycle_curriculum=False):
     config = config or SimulationConfig()
     if num_episodes < 1 or eval_every < 0 or not 1 <= ambulance_count <= 10:
         raise ValueError("Require episodes >= 1, eval_every >= 0, ambulances in 1..10.")
@@ -84,6 +89,11 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
         raise ValueError("Validation scenario IDs must be in 1..9.")
     for multiplier in curriculum:
         replace(config, demand_scale=config.demand_scale * multiplier)
+    validation_demands = tuple(validation_demands) if validation_demands is not None else (config.demand_scale,)
+    if not validation_demands:
+        raise ValueError("Validation demand levels must not be empty.")
+    for demand in validation_demands:
+        replace(config, demand_scale=demand)
     seed_everything(config.seed)
     root = Path(output_root or PROJECT_ROOT / "results").resolve()
     run_id = new_run_id("train")
@@ -95,9 +105,11 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     manifest = make_manifest(env, hospitals, edges, access, config, ambulance_count,
                              queue_policy, aging_seconds, curriculum)
     manifest.update(validation_seeds=list(validation_seeds),
-                    validation_scenarios=list(validation_scenarios))
+                    validation_scenarios=list(validation_scenarios),
+                    validation_demands=list(validation_demands),
+                    cycle_curriculum=cycle_curriculum)
     manifest["signature"] = manifest_signature(manifest)
-    tag = f"v3_{manifest['signature']}"
+    tag = f"v{manifest['version']}_{manifest['signature']}"
     model_path = root / "models" / f"dqn_{tag}_last.pth"
     best_path = root / "models" / f"dqn_{tag}_best.pth"
     checkpoint_path = root / "training" / f"checkpoint_{tag}.pth"
@@ -105,12 +117,17 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     if resume:
         if not manifest_path.is_file() or not checkpoint_path.is_file():
-            raise FileNotFoundError(f"No compatible v3 checkpoint: {checkpoint_path}")
+            raise FileNotFoundError(f"No compatible checkpoint: {checkpoint_path}. A new state version needs fresh training.")
         if json.loads(manifest_path.read_text(encoding="utf-8")) != manifest:
             raise ValueError("Resume settings differ from the saved experiment.")
     else:
+        if any(path.exists() for path in (model_path, best_path, checkpoint_path, manifest_path)):
+            raise FileExistsError("Experiment already exists. Use --resume or a different --output-root/--seed.")
         manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
-    agent = DQNAmbulanceAgent(state_dimension(len(hospitals)), len(hospitals))
+    agent = DQNAmbulanceAgent(
+        state_dimension(len(hospitals), config.observation_version), len(hospitals),
+        architecture=manifest.get("agent_architecture", network_architecture(config)),
+        reward_scale=manifest.get("learning_reward_scale", 100.))
     agent.metadata = {
         "manifest_path": str(manifest_path),
         "experiment_signature": manifest["signature"],
@@ -125,6 +142,8 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     target_episode = previous_episodes + num_episodes
     print(f"[Training] previous={previous_episodes} episodes | "
           f"additional={num_episodes} | target_total={target_episode}", flush=True)
+    print(f"[Observation] version={config.observation_version} dim={agent.state_dim} "
+          f"pending_reward={config.pending_reward_feature}", flush=True)
     best_score = agent.metadata.get("best_validation_reward")
     metrics_dir = root / "training" / tag / run_id
     csv_path = metrics_dir / "training_metrics.csv"
@@ -138,7 +157,9 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
                     "queue_policy": queue_policy, "curriculum": list(curriculum),
                     "eval_every": eval_every, "validation_seeds": list(validation_seeds),
                     "validation_scenarios": list(validation_scenarios),
-                    "quiet": quiet})
+                    "validation_demands": list(validation_demands),
+                    "cycle_curriculum": cycle_curriculum,
+                    "quiet": quiet, "trace_decisions": trace_decisions})
     if not quiet:
         print(f"[Experiment] hospitals={len(hospitals)}, state_dim={agent.state_dim}")
         print(f"[Manifest] {manifest_path}")
@@ -146,7 +167,7 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     try:
         for episode in range(start_episode, start_episode + num_episodes):
             scenario = SCENARIOS[(episode - 1) % len(SCENARIOS)]
-            multiplier = curriculum_multiplier(episode, curriculum)
+            multiplier = curriculum_multiplier(episode, curriculum, cycle=cycle_curriculum)
             episode_config = replace(config, demand_scale=config.demand_scale * multiplier)
             episode_started = time.monotonic()
             def on_outcome(row):
@@ -154,12 +175,18 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
                        scenario_id=scenario["id"], scenario_name=scenario["name"],
                        status="censored" if row["censored"] else ("arrived" if row["arrived"] else "failed"),
                        ambulance_limit=ambulance_count, model_path=str(model_path), metrics=row)
+            def on_decision(row):
+                record(run_id, "training", "decision", episode=episode,
+                       scenario_id=scenario["id"], strategy="dqn", model_path=str(model_path),
+                       metrics={**row, "seed": config.seed + 10000 + episode,
+                                "demand_scale": episode_config.demand_scale})
             result = run_episode(
                 env, hospitals, scenario, config.seed + 10000 + episode, "dqn",
                 episode_config, agent=agent, training=True, gui=gui,
                 ambulance_count=ambulance_count, queue_policy=queue_policy,
                 aging_seconds=aging_seconds, output_dir=output / f"episode{episode}",
-                on_outcome=on_outcome, quiet=quiet)
+                on_outcome=on_outcome, quiet=quiet,
+                on_decision=on_decision if trace_decisions else None)
             if episode % 10 == 0:
                 agent.update_target_network()
             result.update(epsilon=agent.epsilon, replay_memory=len(agent.memory))
@@ -179,20 +206,22 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
             print(f"Episode {episode}/{target_episode} "
                   f"(previous={previous_episodes}, "
                   f"this_run={episode - previous_episodes}/{num_episodes}) | "
+                  f"scenario={scenario['id']} p={scenario['prob']:g} traffic={scenario['scale']:g} | "
                   f"demand x{episode_config.demand_scale:g} | "
                   f"generated={result['generated_patients']} arrived={result['arrived']} "
                   f"failed={result['failed']} censored={result['censored']} | "
                   f"golden={result['golden_rate']:.1f}% wait={result['avg_wait']:.1f}s | "
                   f"reward/patient={result['avg_reward']:.3f} loss={result['avg_loss']:.4f} "
                   f"epsilon={agent.epsilon:.4f}", flush=True)
-            if eval_every and episode % eval_every == 0:
+            if eval_every and (episode % eval_every == 0 or episode == target_episode):
                 # Keep completed training even if the following evaluation fails.
                 with suppress_stdout(quiet):
                     agent.save_model(str(model_path), episode=episode)
                     agent.save_model(str(checkpoint_path), episode=episode, full_state=True)
                 validation = validate_panel(
                     env, hospitals, agent, config, validation_scenarios, validation_seeds,
-                    ambulance_count, queue_policy, aging_seconds, output / f"validation{episode}", quiet=quiet)
+                    ambulance_count, queue_policy, aging_seconds, output / f"validation{episode}",
+                    quiet=quiet, demand_levels=validation_demands)
                 record(run_id, "training", "fixed_evaluation", episode=episode,
                        status="completed", model_path=str(model_path), metrics=validation)
                 score = validation["avg_reward"]
@@ -233,6 +262,10 @@ def main():
     parser.add_argument("--quiet", action="store_true",
                         help="Hide SUMO/setup output; keep episode and validation summaries.")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--trace-decisions", action="store_true",
+                        help="Save candidate hospitals, Q values and action masks to the experiment log.")
+    parser.add_argument("--pending-reward-feature", choices=("estimate", "zero"), default="estimate",
+                        help="V5 pending-mission reward estimate, or an equal-shape zero-feature control.")
     parser.add_argument("--virtual-count", type=int, choices=[0, 2, 5], default=0)
     parser.add_argument("--virtual-strategy", choices=["far", "random", "demand-proxy"], default="far")
     parser.add_argument("--placement-seed", type=int, default=42)
@@ -242,6 +275,8 @@ def main():
     parser.add_argument("--steps", type=int, default=500)
     parser.add_argument("--demand-scale", type=float, default=1.)
     parser.add_argument("--curriculum", default="", help="Demand multipliers, e.g. 0.1,0.3,1; each stage lasts 9 episodes")
+    parser.add_argument("--cycle-curriculum", action="store_true",
+                        help="Repeat curriculum demand levels instead of keeping only the final level.")
     parser.add_argument("--treatment-seconds", type=float, default=900.)
     parser.add_argument("--bed-fraction", type=float, default=.08)
     parser.add_argument("--max-wait", type=float, default=1800.)
@@ -249,6 +284,7 @@ def main():
     parser.add_argument("--candidate-limit", type=int, default=1200)
     parser.add_argument("--validation-seeds", default="30001,30002,30003")
     parser.add_argument("--validation-scenarios", default="1")
+    parser.add_argument("--validation-demand-levels", help="Fixed absolute demand levels, e.g. 0.1,0.3")
     parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "results")
     args = parser.parse_args()
     try:
@@ -256,13 +292,17 @@ def main():
             arrival_steps=args.steps, demand_scale=args.demand_scale,
             max_wait=args.max_wait, mission_timeout=args.mission_timeout,
             treatment_seconds=args.treatment_seconds, bed_fraction=args.bed_fraction,
-            seed=args.seed, candidate_limit=args.candidate_limit)
+            seed=args.seed, candidate_limit=args.candidate_limit,
+            pending_reward_feature=args.pending_reward_feature)
         curriculum = parse_numbers(args.curriculum) if args.curriculum else ()
         train(args.episodes, args.gui, args.ambulances, args.eval_every, args.resume,
               args.queue_policy, args.aging_seconds, args.virtual_count,
               args.virtual_strategy, args.placement_seed, config, curriculum,
               parse_numbers(args.validation_seeds, int),
-              parse_numbers(args.validation_scenarios, int), args.output_root, args.quiet)
+              parse_numbers(args.validation_scenarios, int), args.output_root, args.quiet,
+              trace_decisions=args.trace_decisions,
+              validation_demands=parse_numbers(args.validation_demand_levels) if args.validation_demand_levels else None,
+              cycle_curriculum=args.cycle_curriculum)
     except ValueError as exc:
         parser.error(str(exc))
 

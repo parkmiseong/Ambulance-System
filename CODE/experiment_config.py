@@ -8,8 +8,8 @@ import random
 import numpy as np
 import torch
 
-STATE_SCHEMA_VERSION = 3
-EXPERIMENT_VERSION = 3
+STATE_SCHEMA_VERSION = 4
+EXPERIMENT_VERSION = 5
 SCENARIOS = [
     {"id": i + 1, "prob": p, "scale": scale, "name": f"demand{p}-traffic{scale}"}
     for i, (p, scale) in enumerate((p, s) for p in (.2, .3, .4) for s in (.3, .5, .8))
@@ -27,8 +27,17 @@ class SimulationConfig:
     occupancy_limit: float = .85
     seed: int = 42
     candidate_limit: int = 1200
+    reward_version: int = 4
+    observation_version: int = STATE_SCHEMA_VERSION
+    pending_reward_feature: str = "estimate"
 
     def __post_init__(self):
+        if self.observation_version not in (3, 4):
+            raise ValueError("observation_version must be 3 or 4.")
+        if self.pending_reward_feature not in ("estimate", "zero"):
+            raise ValueError("pending_reward_feature must be estimate or zero.")
+        if self.reward_version not in (3, 4):
+            raise ValueError("reward_version must be 3 or 4.")
         if (self.arrival_steps < 1 or self.candidate_limit < 1
                 or int(self.arrival_steps) != self.arrival_steps
                 or int(self.candidate_limit) != self.candidate_limit):
@@ -51,6 +60,12 @@ class SimulationConfig:
 
     def to_dict(self):
         return asdict(self)
+
+
+def network_architecture(config):
+    if config.observation_version == 4:
+        return "hospital_shared_v5"
+    return "hospital_shared_v4" if config.reward_version == 4 else "flat_v3"
 
 
 def seed_everything(seed):
@@ -101,9 +116,12 @@ def generate_schedule(scenario, edges, seed, config):
     return schedule
 
 
-def curriculum_multiplier(episode, levels):
+def curriculum_multiplier(episode, levels, cycle=False):
     """Advance every nine scenarios, then keep the final demand level."""
-    return levels[min((episode - 1) // len(SCENARIOS), len(levels) - 1)] if levels else 1.
+    if not levels:
+        return 1.
+    stage = (episode - 1) // len(SCENARIOS)
+    return levels[stage % len(levels) if cycle else min(stage, len(levels) - 1)]
 
 
 def parse_numbers(value, cast=float):

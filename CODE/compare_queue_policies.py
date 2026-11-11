@@ -1,4 +1,4 @@
-"""Compare queue policies using the exact v3 training experiment."""
+"""Compare queue policies using the model's recorded training experiment."""
 import argparse
 from functools import partial
 from pathlib import Path

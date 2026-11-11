@@ -29,13 +29,43 @@ class DQNNetwork(nn.Module):
         return self.fc(x)
 
 
-class DQNAmbulanceAgent:
+class HospitalQNetwork(nn.Module):
+    """Apply the same scorer to each hospital and pooled network context.
+
+    Swapping hospital feature blocks swaps their Q values. There is no learned
+    hospital-index bias, and each decision trains the shared feature mapping.
+    """
+    def __init__(self, state_dim, action_dim, global_dim=15):
+        super().__init__()
+        if state_dim != global_dim + 9 * action_dim:
+            raise ValueError("HospitalQNetwork state size differs from its observation layout.")
+        self.action_dim = action_dim
+        self.global_dim = global_dim
+        self.scorer = nn.Sequential(nn.Linear(global_dim + 9 + 27, 128), nn.ReLU(),
+                                    nn.Linear(128, 128), nn.ReLU(), nn.Linear(128, 1))
+
+    def forward(self, x):
+        hospitals = x[..., self.global_dim:].reshape(*x.shape[:-1], self.action_dim, 9)
+        context = torch.cat((hospitals.mean(dim=-2), hospitals.amin(dim=-2),
+                             hospitals.amax(dim=-2)), dim=-1)
+        common = torch.cat((x[..., :self.global_dim], context), dim=-1)
+        common = common.unsqueeze(-2).expand(*hospitals.shape[:-1], common.shape[-1])
+        return self.scorer(torch.cat((common, hospitals), dim=-1)).squeeze(-1)
+
+
+class HospitalHistoryQNetwork(HospitalQNetwork):
     def __init__(self, state_dim, action_dim):
+        super().__init__(state_dim, action_dim, global_dim=16)
+
+
+class DQNAmbulanceAgent:
+    def __init__(self, state_dim, action_dim, *, architecture="flat_v3", reward_scale=1.):
         self.state_dim = state_dim
         self.action_dim = action_dim
         self.memory = deque(maxlen=30000)
         self.metadata = {}
         self.loaded_episode = 0
+        self.last_action_exploratory = False
 
         self.gamma = 0.95
         self.epsilon = 1.0
@@ -44,11 +74,27 @@ class DQNAmbulanceAgent:
         self.learning_rate = 0.0005
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = DQNNetwork(state_dim, action_dim).to(self.device)
-        self.target_model = DQNNetwork(state_dim, action_dim).to(self.device)
+        self._build_networks(architecture)
+        if not np.isfinite(reward_scale) or reward_scale <= 0:
+            raise ValueError("reward_scale must be finite and positive.")
+        self.reward_scale = float(reward_scale)
+
+    def _build_networks(self, architecture):
+        network = {"flat_v3": DQNNetwork, "hospital_shared_v4": HospitalQNetwork,
+                   "hospital_shared_v5": HospitalHistoryQNetwork}.get(architecture)
+        if network is None:
+            raise ValueError(f"Unknown network architecture: {architecture}")
+        self.architecture = architecture
+        self.model = network(self.state_dim, self.action_dim).to(self.device)
+        self.target_model = network(self.state_dim, self.action_dim).to(self.device)
         self.optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
 
         self.update_target_network()
+
+    def q_values(self, state):
+        state_tensor = torch.as_tensor(np.asarray(state, dtype=np.float32), device=self.device)
+        with torch.no_grad():
+            return self.model(state_tensor.unsqueeze(0)).squeeze(0).cpu().numpy()
 
     def update_target_network(self):
         self.target_model.load_state_dict(self.model.state_dict())
@@ -63,7 +109,10 @@ class DQNAmbulanceAgent:
             raise ValueError("선택 가능한 action이 없습니다.")
 
         if np.random.rand() <= self.epsilon:
+            self.last_action_exploratory = True
             return random.choice(valid_actions)
+
+        self.last_action_exploratory = False
 
         state_tensor = torch.as_tensor(
             np.asarray(state, dtype=np.float32),
@@ -95,7 +144,7 @@ class DQNAmbulanceAgent:
                 raise ValueError("Nonterminal replay requires in-range next actions.")
             next_mask[actions] = True
         self.memory.append((
-            state, int(action), float(reward), next_state, bool(done), next_mask,
+            state, int(action), float(reward) / self.reward_scale, next_state, bool(done), next_mask,
         ))
 
     def train_step(self, batch_size=32):
@@ -151,6 +200,8 @@ class DQNAmbulanceAgent:
         os.makedirs(os.path.dirname(filepath) or ".", exist_ok=True)
         payload = {
             "replay_schema_version": REPLAY_SCHEMA_VERSION,
+            "architecture": self.architecture,
+            "reward_scale": self.reward_scale,
             "metadata": self.metadata,
             "model_state_dict": self.model.state_dict(),
             "target_model_state_dict": self.target_model.state_dict(),
@@ -189,6 +240,15 @@ class DQNAmbulanceAgent:
         saved_metadata = checkpoint.get("metadata", {})
         if resume and expected_signature and saved_metadata.get("experiment_signature") != expected_signature:
             raise ValueError("Checkpoint experiment settings do not match.")
+        architecture = checkpoint.get("architecture", "flat_v3")
+        reward_scale = float(checkpoint.get("reward_scale", 1.))
+        if not np.isfinite(reward_scale) or reward_scale <= 0:
+            raise ValueError("Invalid checkpoint reward scale.")
+        if resume and (architecture != self.architecture or reward_scale != self.reward_scale):
+            raise ValueError("Checkpoint network/reward scaling differs from this training run.")
+        if architecture != self.architecture:
+            self._build_networks(architecture)
+        self.reward_scale = reward_scale
         self.metadata = dict(saved_metadata)
         self.loaded_episode = int(checkpoint.get("episode") or 0)
         self.model.load_state_dict(checkpoint["model_state_dict"])

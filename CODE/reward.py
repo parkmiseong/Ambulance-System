@@ -22,6 +22,22 @@ class RewardWeights:
 
 WEIGHTS=RewardWeights()
 
+
+def failure_penalty(reward_version=4, weights=WEIGHTS, rejection_count=0):
+    """V4 failures rank below every bounded successful outcome with these weights.
+
+    V3 is retained explicitly to reproduce existing experiment scores.
+    The route_failure weight is the margin below the worst success, not a
+    clinical valuation. With default weights and no rejections the cost is 85.
+    """
+    if reward_version == 3:
+        return weights.route_failure
+    if reward_version != 4:
+        raise ValueError("Unsupported reward version.")
+    return (3 * weights.travel + 2 * weights.overtime + weights.mismatch
+            + weights.occupancy + weights.overcrowding
+            + weights.rejection * max(0, int(rejection_count)) + weights.route_failure)
+
 def normalize_ktas(value):
     try:return max(1,min(5,int(value)))
     except (ValueError,TypeError):return 3
@@ -48,7 +64,9 @@ def get_hospital_suitability(ktas,hospital,uncertainty=DEFAULT_UNCERTAINTY):
 
 def reward_components(travel_time,ktas,hospital,golden_limit=None,rejection_count=0,
                       occupancy=0.,occupancy_at_selection=None,route_failed=False,
-                      pre_ktas=None,uncertainty=DEFAULT_UNCERTAINTY,weights=WEIGHTS):
+                      pre_ktas=None,uncertainty=DEFAULT_UNCERTAINTY,weights=WEIGHTS,
+                      reward_version=4):
+    failure_cost = failure_penalty(reward_version, weights, rejection_count)
     k=normalize_ktas(pre_ktas if pre_ktas is not None else ktas)
     limit=float(golden_limit or GOLDEN_TIME_LIMITS[k]);limit=max(1.,limit)
     t=max(0.,float(travel_time));ratio=t/limit
@@ -56,7 +74,7 @@ def reward_components(travel_time,ktas,hospital,golden_limit=None,rejection_coun
     occ=max(0.,min(1.,occ))
     fit=get_hospital_suitability(k,hospital,uncertainty)
     # 적합도 미달의 제곱 패널티 + 병상 과밀 패널티. 대형병원 편향 완화.
-    return {
+    parts = {
       'golden':weights.golden if ratio<=1 and not route_failed else 0.,
       'travel':-weights.travel*min(ratio,3.),
       'overtime':-weights.overtime*min(max(0.,ratio-1.),2.),
@@ -66,10 +84,15 @@ def reward_components(travel_time,ktas,hospital,golden_limit=None,rejection_coun
       'rejection':-weights.rejection*max(0,int(rejection_count)),
       'route_failure':-weights.route_failure if route_failed else 0.,
     }
+    if reward_version == 4 and route_failed:
+        parts = {key: 0. for key in parts}
+        parts['route_failure'] = -failure_cost
+    return parts
 
 def calculate_reward(travel_time,ktas=None,hospital=None,golden_limit=None,rejection_count=0,
                      occupancy=0.,occupancy_at_selection=None,route_failed=False,pre_ktas=None,
-                     uncertainty=DEFAULT_UNCERTAINTY,weights=WEIGHTS,**kwargs):
+                     uncertainty=DEFAULT_UNCERTAINTY,weights=WEIGHTS,reward_version=4,**kwargs):
     if hospital is None:raise ValueError('hospital required')
     return float(sum(reward_components(travel_time,ktas,hospital,golden_limit,rejection_count,
-        occupancy,occupancy_at_selection,route_failed,pre_ktas,uncertainty,weights).values()))
+        occupancy,occupancy_at_selection,route_failed,pre_ktas,uncertainty,weights,
+        reward_version).values()))
