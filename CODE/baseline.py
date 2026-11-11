@@ -5,7 +5,8 @@ import math
 
 import numpy as np
 
-from reward import get_hospital_suitability
+from reward import get_hospital_suitability, calculate_reward, GOLDEN_TIME_LIMITS, normalize_ktas
+from experiment_config import STATE_SCHEMA_VERSION
 
 
 MAX_ESTIMATED_TRAVEL_TIME = 600.0
@@ -24,10 +25,10 @@ def _distance(patient_pos, h):
     )
 
 
-def state_dimension(hospital_count, observation_version=4):
-    if observation_version not in (3, 4):
+def state_dimension(hospital_count, observation_version=STATE_SCHEMA_VERSION):
+    if observation_version not in (3, 4, 5):
         raise ValueError("Unsupported observation version.")
-    return (16 if observation_version == 4 else 15) + 9 * hospital_count
+    return (15 if observation_version == 3 else 16) + (11 if observation_version == 5 else 9) * hospital_count
 
 
 def build_state_vector(patient_pos, ktas, hospitals, *, patient=None, manager=None,
@@ -52,7 +53,7 @@ def build_state_vector(patient_pos, ktas, hospitals, *, patient=None, manager=No
         max(0., oldest) / config.max_wait,
         (sum(remaining) / len(remaining) / config.mission_timeout) if remaining else 0.,
     ]
-    if config.observation_version == 4:
+    if config.observation_version >= 4:
         # Predictions are fixed at dispatch, before any future outcome is known.
         # Keep an equal-shape zero-feature arm for a one-factor comparison.
         pending_reward = (sum(float(getattr(m, "estimated_reward", 0.)) for m in active)
@@ -70,6 +71,18 @@ def build_state_vector(patient_pos, ktas, hospitals, *, patient=None, manager=No
             float(bool(h.get("reachable", False))),
             float(bool(h.get("can_admit", True))),
         ])
+        if config.observation_version == 5:
+            wait = max(0., now - patient["occurrence_time"])
+            total = wait + _travel(h)
+            limit = GOLDEN_TIME_LIMITS[normalize_ktas(ktas)]
+            reachable = bool(h.get("reachable", False))
+            margin = float(np.clip((limit - total) / limit, -3., 1.))
+            predicted = (calculate_reward(total, ktas, h, golden_limit=limit,
+                                          occupancy_at_selection=h.get("occupancy", 0.),
+                                          pre_ktas=patient.get("pre_ktas", ktas),
+                                          reward_version=config.reward_version) if reachable and config.candidate_reward_feature else 0.)
+            state.extend([margin if config.golden_margin_feature and reachable else 0.,
+                          predicted / 100. if config.candidate_reward_feature else 0.])
     result = np.asarray(state, dtype=np.float32)
     if result.shape != (state_dimension(len(hospitals), config.observation_version),) or not np.isfinite(result).all():
         raise ValueError("Invalid observation shape or nonfinite features.")
@@ -135,6 +148,14 @@ class HospitalRouters:
         return max(a, key=score)
 
     # 이전 코드와의 호환
+    def expected_reward_strategy(self, ktas, actions, wait_seconds=0., reward_version=4, pre_ktas=None):
+        a = self._get(actions)
+        return max(a, key=lambda i: calculate_reward(
+            max(0., wait_seconds) + _travel(self.hospitals[i]), ktas, self.hospitals[i],
+            golden_limit=GOLDEN_TIME_LIMITS[normalize_ktas(ktas)], pre_ktas=pre_ktas,
+            occupancy_at_selection=self.hospitals[i].get("occupancy", 0.),
+            reward_version=reward_version))
+
     def nearest_strategy(self, patient_pos):
         self._patient_x, self._patient_y = patient_pos[:2]
         return min(range(len(self.hospitals)), key=lambda i: _distance(patient_pos, self.hospitals[i]))

@@ -8,8 +8,8 @@ import random
 import numpy as np
 import torch
 
-STATE_SCHEMA_VERSION = 4
-EXPERIMENT_VERSION = 5
+STATE_SCHEMA_VERSION = 5
+EXPERIMENT_VERSION = 6
 SCENARIOS = [
     {"id": i + 1, "prob": p, "scale": scale, "name": f"demand{p}-traffic{scale}"}
     for i, (p, scale) in enumerate((p, s) for p in (.2, .3, .4) for s in (.3, .5, .8))
@@ -30,10 +30,16 @@ class SimulationConfig:
     reward_version: int = 4
     observation_version: int = STATE_SCHEMA_VERSION
     pending_reward_feature: str = "estimate"
+    golden_margin_feature: bool = False
+    candidate_reward_feature: bool = False
 
     def __post_init__(self):
-        if self.observation_version not in (3, 4):
-            raise ValueError("observation_version must be 3 or 4.")
+        if self.observation_version not in (3, 4, 5):
+            raise ValueError("observation_version must be 3, 4 or 5.")
+        if type(self.golden_margin_feature) is not bool or type(self.candidate_reward_feature) is not bool:
+            raise ValueError("Candidate feature switches must be boolean.")
+        if self.observation_version < 5 and (self.golden_margin_feature or self.candidate_reward_feature):
+            raise ValueError("Candidate features require observation_version 5.")
         if self.pending_reward_feature not in ("estimate", "zero"):
             raise ValueError("pending_reward_feature must be estimate or zero.")
         if self.reward_version not in (3, 4):
@@ -62,7 +68,59 @@ class SimulationConfig:
         return asdict(self)
 
 
+
+@dataclass(frozen=True)
+class LearningConfig:
+    gamma: float = .95
+    learning_rate: float = .0005
+    batch_size: int = 32
+    replay_capacity: int = 30000
+    reward_scale: float = 100.
+    target_sync_mode: str = "updates"
+    target_sync_interval: int = 200
+    target_sync_episodes: int = 10
+    target_tau: float = .005
+    epsilon_start: float = 1.
+    epsilon_min: float = .05
+    epsilon_decay: float = .9995
+    epsilon_schedule: str = "updates_exponential"
+    epsilon_decay_decisions: int = 10000
+    gradient_clip_norm: float = 5.
+
+    def __post_init__(self):
+        for name in ("learning_rate", "reward_scale", "gradient_clip_norm"):
+            if not math.isfinite(getattr(self, name)) or getattr(self, name) <= 0:
+                raise ValueError(f"{name} must be finite and positive.")
+        for name in ("batch_size", "replay_capacity", "target_sync_interval",
+                     "target_sync_episodes", "epsilon_decay_decisions"):
+            if type(getattr(self, name)) is not int or getattr(self, name) < 1:
+                raise ValueError(f"{name} must be a positive integer.")
+        if self.replay_capacity < self.batch_size:
+            raise ValueError("replay_capacity must cover batch_size.")
+        if not math.isfinite(self.gamma) or not 0 <= self.gamma <= 1:
+            raise ValueError("gamma must be in 0..1.")
+        if not 0 <= self.epsilon_min <= self.epsilon_start <= 1:
+            raise ValueError("Require 0 <= epsilon_min <= epsilon_start <= 1.")
+        if not math.isfinite(self.epsilon_decay) or not 0 < self.epsilon_decay <= 1:
+            raise ValueError("epsilon_decay must be in (0, 1].")
+        if not math.isfinite(self.target_tau) or not 0 < self.target_tau <= 1:
+            raise ValueError("target_tau must be in (0, 1].")
+        if self.target_sync_mode not in ("updates", "episodes", "soft"):
+            raise ValueError("Unknown target synchronization mode.")
+        if self.epsilon_schedule not in ("updates_exponential", "decisions_linear"):
+            raise ValueError("Unknown epsilon schedule.")
+
+    def to_dict(self):
+        return asdict(self)
+
+    @classmethod
+    def legacy(cls, reward_scale=1.):
+        return cls(reward_scale=reward_scale, target_sync_mode="episodes")
+
+
 def network_architecture(config):
+    if config.observation_version == 5:
+        return "hospital_shared_v6"
     if config.observation_version == 4:
         return "hospital_shared_v5"
     return "hospital_shared_v4" if config.reward_version == 4 else "flat_v3"

@@ -21,6 +21,8 @@ class RewardWeights:
     overcrowding:float=5.
 
 WEIGHTS=RewardWeights()
+REWARD_COMPONENT_NAMES = ("golden", "travel", "overtime", "mismatch", "occupancy",
+                          "overcrowding", "rejection", "route_failure")
 
 
 def failure_penalty(reward_version=4, weights=WEIGHTS, rejection_count=0):

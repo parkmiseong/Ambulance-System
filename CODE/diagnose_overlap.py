@@ -47,7 +47,6 @@ class ControlledAgent(DQNAmbulanceAgent):
             self.updates += 1
             if self.updates % 100 == 0:
                 self.update_target_network()
-                self.target_updates += 1
         return loss
 
 

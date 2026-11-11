@@ -23,7 +23,7 @@ import test_simulation_system as fixtures
 
 class PendingEstimateTests(unittest.TestCase):
     def setUp(self):
-        self.config = SimulationConfig()
+        self.config = SimulationConfig(observation_version=4)
         self.manager = MissionManager()
         self.manager.active["A"] = Mission(
             dict(patient_id="old", ktas=1, occurrence_time=0), "A", 2., None,

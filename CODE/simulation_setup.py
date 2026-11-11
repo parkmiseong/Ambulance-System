@@ -420,8 +420,10 @@ def manifest_signature(manifest):
 
 
 def make_manifest(env, hospitals, edges, access, config, ambulance_count, queue_policy,
-                  aging_seconds, curriculum):
-    from experiment_config import EXPERIMENT_VERSION, network_architecture
+                  aging_seconds, curriculum, learning_config=None):
+    from experiment_config import EXPERIMENT_VERSION, LearningConfig, network_architecture
+    learning_config = learning_config or (LearningConfig() if config.reward_version == 4
+                                           else LearningConfig.legacy(1.))
     from dataclasses import asdict
     manifest = {
         "version": EXPERIMENT_VERSION, "state_schema_version": config.observation_version,
@@ -432,7 +434,8 @@ def make_manifest(env, hospitals, edges, access, config, ambulance_count, queue_
         "network_sha256": network_digest(env),
         "reward_weights": asdict(WEIGHTS), "golden_time_limits": {str(k): v for k, v in GOLDEN_TIME_LIMITS.items()},
         "agent_architecture": network_architecture(config),
-        "learning_reward_scale": 100. if config.reward_version == 4 else 1.,
+        "learning_reward_scale": learning_config.reward_scale,
+        "learning_config": learning_config.to_dict(),
     }
     manifest["signature"] = manifest_signature(manifest)
     return manifest
@@ -441,7 +444,7 @@ def make_manifest(env, hospitals, edges, access, config, ambulance_count, queue_
 def load_experiment(model_path):
     """Reconstruct the exact hospital order and verified origins used in training."""
     import torch
-    from experiment_config import EXPERIMENT_VERSION, SimulationConfig, network_architecture
+    from experiment_config import EXPERIMENT_VERSION, SimulationConfig, LearningConfig, network_architecture
     from baseline import state_dimension
     path = Path(model_path).resolve()
     checkpoint = torch.load(path, map_location="cpu", weights_only=False)
@@ -450,7 +453,7 @@ def load_experiment(model_path):
     if not manifest_path.is_file():
         raise ValueError("This model has no experiment manifest. Train a new model.")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if (manifest.get("version") not in (3, 4, EXPERIMENT_VERSION)
+    if (manifest.get("version") not in (3, 4, 5, EXPERIMENT_VERSION)
             or manifest_signature(manifest) != manifest.get("signature")
             or metadata.get("experiment_signature") != manifest.get("signature")):
         raise ValueError("Model and experiment manifest do not match.")
@@ -458,6 +461,8 @@ def load_experiment(model_path):
             checkpoint.get("architecture") != manifest.get("agent_architecture")
             or checkpoint.get("reward_scale") != manifest.get("learning_reward_scale")):
         raise ValueError("Model architecture/scaling and manifest do not match.")
+    if manifest["version"] >= 6 and checkpoint.get("learning_config") != manifest.get("learning_config"):
+        raise ValueError("Checkpoint learning settings and manifest do not match.")
     settings = dict(manifest["config"])
     settings.setdefault("reward_version", 3 if manifest["version"] == 3 else 4)
     settings.setdefault("observation_version", manifest.get("state_schema_version", 3))
@@ -476,7 +481,8 @@ def load_experiment(model_path):
     agent = DQNAmbulanceAgent(
         state_dimension(len(env.hospitals), config.observation_version), len(env.hospitals),
         architecture=checkpoint.get("architecture", "flat_v3"),
-        reward_scale=checkpoint.get("reward_scale", 1.))
+        reward_scale=checkpoint.get("reward_scale", 1.),
+        learning_config=LearningConfig(**manifest["learning_config"]) if manifest["version"] >= 6 else None)
     agent.load_model(str(path))
     agent.epsilon = 0.
     agent.model.eval()
@@ -484,9 +490,29 @@ def load_experiment(model_path):
 
 
 def latest_model(output_root=None):
+    """Return the newest saved best model; never substitute a last checkpoint."""
     root = Path(output_root) if output_root else Path(__file__).resolve().parents[1] / "results"
-    choices = [path for version in (3, 4, 5)
-               for path in (root / "models").glob(f"dqn_v{version}_*_last.pth")]
+    choices = [path for version in (3, 4, 5, 6)
+               for path in (root / "models").glob(f"dqn_v{version}_*_best.pth")
+               if path.is_file()]
     if not choices:
-        raise FileNotFoundError("No model found; run train_agent.py first or provide --model.")
-    return max(choices, key=lambda p: p.stat().st_mtime)
+        raise FileNotFoundError(
+            f"No best model found in {root / 'models'}. "
+            "Enable training validation to save one, or provide --model <..._best.pth>.")
+    return max(choices, key=lambda p: p.stat().st_mtime_ns)
+
+
+def resolve_evaluation_model(model_path=None, output_root=None):
+    """Keep evaluations on best models, including commands naming a last model."""
+    if model_path is None:
+        return latest_model(output_root)
+    path = Path(model_path)
+    if path.name.endswith("_last.pth"):
+        path = path.with_name(path.name[:-len("_last.pth")] + "_best.pth")
+    elif not path.name.endswith("_best.pth"):
+        raise ValueError("Evaluation requires a *_best.pth model; provide its path with --model.")
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"Best model not found: {path}. No last-model fallback is used; "
+            "enable training validation or choose an existing best model.")
+    return path

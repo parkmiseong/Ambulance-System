@@ -8,9 +8,10 @@ import numpy as np
 
 
 class EpisodeTransitions:
-    def __init__(self, agent, batch_size=32):
+    def __init__(self, agent, batch_size=None):
         self.agent = agent
-        self.batch_size = batch_size
+        self.batch_size = (getattr(getattr(agent, "learning_config", None), "batch_size", 32)
+                           if batch_size is None else batch_size)
         self.pending = None
         self.reward = 0.0
         self.total_reward = 0.0

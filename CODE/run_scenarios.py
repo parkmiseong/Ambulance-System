@@ -10,7 +10,7 @@ import numpy as np
 from experiment_config import SCENARIOS, isolated_random_state, parse_numbers
 from experiment_log import append_record, new_run_id
 from simulation import run_episode
-from simulation_setup import latest_model, load_experiment
+from simulation_setup import resolve_evaluation_model, load_experiment
 
 STRATEGIES = [
     ("shortest_distance", "Shortest road distance"),
@@ -66,7 +66,10 @@ def aggregate_results(results):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--model", type=Path)
+    parser.add_argument("--model", type=Path,
+                        help="Best model path; a *_last.pth path selects its paired *_best.pth.")
+    parser.add_argument("--output-root", type=Path,
+                        help="Training output root containing models/; used when --model is omitted.")
     parser.add_argument("--scenario", type=int, choices=range(10), default=1, help="0 = all")
     parser.add_argument("--seeds", default="30001,30002,30003")
     parser.add_argument("--demand-levels", help="e.g. 0.1,0.3,1; default = training demand")
@@ -80,11 +83,16 @@ def main():
     parser.add_argument("--quiet", action="store_true",
                         help="Hide SUMO output; keep one summary per strategy.")
     args = parser.parse_args()
-    model = args.model or latest_model()
+    try:
+        model = resolve_evaluation_model(args.model, args.output_root)
+    except (FileNotFoundError, ValueError) as exc:
+        parser.error(str(exc))
+    if args.model is not None and args.model.name.endswith("_last.pth"):
+        print(f"[Evaluation] requested={args.model}; using paired best={model}", flush=True)
     env, hospitals, agent, config, manifest = load_experiment(model)
     if args.reward_version is not None:
         config = replace(config, reward_version=args.reward_version)
-    print(f"[Evaluation] model={model} episode={agent.loaded_episode} "
+    print(f"[Evaluation] model={model} episode={agent.loaded_episode} selection=best "
           f"reward_version={config.reward_version}", flush=True)
     ambulance_count = args.ambulances or manifest["ambulance_count"]
     modes = args.strategies.split(",")
@@ -99,6 +107,8 @@ def main():
     record(run_id, "evaluation", "run_start", status="started", model_path=str(model),
            metrics={"seeds": seeds, "demand_levels": levels, "modes": modes,
                     "experiment_signature": manifest["signature"],
+                    "model_kind": "best", "model_episode": agent.loaded_episode,
+                    "requested_model": str(args.model) if args.model is not None else None,
                     "reward_version": config.reward_version,
                     "trace_decisions": args.trace_decisions})
     grouped = defaultdict(list)

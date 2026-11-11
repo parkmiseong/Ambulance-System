@@ -14,12 +14,14 @@ from episode_transitions import EpisodeTransitions
 from experiment_config import generate_schedule, seed_everything
 from hospital_capacity import HospitalCapacity
 from hospital_policy import valid_actions, explain_hospital_eligibility
-from reward import GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, failure_penalty
+from reward import (GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, failure_penalty,
+                    reward_components, get_hospital_suitability, REWARD_COMPONENT_NAMES)
 from simulation_setup import start_sumo, get_reachable_hospital_routes, _hospital_access_edges
 from traffic_router import TrafficRouter
 
 
-def choose(mode, router, patient_pos, ktas, hospitals, state, agent, actions):
+def choose(mode, router, patient_pos, ktas, hospitals, state, agent, actions, *,
+           wait_seconds=0., reward_version=4, pre_ktas=None):
     router.hospitals = hospitals
     if mode == "dqn":
         return int(agent.select_action(state, actions))
@@ -33,6 +35,8 @@ def choose(mode, router, patient_pos, ktas, hospitals, state, agent, actions):
         return router.rule_based_strategy(ktas, actions)
     if mode == "heuristic":
         return router.heuristic_strategy(ktas, actions)
+    if mode == "greedy_reward":
+        return router.expected_reward_strategy(ktas, actions, wait_seconds, reward_version, pre_ktas)
     raise ValueError(f"Unknown strategy: {mode}")
 
 
@@ -60,6 +64,7 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
     traffic = TrafficRouter(refresh_interval=30, net=env.net)
     router = HospitalRouters(hospitals)
     transitions = EpisodeTransitions(agent) if training else None
+    updates_before = getattr(agent, "training_updates", 0)
     outcomes = []
     diagnostics = Counter()
     rejection_pairs = Counter()
@@ -104,9 +109,15 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
             return None
         state = build_state_vector(patient_pos, ktas, routed, patient=patient,
                                    manager=manager, now=now, config=config)
-        action = choose(mode, router, patient_pos, ktas, routed, state, agent, actions)
+        action = choose(mode, router, patient_pos, ktas, routed, state, agent, actions,
+                        wait_seconds=now - patient["occurrence_time"], reward_version=config.reward_version,
+                        pre_ktas=patient.get("pre_ktas", ktas))
         if action not in actions:
             raise ValueError("Strategy selected a masked hospital.")
+        if mode == "dqn":
+            diagnostics["exploratory_decisions"] += int(getattr(agent, "last_action_exploratory", False))
+            if training and hasattr(agent, "record_decision"):
+                agent.record_decision()
         fastest = min(actions, key=lambda i: routed[i]["estimated_travel_time"])
         selected_time = float(routed[action]["estimated_travel_time"])
         extra = selected_time - float(routed[fastest]["estimated_travel_time"])
@@ -161,22 +172,29 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
         ktas = normalize_ktas(patient["ktas"])
         action = -1
         predicted_reward = predicted_total = None
+        parts = dict.fromkeys(REWARD_COMPONENT_NAMES, 0.)
+        fit = None
         if payload is None:
-            reward = 0. if censored else -failure_penalty(config.reward_version)
+            parts["route_failure"] = 0. if censored else -failure_penalty(config.reward_version)
         else:
             action, selected, occupancy, reservation = payload
             predicted_reward = selected.get("estimated_reward_at_dispatch")
             predicted_total = selected.get("estimated_total_seconds_at_dispatch")
             beds.complete(reservation, arrived, now)
-            reward = 0. if censored else calculate_reward(
-                travel_time=elapsed, ktas=ktas, pre_ktas=patient.get("pre_ktas", ktas),
-                hospital=selected, occupancy_at_selection=occupancy,
-                route_failed=not arrived, golden_limit=GOLDEN_TIME_LIMITS[ktas],
-                reward_version=config.reward_version)
+            fit = get_hospital_suitability(patient.get("pre_ktas", ktas), selected)
+            if not censored:
+                parts = reward_components(
+                    travel_time=elapsed, ktas=ktas, pre_ktas=patient.get("pre_ktas", ktas),
+                    hospital=selected, occupancy_at_selection=occupancy,
+                    route_failed=not arrived, golden_limit=GOLDEN_TIME_LIMITS[ktas],
+                    reward_version=config.reward_version)
+        reward = float(sum(parts.values()))
         if transitions is not None:
             transitions.add_reward(reward)
         row = {
-            "patient_id": patient["patient_id"], "ktas": ktas,
+            "patient_id": patient["patient_id"], "edge_id": patient.get("edge_id"), "ktas": ktas,
+            "reward_components": parts, "hospital_suitability": fit,
+            "occupancy_at_selection": occupancy if payload is not None else None,
             "pre_ktas": patient.get("pre_ktas", ktas),
             "occurrence_time": patient["occurrence_time"], "wait_seconds": wait,
             "dispatch_time": patient["occurrence_time"] + wait if payload is not None else None,
@@ -273,6 +291,19 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
         "reward_version": config.reward_version,
         "observation_version": config.observation_version,
         "pending_reward_feature": config.pending_reward_feature,
+        "golden_margin_feature": config.golden_margin_feature,
+        "candidate_reward_feature": config.candidate_reward_feature,
+        "reward_components": {k: sum(r["reward_components"][k] for r in outcomes) for k in REWARD_COMPONENT_NAMES},
+        "avg_reward_components": {k: sum(r["reward_components"][k] for r in outcomes) / generated
+                                   if generated else 0. for k in REWARD_COMPONENT_NAMES},
+        "training_updates": getattr(agent, "training_updates", 0),
+        "episode_updates": getattr(agent, "training_updates", 0) - updates_before,
+        "target_updates": getattr(agent, "target_updates", 0),
+        "total_decisions": getattr(agent, "total_decisions", 0),
+        "episode_decisions": sum(selected_actions.values()),
+        "episode_exploratory_decisions": diagnostics["exploratory_decisions"],
+        "exploration_rate": diagnostics["exploratory_decisions"] / sum(selected_actions.values())
+                             if selected_actions else 0.,
         "selected_hospitals": dict(selected_actions),
         "avg_selected_estimated_time": float(np.mean(selected_times)) if selected_times else None,
         "avg_extra_estimated_time": float(np.mean(extra_times)) if extra_times else None,

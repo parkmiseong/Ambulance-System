@@ -7,7 +7,8 @@ from pathlib import Path
 
 FIELDS = ["episode", "scenario", "patients", "missions", "arrived", "failed",
           "reward", "avg_reward", "avg_loss", "epsilon", "episode_seconds",
-          "previous_episodes", "run_episode"]
+          "previous_episodes", "run_episode", "training_updates", "episode_updates", "target_updates",
+          "total_decisions", "episode_decisions", "episode_exploratory_decisions", "exploration_rate"]
 
 
 def append_episode_metrics(path, row):

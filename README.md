@@ -376,8 +376,10 @@ python CODE/run_scenarios.py --scenario 1 --seeds 30001,30002,30003 --demand-lev
 python CODE/compare_queue_policies.py --scenario 1 --seeds 30001,30002,30003
 ```
 
-기본 모델은 v3/v4/v5 중 가장 최근 last 모델입니다. best 모델을 평가하려면
-`--model results/models/dqn_v5_<설정해시>_best.pth`처럼 파일을 명시합니다.
+평가·비교는 항상 **고정 검증 기준 best 모델**을 사용합니다. 모델을 생략하면 선택한 저장 경로의 v3/v4/v5 중 가장 최근 수정된 best를 고릅니다. `--model results/models/dqn_v5_<설정해시>_best.pth`로 특정 실험을 지정할 수 있습니다.
+`--model ..._last.pth`를 입력해도 같은 폴더·같은 실험의 `..._best.pth`로 연결하고 실제 선택을 표시합니다. best가 없으면 이유를 표시하고 종료합니다.
+별도 학습 폴더는 `--output-root results/scenario6_seed42`처럼 지정하며, 두 평가 CLI 모두 지원합니다. 평가 시작 출력과 로그에 실제 모델 경로·학습 회차·`model_kind=best`를 남깁니다.
+학습 도중 검증은 새 best를 선정하기 위해 현재 학습 가중치를 평가합니다. 학습 재개와 replay 감사에는 해당 체크포인트를 사용합니다.
 `--scenario 0`은 9개 시나리오 전체이며, 조합 수만큼 SUMO 실행이 늘어납니다.
 최단거리 baseline은 병원 후보별 공통 도로 경로의 route length를 비교합니다.
 
@@ -513,3 +515,15 @@ SUMO의 동시 이송 성능이나 최단시간 정책 대비 우수성을 검�
 배정 당시 예측 오차도 확인할 수 있습니다.
 
 구현 범위와 호환성·검증 결과: [v5 관측 변경 기록](docs/v5_observation_2026_11_11.md).
+
+### 특정 시나리오만 새 모델로 학습
+
+`--train-scenarios 6`은 6번 시나리오(기본 환자 발생 확률 0.3, 배경 교통량 배율 0.8)만 반복한다. 매회 누적 에피소드 번호에 따른 새 시드를 사용하므로 환자 목록과 초기 점유율은 달라진다. 여러 시나리오는 `--train-scenarios 2,6`처럼 지정하며, 생략하면 기존 1~9 순환을 유지한다.
+
+```powershell
+.venv/Scripts/python.exe -u CODE/train_agent.py --episodes 54 --train-scenarios 6 --eval-every 9 --ambulances 10 --virtual-count 2 --virtual-strategy far --placement-seed 42 --seed 42 --curriculum 0.1,0.3 --cycle-curriculum --validation-scenarios 6 --validation-demand-levels 0.1,0.3 --validation-seeds 30001 --pending-reward-feature estimate --quiet --output-root results/scenario6_seed42
+```
+
+새 모델을 처음부터 54회 학습하고 결과를 `results/scenario6_seed42/`에 저장한다. 검증도 시나리오 6에서 학습과 다른 시드 30001로 수행한다. 수요는 기존처럼 9회씩 0.1/0.3을 순환하며, 학습 시나리오를 하나로 줄여도 커리큘럼 단계를 1회로 줄이지 않는다.
+
+새 실행에는 `--resume`을 넣지 않는다. 이후 같은 설정의 모델을 이어 학습할 때만 추가하고 `--episodes`를 추가 학습 횟수로 지정한다. 학습 시나리오 선택은 manifest와 signature에 포함하므로 다른 시나리오 모델과 재개가 섞이지 않는다. 기본 전체 시나리오 순환의 기존 signature와 재개 호환성은 유지한다.
