@@ -1,0 +1,294 @@
+{
+  "regression_tests_passed": 104,
+  "legacy_models": [
+    {
+      "path": "results\\models\\dqn_v3_0bf9414400dc2b65_best.pth",
+      "episode": 20,
+      "architecture": "flat_v3",
+      "state_dim": 96,
+      "weights_unchanged": true
+    },
+    {
+      "path": "results\\models\\dqn_v4_9fcc8308c8f256a7_best.pth",
+      "episode": 18,
+      "architecture": "hospital_shared_v4",
+      "state_dim": 96,
+      "weights_unchanged": true
+    },
+    {
+      "path": "results\\snapshots\\v5_18ep_3e44a827e947b192\\dqn_v5_3e44a827e947b192_best.pth",
+      "episode": 18,
+      "architecture": "hospital_shared_v5",
+      "state_dim": 97,
+      "weights_unchanged": true
+    },
+    {
+      "path": "results\\snapshots\\v5_54ep_3e44a827e947b192\\dqn_v5_3e44a827e947b192_best.pth",
+      "episode": 27,
+      "architecture": "hospital_shared_v5",
+      "state_dim": 97,
+      "weights_unchanged": true
+    }
+  ],
+  "verified_patient_outcomes": 46,
+  "resumed_episode": 2,
+  "learning_stats": {
+    "total_decisions": 14,
+    "exploratory_decisions": 10,
+    "total_transitions": 14,
+    "training_updates": 13,
+    "target_updates": 6,
+    "exploration_rate": 0.7142857142857143
+  },
+  "evaluation_run": "eval_20261113_092033_e446c0",
+  "evaluated_best_episode": 1,
+  "paired_comparisons": [
+    {
+      "reference": [
+        "eval_20261113_092033_e446c0",
+        "shortest_time"
+      ],
+      "candidate": [
+        "eval_20261113_092033_e446c0",
+        "heuristic"
+      ],
+      "scenario_id": 6,
+      "demand_scale": 0.3,
+      "direction": "candidate_minus_reference",
+      "patient_pairs": 8,
+      "seed_pairs": 2,
+      "cluster_unit": "episode_seed",
+      "delta": {
+        "reward_per_patient": 0.12727457211833315,
+        "arrival_rate": 0.0,
+        "golden_rate": 0.0,
+        "avg_wait": 0.0,
+        "component_golden": 0.0,
+        "component_travel": -0.060416666666666674,
+        "component_overtime": 0.0,
+        "component_mismatch": 0.0,
+        "component_occupancy": 0.18769123878499971,
+        "component_overcrowding": 0.0,
+        "component_rejection": 0.0,
+        "component_route_failure": 0.0
+      },
+      "ci95": {
+        "reward_per_patient": [
+          0.0,
+          0.16969942949111086
+        ],
+        "arrival_rate": [
+          0.0,
+          0.0
+        ],
+        "golden_rate": [
+          0.0,
+          0.0
+        ],
+        "avg_wait": [
+          0.0,
+          0.0
+        ],
+        "component_golden": [
+          0.0,
+          0.0
+        ],
+        "component_travel": [
+          -0.08055555555555556,
+          0.0
+        ],
+        "component_overtime": [
+          0.0,
+          0.0
+        ],
+        "component_mismatch": [
+          0.0,
+          0.0
+        ],
+        "component_occupancy": [
+          0.0,
+          0.25025498504666627
+        ],
+        "component_overcrowding": [
+          0.0,
+          0.0
+        ],
+        "component_rejection": [
+          0.0,
+          0.0
+        ],
+        "component_route_failure": [
+          0.0,
+          0.0
+        ]
+      },
+      "reward_components_available": true,
+      "includes_training_seed_uncertainty": false
+    },
+    {
+      "reference": [
+        "eval_20261113_092033_e446c0",
+        "shortest_time"
+      ],
+      "candidate": [
+        "eval_20261113_092033_e446c0",
+        "greedy_reward"
+      ],
+      "scenario_id": 6,
+      "demand_scale": 0.3,
+      "direction": "candidate_minus_reference",
+      "patient_pairs": 8,
+      "seed_pairs": 2,
+      "cluster_unit": "episode_seed",
+      "delta": {
+        "reward_per_patient": -11.039462421679039,
+        "arrival_rate": -12.5,
+        "golden_rate": -12.5,
+        "avg_wait": 0.0,
+        "component_golden": -1.25,
+        "component_travel": 0.26458333333333334,
+        "component_overtime": 0.0,
+        "component_mismatch": 0.0012000000000000023,
+        "component_occupancy": 0.5697542449876274,
+        "component_overcrowding": 0.0,
+        "component_rejection": 0.0,
+        "component_route_failure": -10.625
+      },
+      "ci95": {
+        "reward_per_patient": [
+          -14.719283228905384,
+          0.0
+        ],
+        "arrival_rate": [
+          -16.666666666666668,
+          0.0
+        ],
+        "golden_rate": [
+          -16.666666666666668,
+          0.0
+        ],
+        "avg_wait": [
+          0.0,
+          0.0
+        ],
+        "component_golden": [
+          -1.6666666666666667,
+          0.0
+        ],
+        "component_travel": [
+          0.0,
+          0.3527777777777778
+        ],
+        "component_overtime": [
+          0.0,
+          0.0
+        ],
+        "component_mismatch": [
+          0.0,
+          0.0016000000000000031
+        ],
+        "component_occupancy": [
+          0.0,
+          0.7596723266501698
+        ],
+        "component_overcrowding": [
+          0.0,
+          0.0
+        ],
+        "component_rejection": [
+          0.0,
+          0.0
+        ],
+        "component_route_failure": [
+          -14.166666666666666,
+          0.0
+        ]
+      },
+      "reward_components_available": true,
+      "includes_training_seed_uncertainty": false
+    },
+    {
+      "reference": [
+        "eval_20261113_092033_e446c0",
+        "shortest_time"
+      ],
+      "candidate": [
+        "eval_20261113_092033_e446c0",
+        "dqn"
+      ],
+      "scenario_id": 6,
+      "demand_scale": 0.3,
+      "direction": "candidate_minus_reference",
+      "patient_pairs": 8,
+      "seed_pairs": 2,
+      "cluster_unit": "episode_seed",
+      "delta": {
+        "reward_per_patient": -44.58594336082919,
+        "arrival_rate": -50.0,
+        "golden_rate": -50.0,
+        "avg_wait": 0.0,
+        "component_golden": -5.0,
+        "component_travel": 1.2423611111111112,
+        "component_overtime": 0.0,
+        "component_mismatch": 0.004800000000000009,
+        "component_occupancy": 1.6668955280597015,
+        "component_overcrowding": 0.0,
+        "component_rejection": 0.0,
+        "component_route_failure": -42.5
+      },
+      "ci95": {
+        "reward_per_patient": [
+          -44.637879604153966,
+          -44.43013463085486
+        ],
+        "arrival_rate": [
+          -50.0,
+          -50.0
+        ],
+        "golden_rate": [
+          -50.0,
+          -50.0
+        ],
+        "avg_wait": [
+          0.0,
+          0.0
+        ],
+        "component_golden": [
+          -5.0,
+          -5.0
+        ],
+        "component_travel": [
+          1.1842592592592593,
+          1.4166666666666667
+        ],
+        "component_overtime": [
+          0.0,
+          0.0
+        ],
+        "component_mismatch": [
+          0.004800000000000009,
+          0.004800000000000009
+        ],
+        "component_occupancy": [
+          1.6483987024784774,
+          1.6730611365867762
+        ],
+        "component_overcrowding": [
+          0.0,
+          0.0
+        ],
+        "component_rejection": [
+          0.0,
+          0.0
+        ],
+        "component_route_failure": [
+          -42.5,
+          -42.5
+        ]
+      },
+      "reward_components_available": true,
+      "includes_training_seed_uncertainty": false
+    }
+  ],
+  "scope": "Short functional smoke; not a policy-performance experiment"
+}

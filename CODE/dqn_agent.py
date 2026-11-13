@@ -62,6 +62,7 @@ class DQNAmbulanceAgent:
         self.state_dim, self.action_dim = state_dim, action_dim
         self.metadata, self.loaded_episode = {}, 0
         self.last_action_exploratory = False
+        self.counter_history_complete = True
         self.learning_config_explicit = learning_config is not None
         if learning_config is None:
             learning_config = LearningConfig.legacy(1. if reward_scale is None else reward_scale)
@@ -125,6 +126,7 @@ class DQNAmbulanceAgent:
 
     def training_statistics(self):
         result = {name: getattr(self, name) for name in self.COUNTERS}
+        result["counters_complete"] = self.counter_history_complete
         result["exploration_rate"] = (self.exploratory_decisions / self.total_decisions
                                       if self.total_decisions else 0.)
         return result
@@ -248,6 +250,11 @@ class DQNAmbulanceAgent:
         if resume and self.learning_config_explicit and (
                 saved_config is None or settings != self.learning_config):
             raise ValueError("Checkpoint learning settings differ from this training run.")
+        stats = checkpoint.get("learning_stats") or {}
+        counters_complete = bool(stats.get("counters_complete", True)) and all(
+            type(stats.get(name)) is int and stats[name] >= 0 for name in self.COUNTERS)
+        if resume and saved_config is not None and not counters_complete:
+            raise ValueError("Checkpoint lacks complete learning counters required for resume.")
         self._configure_learning(settings)
         self.learning_config_explicit = saved_config is not None
         self.memory = deque(maxlen=settings.replay_capacity)
@@ -256,7 +263,7 @@ class DQNAmbulanceAgent:
         self.loaded_episode = int(checkpoint.get("episode") or 0)
         self.model.load_state_dict(checkpoint["model_state_dict"])
         self.target_model.load_state_dict(checkpoint["target_model_state_dict"])
-        stats = checkpoint.get("learning_stats", {})
+        self.counter_history_complete = counters_complete
         for name in self.COUNTERS:
             setattr(self, name, int(stats.get(name, 0)))
         if resume:

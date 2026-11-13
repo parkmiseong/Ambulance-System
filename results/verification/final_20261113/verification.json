@@ -1,0 +1,586 @@
+{
+  "date": "2026-11-13",
+  "timezone": "Asia/Seoul",
+  "regression": {
+    "passed": true,
+    "tests": 201,
+    "command": ".venv/Scripts/python.exe -B -m unittest discover -s tests -q"
+  },
+  "browser": {
+    "passed": true,
+    "scenarioCombinations": 27,
+    "movingAmbulances": true,
+    "pauseResumeStop": true,
+    "mobileWidth": 390,
+    "desktopWidth": 1440,
+    "savedPatients": true,
+    "severityFilter": true,
+    "patientDialog": true,
+    "csvExport": true,
+    "livePatientOutcomes": true,
+    "virtualHospitalControls": true,
+    "virtualCount": null,
+    "calibratedHourlyDemand": true,
+    "emergencyYieldControls": true,
+    "nativeTrafficTelemetry": true,
+    "ambulanceCloseup": true,
+    "staleFilterResponseIgnored": true,
+    "clearedValidationTraffic": true,
+    "learningEstimate": true,
+    "runtimeErrors": []
+  },
+  "empty_training": {
+    "passed": true,
+    "run_id": "20261113_165232_9ce03f",
+    "validation_seeds": [
+      50042
+    ],
+    "best_created": false
+  },
+  "native_yield": [
+    {
+      "enabled": false,
+      "responding_cars": [],
+      "right_min_lateral_m": 0.0,
+      "left_max_lateral_m": 0.0,
+      "restored_after_passage": true
+    },
+    {
+      "enabled": true,
+      "responding_cars": [
+        "left",
+        "right"
+      ],
+      "right_min_lateral_m": -0.6995000000000001,
+      "left_max_lateral_m": 0.6994999999999997,
+      "restored_after_passage": true
+    }
+  ],
+  "native_background": {
+    "passed": true,
+    "departed_after_one_hour": [
+      "dashboard_repeat_1_0_first"
+    ],
+    "period_seconds": 3600,
+    "until_seconds": 3605,
+    "source_trips": 2,
+    "repeated_trips": 1,
+    "sources": [
+      {
+        "file": "trips.xml",
+        "sha256": "49be51ced759c76bacf95572a04986d6751863725959a642e48da9bf0bbc9636"
+      }
+    ],
+    "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음."
+  },
+  "deployment": "local_only_not_published",
+  "custom_demand": {
+    "passed": true,
+    "fixedCount": 3,
+    "actualGenerated": 3,
+    "patientRecords": 3,
+    "countRun": "20261113_192802_cb6d7a",
+    "zeroHourlyDemand": true,
+    "settingsRestored": true,
+    "mobileWidth": 390,
+    "hourlyPreview": 12.5,
+    "invalidInputRejected": true,
+    "presetRestored": true,
+    "runtimeErrors": []
+  },
+  "hospital_tracking": {
+    "passed": true,
+    "model": "results/v6_s6_updates_s42/models/dqn_v6_919eaa77a75fac3a_best.pth",
+    "requestedVirtualCounts": [
+      0,
+      3
+    ],
+    "multipleAmbulances": true,
+    "selectedIds": [
+      "amb_eval_1",
+      "amb_eval_2"
+    ],
+    "cameraFollowsMovement": true,
+    "cameraSwitches": true,
+    "cancelAndDrag": true,
+    "zoomPreservesTracking": true,
+    "naturalArrivalStopsTracking": true,
+    "desktopWidth": 1440,
+    "mobileWidth": 390,
+    "sourceWeightsUnchanged": true,
+    "addedRun": "20261113_194504_8d2076",
+    "runtimeErrors": []
+  },
+  "mobile_layout": {
+    "width": 390,
+    "fits_device": true,
+    "artifact": "results/verification/web_dashboard/mobile-layout.png"
+  },
+  "virtual_hospital_mix": {
+    "passed": true,
+    "runId": "20261113_202054_5145c5",
+    "totalVirtual": 5,
+    "weights": {
+      "local_center": 1,
+      "local_institution": 1,
+      "reported_er": 1
+    },
+    "expectedCounts": {
+      "tertiary": 2,
+      "local_center": 1,
+      "local_institution": 1,
+      "reported_er": 1
+    },
+    "actualCounts": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "patientCount": 1,
+    "defaultTenPreview": [
+      2,
+      4,
+      3,
+      1
+    ],
+    "minimumTwo": true,
+    "settingsRestored": true,
+    "mobileWidth": 390,
+    "sourceWeightsUnchanged": true,
+    "runtimeErrors": []
+  },
+  "hospital_admission": {
+    "passed": true,
+    "mode": "arrival",
+    "pre_departure_check": true,
+    "advance_reservations": 0,
+    "patients": 3,
+    "arrived": 3,
+    "rejections": 3,
+    "redirects": 3,
+    "penalty": -36.0,
+    "same_vehicle": true,
+    "physical_movement_after_refusal": true,
+    "events": [
+      {
+        "patient_id": "p2",
+        "hospital_id": "A",
+        "hospital_name": "A",
+        "time": 74.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "stage": "after_arrival",
+        "vehicle_id": "amb_eval_2",
+        "dispatch_time": 2.0,
+        "leg_dispatch_time": 2.0,
+        "edge_id": "hospital_a",
+        "occupancy_at_arrival": 0.7999999999999999,
+        "request_number": 1,
+        "rejection_number": 1,
+        "physical_stop_confirmed": true,
+        "position": [
+          1099.4984332901263,
+          -4.8
+        ]
+      },
+      {
+        "patient_id": "p3",
+        "hospital_id": "A",
+        "hospital_name": "A",
+        "time": 81.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "stage": "after_arrival",
+        "vehicle_id": "amb_eval_3",
+        "dispatch_time": 3.0,
+        "leg_dispatch_time": 3.0,
+        "edge_id": "hospital_a",
+        "occupancy_at_arrival": 0.7999999999999999,
+        "request_number": 1,
+        "rejection_number": 1,
+        "physical_stop_confirmed": true,
+        "position": [
+          1099.4989549278237,
+          -4.8
+        ]
+      },
+      {
+        "patient_id": "p3",
+        "hospital_id": "B",
+        "hospital_name": "B",
+        "time": 119.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "stage": "after_arrival",
+        "vehicle_id": "amb_eval_3",
+        "dispatch_time": 3.0,
+        "leg_dispatch_time": 81.0,
+        "edge_id": "hospital_b",
+        "occupancy_at_arrival": 0.7999999999999999,
+        "request_number": 2,
+        "rejection_number": 2,
+        "physical_stop_confirmed": true,
+        "position": [
+          1699.4974236502817,
+          -4.8
+        ]
+      }
+    ],
+    "transferred_patient_visits": [
+      {
+        "hospital_id": "A",
+        "hospital_name": "A",
+        "vehicle_id": "amb_eval_2",
+        "leg_dispatch_time": 2.0,
+        "arrival_time": 74.0,
+        "occupancy_at_selection": 0.7,
+        "occupancy_at_arrival": 0.7999999999999999,
+        "edge_id": "hospital_a",
+        "accepted": false,
+        "reason": "hospital_full"
+      },
+      {
+        "hospital_id": "B",
+        "hospital_name": "B",
+        "vehicle_id": "amb_eval_2",
+        "leg_dispatch_time": 74.0,
+        "arrival_time": 112.0,
+        "occupancy_at_selection": 0.7,
+        "occupancy_at_arrival": 0.7,
+        "edge_id": "hospital_b",
+        "accepted": true,
+        "reason": "accepted"
+      }
+    ],
+    "training_refusals": 2,
+    "training_updates": 4,
+    "learning_reward_matches_patient_totals": true
+  },
+  "hospital_admission_ui": {
+    "passed": true,
+    "runId": "20261113_215827_72c304",
+    "liveRefusals": 1,
+    "patient": "p6",
+    "patientRefusals": 1,
+    "patientPenalty": -12,
+    "history": [
+      {
+        "patient_id": "p6",
+        "hospital_id": "A1100141",
+        "hospital_name": "강남베드로병원",
+        "time": 82,
+        "reason": "hospital_full",
+        "penalty": -12,
+        "stage": "after_arrival",
+        "vehicle_id": "amb_eval_6",
+        "dispatch_time": 6,
+        "leg_dispatch_time": 6,
+        "edge_id": "218966989#1",
+        "occupancy_at_arrival": 0.8452169575138544,
+        "request_number": 1,
+        "rejection_number": 1
+      }
+    ],
+    "visits": [
+      {
+        "hospital_id": "A1100141",
+        "hospital_name": "강남베드로병원",
+        "vehicle_id": "amb_eval_6",
+        "leg_dispatch_time": 6,
+        "arrival_time": 82,
+        "occupancy_at_selection": 0.6852169575138544,
+        "occupancy_at_arrival": 0.8452169575138544,
+        "edge_id": "218966989#1",
+        "accepted": false,
+        "reason": "hospital_full"
+      },
+      {
+        "hospital_id": "A1100015",
+        "hospital_name": "연세대학교의과대학강남세브란스병원",
+        "vehicle_id": "amb_eval_6",
+        "leg_dispatch_time": 82,
+        "arrival_time": 159,
+        "occupancy_at_selection": 0.6656502348991581,
+        "occupancy_at_arrival": 0.6656502348991581,
+        "edge_id": "-522435828#1",
+        "accepted": true,
+        "reason": "accepted"
+      }
+    ],
+    "sameVehicle": true,
+    "onlyAfterArrival": true,
+    "preDepartureCheck": true,
+    "detailsAndCsv": true,
+    "liveRewardAccounting": true,
+    "legacyToggle": true,
+    "mobileWidth": 390,
+    "runtimeErrors": []
+  },
+  "hospital_congestion": {
+    "passed": true,
+    "profile": {
+      "mode": "balanced",
+      "profile_id": "occupancy_balanced_v1",
+      "snapshot": "before_reservation",
+      "reference_occupancy": 0.5,
+      "occupancy_weight": 8.0,
+      "overcrowding_threshold": 0.7,
+      "overcrowding_weight": 5.0,
+      "overcrowding_span": 0.3
+    },
+    "patients_per_run": 3,
+    "low_congestion_bonuses": [
+      4.8,
+      3.1999999999999993,
+      1.5999999999999996
+    ],
+    "high_congestion_scores": [
+      -4.833333333333334,
+      -4.833333333333334,
+      -4.833333333333334
+    ],
+    "legacy_reward": 17.3928,
+    "balanced_reward": 34.1928,
+    "identical_transports": true,
+    "exact_reward_difference": 16.8,
+    "training_updates": 2,
+    "learning_reward_matches_patient_totals": true
+  },
+  "hospital_congestion_ui": {
+    "passed": true,
+    "cases": [
+      {
+        "name": "low",
+        "runId": "20261113_213722_60de4e",
+        "hospital": "강남베드로병원",
+        "occupancy": 0.23521695751385435,
+        "actualCongestionReward": 4.23652867977833
+      },
+      {
+        "name": "high",
+        "runId": "20261113_213747_91ca12",
+        "hospital": "강남베드로병원",
+        "occupancy": 0.6852169575138544,
+        "actualCongestionReward": -2.96347132022167
+      }
+    ],
+    "detailsAndCsv": true,
+    "profilePersisted": true,
+    "mobileWidth": 390,
+    "runtimeErrors": []
+  },
+  "hospital_list_layout": {
+    "passed": true,
+    "nativeHospitalCount": 7,
+    "checks": [
+      {
+        "width": 1440,
+        "rows": 7,
+        "maxHeight": "none",
+        "overflow": "visible",
+        "scrollHeight": 240,
+        "clientHeight": 240,
+        "allRowsFit": true,
+        "pageWidth": 1425
+      },
+      {
+        "width": 1024,
+        "rows": 7,
+        "maxHeight": "none",
+        "overflow": "visible",
+        "scrollHeight": 414,
+        "clientHeight": 414,
+        "allRowsFit": true,
+        "pageWidth": 1009
+      },
+      {
+        "width": 768,
+        "rows": 7,
+        "maxHeight": "none",
+        "overflow": "visible",
+        "scrollHeight": 240,
+        "clientHeight": 240,
+        "allRowsFit": true,
+        "pageWidth": 753
+      },
+      {
+        "width": 390,
+        "rows": 7,
+        "maxHeight": "none",
+        "overflow": "visible",
+        "scrollHeight": 414,
+        "clientHeight": 414,
+        "allRowsFit": true,
+        "pageWidth": 390
+      },
+      {
+        "width": 1440,
+        "maximumHospitalLayout": true,
+        "rows": 17,
+        "scrollHeight": 530,
+        "clientHeight": 530
+      },
+      {
+        "width": 390,
+        "maximumHospitalLayout": true,
+        "rows": 17,
+        "scrollHeight": 994,
+        "clientHeight": 994
+      }
+    ],
+    "runtimeErrors": []
+  },
+  "settings_collapse": {
+    "passed": true,
+    "desktopHeight": 232,
+    "keyboardEnterSpace": true,
+    "reloadPersistence": true,
+    "valuesPreserved": true,
+    "invalidInputRevealed": true,
+    "runControlsVisible": true,
+    "sizes": [
+      {
+        "width": 768,
+        "collapsedHeight": 232
+      },
+      {
+        "width": 390,
+        "collapsedHeight": 232
+      }
+    ],
+    "runtimeErrors": []
+  },
+  "legacy_before_departure_admission": {
+    "passed": true,
+    "patients": 5,
+    "arrived": 5,
+    "rejections": 7,
+    "penalty_per_refusal": -12,
+    "legacy_reward": -19.81864444444445,
+    "request_reward": -103.81864444444444,
+    "actual_reselection": true,
+    "transport_timing_unchanged": true,
+    "remaining_reservations": 0,
+    "events": [
+      {
+        "patient_id": "p2",
+        "hospital_id": "h0",
+        "hospital_name": "Hospital 0",
+        "time": 2.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "request_number": 1,
+        "rejection_number": 1
+      },
+      {
+        "patient_id": "p3",
+        "hospital_id": "h0",
+        "hospital_name": "Hospital 0",
+        "time": 3.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "request_number": 1,
+        "rejection_number": 1
+      },
+      {
+        "patient_id": "p3",
+        "hospital_id": "h1",
+        "hospital_name": "Hospital 1",
+        "time": 3.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "request_number": 2,
+        "rejection_number": 2
+      },
+      {
+        "patient_id": "p4",
+        "hospital_id": "h0",
+        "hospital_name": "Hospital 0",
+        "time": 4.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "request_number": 1,
+        "rejection_number": 1
+      },
+      {
+        "patient_id": "p4",
+        "hospital_id": "h1",
+        "hospital_name": "Hospital 1",
+        "time": 4.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "request_number": 2,
+        "rejection_number": 2
+      },
+      {
+        "patient_id": "p5",
+        "hospital_id": "h0",
+        "hospital_name": "Hospital 0",
+        "time": 5.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "request_number": 1,
+        "rejection_number": 1
+      },
+      {
+        "patient_id": "p5",
+        "hospital_id": "h1",
+        "hospital_name": "Hospital 1",
+        "time": 5.0,
+        "reason": "hospital_full",
+        "penalty": -12.0,
+        "request_number": 2,
+        "rejection_number": 2
+      }
+    ],
+    "training_updates": 11,
+    "training_refusals": 7,
+    "training_reward_matches_patient_totals": true
+  },
+  "legacy_before_departure_admission_ui": {
+    "passed": true,
+    "runId": "20261113_210448_5310ce",
+    "liveRefusals": 3,
+    "patient": "p24",
+    "patientRefusals": 3,
+    "patientPenalty": -36,
+    "history": [
+      {
+        "patient_id": "p24",
+        "hospital_id": "A1100141",
+        "hospital_name": "강남베드로병원",
+        "time": 87,
+        "reason": "hospital_full",
+        "penalty": -12,
+        "request_number": 1,
+        "rejection_number": 1
+      },
+      {
+        "patient_id": "p24",
+        "hospital_id": "VIRTUAL_FAR_42_01",
+        "hospital_name": "가상 권역응급의료센터 1",
+        "time": 87,
+        "reason": "hospital_full",
+        "penalty": -12,
+        "request_number": 2,
+        "rejection_number": 2
+      },
+      {
+        "patient_id": "p24",
+        "hospital_id": "A1100015",
+        "hospital_name": "연세대학교의과대학강남세브란스병원",
+        "time": 87,
+        "reason": "hospital_full",
+        "penalty": -12,
+        "request_number": 3,
+        "rejection_number": 3
+      }
+    ],
+    "detailsAndCsv": true,
+    "liveRewardAccounting": true,
+    "legacyToggle": true,
+    "mobileWidth": 390,
+    "runtimeErrors": []
+  }
+}

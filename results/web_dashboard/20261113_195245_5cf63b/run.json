@@ -1,0 +1,230 @@
+{
+  "run_id": "20261113_195245_5cf63b",
+  "options": {
+    "traffic": 1,
+    "demand": 1,
+    "occupancy": 1,
+    "episodes": 3,
+    "duration": 3600,
+    "ambulances": 10,
+    "virtual_count": 6,
+    "seed": 42,
+    "mode": "simulation",
+    "policy": "dqn",
+    "demand_mode": "rate",
+    "custom_patients_per_hour": 10,
+    "emergency_yield": true,
+    "model": "results/models/dqn_v5_3e44a827e947b192_best.pth",
+    "patients_per_hour": 10,
+    "demand_profile_id": "user_hourly_v1"
+  },
+  "hospitals": [
+    {
+      "id": "A1100004",
+      "name": "순천향대학교 부속 서울병원",
+      "type": "지역응급의료센터",
+      "sumo_x": 4683.549151818384,
+      "sumo_y": 8716.776676845737,
+      "occupancy": 0.3100117273476477,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100012",
+      "name": "학교법인가톨릭학원가톨릭대학교서울성모병원",
+      "type": "지역응급의료센터",
+      "sumo_x": 4635.446237096621,
+      "sumo_y": 5160.919942664914,
+      "occupancy": 0.5568718270819382,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100015",
+      "name": "연세대학교의과대학강남세브란스병원",
+      "type": "지역응급의료센터",
+      "sumo_x": 8290.932295059669,
+      "sumo_y": 4085.8148315637372,
+      "occupancy": 0.2892842952595291,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100018",
+      "name": "재단법인베스티안재단베스티안서울병원",
+      "type": "응급실운영신고기관",
+      "sumo_x": 9271.506999495381,
+      "sumo_y": 4649.883547743317,
+      "occupancy": 0.4945884856656049,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100057",
+      "name": "차의과학대학교 강남차병원",
+      "type": "응급실운영신고기관",
+      "sumo_x": 7293.906369706558,
+      "sumo_y": 5659.916218176484,
+      "occupancy": 0.4706797949691645,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100141",
+      "name": "강남베드로병원",
+      "type": "권역응급의료센터",
+      "sumo_x": 7679.712704465142,
+      "sumo_y": 3299.849767106585,
+      "occupancy": 0.21000430208906679,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1123234",
+      "name": "강남더드림병원",
+      "type": "응급실운영신고기관",
+      "sumo_x": 8721.281127114373,
+      "sumo_y": 4985.291670333128,
+      "occupancy": 0.4557707193831535,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "VIRTUAL_FAR_42_01",
+      "name": "가상 권역응급의료센터 1",
+      "type": "권역응급의료센터",
+      "sumo_x": 2576.94,
+      "sumo_y": 2124.18,
+      "occupancy": 0.3,
+      "virtual": true,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "VIRTUAL_FAR_42_02",
+      "name": "가상 권역응급의료센터 2",
+      "type": "권역응급의료센터",
+      "sumo_x": 4555.81,
+      "sumo_y": 2359.26,
+      "occupancy": 0.3,
+      "virtual": true,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "VIRTUAL_FAR_42_03",
+      "name": "가상 권역응급의료센터 3",
+      "type": "권역응급의료센터",
+      "sumo_x": 2414.96,
+      "sumo_y": 3456.47,
+      "occupancy": 0.3,
+      "virtual": true,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "VIRTUAL_FAR_42_04",
+      "name": "가상 권역응급의료센터 4",
+      "type": "권역응급의료센터",
+      "sumo_x": 9822.32,
+      "sumo_y": 6894.8,
+      "occupancy": 0.3,
+      "virtual": true,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "VIRTUAL_FAR_42_05",
+      "name": "가상 권역응급의료센터 5",
+      "type": "권역응급의료센터",
+      "sumo_x": 6219.51,
+      "sumo_y": 1783.36,
+      "occupancy": 0.3,
+      "virtual": true,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "VIRTUAL_FAR_42_06",
+      "name": "가상 권역응급의료센터 6",
+      "type": "권역응급의료센터",
+      "sumo_x": 5610.19,
+      "sumo_y": 3274.43,
+      "occupancy": 0.3,
+      "virtual": true,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    }
+  ],
+  "scenario": {
+    "id": 5,
+    "prob": 0.002777777777777778,
+    "scale": 0.5,
+    "name": "user_hourly_v1_patients_per_hour10.000000_traffic0.5",
+    "patients_per_hour": 10,
+    "demand_mode": "rate",
+    "demand_profile": {
+      "profile_id": "user_hourly_v1",
+      "mode": "rate",
+      "basis": "사용자가 직접 입력한 시간당 기대 환자 수"
+    },
+    "background_traffic": {
+      "period_seconds": 3600,
+      "until_seconds": 7202.0,
+      "source_trips": 14710,
+      "repeated_trips": 14719,
+      "sources": [
+        {
+          "file": "osm.passenger.trips.xml",
+          "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+        }
+      ],
+      "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음."
+    }
+  },
+  "hospital_transfer": {
+    "method": "shared_scorer_weights_unchanged",
+    "trained_virtual_count": 2,
+    "trained_hospital_count": 9,
+    "requested_virtual_count": 6,
+    "source_signature": "3e44a827e947b192",
+    "original_hospital_ids": [
+      "A1100004",
+      "A1100012",
+      "A1100015",
+      "A1100018",
+      "A1100057",
+      "A1100141",
+      "A1123234",
+      "VIRTUAL_FAR_42_01",
+      "VIRTUAL_FAR_42_02"
+    ]
+  },
+  "emergency_yield": {
+    "enabled": true,
+    "reaction_distance_m": 60.0,
+    "lateral_resolution_m": 0.4,
+    "signal_priority_included": true,
+    "implementation": "sumo_bluelight_sublane"
+  }
+}

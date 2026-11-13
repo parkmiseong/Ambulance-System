@@ -25,6 +25,30 @@ REWARD_COMPONENT_NAMES = ("golden", "travel", "overtime", "mismatch", "occupancy
                           "overcrowding", "rejection", "route_failure")
 
 
+def hospital_congestion_components(occupancy, weights=WEIGHTS, mode="penalty"):
+    """Selected hospital's occupancy contribution, shared by scoring and previews.
+
+    Occupancy includes background patients, admitted patients and reservations.
+    Call with the snapshot before reserving this patient's bed for final scoring.
+    Legacy penalty mode reproduces saved v3/v4 experiments. Balanced mode gives
+    a bonus below 50%, no occupancy bonus at 50%, and a penalty above 50%.
+    """
+    occ = max(0., min(1., float(occupancy)))
+    if mode not in ("penalty", "balanced"):
+        raise ValueError("Unsupported congestion reward mode.")
+    return {"occupancy": (weights.occupancy * (1. - 2. * occ) if mode == "balanced"
+                          else -weights.occupancy * occ),
+            "overcrowding": -weights.overcrowding * max(0., occ - .7) / .3}
+
+
+def congestion_reward_profile(mode="penalty", weights=WEIGHTS):
+    hospital_congestion_components(0., weights, mode)  # Validate the profile.
+    return dict(mode=mode, profile_id=f"occupancy_{mode}_v1", snapshot="before_reservation",
+                reference_occupancy=.5 if mode == "balanced" else None,
+                occupancy_weight=weights.occupancy, overcrowding_threshold=.7,
+                overcrowding_weight=weights.overcrowding, overcrowding_span=.3)
+
+
 def failure_penalty(reward_version=4, weights=WEIGHTS, rejection_count=0):
     """V4 failures rank below every bounded successful outcome with these weights.
 
@@ -67,13 +91,13 @@ def get_hospital_suitability(ktas,hospital,uncertainty=DEFAULT_UNCERTAINTY):
 def reward_components(travel_time,ktas,hospital,golden_limit=None,rejection_count=0,
                       occupancy=0.,occupancy_at_selection=None,route_failed=False,
                       pre_ktas=None,uncertainty=DEFAULT_UNCERTAINTY,weights=WEIGHTS,
-                      reward_version=4):
-    failure_cost = failure_penalty(reward_version, weights, rejection_count)
+                      reward_version=4, congestion_reward_mode="penalty"):
+    failure_cost = failure_penalty(reward_version, weights)
     k=normalize_ktas(pre_ktas if pre_ktas is not None else ktas)
     limit=float(golden_limit or GOLDEN_TIME_LIMITS[k]);limit=max(1.,limit)
     t=max(0.,float(travel_time));ratio=t/limit
-    occ=float(occupancy if occupancy_at_selection is None else occupancy_at_selection)
-    occ=max(0.,min(1.,occ))
+    congestion = hospital_congestion_components(
+        occupancy if occupancy_at_selection is None else occupancy_at_selection, weights, congestion_reward_mode)
     fit=get_hospital_suitability(k,hospital,uncertainty)
     # 적합도 미달의 제곱 패널티 + 병상 과밀 패널티. 대형병원 편향 완화.
     parts = {
@@ -81,20 +105,21 @@ def reward_components(travel_time,ktas,hospital,golden_limit=None,rejection_coun
       'travel':-weights.travel*min(ratio,3.),
       'overtime':-weights.overtime*min(max(0.,ratio-1.),2.),
       'mismatch':-weights.mismatch*(1.-fit)**2,
-      'occupancy':-weights.occupancy*occ,
-      'overcrowding':-weights.overcrowding*max(0.,occ-.7)/.3,
+      **congestion,
       'rejection':-weights.rejection*max(0,int(rejection_count)),
       'route_failure':-weights.route_failure if route_failed else 0.,
     }
     if reward_version == 4 and route_failed:
         parts = {key: 0. for key in parts}
+        parts['rejection'] = -weights.rejection * max(0, int(rejection_count))
         parts['route_failure'] = -failure_cost
     return parts
 
 def calculate_reward(travel_time,ktas=None,hospital=None,golden_limit=None,rejection_count=0,
                      occupancy=0.,occupancy_at_selection=None,route_failed=False,pre_ktas=None,
-                     uncertainty=DEFAULT_UNCERTAINTY,weights=WEIGHTS,reward_version=4,**kwargs):
+                     uncertainty=DEFAULT_UNCERTAINTY,weights=WEIGHTS,reward_version=4,
+                     congestion_reward_mode="penalty",**kwargs):
     if hospital is None:raise ValueError('hospital required')
     return float(sum(reward_components(travel_time,ktas,hospital,golden_limit,rejection_count,
         occupancy,occupancy_at_selection,route_failed,pre_ktas,uncertainty,weights,
-        reward_version).values()))
+        reward_version, congestion_reward_mode).values()))

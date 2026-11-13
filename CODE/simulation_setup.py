@@ -16,12 +16,13 @@ import traci
 from dqn_agent import DQNAmbulanceAgent
 from environment import SumoMedicalEnvironment
 from experiment_config import SCENARIOS
+from emergency_yield import LATERAL_RESOLUTION, REACTION_DISTANCE
 from reward import GOLDEN_TIME_LIMITS, WEIGHTS
 
 MAX_ESTIMATED_TRAVEL_TIME = 600.
 
 
-def start_sumo(env, scenario, seed, gui=False, output_dir=None, quiet=False):
+def start_sumo(env, scenario, seed, gui=False, output_dir=None, quiet=False, emergency_yield=False):
     """Keep all SUMO outputs in this run directory, never in source assets."""
     import xml.etree.ElementTree as ET
     output = Path(output_dir or Path(__file__).resolve().parents[1] / "results" / "sumo")
@@ -52,6 +53,10 @@ def start_sumo(env, scenario, seed, gui=False, output_dir=None, quiet=False):
     ]
     if quiet:
         command.extend(["--verbose", "false"])
+    if emergency_yield:
+        command.extend(["--lateral-resolution", str(LATERAL_RESOLUTION)])
+    if scenario.get("_route_files"):
+        command.extend(["--route-files", ",".join(scenario["_route_files"])])
     if additional:
         command.extend(["--additional-files", ",".join(additional)])
     with suppress_sumo_stdout():
@@ -59,6 +64,9 @@ def start_sumo(env, scenario, seed, gui=False, output_dir=None, quiet=False):
         traci.vehicletype.copy("DEFAULT_VEHTYPE", "ambulance_custom")
         traci.vehicletype.setVehicleClass("ambulance_custom", "emergency")
         traci.vehicletype.setShapeClass("ambulance_custom", "emergency")
+        if emergency_yield:
+            traci.vehicletype.setParameter("ambulance_custom", "has.bluelight.device", "true")
+            traci.vehicletype.setParameter("ambulance_custom", "device.bluelight.reactiondist", str(REACTION_DISTANCE))
     env.update_hospital_coordinates()
     for hospital in env.get_hospitals():
         if hospital.get("virtual"):
@@ -386,14 +394,18 @@ def get_reachable_hospital_routes(env, patient_edge, hospitals, edge_candidates=
 
 
 def prepare_environment(config, virtual_count=0, virtual_strategy="far", placement_seed=42,
-                        output_dir=None, quiet=False):
+                        output_dir=None, quiet=False, emergency_yield=False, virtual_mix=None):
     from experiment_config import seed_everything
     seed_everything(config.seed)
     env = SumoMedicalEnvironment()
     try:
-        start_sumo(env, SCENARIOS[0], config.seed, output_dir=output_dir, quiet=quiet)
+        start_sumo(env, SCENARIOS[0], config.seed, output_dir=output_dir, quiet=quiet,
+                   emergency_yield=emergency_yield)
         select_network_reachable_hospitals(env)
         add_virtual_hospitals(env, virtual_count, virtual_strategy, placement_seed)
+        if virtual_mix is not None:
+            from virtual_hospital_mix import apply_hospital_mix
+            apply_hospital_mix(env.get_hospitals(), virtual_mix)
         hospitals = copy.deepcopy(env.get_hospitals())
         edges = build_ambulance_edges(env, max_check=config.candidate_limit, hospitals=hospitals)
         access = _hospital_access_edges(env, hospitals)
@@ -441,6 +453,25 @@ def make_manifest(env, hospitals, edges, access, config, ambulance_count, queue_
     return manifest
 
 
+def resolve_manifest_path(model_path, metadata):
+    """Prefer a matching adjacent manifest so Windows checkpoints travel to Linux."""
+    path = Path(model_path).resolve()
+    tag = path.stem.removeprefix("dqn_").removesuffix("_best").removesuffix("_last")
+    candidates = [path.parent.parent / "experiment.json",
+                  path.parent.parent / "training" / f"experiment_{tag}.json"]
+    if metadata.get("manifest_path"):
+        candidates.append(Path(metadata["manifest_path"]))
+    for candidate in candidates:
+        try:
+            manifest = json.loads(candidate.read_text(encoding="utf-8"))
+            if (manifest.get("signature") == metadata.get("experiment_signature")
+                    and manifest_signature(manifest) == manifest.get("signature")):
+                return candidate.resolve()
+        except (OSError, ValueError, TypeError):
+            continue
+    raise ValueError("Model and experiment manifest do not match or the manifest is missing. Copy the matching experiment.json or training/experiment_<tag>.json with the model.")
+
+
 def load_experiment(model_path):
     """Reconstruct the exact hospital order and verified origins used in training."""
     import torch
@@ -449,9 +480,7 @@ def load_experiment(model_path):
     path = Path(model_path).resolve()
     checkpoint = torch.load(path, map_location="cpu", weights_only=False)
     metadata = checkpoint.get("metadata", {})
-    manifest_path = Path(metadata.get("manifest_path", ""))
-    if not manifest_path.is_file():
-        raise ValueError("This model has no experiment manifest. Train a new model.")
+    manifest_path = resolve_manifest_path(path, metadata)
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if (manifest.get("version") not in (3, 4, 5, EXPERIMENT_VERSION)
             or manifest_signature(manifest) != manifest.get("signature")
@@ -484,6 +513,7 @@ def load_experiment(model_path):
         reward_scale=checkpoint.get("reward_scale", 1.),
         learning_config=LearningConfig(**manifest["learning_config"]) if manifest["version"] >= 6 else None)
     agent.load_model(str(path))
+    agent.metadata["manifest_path"] = str(manifest_path)
     agent.epsilon = 0.
     agent.model.eval()
     return env, copy.deepcopy(env.hospitals), agent, config, manifest

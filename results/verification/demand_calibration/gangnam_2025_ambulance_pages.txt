@@ -1,0 +1,139 @@
+PAGE 6
+6
+2025년 제40회 강남통계연보
+塨塨塰 구급활동
+塨일填塭.塭건
+전력사용량
+塨일塨塪,塪塧塧.塬MWH
+급수사용량
+塨일 塨인 급수사용량填塧填리터
+사망ￜ塨일塭.塧명
+Death
+이혼ￜ塨일塨.塯쌍
+Divorce
+전입ￜ塨일塩塬塮.塩명
+In-migrants
+전출ￜ塨일塩塩填.塮명
+Out-migrants
+수출액
+塨일 塪塭,填塭塩.塯천불
+The amount of Export
+차량등록
+塨일塭塰塯.塪대
+Registered motor vehicle
+토지거래
+塨일 발생량塪塪.塨필지
+Land transaction
+여권발급ￜ塨일塩塧塰.塭명
+Passport issues
+건축허가ￜ塨일塩.塪동
+Building permit
+쓰레기처리
+塨일塪,填塧塬톤
+waste disposal amount
+화재발생
+塨일당塨.塨건
+Water supply amount per person
+Consumption of electric power
+Fire incidents
+Performance of EMS
+
+GANGNAM STATISTICS PER DAY
+출생ￜ塨일塮.塩명
+Birth
+혼인ￜ塨일塭.塪쌍
+Marriage
+
+
+PAGE 348
+348 _공공행정 및 사법
+10. 119 구조활동 실적 
+단위  : 건
+　
+출동건수
+Active cases
+구조(처리) 건수 
+Rescued (assisted) cases
+2020
+11,900 
+9,503 
+1,083 
+8,140 
+2021
+16,660 
+12,153 
+1,235 
+10,692 
+2022
+15,968
+11,536
+1,451
+9,719
+2023
+17,000
+14,293
+1,185
+12,980
+2024
+16,119
+11,318
+876
+8,014
+　
+사고종별 구조인원(명)
+화  재
+Fire
+교 통
+사 고
+Traffic 
+accident
+수 난
+사 고
+Water 
+accident
+잠금장치 개방
+Lock opent
+승강기
+사  고
+Elevator
+산 악
+사 고
+Mountain 
+accident
+2020
+809 
+43 
+33 
+76 
+-
+-
+2021
+1,085 
+51 
+51 
+144 
+4 
+-
+2022
+1,451
+51
+36
+118
+19
+-
+2023
+1,353
+10
+56
+57
+18
+2
+2024
+36
+41
+44
+29
+323
+26
+자료 : 「119구조구급활동실적보고」 소방청, 시·도
+  주 : 1) 미처리는 출동했으나 이미 자력구조 등으로 119 구조대의 활동이 불필요한 경우

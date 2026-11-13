@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "mode": "arrival",
+  "pre_departure_check": true,
+  "advance_reservations": 0,
+  "patients": 3,
+  "arrived": 3,
+  "rejections": 3,
+  "redirects": 3,
+  "penalty": -36.0,
+  "same_vehicle": true,
+  "physical_movement_after_refusal": true,
+  "events": [
+    {
+      "patient_id": "p2",
+      "hospital_id": "A",
+      "hospital_name": "A",
+      "time": 74.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "stage": "after_arrival",
+      "vehicle_id": "amb_eval_2",
+      "dispatch_time": 2.0,
+      "leg_dispatch_time": 2.0,
+      "edge_id": "hospital_a",
+      "occupancy_at_arrival": 0.7999999999999999,
+      "request_number": 1,
+      "rejection_number": 1,
+      "physical_stop_confirmed": true,
+      "position": [
+        1099.4984332901263,
+        -4.8
+      ]
+    },
+    {
+      "patient_id": "p3",
+      "hospital_id": "A",
+      "hospital_name": "A",
+      "time": 81.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "stage": "after_arrival",
+      "vehicle_id": "amb_eval_3",
+      "dispatch_time": 3.0,
+      "leg_dispatch_time": 3.0,
+      "edge_id": "hospital_a",
+      "occupancy_at_arrival": 0.7999999999999999,
+      "request_number": 1,
+      "rejection_number": 1,
+      "physical_stop_confirmed": true,
+      "position": [
+        1099.4989549278237,
+        -4.8
+      ]
+    },
+    {
+      "patient_id": "p3",
+      "hospital_id": "B",
+      "hospital_name": "B",
+      "time": 119.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "stage": "after_arrival",
+      "vehicle_id": "amb_eval_3",
+      "dispatch_time": 3.0,
+      "leg_dispatch_time": 81.0,
+      "edge_id": "hospital_b",
+      "occupancy_at_arrival": 0.7999999999999999,
+      "request_number": 2,
+      "rejection_number": 2,
+      "physical_stop_confirmed": true,
+      "position": [
+        1699.4974236502817,
+        -4.8
+      ]
+    }
+  ],
+  "transferred_patient_visits": [
+    {
+      "hospital_id": "A",
+      "hospital_name": "A",
+      "vehicle_id": "amb_eval_2",
+      "leg_dispatch_time": 2.0,
+      "arrival_time": 74.0,
+      "occupancy_at_selection": 0.7,
+      "occupancy_at_arrival": 0.7999999999999999,
+      "edge_id": "hospital_a",
+      "accepted": false,
+      "reason": "hospital_full"
+    },
+    {
+      "hospital_id": "B",
+      "hospital_name": "B",
+      "vehicle_id": "amb_eval_2",
+      "leg_dispatch_time": 74.0,
+      "arrival_time": 112.0,
+      "occupancy_at_selection": 0.7,
+      "occupancy_at_arrival": 0.7,
+      "edge_id": "hospital_b",
+      "accepted": true,
+      "reason": "accepted"
+    }
+  ],
+  "training_refusals": 2,
+  "training_updates": 4,
+  "learning_reward_matches_patient_totals": true
+}

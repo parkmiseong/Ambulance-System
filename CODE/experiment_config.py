@@ -32,8 +32,14 @@ class SimulationConfig:
     pending_reward_feature: str = "estimate"
     golden_margin_feature: bool = False
     candidate_reward_feature: bool = False
+    admission_mode: str = "precheck"
+    congestion_reward_mode: str = "penalty"
 
     def __post_init__(self):
+        if self.congestion_reward_mode not in ("penalty", "balanced"):
+            raise ValueError("congestion_reward_mode must be penalty or balanced.")
+        if self.admission_mode not in ("precheck", "request", "arrival"):
+            raise ValueError("admission_mode must be precheck, request or arrival.")
         if self.observation_version not in (3, 4, 5):
             raise ValueError("observation_version must be 3, 4 or 5.")
         if type(self.golden_margin_feature) is not bool or type(self.candidate_reward_feature) is not bool:
@@ -65,7 +71,13 @@ class SimulationConfig:
         return self.arrival_steps + self.max_wait + self.mission_timeout + 2
 
     def to_dict(self):
-        return asdict(self)
+        data = asdict(self)
+        # Preserve signatures and resume compatibility of existing experiments.
+        if self.admission_mode == "precheck":
+            data.pop("admission_mode")
+        if self.congestion_reward_mode == "penalty":
+            data.pop("congestion_reward_mode")
+        return data
 
 
 
@@ -162,11 +174,20 @@ def generate_schedule(scenario, edges, seed, config):
     # Separate streams make demand levels nested and preserve each call's data.
     arrivals = random.Random(seed)
     attributes = random.Random(seed + 100000)
+    fixed_times = None
+    if "fixed_patient_count" in scenario:
+        count = scenario["fixed_patient_count"]
+        if type(count) is not int or not 0 <= count <= config.arrival_steps:
+            raise ValueError("Fixed patient count must be an integer in 0..arrival_steps.")
+        if config.demand_scale != 1.:
+            raise ValueError("Fixed patient count cannot be combined with demand scaling.")
+        fixed_times = set(arrivals.sample(range(1, config.arrival_steps + 1), count))
     schedule = {}
     for step in range(1, config.arrival_steps + 1):
         edge = attributes.choice(edges)
         ktas = attributes.randint(1, 5)
-        if arrivals.random() < probability:
+        occurs = (step in fixed_times) if fixed_times is not None else (arrivals.random() < probability)
+        if occurs:
             schedule[step] = {
                 "edge_id": edge, "ktas": ktas, "pre_ktas": ktas,
                 "occurrence_time": float(step), "patient_id": f"p{step}",

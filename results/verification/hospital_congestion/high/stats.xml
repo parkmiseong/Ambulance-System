@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-13T21:36:03.053740+09:00 by Eclipse SUMO sumo 1.27.1
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\hospital_congestion\net.xml"/>
+        <route-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\hospital_congestion\empty.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\hospital_congestion\high\tripinfos.xml"/>
+        <statistic-output value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\hospital_congestion\high\stats.xml"/>
+    </output>
+
+    <time>
+        <step-length value="1"/>
+    </time>
+
+    <processing>
+        <scale value="1.0"/>
+    </processing>
+
+    <report>
+        <verbose value="false"/>
+        <no-warnings value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="51085"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="42"/>
+    </random_number>
+
+    <gui_only>
+        <start value="true"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
+    <performance clockBegin="1253009.02" clockEnd="1253009.14" clockDuration="0.12" traciDuration="0.00" realTimeFactor="1300.00" vehicleUpdatesPerSecond="0.00" personUpdatesPerSecond="0.00" begin="0.00" end="156.00" duration="156.00"/>
+    <vehicles loaded="3" inserted="3" running="0" waiting="0"/>
+    <teleports total="0" jam="0" yield="0" wrongLane="0"/>
+    <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
+    <persons loaded="0" running="0" jammed="0"/>
+    <personTeleports total="0" abortWait="0" wrongDest="0"/>
+    <vehicleTripStatistics count="3" routeLength="1495.00" speed="19.14" duration="78.67" waitingTime="0.00" timeLoss="7.12" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="236.00" totalDepartDelay="0.00"/>
+    <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
+    <rideStatistics number="0"/>
+    <transportStatistics number="0"/>
+</statistics>

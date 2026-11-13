@@ -1,0 +1,137 @@
+
+--- PAGE 1 ---
+Ongoing Research Projects
+#2 
+A Real-Time Hospital Selection Strategy for Emergency Ambulance Systems Based on Deep Reinforcement Learning
+1
+
+--- PAGE 2 ---
+Ongoing Research Projects
+#2 
+A Real-Time Hospital Selection Strategy for Emergency Ambulance Systems Based on Deep Reinforcement Learning
+- Simulator: SUMO (simulation) + OSM (real-world map)
+- Framework
+Rewards: dispatch time(↑), hospital state(↑), patient's condition(↓)
+Models: Dijkstra's algorithm, RL
+Development Environment: Python, etc
+- States
+Hospital: hospital resource information
+Ambulance: location, patient boarding status, destination
+Patients: severity (If it can be confirmed when reporting)
+SUMO (Simulation of Urban MObility)
+OSM (OpenStreetMap)
+2
+
+--- PAGE 3 ---
+Ongoing Research Projects
+#2 
+A Real-Time Hospital Selection Strategy for Emergency Ambulance Systems Based on Deep Reinforcement Learning
+병병병병병병병병
+ 병병 병병 병 병병 병병 병병병
+119 병병병병
+ 병 병병병병병병
+ 병병병병
+(병병/병병)
+병병/병병병
+ 병병-병병 병병병병
+ 병병
+병병/병병병
+ 병병병
+ 병병 병병 병병
+3
+
+--- PAGE 4 ---
+Ongoing Research Projects
+#2 
+A Real-Time Hospital Selection Strategy for Emergency Ambulance Systems Based on Deep Reinforcement Learning
+SUMO map network 
+network, vehicle type, node, edge, … 
+SUMO simulator
+4
+
+--- PAGE 5 ---
+Ongoing Research Projects
+#2 
+A Real-Time Hospital Selection Strategy for Emergency Ambulance Systems Based on Deep Reinforcement Learning
+Ambul
+-ance
+Fire-station
+Hospital 1
+Hospital 2
+Hospital 3
+Reward
+- Death rate
+- Survival rate
+Patient factor
+GIS factor
+GIS: Geographic Information System
+Hospital factor
+Vehicle factor
+Optimal diagnosis
+Optimal path
+Optimal decision
+-
+Agent
+Factor for Policy
+State
+Ambulance
+Patient
+Ambulance
+Hospital
+GIS factor
+Patient factor
+Patient+GIS+Hospital factor
+Reward 
+(single agent)
+…
+Reward 
+(multi agent)
+Single agent model
+Multi agent model
+Targets
+5
+
+--- PAGE 6 ---
+Ongoing Research Projects
+#2 
+A Real-Time Hospital Selection Strategy for Emergency Ambulance Systems Based on Deep Reinforcement Learning
+System architecture
+Key files / specifications summary
+Communication protocols
+Detailed modules & responsibilities
+환환 환환
+FastAPI 환환
+RL 환환환환
+SUMO 환환환환
+SUMO 환환환환
+Node.js 환환
+환환환
+ 
+Socket.IO 환환
+환환환
+ 환환환환
+환환 환환환환
+Data flow diagram
+6
+
+--- PAGE 7 ---
+Ongoing Research Projects
+#2 
+A Real-Time Hospital Selection Strategy for Emergency Ambulance Systems Based on Deep Reinforcement Learning
+Hospital
+(emergency room)
+Ambulance
+119 center
+7
+
+--- PAGE 8 ---
+Ongoing Research Projects
+#2 
+A Real-Time Hospital Selection Strategy for Emergency Ambulance Systems Based on Deep Reinforcement Learning
+Next step
+1. Develop and evaluate reinforcement learning models within a simulation environment.
+2. Optimize ambulance dispatching, hospital selection, and routing based on dynamic, real-time scenarios.
+3. Compare performance with rule-based and heuristic approaches.
+4. Increase the number of vehicles, hospitals, and fire stations (119 Safety Centers) to better reflect real-world density.
+5. Refine simulation parameters using actual statistical data, enabling realistic, complementary behavior between system components.
+8

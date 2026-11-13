@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "profile": {
+    "mode": "balanced",
+    "profile_id": "occupancy_balanced_v1",
+    "snapshot": "before_reservation",
+    "reference_occupancy": 0.5,
+    "occupancy_weight": 8.0,
+    "overcrowding_threshold": 0.7,
+    "overcrowding_weight": 5.0,
+    "overcrowding_span": 0.3
+  },
+  "patients_per_run": 3,
+  "low_congestion_bonuses": [
+    4.8,
+    3.1999999999999993,
+    1.5999999999999996
+  ],
+  "high_congestion_scores": [
+    -4.833333333333334,
+    -4.833333333333334,
+    -4.833333333333334
+  ],
+  "legacy_reward": 17.3928,
+  "balanced_reward": 34.1928,
+  "identical_transports": true,
+  "exact_reward_difference": 16.8,
+  "training_updates": 2,
+  "learning_reward_matches_patient_totals": true
+}

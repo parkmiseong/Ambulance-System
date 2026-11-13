@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "fixedCount": 3,
+  "actualGenerated": 3,
+  "patientRecords": 3,
+  "countRun": "20261113_192802_cb6d7a",
+  "zeroHourlyDemand": true,
+  "settingsRestored": true,
+  "mobileWidth": 390,
+  "hourlyPreview": 12.5,
+  "invalidInputRejected": true,
+  "presetRestored": true,
+  "runtimeErrors": []
+}

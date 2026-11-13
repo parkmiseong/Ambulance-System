@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "departed_after_one_hour": [
+    "dashboard_repeat_1_0_first"
+  ],
+  "period_seconds": 3600,
+  "until_seconds": 3605,
+  "source_trips": 2,
+  "repeated_trips": 1,
+  "sources": [
+    {
+      "file": "trips.xml",
+      "sha256": "49be51ced759c76bacf95572a04986d6751863725959a642e48da9bf0bbc9636"
+    }
+  ],
+  "assumption": "\uc6d0\ubcf8 1\uc2dc\uac04 \uc2b9\uc6a9\ucc28 \ud328\ud134 \ubc18\ubcf5. \uc2dc\uac04\ub300\ubcc4 \uc2e4\uce21 \uad50\ud1b5\ub7c9\uc744 \uc758\ubbf8\ud558\uc9c0 \uc54a\uc74c."
+}

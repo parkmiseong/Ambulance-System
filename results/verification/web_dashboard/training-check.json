@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "patients": 64,
+  "updates": 32,
+  "reward": -1809.2486064816374,
+  "validation_avg_reward": -29.26114119595349,
+  "best_model": "results\\web_dashboard\\20261113_141910_faca24\\models\\dqn_v6_643c8c7d641a2d21_best.pth",
+  "model_reload": true
+}

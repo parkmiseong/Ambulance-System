@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102f32">
+  <title>MEDIROUTE · 구급차 이송 시뮬레이션</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23108778'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/results.css">
+  <script src="/app.js" defer></script>
+  <script src="/results.js" defer></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-cross" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3Zm0 0V3m6 3v15"/></symbol>
+    <symbol id="i-ambulance" viewBox="0 0 24 24"><path d="M3 6h12v12H3zM15 10h4l3 4v4h-7M7 9v5m-2.5-2.5h5M15 14h7"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+    <symbol id="i-hospital" viewBox="0 0 24 24"><path d="M5 21V3h14v18M2 21h20M10 21v-5h4v5M9 8h6m-3-3v6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 5a3 3 0 0 0-5-2 4 4 0 0 0-3 6 4 4 0 0 0 0 7 4 4 0 0 0 5 5 3 3 0 0 0 3-3V5Zm0 0a3 3 0 0 1 5-2 4 4 0 0 1 3 6 4 4 0 0 1 0 7 4 4 0 0 1-5 5 3 3 0 0 1-3-3M7 8l5 3m5-3-5 3M7 16l5-3m5 3-5-3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m1-17a3 3 0 0 1 0 6m3 3a6 6 0 0 1 3 5v3"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M7 14l4-5 4 3 6-8"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h7m4 0h5M4 17h3m4 0h9"/><circle cx="13" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+    <symbol id="i-road" viewBox="0 0 24 24"><path d="m7 3-4 18M17 3l4 18M12 3v3m0 4v4m0 4v3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 15v5h16v-5"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 2 8M4 4v6h6"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="메디루트 홈"><span class="brand-mark"><svg><use href="#i-cross"/></svg></span><span>MEDIROUTE<small>응급 이송 의사결정 연구</small></span></a>
+    <div class="topbar-right"><span class="research-tag">RESEARCH WORKSPACE</span><span class="connection" id="connection"><i></i> 로컬 엔진 연결 중</span><span class="avatar">M</span></div>
+  </header>
+
+  <main>
+    <div class="page-heading"><div><div class="eyebrow">SIMULATION LAB <span>/</span> GANGNAM, SEOUL</div><h1>구급차 이송 시뮬레이션<span class="version">v6</span></h1><p>도로 위의 움직임부터 병원 선택까지, 이송 과정을 한눈에 확인하세요.</p></div><span class="engine-tag"><span>SUMO</span><b>×</b><span>DQN</span></span></div>
+
+    <div class="workspace">
+      <section class="visual-column" aria-label="이송 현황">
+        <div class="metrics">
+          <article class="metric"><span class="metric-icon teal"><svg><use href="#i-ambulance"/></svg></span><div><span class="metric-label">운행 중인 구급차</span><div class="metric-value"><strong id="active-count">0</strong><span>/ <span id="ambulance-limit">10</span> 대</span></div></div><span class="mini-label">ACTIVE</span></article>
+          <article class="metric"><span class="metric-icon blue"><svg><use href="#i-check"/></svg></span><div><span class="metric-label">이송 완료</span><div class="metric-value"><strong id="arrived-count">0</strong><span>명</span></div></div><span class="mini-label">ARRIVED</span></article>
+          <article class="metric"><span class="metric-icon amber"><svg><use href="#i-users"/></svg></span><div><span class="metric-label">대기 환자</span><div class="metric-value"><strong id="waiting-count">0</strong><span>명</span></div></div><span class="mini-label">WAITING</span></article>
+        </div>
+
+        <section class="panel map-panel">
+          <div class="panel-heading"><h2><svg><use href="#i-map"/></svg> 실시간 이송 지도 <span class="subtle">서울 강남 일대</span></h2><span class="status-badge" id="map-status"><i></i> 준비</span></div>
+          <div class="map-container" id="map-container">
+            <canvas id="map" role="img" aria-label="강남 SUMO 도로망, 병원 위치와 운행 중인 구급차. 마우스로 이동하고 휠로 확대할 수 있습니다."></canvas>
+            <div class="map-loading" id="map-loading"><span class="spinner"></span><b>강남 도로망을 불러오는 중</b><span>프로젝트의 SUMO 지도에 연결하고 있습니다.</span></div>
+            <div class="map-top"><span class="map-location"><i></i> 강남구 · 서초구</span><span class="simulation-clock"><span>SIM TIME</span><b id="sim-clock">00:00</b></span></div>
+            <div class="traffic-status"><span id="yielding-count" aria-live="polite">주변 양보 0대</span><button type="button" id="focus-ambulance" aria-expanded="false" aria-controls="ambulance-focus-panel" disabled>구급차 포커싱</button></div>
+            <div id="ambulance-focus-panel" class="ambulance-focus-panel" hidden><div class="focus-panel-heading"><label for="follow-ambulance">운행 중인 구급차 선택</label><button id="close-focus-panel" type="button" aria-label="구급차 포커싱 목록 닫기">×</button></div><div class="focus-panel-controls"><select id="follow-ambulance" disabled><option value="">운행 중인 구급차 없음</option></select><button id="follow-cancel" type="button" disabled>추적 해제</button></div><p id="follow-status" role="status">운행 중인 구급차를 선택하면 카메라가 따라갑니다.</p></div>
+            <div class="map-controls"><button type="button" id="zoom-in" aria-label="지도 확대">+</button><button type="button" id="zoom-out" aria-label="지도 축소">−</button><button type="button" id="map-reset" aria-label="지도 전체 보기"><svg><use href="#i-reset"/></svg></button></div>
+            <div class="map-tooltip" id="map-tooltip" hidden></div>
+            <div class="map-bottom"><span class="map-caption">SUMO ROAD NETWORK <span>·</span> 실제 시뮬레이션 좌표</span><span class="map-scale"><span id="scale-label">1 km</span><i></i></span></div>
+          </div>
+          <div class="map-footer"><div class="legend"><span><i class="legend-ambulance">✚</i> 구급차</span><span><i class="legend-hospital">H</i> 병원</span><span><i class="legend-patient"></i> 대기 환자</span><span><i class="legend-virtual">H</i> 가상 병원</span><span><i class="legend-car"></i> 주변 차량</span><span><i class="legend-car yielding"></i> 양보 중</span><label class="center-toggle"><input type="checkbox" id="show-centers" checked><i class="legend-center">119</i> 센터 참고 위치</label></div></div>
+          <div class="map-severity-key"><span>환자 중증도</span><span class="ktas-dot k1">1</span><span class="ktas-dot k2">2</span><span class="ktas-dot k3">3</span><span class="ktas-dot k4">4</span><span class="ktas-dot k5">5</span><span>숫자가 작을수록 고중증</span><small>구급차를 누르면 환자·목적지 확인</small></div>
+        </section>
+
+        <section class="panel hospitals-panel"><div class="panel-heading"><h2><svg><use href="#i-hospital"/></svg> 병원 현황 <span class="count-badge" id="hospital-count">—</span></h2><span class="subtle">예약 병상 포함 점유율</span></div><div class="hospital-list" id="hospital-list"><p class="placeholder">도로망을 불러오면 병원이 표시됩니다.</p></div><p class="congestion-note">혼잡도 보상은 현재 비율 기준 참고 점수입니다. 실제 보상은 환자 배정 직전 비율과 이송 결과로 확정합니다.</p><div class="hospital-note"><i class="dot teal-dot"></i> 여유 <i class="dot amber-dot"></i> 보통 <i class="dot red-dot"></i> 혼잡 <span>병원 아이콘을 누르면 상세 정보를 확인할 수 있습니다.</span></div></section>
+        <div class="workspace-footnote"><span><i></i> 로컬 SUMO 엔진의 실제 위치와 보상을 표시합니다.</span><span>MEDIROUTE / EXPERIMENT v6</span></div>
+      </section>
+
+      <aside class="control-column">
+        <section class="panel controls-panel">
+          <div class="panel-heading settings-heading"><h2><button class="settings-toggle" id="toggle-settings" type="button" aria-expanded="true" aria-controls="settings-options" aria-label="실행 설정 접기"><svg aria-hidden="true"><use href="#i-sliders"/></svg><span>실행 설정</span><span class="settings-toggle-hint" id="settings-toggle-hint" aria-hidden="true">접기</span><svg class="settings-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></h2><button class="text-button" type="button" id="reset-settings">초기화</button></div>
+          <div class="panel-body">
+            <div id="settings-options">
+            <div class="mode-tabs" role="group" aria-label="실행 모드"><button type="button" class="mode-tab selected" data-mode="simulation" aria-pressed="true"><svg><use href="#i-play"/></svg> 시뮬레이션</button><button type="button" class="mode-tab" data-mode="training" aria-pressed="false"><svg><use href="#i-brain"/></svg> 학습</button></div>
+            <p class="mode-description" id="mode-description">선택한 정책으로 환자의 이송 과정을 확인합니다.</p>
+            <div class="section-label">시나리오 <span>각 조건을 독립적으로 설정</span></div>
+            <fieldset class="scenario-group"><legend><svg><use href="#i-road"/></svg> 도로 상황</legend><div class="segments" data-setting="traffic"><button type="button" data-level="0" aria-pressed="false">여유</button><button type="button" data-level="1" class="selected" aria-pressed="true">보통</button><button type="button" data-level="2" aria-pressed="false">혼잡</button></div></fieldset>
+            <fieldset class="scenario-group"><legend><svg><use href="#i-users"/></svg> 환자 발생률</legend><div class="segments" data-setting="demand"><button type="button" data-level="0" aria-pressed="false"><span>여유</span><small>—명/h</small></button><button type="button" data-level="1" class="selected" aria-pressed="true"><span>보통</span><small>—명/h</small></button><button type="button" data-level="2" aria-pressed="false"><span>혼잡</span><small>—명/h</small></button></div></fieldset>
+            <fieldset class="scenario-group"><legend><svg><use href="#i-hospital"/></svg> 병원 혼잡도</legend><div class="segments" data-setting="occupancy"><button type="button" data-level="0" aria-pressed="false">여유</button><button type="button" data-level="1" class="selected" aria-pressed="true">보통</button><button type="button" data-level="2" aria-pressed="false">혼잡</button></div></fieldset>
+            <p class="congestion-note" id="congestion-setting-note">병원별 점유율 50% 미만은 가점, 초과는 감점입니다. 70%를 넘으면 과밀 감점을 추가합니다.</p>
+            <div class="patient-demand-field"><label for="demand_mode">환자 수 설정</label><select id="demand_mode"><option value="preset">강남 기준 · 3단계</option><option value="rate">시간당 환자 수 직접 입력</option><option value="count">총 환자 수 직접 입력</option></select><div id="custom-rate-field" class="custom-patient-input" hidden><label for="custom_patients_per_hour">시간당 환자 수</label><div><input id="custom_patients_per_hour" type="number" min="0" max="3600" step="any" value="10" required aria-describedby="custom-demand-note"><span>명/시간</span></div></div><div id="custom-count-field" class="custom-patient-input" hidden><label for="patient_count">총 환자 수 · 회차당</label><div><input id="patient_count" type="number" min="0" max="3600" step="1" value="10" required aria-describedby="custom-demand-note"><span>명</span></div></div><p id="custom-demand-note">3단계를 누르면 강남 기준으로 돌아갑니다.</p></div>
+            <div class="demand-calibration"><div id="demand-estimate">시간당 환자 수 기준을 불러오고 있습니다.</div><small id="demand-reference-note">실제 발생 수는 시드와 실행 기간에 따라 달라집니다.</small><a id="demand-reference-link" href="https://www.gangnam.go.kr/board/B_000645/1068850/view.do?mid=ID02_01020902" target="_blank" rel="noopener noreferrer">강남구 공식 통계 기준 보기 ↗</a></div>
+            <p id="learning-estimate" class="learning-estimate" hidden></p>
+            <div class="emergency-yield-field"><label for="emergency_yield"><input id="emergency_yield" type="checkbox" checked><span>구급차 우선 통행·양보</span><b>ON / OFF</b></label><p>주변 60m 차량이 길을 비킵니다. 신호 특례가 함께 적용됩니다. 지도에서 구급차를 확대해 확인하세요.</p></div>
+            <div class="emergency-yield-field admission-field"><label for="hospital_rejection"><input id="hospital_rejection" type="checkbox" checked><span>병원 도착 후 거절 패널티</span></label><p id="admission-note">사전 수용 확인 후 출발 · 실제 도착 후 거절 1회당 −12점 · 같은 구급차로 재이송</p></div>
+            <div class="policy-field" id="policy-field"><label for="policy">병원 선택 정책</label><select id="policy"><option value="dqn">학습 모델 (DQN)</option><option value="shortest_distance">최단 거리 (도로망)</option><option value="shortest_time">최단 시간</option><option value="heuristic">종합 휴리스틱</option><option value="greedy_reward">예상 보상 그리디</option></select></div>
+            <div class="model-field" id="model-field"><label for="model">사용 모델 <button class="text-button" id="refresh-models" type="button">새로고침</button></label><select id="model" aria-label="사용할 best 모델"><option value="">모델 불러오는 중…</option></select></div>
+            <div class="virtual-hospitals-field"><div class="virtual-hospitals-row"><label for="virtual_count">가상 병원 수</label><div class="virtual-count-control"><button type="button" id="virtual-minus" aria-label="가상 병원 수 줄이기">−</button><input id="virtual_count" type="number" min="0" max="10" step="1" value="2" required placeholder="자동" aria-describedby="virtual-count-note"><span>개</span><button type="button" id="virtual-plus" aria-label="가상 병원 수 늘리기">+</button></div></div><p id="virtual-count-note">0개 또는 2~10개 · 생성 시 권역 2개 기본</p><div class="virtual-mix-field"><div class="virtual-mix-heading">기본 권역 2개 + 나머지 유형 비율</div><div class="virtual-mix-inputs"><label title="지역응급의료센터">지역센터<input id="virtual_ratio_local_center" type="number" min="0" max="100" step="1" value="5" required aria-label="가상 지역응급의료센터 비율"></label><label title="지역응급의료기관">지역기관<input id="virtual_ratio_local_institution" type="number" min="0" max="100" step="1" value="4" required aria-label="가상 지역응급의료기관 비율"></label><label title="응급실운영신고기관">신고기관<input id="virtual_ratio_reported_er" type="number" min="0" max="100" step="1" value="1" required aria-label="가상 응급실운영신고기관 비율"></label></div><p>상대 비율로 배분합니다. 소수 병원은 정수로 조정하며 권역 2개는 비율에서 제외합니다.</p><div id="virtual-mix-summary" class="virtual-mix-summary">생성 예정: 권역 2개</div><div id="virtual-mix-actual" class="virtual-mix-actual" hidden></div></div></div>
+            <details class="advanced"><summary>세부 실행 설정</summary><div class="advanced-grid"><label>환자 발생 기간 (초)<input id="duration" type="number" value="3600" min="30" max="86400" step="1"></label><label>구급차 수 (대)<input id="ambulances" type="number" value="10" min="1" max="10"></label><label>학습 에피소드<input id="episodes" type="number" value="3" min="1" max="100"></label><label>랜덤 시드<input id="seed" type="number" value="42" min="0" max="2147383647"></label></div><p>기본 3,600초는 시뮬레이션 1시간입니다. 환자 발생 종료 후 남은 이송을 마무리합니다. 실제 수요 기준에서는 짧은 실행에 환자가 없을 수 있습니다.</p></details>
+            </div>
+            <div class="speed-row"><label for="speed">실행 배속</label><select id="speed"><option value="1">1×</option><option value="10">10×</option><option value="30" selected>30×</option><option value="60">60×</option><option value="120">120×</option><option value="300">300×</option></select><span>시뮬레이션 시간 / 실제 시간</span></div>
+            <div class="run-buttons"><button id="start" class="primary-button" type="button"><svg><use href="#i-play"/></svg><span>시뮬레이션 시작</span></button><button id="pause" class="icon-button" type="button" disabled aria-label="일시정지"><svg><use href="#i-pause"/></svg></button><button id="stop" class="icon-button" type="button" disabled aria-label="실행 중지"><svg><use href="#i-stop"/></svg></button></div>
+            <div id="run-message" class="run-message" role="status" aria-live="polite"><i></i><span>시나리오를 설정하고 실행하세요.</span></div>
+            <div class="progress-track"><span id="run-progress"></span></div><div class="progress-label"><span id="episode-label">실행 대기</span><span id="progress-label">0%</span></div>
+          </div>
+        </section>
+
+        <section class="panel reward-panel"><div class="panel-heading"><h2><svg><use href="#i-chart"/></svg> 보상 결과</h2><a class="download-button" href="/api/export" download aria-label="실행 결과 다운로드" title="실행 결과 JSON 다운로드"><svg><use href="#i-download"/></svg></a></div><div class="panel-body"><div class="reward-head"><div><span class="metric-label">누적 보상</span><div class="reward-value" id="total-reward">—<small>점</small></div></div><span class="reward-version" id="reward-version">REWARD v4</span></div><div class="reward-stats"><div><span>환자당 보상</span><b id="avg-reward">—</b></div><div><span>골든타임 내 도착</span><b id="golden-rate">—</b></div><div><span>이송 실패</span><b id="failed-count">—</b></div><div><span>수용 거절</span><b id="rejection-count">0회</b></div></div><div class="chart-header"><span id="chart-title">누적 보상 추이</span><span class="chart-legend"><i></i> 보상</span></div><div class="reward-chart" id="reward-chart"><svg id="chart" viewBox="0 0 320 100" role="img" aria-label="실행 후 보상 추이가 표시됩니다."></svg><span class="chart-empty" id="chart-empty">실행하면 보상 그래프가 표시됩니다.</span></div><div class="chart-axis"><span id="chart-start">0초</span><span id="chart-end">시간</span></div><div id="reward-components" class="reward-components"></div><div class="result-note" id="result-note">환자의 도착·실패가 확정되면 보상에 반영됩니다.</div></div></section>
+        <a class="results-jump" href="#patient-results">환자별 중증도 · 이송 병원 자세히 보기 <span>↓</span></a>
+      </aside>
+    </div>
+
+    <section class="panel patient-panel" id="patient-results" aria-label="환자별 이송 상세 결과">
+      <div class="panel-heading"><div><div class="eyebrow">PATIENT OUTCOMES</div><h2><svg><use href="#i-users"/></svg> 어떤 환자가, 어느 병원으로 갔을까요? <span class="count-badge" id="patient-record-count">0명</span></h2></div><a class="outline-button" id="patient-csv" href="/api/patients.csv" download><svg><use href="#i-download"/></svg> 상세 CSV</a></div>
+      <div class="result-source"><label for="result-run">결과 불러오기</label><select id="result-run"><option value="">현재 실행</option></select><button type="button" class="text-button" id="refresh-runs">목록 새로고침</button><span id="result-source-note">현재 실행에서 결과가 확정된 환자</span></div>
+      <div class="result-summary-heading"><h3>중증도별 결과</h3><span>선택한 에피소드의 결과 확정 환자 기준 · KTAS는 시뮬레이션 입력 등급</span></div>
+      <div class="severity-cards" id="severity-cards"></div>
+      <div class="matrix-heading"><h3>병원 × 환자 중증도</h3><span>실제로 도착한 환자만 집계합니다.</span></div>
+      <div class="table-scroll matrix-scroll"><table class="hospital-matrix"><caption class="sr-only">병원별 KTAS 중증도에 따른 도착 환자 수</caption><thead><tr><th scope="col">이송 병원</th><th scope="col">KTAS 1</th><th scope="col">KTAS 2</th><th scope="col">KTAS 3</th><th scope="col">KTAS 4</th><th scope="col">KTAS 5</th><th scope="col">도착 합계</th></tr></thead><tbody id="hospital-matrix-body"><tr><td colspan="7" class="table-empty">실행 결과를 불러오면 병원별 분포가 표시됩니다.</td></tr></tbody></table></div>
+      <div class="patient-table-heading"><h3>환자별 이송 기록</h3><span>행의 상세 버튼으로 보상 항목과 배정 당시 병원 상태를 확인하세요.</span></div>
+      <form class="patient-filters" id="patient-filters" role="search" aria-label="환자 결과 필터">
+        <label>에피소드<select id="filter-episode"><option value="">전체</option></select></label>
+        <label>중증도<select id="filter-ktas"><option value="">전체 중증도</option><option value="1">KTAS 1</option><option value="2">KTAS 2</option><option value="3">KTAS 3</option><option value="4">KTAS 4</option><option value="5">KTAS 5</option></select></label>
+        <label>병원<select id="filter-hospital"><option value="">전체 병원</option></select></label>
+        <label>이송 결과<select id="filter-status"><option value="">전체 결과</option><option value="arrived">도착</option><option value="failed">이송 실패</option><option value="censored">관측 종료</option></select></label>
+        <label class="patient-search">환자·병원 검색<input id="filter-search" type="search" placeholder="환자 ID, 구급차 ID, 병원명" maxlength="200"></label>
+        <button class="filter-reset" type="reset">필터 초기화</button>
+      </form>
+      <div class="table-scroll"><table class="patient-table"><caption class="sr-only">환자의 중증도, 배정 병원, 이송 결과와 보상 상세</caption><thead><tr><th scope="col">환자 / 회차</th><th scope="col">중증도</th><th scope="col">배정 병원</th><th scope="col">이송 결과</th><th scope="col">대기</th><th scope="col">이송</th><th scope="col">총 소요</th><th scope="col">보상</th><th scope="col">상세</th></tr></thead><tbody id="patient-table-body"><tr><td colspan="9" class="table-empty">시뮬레이션을 실행하거나 저장된 결과를 선택하세요.</td></tr></tbody></table></div>
+      <div class="table-pagination"><span id="patient-pagination-note">0명의 결과</span><div><button type="button" class="page-button" id="patient-prev" disabled aria-label="환자 결과 이전 페이지">←</button><span id="patient-page">1 / 1</span><button type="button" class="page-button" id="patient-next" disabled aria-label="환자 결과 다음 페이지">→</button></div></div>
+      <div class="research-context"><b>자료 반영 범위</b><span>환자 중증도 · 병원 자원/점유율 · 구급차의 환자/목적지 · 도로망 정책 비교를 연결했습니다. 119센터는 참고 위치이며 현재 차량은 환자 위치에서 이송을 시작합니다. 도착률과 연구용 골든타임을 표시하며 생존율·사망률은 추정하지 않습니다.</span></div>
+    </section>
+  </main>
+  <dialog id="patient-dialog" class="patient-dialog" aria-labelledby="patient-dialog-title"><div class="dialog-heading"><div><div class="eyebrow">TRANSFER DETAIL</div><h2 id="patient-dialog-title">환자 상세</h2></div><button type="button" id="close-patient-dialog" class="dialog-close" aria-label="환자 상세 닫기">×</button></div><div id="patient-dialog-content"></div></dialog>
+  <div class="toast" id="toast" role="alert" hidden></div>
+</body>
+</html>

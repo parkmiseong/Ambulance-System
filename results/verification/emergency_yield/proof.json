@@ -1,0 +1,19 @@
+[
+  {
+    "enabled": false,
+    "responding_cars": [],
+    "right_min_lateral_m": 0.0,
+    "left_max_lateral_m": 0.0,
+    "restored_after_passage": true
+  },
+  {
+    "enabled": true,
+    "responding_cars": [
+      "left",
+      "right"
+    ],
+    "right_min_lateral_m": -0.6995000000000001,
+    "left_max_lateral_m": 0.6994999999999997,
+    "restored_after_passage": true
+  }
+]

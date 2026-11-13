@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-13T22:02:00.176096+09:00 by Eclipse SUMO netconvert 1.27.1
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\arrival_rejection\nodes.xml"/>
+        <edge-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\arrival_rejection\edges.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\arrival_rejection\net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1700.00,400.00" origBoundary="0.00,0.00,1700.00,400.00" projParameter="!"/>
+
+    <edge id=":a_0" function="internal">
+        <lane id=":a_0_0" index="0" speed="6.08" length="7.74" shape="-4.80,0.00 -4.50,-2.10 -3.60,-3.60 -2.10,-4.50 0.00,-4.80"/>
+        <lane id=":a_0_1" index="1" speed="3.90" length="2.58" shape="-1.60,0.00 -1.50,-0.70 -1.20,-1.20 -0.70,-1.50 0.00,-1.60"/>
+    </edge>
+    <edge id=":b_0" function="internal">
+        <lane id=":b_0_0" index="0" speed="20.00" length="0.10" shape="600.00,-4.80 600.00,-4.80"/>
+        <lane id=":b_0_1" index="1" speed="20.00" length="0.10" shape="600.00,-1.60 600.00,-1.60"/>
+    </edge>
+    <edge id=":c_0" function="internal">
+        <lane id=":c_0_0" index="0" speed="20.00" length="0.10" shape="1100.00,-4.80 1100.00,-4.80"/>
+        <lane id=":c_0_1" index="1" speed="20.00" length="0.10" shape="1100.00,-1.60 1100.00,-1.60"/>
+    </edge>
+    <edge id=":d_0" function="internal">
+        <lane id=":d_0_0" index="0" speed="6.08" length="7.74" shape="1700.00,-4.80 1702.10,-4.50 1703.60,-3.60 1704.50,-2.10 1704.80,0.00"/>
+        <lane id=":d_0_1" index="1" speed="3.90" length="2.58" shape="1700.00,-1.60 1700.70,-1.50 1701.20,-1.20 1701.50,-0.70 1701.60,0.00"/>
+    </edge>
+    <edge id=":e_0" function="internal">
+        <lane id=":e_0_0" index="0" speed="6.08" length="7.74" shape="1704.80,400.00 1704.50,402.10 1703.60,403.60 1702.10,404.50 1700.00,404.80"/>
+        <lane id=":e_0_1" index="1" speed="3.90" length="2.58" shape="1701.60,400.00 1701.50,400.70 1701.20,401.20 1700.70,401.50 1700.00,401.60"/>
+    </edge>
+    <edge id=":f_0" function="internal">
+        <lane id=":f_0_0" index="0" speed="6.08" length="7.74" shape="0.00,404.80 -2.10,404.50 -3.60,403.60 -4.50,402.10 -4.80,400.00"/>
+        <lane id=":f_0_1" index="1" speed="3.90" length="2.58" shape="0.00,401.60 -0.70,401.50 -1.20,401.20 -1.50,400.70 -1.60,400.00"/>
+    </edge>
+
+    <edge id="hospital_a" from="b" to="c" priority="-1">
+        <lane id="hospital_a_0" index="0" speed="20.00" length="500.00" shape="600.00,-4.80 1100.00,-4.80"/>
+        <lane id="hospital_a_1" index="1" speed="20.00" length="500.00" shape="600.00,-1.60 1100.00,-1.60"/>
+    </edge>
+    <edge id="hospital_b" from="c" to="d" priority="-1">
+        <lane id="hospital_b_0" index="0" speed="20.00" length="600.00" shape="1100.00,-4.80 1700.00,-4.80"/>
+        <lane id="hospital_b_1" index="1" speed="20.00" length="600.00" shape="1100.00,-1.60 1700.00,-1.60"/>
+    </edge>
+    <edge id="return_d" from="d" to="e" priority="-1">
+        <lane id="return_d_0" index="0" speed="20.00" length="400.00" shape="1704.80,0.00 1704.80,400.00"/>
+        <lane id="return_d_1" index="1" speed="20.00" length="400.00" shape="1701.60,0.00 1701.60,400.00"/>
+    </edge>
+    <edge id="return_e" from="e" to="f" priority="-1">
+        <lane id="return_e_0" index="0" speed="20.00" length="1700.00" shape="1700.00,404.80 0.00,404.80"/>
+        <lane id="return_e_1" index="1" speed="20.00" length="1700.00" shape="1700.00,401.60 0.00,401.60"/>
+    </edge>
+    <edge id="return_f" from="f" to="a" priority="-1">
+        <lane id="return_f_0" index="0" speed="20.00" length="400.00" shape="-4.80,400.00 -4.80,0.00"/>
+        <lane id="return_f_1" index="1" speed="20.00" length="400.00" shape="-1.60,400.00 -1.60,0.00"/>
+    </edge>
+    <edge id="road" from="a" to="b" priority="-1">
+        <lane id="road_0" index="0" speed="20.00" length="600.00" shape="0.00,-4.80 600.00,-4.80"/>
+        <lane id="road_1" index="1" speed="20.00" length="600.00" shape="0.00,-1.60 600.00,-1.60"/>
+    </edge>
+
+    <junction id="a" type="priority" x="0.00" y="0.00" incLanes="return_f_0 return_f_1" intLanes=":a_0_0 :a_0_1" shape="-6.40,0.00 0.00,0.00 0.00,-6.40 -3.56,-5.69 -4.80,-4.80 -5.69,-3.56 -6.22,-1.96">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="b" type="priority" x="600.00" y="0.00" incLanes="road_0 road_1" intLanes=":b_0_0 :b_0_1" shape="600.00,0.00 600.00,-6.40 600.00,0.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="c" type="priority" x="1100.00" y="0.00" incLanes="hospital_a_0 hospital_a_1" intLanes=":c_0_0 :c_0_1" shape="1100.00,0.00 1100.00,-6.40 1100.00,0.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="d" type="priority" x="1700.00" y="0.00" incLanes="hospital_b_0 hospital_b_1" intLanes=":d_0_0 :d_0_1" shape="1700.00,0.00 1706.40,0.00 1705.69,-3.56 1704.80,-4.80 1703.56,-5.69 1701.96,-6.22 1700.00,-6.40">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="e" type="priority" x="1700.00" y="400.00" incLanes="return_d_0 return_d_1" intLanes=":e_0_0 :e_0_1" shape="1706.40,400.00 1700.00,400.00 1700.00,406.40 1703.56,405.69 1704.80,404.80 1705.69,403.56 1706.22,401.96">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="f" type="priority" x="0.00" y="400.00" incLanes="return_e_0 return_e_1" intLanes=":f_0_0 :f_0_1" shape="0.00,406.40 0.00,400.00 -6.40,400.00 -5.69,403.56 -4.80,404.80 -3.56,405.69 -1.96,406.22">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+
+    <connection from="hospital_a" to="hospital_b" fromLane="0" toLane="0" via=":c_0_0" dir="s" state="M"/>
+    <connection from="hospital_a" to="hospital_b" fromLane="1" toLane="1" via=":c_0_1" dir="s" state="M"/>
+    <connection from="hospital_b" to="return_d" fromLane="0" toLane="0" via=":d_0_0" dir="l" state="M"/>
+    <connection from="hospital_b" to="return_d" fromLane="1" toLane="1" via=":d_0_1" dir="l" state="M"/>
+    <connection from="return_d" to="return_e" fromLane="0" toLane="0" via=":e_0_0" dir="l" state="M"/>
+    <connection from="return_d" to="return_e" fromLane="1" toLane="1" via=":e_0_1" dir="l" state="M"/>
+    <connection from="return_e" to="return_f" fromLane="0" toLane="0" via=":f_0_0" dir="l" state="M"/>
+    <connection from="return_e" to="return_f" fromLane="1" toLane="1" via=":f_0_1" dir="l" state="M"/>
+    <connection from="return_f" to="road" fromLane="0" toLane="0" via=":a_0_0" dir="l" state="M"/>
+    <connection from="return_f" to="road" fromLane="1" toLane="1" via=":a_0_1" dir="l" state="M"/>
+    <connection from="road" to="hospital_a" fromLane="0" toLane="0" via=":b_0_0" dir="s" state="M"/>
+    <connection from="road" to="hospital_a" fromLane="1" toLane="1" via=":b_0_1" dir="s" state="M"/>
+
+    <connection from=":a_0" to="road" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":a_0" to="road" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from=":b_0" to="hospital_a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b_0" to="hospital_a" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":c_0" to="hospital_b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":c_0" to="hospital_b" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":d_0" to="return_d" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":d_0" to="return_d" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from=":e_0" to="return_e" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":e_0" to="return_e" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from=":f_0" to="return_f" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":f_0" to="return_f" fromLane="1" toLane="1" dir="l" state="M"/>
+
+</net>

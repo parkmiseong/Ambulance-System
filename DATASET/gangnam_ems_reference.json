@@ -1,0 +1,19 @@
+{
+  "profile_id": "gangnam_ems_2024_daily_v1",
+  "region": "서울특별시 강남구",
+  "reference_year": 2024,
+  "publication_year": 2025,
+  "source_title": "제40회 강남통계연보(2024년 기준)",
+  "source_url": "https://www.gangnam.go.kr/board/B_000645/1068850/view.do?mid=ID02_01020902",
+  "download_url": "https://www.gangnam.go.kr/file/1/get/3c0e0a64-c45a-4a5e-8576-1bd742de9027/download.do",
+  "source_page": 6,
+  "reference_metric": "119 구급활동",
+  "reference_value_per_day": 46.6,
+  "reference_unit": "건/일",
+  "reference_scope": "통계연보의 강남의 하루 지표. 전체 응급환자 발생 수 또는 시간대별 실측 이송 인원이 아님.",
+  "simulation_assumption": "구급활동 1건을 시뮬레이션 환자 수요 1명으로 대응시키는 대리 기준. 연평균 일일 건수를 24로 나누며 시간대별 변동은 모델링하지 않음.",
+  "scenario_multipliers": [1.0, 1.1, 1.2],
+  "scenario_labels": ["여유", "보통", "혼잡"],
+  "default_duration_seconds": 3600,
+  "verified_on": "2026-11-13"
+}

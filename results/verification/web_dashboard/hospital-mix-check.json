@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "runId": "20261113_202054_5145c5",
+  "totalVirtual": 5,
+  "weights": {
+    "local_center": 1,
+    "local_institution": 1,
+    "reported_er": 1
+  },
+  "expectedCounts": {
+    "tertiary": 2,
+    "local_center": 1,
+    "local_institution": 1,
+    "reported_er": 1
+  },
+  "actualCounts": [
+    2,
+    1,
+    1,
+    1
+  ],
+  "patientCount": 1,
+  "defaultTenPreview": [
+    2,
+    4,
+    3,
+    1
+  ],
+  "minimumTwo": true,
+  "settingsRestored": true,
+  "mobileWidth": 390,
+  "sourceWeightsUnchanged": true,
+  "runtimeErrors": []
+}

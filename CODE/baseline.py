@@ -80,7 +80,8 @@ def build_state_vector(patient_pos, ktas, hospitals, *, patient=None, manager=No
             predicted = (calculate_reward(total, ktas, h, golden_limit=limit,
                                           occupancy_at_selection=h.get("occupancy", 0.),
                                           pre_ktas=patient.get("pre_ktas", ktas),
-                                          reward_version=config.reward_version) if reachable and config.candidate_reward_feature else 0.)
+                                          reward_version=config.reward_version,
+                                          congestion_reward_mode=config.congestion_reward_mode) if reachable and config.candidate_reward_feature else 0.)
             state.extend([margin if config.golden_margin_feature and reachable else 0.,
                           predicted / 100. if config.candidate_reward_feature else 0.])
     result = np.asarray(state, dtype=np.float32)
@@ -148,13 +149,14 @@ class HospitalRouters:
         return max(a, key=score)
 
     # 이전 코드와의 호환
-    def expected_reward_strategy(self, ktas, actions, wait_seconds=0., reward_version=4, pre_ktas=None):
+    def expected_reward_strategy(self, ktas, actions, wait_seconds=0., reward_version=4, pre_ktas=None,
+                                 congestion_reward_mode="penalty"):
         a = self._get(actions)
         return max(a, key=lambda i: calculate_reward(
             max(0., wait_seconds) + _travel(self.hospitals[i]), ktas, self.hospitals[i],
             golden_limit=GOLDEN_TIME_LIMITS[normalize_ktas(ktas)], pre_ktas=pre_ktas,
             occupancy_at_selection=self.hospitals[i].get("occupancy", 0.),
-            reward_version=reward_version))
+            reward_version=reward_version, congestion_reward_mode=congestion_reward_mode))
 
     def nearest_strategy(self, patient_pos):
         self._patient_x, self._patient_y = patient_pos[:2]

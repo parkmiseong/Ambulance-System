@@ -223,7 +223,7 @@ class FakeAgent:
 
 class SharedEngineTests(unittest.TestCase):
     def run_case(self, config=None, duration=2, spawn_failure=False, training=True, on_decision=None,
-                 ambulance_count=1):
+                 ambulance_count=1, on_step=None, initial_occupancy_range=None):
         import ambulance_sim
         fake = FakeTraCI(duration)
         config = config or SimulationConfig(arrival_steps=2, max_wait=20, mission_timeout=10,
@@ -238,7 +238,8 @@ class SharedEngineTests(unittest.TestCase):
         agent, rows = FakeAgent(state_dimension(1, config.observation_version)), []
         def capacity(hospitals, config):
             for h in hospitals:
-                h["occupancy"] = .7
+                if initial_occupancy_range is None:
+                    h["occupancy"] = .7
             return HospitalCapacity(hospitals, config)
         def routes(env, edge, hospitals, access):
             result = copy.deepcopy(hospitals)
@@ -256,8 +257,45 @@ class SharedEngineTests(unittest.TestCase):
             result = simulation.run_episode(
                 env, [hospital()], dict(id=1, prob=.2, scale=.3), 42, "dqn", config,
                 agent=agent, training=training, ambulance_count=ambulance_count, on_outcome=rows.append,
-                on_decision=on_decision)
+                on_decision=on_decision, on_step=on_step,
+                initial_occupancy_range=initial_occupancy_range)
         return result, rows, agent
+
+    def test_live_observer_sees_the_shared_clock_without_changing_outcomes(self):
+        snapshots = []
+        observed, rows, _ = self.run_case(on_step=lambda s: snapshots.append(
+            (s["time"], len(s["manager"].active), len(s["outcomes"]))))
+        plain, plain_rows, _ = self.run_case()
+        self.assertEqual(rows, plain_rows)
+        self.assertEqual(observed["reward"], plain["reward"])
+        self.assertEqual(snapshots[-1][0], observed["simulation_end_time"])
+        self.assertEqual(snapshots[-1][2], observed["generated_patients"])
+        self.assertTrue(all(a[0] < b[0] for a, b in zip(snapshots, snapshots[1:])))
+
+    def test_custom_background_occupancy_is_used_for_selection(self):
+        decisions = []
+        self.run_case(on_decision=decisions.append, initial_occupancy_range=(.2, .2))
+        self.assertEqual(decisions[0]["candidates"][0]["occupancy"], .2)
+
+    def test_invalid_background_occupancy_is_rejected_before_starting_sumo(self):
+        for occupancy in ((.8, .2), (-.1, .3), (.2, 1.1), (float("nan"), .3)):
+            with self.subTest(occupancy=occupancy), self.assertRaises(ValueError):
+                self.run_case(initial_occupancy_range=occupancy)
+
+    def test_observer_interruption_closes_sumo(self):
+        import ambulance_sim
+        fake = FakeTraCI()
+        def interrupt(_):
+            raise InterruptedError("dashboard stop")
+        with patch.object(simulation, "traci", fake), patch.object(ambulance_sim, "traci", fake), \
+             patch.object(simulation, "start_sumo", fake.start), \
+             patch.object(simulation, "generate_schedule", return_value={}), \
+             patch.object(simulation, "TrafficRouter", return_value=SimpleNamespace(reset=lambda: None, refresh=lambda: None)):
+            env = SimpleNamespace(ambulance_edges=["e"], hospital_access_edges=[["h"]], net=None)
+            with self.assertRaises(InterruptedError):
+                simulation.run_episode(env, [hospital()], dict(prob=.2, scale=.3), 42,
+                                       "shortest_time", SimulationConfig(arrival_steps=2), on_step=interrupt)
+        self.assertFalse(fake.isLoaded())
 
     def test_decision_trace_records_pre_reservation_candidates(self):
         decisions = []
@@ -311,7 +349,11 @@ class SharedEngineTests(unittest.TestCase):
     def test_training_and_evaluation_have_identical_dynamics(self):
         trained, training_rows, _ = self.run_case(training=True)
         evaluated, evaluation_rows, _ = self.run_case(training=False)
-        self.assertEqual(training_rows, evaluation_rows)
+        # Vehicle IDs identify the mode; the patient dynamics must stay identical.
+        self.assertEqual([{k: v for k, v in r.items() if k != "vehicle_id"} for r in training_rows],
+                         [{k: v for k, v in r.items() if k != "vehicle_id"} for r in evaluation_rows])
+        self.assertTrue(all(r["vehicle_id"].startswith("amb_e_") for r in training_rows))
+        self.assertTrue(all(r["vehicle_id"].startswith("amb_eval_") for r in evaluation_rows))
         for field in ("arrived", "failed", "reward", "golden_rate", "avg_wait", "peak_hospital_occupancy"):
             self.assertEqual(trained[field], evaluated[field])
 

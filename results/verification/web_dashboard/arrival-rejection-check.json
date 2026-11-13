@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "runId": "20261113_215827_72c304",
+  "liveRefusals": 1,
+  "patient": "p6",
+  "patientRefusals": 1,
+  "patientPenalty": -12,
+  "history": [
+    {
+      "patient_id": "p6",
+      "hospital_id": "A1100141",
+      "hospital_name": "강남베드로병원",
+      "time": 82,
+      "reason": "hospital_full",
+      "penalty": -12,
+      "stage": "after_arrival",
+      "vehicle_id": "amb_eval_6",
+      "dispatch_time": 6,
+      "leg_dispatch_time": 6,
+      "edge_id": "218966989#1",
+      "occupancy_at_arrival": 0.8452169575138544,
+      "request_number": 1,
+      "rejection_number": 1
+    }
+  ],
+  "visits": [
+    {
+      "hospital_id": "A1100141",
+      "hospital_name": "강남베드로병원",
+      "vehicle_id": "amb_eval_6",
+      "leg_dispatch_time": 6,
+      "arrival_time": 82,
+      "occupancy_at_selection": 0.6852169575138544,
+      "occupancy_at_arrival": 0.8452169575138544,
+      "edge_id": "218966989#1",
+      "accepted": false,
+      "reason": "hospital_full"
+    },
+    {
+      "hospital_id": "A1100015",
+      "hospital_name": "연세대학교의과대학강남세브란스병원",
+      "vehicle_id": "amb_eval_6",
+      "leg_dispatch_time": 82,
+      "arrival_time": 159,
+      "occupancy_at_selection": 0.6656502348991581,
+      "occupancy_at_arrival": 0.6656502348991581,
+      "edge_id": "-522435828#1",
+      "accepted": true,
+      "reason": "accepted"
+    }
+  ],
+  "sameVehicle": true,
+  "onlyAfterArrival": true,
+  "preDepartureCheck": true,
+  "detailsAndCsv": true,
+  "liveRewardAccounting": true,
+  "legacyToggle": true,
+  "mobileWidth": 390,
+  "runtimeErrors": []
+}

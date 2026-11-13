@@ -35,6 +35,25 @@ class HospitalCapacity:
         self.reservations[token] = action
         self.refresh(self.now)
 
+    def request_admission(self, action, token):
+        """Return an actual refusal reason, or reserve the accepted patient's bed."""
+        if token in self.reservations:
+            raise ValueError("Duplicate bed reservation.")
+        if self.hospitals[action].get("accepting", True) is not True:
+            return "not_accepting"
+        if not self.can_reserve(action):
+            return "hospital_full"
+        self.reserve(action, token)
+        return None
+
+    def admit_on_arrival(self, action, token, now):
+        """Check the current capacity at arrival; no bed is held during transport."""
+        self.refresh(now)
+        refusal = self.request_admission(action, token)
+        if refusal is None:
+            self.complete(token, True, now)
+        return refusal
+
     def complete(self, token, arrived, now):
         self.refresh(now)
         action = self.reservations.pop(token)

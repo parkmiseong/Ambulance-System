@@ -1,0 +1,44 @@
+name: ambulance-dashboard
+services:
+  app:
+    build: .
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 35s
+    expose:
+      - "8000"
+    environment:
+      TZ: Asia/Seoul
+      OMP_NUM_THREADS: "2"
+    volumes:
+      - results_data:/app/results
+    cpus: "${APP_CPUS:-2}"
+    mem_limit: "${APP_MEMORY_LIMIT:-6g}"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/readyz',timeout=5)"]
+      interval: 20s
+      timeout: 6s
+      retries: 3
+      start_period: 90s
+  gateway:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DASHBOARD_DOMAIN: "${DASHBOARD_DOMAIN:?Set DASHBOARD_DOMAIN in .env}"
+      DASHBOARD_USER: "${DASHBOARD_USER:?Set DASHBOARD_USER in .env}"
+      DASHBOARD_PASSWORD_HASH: "${DASHBOARD_PASSWORD_HASH:?Set DASHBOARD_PASSWORD_HASH in .env}"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  results_data:
+  caddy_data:
+  caddy_config:

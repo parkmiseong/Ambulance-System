@@ -345,6 +345,10 @@ def main():
     parser.add_argument("--max-wait", type=float, default=1800.)
     parser.add_argument("--mission-timeout", type=float, default=1800.)
     parser.add_argument("--candidate-limit", type=int, default=1200)
+    parser.add_argument("--admission-mode", choices=("precheck", "request", "arrival"), default="precheck",
+                        help="arrival checks admission after transport; request/precheck reproduce earlier experiments.")
+    parser.add_argument("--congestion-reward", choices=("penalty", "balanced"), default="penalty",
+                        help="balanced rewards spare capacity below 50%% occupancy; penalty preserves legacy experiments.")
     parser.add_argument("--validation-seeds", default="30001,30002,30003")
     parser.add_argument("--validation-scenarios",
                         help="Default: selected training scenarios, or 1 when training all scenarios.")
@@ -360,6 +364,8 @@ def main():
             pending_reward_feature=args.pending_reward_feature,
             golden_margin_feature=args.golden_margin_feature,
             candidate_reward_feature=args.candidate_reward_feature)
+        config = replace(config, admission_mode=args.admission_mode)
+        config = replace(config, congestion_reward_mode=args.congestion_reward)
         learning = LearningConfig(gamma=args.gamma, learning_rate=args.learning_rate,
             batch_size=args.batch_size, replay_capacity=args.replay_capacity, reward_scale=args.reward_scale,
             target_sync_mode=args.target_sync_mode, target_sync_interval=args.target_sync_interval,

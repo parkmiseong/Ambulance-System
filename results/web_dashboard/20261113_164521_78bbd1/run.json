@@ -1,0 +1,190 @@
+{
+  "run_id": "20261113_164521_78bbd1",
+  "options": {
+    "traffic": 2,
+    "demand": 1,
+    "occupancy": 0,
+    "episodes": 3,
+    "duration": 3600,
+    "ambulances": 10,
+    "virtual_count": 2,
+    "seed": 42,
+    "mode": "simulation",
+    "policy": "dqn",
+    "emergency_yield": true,
+    "model": "results/web_dashboard/20261113_141910_faca24/models/dqn_v6_643c8c7d641a2d21_best.pth",
+    "patients_per_hour": 2.1358333333333337,
+    "demand_profile_id": "gangnam_ems_2024_daily_v1"
+  },
+  "hospitals": [
+    {
+      "id": "A1100004",
+      "name": "순천향대학교 부속 서울병원",
+      "type": "지역응급의료센터",
+      "sumo_x": 4683.549151818384,
+      "sumo_y": 8716.776676845737,
+      "occupancy": 0.3100117273476477,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100012",
+      "name": "학교법인가톨릭학원가톨릭대학교서울성모병원",
+      "type": "지역응급의료센터",
+      "sumo_x": 4635.446237096621,
+      "sumo_y": 5160.919942664914,
+      "occupancy": 0.5568718270819382,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100015",
+      "name": "연세대학교의과대학강남세브란스병원",
+      "type": "지역응급의료센터",
+      "sumo_x": 8290.932295059669,
+      "sumo_y": 4085.8148315637372,
+      "occupancy": 0.2892842952595291,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100018",
+      "name": "재단법인베스티안재단베스티안서울병원",
+      "type": "응급실운영신고기관",
+      "sumo_x": 9271.506999495381,
+      "sumo_y": 4649.883547743317,
+      "occupancy": 0.4945884856656049,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100057",
+      "name": "차의과학대학교 강남차병원",
+      "type": "응급실운영신고기관",
+      "sumo_x": 7293.906369706558,
+      "sumo_y": 5659.916218176484,
+      "occupancy": 0.4706797949691645,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1100141",
+      "name": "강남베드로병원",
+      "type": "권역응급의료센터",
+      "sumo_x": 7679.712704465142,
+      "sumo_y": 3299.849767106585,
+      "occupancy": 0.21000430208906679,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "A1123234",
+      "name": "강남더드림병원",
+      "type": "응급실운영신고기관",
+      "sumo_x": 8721.281127114373,
+      "sumo_y": 4985.291670333128,
+      "occupancy": 0.4557707193831535,
+      "virtual": null,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "VIRTUAL_FAR_42_01",
+      "name": "가상 권역응급의료센터 1",
+      "type": "권역응급의료센터",
+      "sumo_x": 2576.94,
+      "sumo_y": 2124.18,
+      "occupancy": 0.3,
+      "virtual": true,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    },
+    {
+      "id": "VIRTUAL_FAR_42_02",
+      "name": "가상 권역응급의료센터 2",
+      "type": "권역응급의료센터",
+      "sumo_x": 4555.81,
+      "sumo_y": 2359.26,
+      "occupancy": 0.3,
+      "virtual": true,
+      "reserved_count": null,
+      "admitted_count": null,
+      "can_admit": null
+    }
+  ],
+  "scenario": {
+    "id": 6,
+    "prob": 0.0005932870370370371,
+    "scale": 0.8,
+    "name": "gangnam_ems_2024_daily_v1_patients_per_hour2.135833_traffic0.8",
+    "patients_per_hour": 2.1358333333333337,
+    "demand_profile": {
+      "profile_id": "gangnam_ems_2024_daily_v1",
+      "region": "서울특별시 강남구",
+      "reference_year": 2024,
+      "publication_year": 2025,
+      "source_title": "제40회 강남통계연보(2024년 기준)",
+      "source_url": "https://www.gangnam.go.kr/board/B_000645/1068850/view.do?mid=ID02_01020902",
+      "download_url": "https://www.gangnam.go.kr/file/1/get/3c0e0a64-c45a-4a5e-8576-1bd742de9027/download.do",
+      "source_page": 6,
+      "reference_metric": "119 구급활동",
+      "reference_value_per_day": 46.6,
+      "reference_unit": "건/일",
+      "reference_scope": "통계연보의 강남의 하루 지표. 전체 응급환자 발생 수 또는 시간대별 실측 이송 인원이 아님.",
+      "simulation_assumption": "구급활동 1건을 시뮬레이션 환자 수요 1명으로 대응시키는 대리 기준. 연평균 일일 건수를 24로 나누며 시간대별 변동은 모델링하지 않음.",
+      "scenario_multipliers": [
+        1.0,
+        1.1,
+        1.2
+      ],
+      "scenario_labels": [
+        "여유",
+        "보통",
+        "혼잡"
+      ],
+      "default_duration_seconds": 3600,
+      "verified_on": "2026-11-13",
+      "reference_per_hour": 1.9416666666666667,
+      "patients_per_hour": [
+        1.9416666666666667,
+        2.1358333333333337,
+        2.33
+      ],
+      "simulation_unit": "명/시뮬레이션 시간(1시간)"
+    },
+    "background_traffic": {
+      "period_seconds": 3600,
+      "until_seconds": 7202.0,
+      "source_trips": 14710,
+      "repeated_trips": 14719,
+      "sources": [
+        {
+          "file": "osm.passenger.trips.xml",
+          "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+        }
+      ],
+      "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음."
+    }
+  },
+  "emergency_yield": {
+    "enabled": true,
+    "reaction_distance_m": 60.0,
+    "lateral_resolution_m": 0.4,
+    "signal_priority_included": true,
+    "implementation": "sumo_bluelight_sublane"
+  }
+}

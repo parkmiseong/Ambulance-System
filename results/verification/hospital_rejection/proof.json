@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "patients": 5,
+  "arrived": 5,
+  "rejections": 7,
+  "penalty_per_refusal": -12,
+  "legacy_reward": -19.81864444444445,
+  "request_reward": -103.81864444444444,
+  "actual_reselection": true,
+  "transport_timing_unchanged": true,
+  "remaining_reservations": 0,
+  "events": [
+    {
+      "patient_id": "p2",
+      "hospital_id": "h0",
+      "hospital_name": "Hospital 0",
+      "time": 2.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "request_number": 1,
+      "rejection_number": 1
+    },
+    {
+      "patient_id": "p3",
+      "hospital_id": "h0",
+      "hospital_name": "Hospital 0",
+      "time": 3.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "request_number": 1,
+      "rejection_number": 1
+    },
+    {
+      "patient_id": "p3",
+      "hospital_id": "h1",
+      "hospital_name": "Hospital 1",
+      "time": 3.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "request_number": 2,
+      "rejection_number": 2
+    },
+    {
+      "patient_id": "p4",
+      "hospital_id": "h0",
+      "hospital_name": "Hospital 0",
+      "time": 4.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "request_number": 1,
+      "rejection_number": 1
+    },
+    {
+      "patient_id": "p4",
+      "hospital_id": "h1",
+      "hospital_name": "Hospital 1",
+      "time": 4.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "request_number": 2,
+      "rejection_number": 2
+    },
+    {
+      "patient_id": "p5",
+      "hospital_id": "h0",
+      "hospital_name": "Hospital 0",
+      "time": 5.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "request_number": 1,
+      "rejection_number": 1
+    },
+    {
+      "patient_id": "p5",
+      "hospital_id": "h1",
+      "hospital_name": "Hospital 1",
+      "time": 5.0,
+      "reason": "hospital_full",
+      "penalty": -12.0,
+      "request_number": 2,
+      "rejection_number": 2
+    }
+  ],
+  "training_updates": 11,
+  "training_refusals": 7,
+  "training_reward_matches_patient_totals": true
+}

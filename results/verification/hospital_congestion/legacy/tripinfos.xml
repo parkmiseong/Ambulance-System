@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-13T21:36:01.680519+09:00 by Eclipse SUMO sumo 1.27.1
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\hospital_congestion\net.xml"/>
+        <route-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\hospital_congestion\empty.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\hospital_congestion\legacy\tripinfos.xml"/>
+        <statistic-output value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\hospital_congestion\legacy\stats.xml"/>
+    </output>
+
+    <time>
+        <step-length value="1"/>
+    </time>
+
+    <processing>
+        <scale value="1.0"/>
+    </processing>
+
+    <report>
+        <verbose value="false"/>
+        <no-warnings value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="57786"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="42"/>
+    </random_number>
+
+    <gui_only>
+        <start value="true"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="amb_eval_3" depart="4.00" departLane="road_0" departPos="5.10" departSpeed="0.00" departDelay="1.00" arrival="78.00" arrivalLane="exit_1" arrivalPos="900.00" arrivalSpeed="22.41" duration="74.00" routeLength="1495.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="8.91" rerouteNo="0" devices="tripinfo_amb_eval_3" vType="ambulance_custom" speedFactor="1.16" vaporized=""/>
+    <tripinfo id="amb_eval_2" depart="2.00" departLane="road_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="80.00" arrivalLane="exit_0" arrivalPos="900.00" arrivalSpeed="20.17" duration="78.00" routeLength="1495.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="7.57" rerouteNo="0" devices="tripinfo_amb_eval_2" vType="ambulance_custom" speedFactor="1.07" vaporized=""/>
+    <tripinfo id="amb_eval_1" depart="1.00" departLane="road_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="88.00" arrivalLane="exit_0" arrivalPos="900.00" arrivalSpeed="18.06" duration="87.00" routeLength="1495.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="7.26" rerouteNo="0" devices="tripinfo_amb_eval_1" vType="ambulance_custom" speedFactor="0.95" vaporized=""/>
+</tripinfos>

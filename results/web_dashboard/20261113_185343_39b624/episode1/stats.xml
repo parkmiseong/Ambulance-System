@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-13T18:54:11.381989+09:00 by Eclipse SUMO sumo 1.27.1
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.net.xml.gz"/>
+        <route-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.passenger.trips.xml,C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\ambulance_routes.rou.xml,C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\web_dashboard\20261113_185343_39b624\background_repeated.trips.xml"/>
+        <additional-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\web_dashboard\20261113_185343_39b624\episode1\output.add.xml,C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\hospitals.add.xml,C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\fire_stations.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\web_dashboard\20261113_185343_39b624\episode1\tripinfos.xml"/>
+        <statistic-output value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\web_dashboard\20261113_185343_39b624\episode1\stats.xml"/>
+    </output>
+
+    <time>
+        <step-length value="1"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.4"/>
+        <ignore-route-errors value="true"/>
+        <scale value="0.8"/>
+        <tls.actuated.jam-threshold value="30"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="18"/>
+        <device.rerouting.adaptation-interval value="10"/>
+    </routing>
+
+    <report>
+        <verbose value="false"/>
+        <no-warnings value="true"/>
+        <duration-log.disable value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="53902"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="42"/>
+    </random_number>
+
+    <gui_only>
+        <gui-settings-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.view.xml"/>
+        <start value="true"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
+    <performance clockBegin="1243300.60" clockEnd="1244186.37" clockDuration="885.77" traciDuration="0.00" realTimeFactor="3.39" vehicleUpdatesPerSecond="0.00" personUpdatesPerSecond="0.00" begin="0.00" end="3007.00" duration="3007.00"/>
+    <vehicles loaded="13281" inserted="9942" running="1333" waiting="1"/>
+    <teleports total="57" jam="14" yield="22" wrongLane="21"/>
+    <safety collisions="0" emergencyStops="2" emergencyBraking="32"/>
+    <persons loaded="0" running="0" jammed="0"/>
+    <personTeleports total="0" abortWait="0" wrongDest="0"/>
+    <vehicleTripStatistics count="8609" routeLength="4262.26" speed="13.14" duration="356.91" waitingTime="95.98" timeLoss="173.00" departDelay="1.28" departDelayWaiting="-1.00" totalTravelTime="3072637.00" totalDepartDelay="11058.96"/>
+    <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
+    <rideStatistics number="0"/>
+    <transportStatistics number="0"/>
+</statistics>

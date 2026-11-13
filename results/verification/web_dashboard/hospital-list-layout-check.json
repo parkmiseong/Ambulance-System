@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "nativeHospitalCount": 7,
+  "checks": [
+    {
+      "width": 1440,
+      "rows": 7,
+      "maxHeight": "none",
+      "overflow": "visible",
+      "scrollHeight": 240,
+      "clientHeight": 240,
+      "allRowsFit": true,
+      "pageWidth": 1425
+    },
+    {
+      "width": 1024,
+      "rows": 7,
+      "maxHeight": "none",
+      "overflow": "visible",
+      "scrollHeight": 414,
+      "clientHeight": 414,
+      "allRowsFit": true,
+      "pageWidth": 1009
+    },
+    {
+      "width": 768,
+      "rows": 7,
+      "maxHeight": "none",
+      "overflow": "visible",
+      "scrollHeight": 240,
+      "clientHeight": 240,
+      "allRowsFit": true,
+      "pageWidth": 753
+    },
+    {
+      "width": 390,
+      "rows": 7,
+      "maxHeight": "none",
+      "overflow": "visible",
+      "scrollHeight": 414,
+      "clientHeight": 414,
+      "allRowsFit": true,
+      "pageWidth": 390
+    },
+    {
+      "width": 1440,
+      "maximumHospitalLayout": true,
+      "rows": 17,
+      "scrollHeight": 530,
+      "clientHeight": 530
+    },
+    {
+      "width": 390,
+      "maximumHospitalLayout": true,
+      "rows": 17,
+      "scrollHeight": 994,
+      "clientHeight": 994
+    }
+  ],
+  "runtimeErrors": []
+}

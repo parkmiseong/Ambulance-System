@@ -53,7 +53,7 @@ class TrafficRouter:
             return None
         return length / speed
 
-    def refresh(self, force=False):
+    def refresh(self, force=False, excluded_vehicle_ids=()):
         now = float(traci.simulation.getTime())
         if not force and now - self.last_refresh < self.refresh_interval:
             return 0
@@ -61,7 +61,7 @@ class TrafficRouter:
 
         # Observe occupied edges; no full-network TraCI scan every step.
         active_edges = set()
-        vehicles = set(traci.vehicle.getIDList())
+        vehicles = set(traci.vehicle.getIDList()) - set(excluded_vehicle_ids)
         # Subscriptions arrive with each simulation step; avoid one socket request
         # per background vehicle on every refresh.
         self.subscribed.intersection_update(vehicles)

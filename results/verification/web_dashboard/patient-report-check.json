@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "source": "20261113_141910_faca24",
+  "patients": 64,
+  "arrived": 63,
+  "failed": 1,
+  "reward_matches": true,
+  "hospital_names_restored": true,
+  "full_history": true
+}

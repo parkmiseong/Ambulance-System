@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "runId": "20261113_210448_5310ce",
+  "liveRefusals": 3,
+  "patient": "p24",
+  "patientRefusals": 3,
+  "patientPenalty": -36,
+  "history": [
+    {
+      "patient_id": "p24",
+      "hospital_id": "A1100141",
+      "hospital_name": "강남베드로병원",
+      "time": 87,
+      "reason": "hospital_full",
+      "penalty": -12,
+      "request_number": 1,
+      "rejection_number": 1
+    },
+    {
+      "patient_id": "p24",
+      "hospital_id": "VIRTUAL_FAR_42_01",
+      "hospital_name": "가상 권역응급의료센터 1",
+      "time": 87,
+      "reason": "hospital_full",
+      "penalty": -12,
+      "request_number": 2,
+      "rejection_number": 2
+    },
+    {
+      "patient_id": "p24",
+      "hospital_id": "A1100015",
+      "hospital_name": "연세대학교의과대학강남세브란스병원",
+      "time": 87,
+      "reason": "hospital_full",
+      "penalty": -12,
+      "request_number": 3,
+      "rejection_number": 3
+    }
+  ],
+  "detailsAndCsv": true,
+  "liveRewardAccounting": true,
+  "legacyToggle": true,
+  "mobileWidth": 390,
+  "runtimeErrors": []
+}

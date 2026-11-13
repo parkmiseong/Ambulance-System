@@ -17,13 +17,15 @@ def managed_ambulances():
     return [v for v in traci.vehicle.getIDList() if v.startswith(MANAGED_PREFIXES)]
 
 
-def spawn_at_patient(patient_edge, hospital_edge, vehicle_id, max_ambulances=10, route_edges=None):
+def spawn_at_patient(patient_edge, hospital_edge, vehicle_id, max_ambulances=10, route_edges=None,
+                     arrival_stop_pos=None, arrival_stop_lane=0, excluded_vehicle_ids=()):
     """Legacy-compatible creation; capacity also guarded by MissionManager.active."""
     limit = max(1, min(MAX_AMBULANCES, int(max_ambulances)))
-    if len(managed_ambulances()) >= limit:
+    if len(set(managed_ambulances()) - set(excluded_vehicle_ids)) >= limit:
         return False, "ambulance_capacity"
     if not patient_edge or not hospital_edge:
         return False, "missing_edge"
+    created = False
     try:
         if "ambulance_custom" not in traci.vehicletype.getIDList():
             return False, "missing_vehicle_type"
@@ -40,9 +42,23 @@ def spawn_at_patient(patient_edge, hospital_edge, vehicle_id, max_ambulances=10,
         traci.vehicle.add(vehicle_id, route_id, typeID="ambulance_custom",
                           depart="now", departLane="best", departPos="base",
                           departSpeed="0")
+        created = True
+        if arrival_stop_pos is not None:
+            hold_at_hospital(vehicle_id, hospital_edge, arrival_stop_pos, arrival_stop_lane)
         return True, "created_pending_departure"
     except Exception as exc:
+        if created:
+            try:
+                traci.vehicle.remove(vehicle_id)
+            except traci.TraCIException:
+                pass
         return False, f"{type(exc).__name__}: {exc}"
+
+
+def hold_at_hospital(vehicle_id, edge_id, position, lane_index=0):
+    """Keep the physical vehicle at its hospital until admission or rerouting."""
+    traci.vehicle.setStop(vehicle_id, edge_id, pos=position, laneIndex=lane_index,
+                          duration=2147483647., flags=0)
 
 
 @dataclass
@@ -68,6 +84,7 @@ class MissionManager:
         self.queue_policy, self.aging_seconds = queue_policy, float(aging_seconds)
         self.verbose = verbose
         self.waiting, self.active = deque(), {}
+        self.removed_vehicle_ids = set()
         self.peak_active = self.peak_waiting = 0
         self.completed = self.failed = self.censored = 0
         self.wait_total, self.wait_count = 0., 0
@@ -145,28 +162,45 @@ class MissionManager:
                              if isinstance(value, dict) and "route_edges" in value), None)
             ok, reason = spawn_at_patient(
                 patient["edge_id"], hospital_edge, vid, self.limit,
-                route_edges=selected.get("route_edges") if selected else None)
+                route_edges=selected.get("route_edges") if selected else None,
+                **({"arrival_stop_pos": selected["arrival_stop_pos"],
+                    "arrival_stop_lane": selected["arrival_stop_lane"]}
+                   if selected and "arrival_stop_pos" in selected else {}),
+                **({"excluded_vehicle_ids": self.removed_vehicle_ids} if self.removed_vehicle_ids else {}))
             if not ok:
                 self._record_outcome(patient, payload, False, now, now, reason, finish)
                 continue
             self.active[vid] = Mission(
                 patient, vid, now, payload,
                 estimated_reward=float(selected.get("estimated_reward_at_dispatch", 0.)) if selected else 0.)
+            patient.setdefault("_first_dispatch_time", now)
             self.peak_active = max(self.peak_active, len(self.active))
 
-    @staticmethod
-    def _remove_vehicle(vid):
+    def _remove_vehicle(self, vid):
+        if hasattr(traci.vehicle, "unsubscribe"):
+            try:
+                traci.vehicle.unsubscribe(vid)
+            except traci.TraCIException:
+                pass
+        if (hasattr(traci.vehicle, "unsubscribeContext")
+                and vid in traci.vehicle.getAllContextSubscriptionResults()):
+            try:
+                traci.vehicle.unsubscribeContext(vid, 0xa4, 100.)
+            except traci.TraCIException:
+                pass
         try:
             # Also remove vehicles still waiting for insertion.
             traci.vehicle.remove(vid)
+            self.removed_vehicle_ids.add(vid)
         except traci.TraCIException:
             pass
 
-    def step(self, dispatch, finish, prefix="amb_e"):
+    def step(self, dispatch, finish, prefix="amb_e", on_hospital_arrival=None):
         now = float(traci.simulation.getTime())
         self._expire_waiting(now, finish)
         self._dispatch(now, dispatch, finish, prefix)
         traci.simulationStep()
+        self.removed_vehicle_ids.clear()
         now = float(traci.simulation.getTime())
         arrived = set(traci.simulation.getArrivedIDList())
         running = set(traci.vehicle.getIDList())
@@ -174,12 +208,26 @@ class MissionManager:
             if vid in running:
                 mission.appeared = True
             reason = None
-            if vid in arrived:
+            if on_hospital_arrival is not None:
+                selected = mission.payload[1]
+                at_hospital = (vid in running and traci.vehicle.isStopped(vid)
+                               and traci.vehicle.getRoadID(vid) == selected["hospital_edge"])
+                if at_hospital:
+                    decision = on_hospital_arrival(mission, now)
+                    if decision is True:
+                        reason = "arrived"
+                        self._remove_vehicle(vid)
+                    elif isinstance(decision, str):
+                        reason = decision
+                        self._remove_vehicle(vid)
+                elif vid in arrived:
+                    reason = "hospital_stop_missing"
+            elif vid in arrived:
                 reason = "arrived"
-            elif now - mission.dispatch_time >= self.timeout:
+            if reason is None and now - mission.dispatch_time >= self.timeout:
                 reason = "mission_timeout"
                 self._remove_vehicle(vid)
-            elif mission.appeared and vid not in running:
+            elif reason is None and mission.appeared and vid not in running:
                 reason = "vehicle_disappeared"
             if reason is not None:
                 del self.active[vid]

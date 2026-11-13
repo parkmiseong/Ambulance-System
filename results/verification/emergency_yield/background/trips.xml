@@ -1,0 +1,1 @@
+<routes><vType id="car" vClass="passenger"/><trip id="first" type="car" depart="0" from="road" to="exit"/><trip id="last" type="car" depart="3599" from="road" to="exit"/></routes>

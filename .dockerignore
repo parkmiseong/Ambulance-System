@@ -1,0 +1,24 @@
+**
+!Dockerfile
+!CODE/
+!CODE/*.py
+!web/
+!web/**
+!DATASET/
+!DATASET/gangnam_ems_reference.json
+!DATASET/서울시 응급실 위치 정보.json
+!SUMO/
+!SUMO/강남/
+!SUMO/강남/osm.net.xml.gz
+!SUMO/강남/osm.sumocfg
+!SUMO/강남/osm.passenger.trips.xml
+!SUMO/강남/ambulance_routes.rou.xml
+!SUMO/강남/output.add.xml
+!SUMO/강남/hospitals.add.xml
+!SUMO/강남/fire_stations.add.xml
+!SUMO/강남/osm.view.xml
+!deploy/
+!deploy/requirements*.txt
+!deploy/entrypoint.py
+!deploy/seed-results/
+!deploy/seed-results/**

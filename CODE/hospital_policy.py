@@ -42,3 +42,23 @@ def explain_hospital_eligibility(hospital, ktas, occupancy_limit=0.85):
 def valid_actions(hospitals, ktas, occupancy_limit=0.85):
     return [i for i, hospital in enumerate(hospitals)
             if not explain_hospital_eligibility(hospital, ktas, occupancy_limit)]
+
+
+ADMISSION_REASONS = {"hospital_full_or_invalid_occupancy", "not_accepting"}
+
+
+def request_actions(hospitals, ktas, occupancy_limit=0.85, rejected_ids=()):
+    """Structural eligibility allows a request; current availability decides admission.
+
+    A refused hospital stays excluded for this patient until it can admit again.
+    Merely polling the same unavailable hospital creates no new request or cost.
+    """
+    actions = []
+    for index, hospital in enumerate(hospitals):
+        reasons = set(explain_hospital_eligibility(hospital, ktas, occupancy_limit))
+        if reasons - ADMISSION_REASONS:
+            continue
+        if hospital["id"] in rejected_ids and reasons:
+            continue
+        actions.append(index)
+    return actions

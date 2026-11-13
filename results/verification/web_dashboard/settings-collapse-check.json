@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "desktopHeight": 232,
+  "keyboardEnterSpace": true,
+  "reloadPersistence": true,
+  "valuesPreserved": true,
+  "invalidInputRevealed": true,
+  "runControlsVisible": true,
+  "sizes": [
+    {
+      "width": 768,
+      "collapsedHeight": 232
+    },
+    {
+      "width": 390,
+      "collapsedHeight": 232
+    }
+  ],
+  "runtimeErrors": []
+}
