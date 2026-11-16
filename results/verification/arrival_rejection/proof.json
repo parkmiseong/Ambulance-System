@@ -12,31 +12,31 @@
   "physical_movement_after_refusal": true,
   "events": [
     {
-      "patient_id": "p2",
+      "patient_id": "p1",
       "hospital_id": "A",
       "hospital_name": "A",
-      "time": 74.0,
+      "time": 71.0,
       "reason": "hospital_full",
       "penalty": -12.0,
       "stage": "after_arrival",
-      "vehicle_id": "amb_eval_2",
-      "dispatch_time": 2.0,
-      "leg_dispatch_time": 2.0,
+      "vehicle_id": "amb_eval_1",
+      "dispatch_time": 1.0,
+      "leg_dispatch_time": 1.0,
       "edge_id": "hospital_a",
       "occupancy_at_arrival": 0.7999999999999999,
       "request_number": 1,
       "rejection_number": 1,
       "physical_stop_confirmed": true,
       "position": [
-        1099.4984332901263,
-        -4.8
+        1099.480221145095,
+        -1.6
       ]
     },
     {
       "patient_id": "p3",
       "hospital_id": "A",
       "hospital_name": "A",
-      "time": 81.0,
+      "time": 78.0,
       "reason": "hospital_full",
       "penalty": -12.0,
       "stage": "after_arrival",
@@ -49,29 +49,29 @@
       "rejection_number": 1,
       "physical_stop_confirmed": true,
       "position": [
-        1099.4989549278237,
-        -4.8
+        1099.4932765541014,
+        -1.6
       ]
     },
     {
       "patient_id": "p3",
       "hospital_id": "B",
       "hospital_name": "B",
-      "time": 119.0,
+      "time": 116.0,
       "reason": "hospital_full",
       "penalty": -12.0,
       "stage": "after_arrival",
       "vehicle_id": "amb_eval_3",
       "dispatch_time": 3.0,
-      "leg_dispatch_time": 81.0,
+      "leg_dispatch_time": 78.0,
       "edge_id": "hospital_b",
       "occupancy_at_arrival": 0.7999999999999999,
       "request_number": 2,
       "rejection_number": 2,
       "physical_stop_confirmed": true,
       "position": [
-        1699.4974236502817,
-        -4.8
+        1699.4798003629517,
+        -1.6
       ]
     }
   ],
@@ -79,9 +79,9 @@
     {
       "hospital_id": "A",
       "hospital_name": "A",
-      "vehicle_id": "amb_eval_2",
-      "leg_dispatch_time": 2.0,
-      "arrival_time": 74.0,
+      "vehicle_id": "amb_eval_1",
+      "leg_dispatch_time": 1.0,
+      "arrival_time": 71.0,
       "occupancy_at_selection": 0.7,
       "occupancy_at_arrival": 0.7999999999999999,
       "edge_id": "hospital_a",
@@ -91,8 +91,8 @@
     {
       "hospital_id": "B",
       "hospital_name": "B",
-      "vehicle_id": "amb_eval_2",
-      "leg_dispatch_time": 74.0,
+      "vehicle_id": "amb_eval_1",
+      "leg_dispatch_time": 71.0,
       "arrival_time": 112.0,
       "occupancy_at_selection": 0.7,
       "occupancy_at_arrival": 0.7,

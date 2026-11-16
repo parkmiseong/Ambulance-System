@@ -54,6 +54,8 @@ def compare_runs(log_path, run_ids, reference_strategy="dqn", samples=2000):
         raise ValueError("Compare models under the same hospital admission mode.")
     if len({starts[r][1].get("congestion_reward_mode", "penalty") for r in run_ids}) > 1:
         raise ValueError("Compare models scored with the same congestion reward mode.")
+    if len({tuple(starts[r][1].get("demand_rates_per_hour", ())) for r in run_ids}) > 1:
+        raise ValueError("Compare models under the same hourly demand profile.")
     reference = (run_ids[0], reference_strategy)
     if reference not in patients:
         raise ValueError("Reference strategy has no patient records.")

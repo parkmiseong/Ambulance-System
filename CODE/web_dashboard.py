@@ -249,6 +249,7 @@ def run_worker(options, model_path, events, stop, paused, speed):
                 raise ValueError("사용 가능한 best 모델이 없습니다. 먼저 학습하거나 다른 정책을 선택하세요.")
             env, hospitals, agent, original_config, manifest = load_experiment(model_path)
             config = replace(original_config, arrival_steps=options["duration"],
+                             demand_rates_per_hour=(),
                              demand_scale=1., seed=options["seed"],
                              congestion_reward_mode="balanced",
                              admission_mode="arrival" if options["hospital_rejection"] else "precheck")

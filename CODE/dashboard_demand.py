@@ -1,4 +1,4 @@
-"""Source-backed hourly demand for new dashboard runs; legacy CLI scenarios stay reproducible."""
+"""Source-backed hourly demand shared by the dashboard and new CLI training."""
 import copy
 import json
 from pathlib import Path

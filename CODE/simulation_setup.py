@@ -344,7 +344,8 @@ def build_ambulance_edges(env, max_check=1200, hospitals=None):
     return valid
 
 
-def get_reachable_hospital_routes(env, patient_edge, hospitals, edge_candidates=None):
+def get_reachable_hospital_routes(env, patient_edge, hospitals, edge_candidates=None,
+                                  arrival_safe=False, source_lane=None):
     """Choose the minimum estimated travel-time route among nearby hospital edges.
 
     Does not relax hospital capability or occupancy constraints.
@@ -371,6 +372,18 @@ def get_reachable_hospital_routes(env, patient_edge, hospitals, edge_candidates=
                         depart=-1, routingMode=0)
                 if not route or not route.edges:
                     continue
+                stop_lane = None
+                if arrival_safe:
+                    from route_safety import arrival_lane
+                    stop_lane = arrival_lane(env.net, route.edges, source_lane)
+                    if stop_lane is None and source_lane is not None:
+                        from route_safety import lane_constrained_route
+                        with suppress_sumo_stdout():
+                            route = lane_constrained_route(env.net, patient_edge, target, source_lane)
+                        if route is not None:
+                            stop_lane = arrival_lane(env.net, route.edges, source_lane)
+                    if stop_lane is None:
+                        continue
                 length = float(route.length)
                 travel = float(route.travelTime)
                 if not math.isfinite(length) or length < 0 or not math.isfinite(travel):
@@ -378,17 +391,19 @@ def get_reachable_hospital_routes(env, patient_edge, hospitals, edge_candidates=
                 if travel <= 0:
                     travel = max(length / 13.9, 1.0)
                 if best is None or travel < best[0]:
-                    best = (travel, length, target, list(route.edges))
+                    best = (travel, length, target, list(route.edges), stop_lane)
             except traci.TraCIException:
                 continue
         if best is None:
             hospital["route_error"] = "no_route_to_hospital_candidate"
             failures += 1
             continue
-        travel, length, target, edges = best
+        travel, length, target, edges, stop_lane = best
         hospital.update(reachable=True, hospital_edge=target,
                         route_length=length, route_edges=edges,
                         estimated_travel_time=travel)
+        if arrival_safe:
+            hospital["arrival_stop_lane"] = stop_lane
     return result, failures
 
 

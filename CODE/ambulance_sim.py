@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Single SUMO clock, FIFO patient queue, at most ten research-managed missions.
 
-Only MissionManager.step() advances SUMO. Never call await_arrival() from training.
+MissionManager.step() advances the episode's shared SUMO clock.
 """
 from collections import deque, Counter
 from dataclasses import dataclass
@@ -246,21 +246,3 @@ class MissionManager:
         while self.waiting:
             patient = self.waiting.popleft()
             self._record_outcome(patient, None, False, now, now, "horizon_waiting", finish)
-
-
-def await_arrival(vehicle_id, max_steps=1800):
-    """Legacy helper. Do not use with MissionManager (it advances SUMO clock)."""
-    appeared = False
-    start = float(traci.simulation.getTime())
-    for _ in range(max_steps):
-        traci.simulationStep()
-        now = float(traci.simulation.getTime())
-        if vehicle_id in traci.simulation.getArrivedIDList():
-            return True, now-start
-        running = vehicle_id in traci.vehicle.getIDList()
-        appeared |= running
-        if appeared and not running:
-            return False, now-start
-    if vehicle_id in traci.vehicle.getIDList():
-        traci.vehicle.remove(vehicle_id)
-    return False, float(traci.simulation.getTime())-start

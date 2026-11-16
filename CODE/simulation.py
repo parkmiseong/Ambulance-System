@@ -11,7 +11,7 @@ import traci
 from ambulance_sim import DEFERRED, MissionManager, hold_at_hospital
 from baseline import HospitalRouters, build_state_vector
 from episode_transitions import EpisodeTransitions
-from experiment_config import generate_schedule, seed_everything
+from experiment_config import generate_schedule, seed_everything, scenario_for_config
 from hospital_capacity import HospitalCapacity
 from hospital_policy import valid_actions, explain_hospital_eligibility, request_actions, ADMISSION_REASONS
 from reward import (GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, failure_penalty,
@@ -56,15 +56,23 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
             or not 0 <= occupancy_range[0] <= occupancy_range[1] <= 1):
         raise ValueError("initial_occupancy_range must satisfy 0 <= low <= high <= 1.")
     seed_everything(seed)
+    scenario = scenario_for_config(scenario, config)
     hospitals = copy.deepcopy(base_hospitals)
     occupancy_rng = random.Random(seed + 200000)
     for hospital in hospitals:
         hospital["occupancy"] = occupancy_rng.uniform(*occupancy_range)
     beds = HospitalCapacity(hospitals, config)
-    schedule = generate_schedule(scenario, env.ambulance_edges, seed, config)
     access = getattr(env, "hospital_access_edges", None)
     if access is None:
         access = _hospital_access_edges(env, hospitals)
+    route_safety_report = None
+    source_edges = env.ambulance_edges
+    if config.admission_mode == "arrival":
+        from route_safety import prepare_access
+        access, prepared = prepare_access(env, hospitals, access)
+        if prepared is not None:
+            source_edges, route_safety_report = prepared
+    schedule = generate_schedule(scenario, source_edges, seed, config)
     manager = MissionManager(ambulance_count, timeout=config.mission_timeout,
                              max_wait=config.max_wait, queue_policy=queue_policy,
                              aging_seconds=aging_seconds)
@@ -105,7 +113,9 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
                 # A different hospital needs a route beyond the stop already reached.
                 route_access = [[edge for edge in group if edge != origin_edge or h["id"] == current_hospital_id]
                                 for h, group in zip(hospitals, access)]
-            routed, failures = get_reachable_hospital_routes(env, edge_id, hospitals, route_access)
+            route_options = ({"arrival_safe": True, "source_lane": traci.vehicle.getLaneID(vid) if origin_edge else None}
+                             if arrival_admission and hasattr(env.net, "getEdges") else {})
+            routed, failures = get_reachable_hospital_routes(env, edge_id, hospitals, route_access, **route_options)
             reachability[edge_id] = ([h.get("reachable", False) for h in routed], failures)
         diagnostics["hospital_candidate_route_failure"] += failures
         while True:
@@ -179,8 +189,8 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
                     transitions.begin(state, action, actions)
                 edge = env.net.getEdge(selected["hospital_edge"])
                 selected["arrival_stop_pos"] = max(0., float(edge.getLength()) - .5)
-                selected["arrival_stop_lane"] = next((i for i, lane in enumerate(edge.getLanes())
-                                                      if lane.allows("emergency")), 0)
+                selected.setdefault("arrival_stop_lane", next((i for i, lane in enumerate(edge.getLanes())
+                                                      if lane.allows("emergency")), 0))
                 selected["leg_dispatch_time"] = now
             elif config.admission_mode == "request":
                 if transitions is not None:
@@ -429,11 +439,14 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
         "load_std": float(np.std([assignments[i] for i in range(len(hospitals))])),
         "peak_hospital_occupancy": beds.peak_occupancy,
         "remaining_reservations": len(beds.reservations),
+        "route_safety": route_safety_report,
         "learning_reward": transitions.total_reward if transitions else reward,
         "unattributed_learning_reward": transitions.unattributed_reward if transitions else 0.,
         "learning_transitions": transitions.count if transitions else 0,
         "avg_loss": float(np.mean(transitions.losses)) if transitions and transitions.losses else 0.,
         "seed": seed, "demand_scale": config.demand_scale,
+        "demand_rates_per_hour": list(config.demand_rates_per_hour),
+        "patients_per_hour": scenario.get("patients_per_hour"),
         "reward_version": config.reward_version,
         "observation_version": config.observation_version,
         "pending_reward_feature": config.pending_reward_feature,

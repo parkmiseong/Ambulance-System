@@ -7,7 +7,7 @@ from pathlib import Path
 
 import numpy as np
 
-from experiment_config import SCENARIOS, isolated_random_state, parse_numbers
+from experiment_config import SCENARIOS, isolated_random_state, parse_numbers, scenario_for_config
 from experiment_log import append_record, new_run_id
 from simulation import run_episode
 from simulation_setup import resolve_evaluation_model, load_experiment
@@ -57,12 +57,16 @@ def aggregate_results(results, bootstrap_samples=2000):
     congestion_modes = {r.get("congestion_reward_mode", "penalty") for r in results}
     if len(congestion_modes) != 1:
         raise ValueError("Cannot aggregate different congestion reward modes.")
+    rates = {tuple(r.get("demand_rates_per_hour", ())) for r in results}
+    if len(rates) != 1:
+        raise ValueError("Cannot aggregate different hourly demand profiles.")
     patients = sum(r["generated_patients"] for r in results)
     rewards = [r["avg_reward"] for r in results]
     summary = {
         "reward_version": next(iter(versions)),
         "hospital_admission_mode": next(iter(admission_modes)),
         "congestion_reward_mode": next(iter(congestion_modes)),
+        "demand_rates_per_hour": list(next(iter(rates))),
         "rejection_count": sum(r.get("rejection_count", 0) for r in results),
         "runs": len(results), "generated_patients": patients,
         "arrived": sum(r["arrived"] for r in results),
@@ -140,7 +144,7 @@ def main():
               else manifest.get("validation_demands", [config.demand_scale]))
     selected = manifest.get("training_scenarios", [1])
     scenario_id = args.scenario if args.scenario is not None else (selected[0] if len(selected) == 1 else 1)
-    scenarios = SCENARIOS if scenario_id == 0 else [SCENARIOS[scenario_id - 1]]
+    scenarios = [scenario_for_config(s, config) for s in (SCENARIOS if scenario_id == 0 else [SCENARIOS[scenario_id - 1]])]
     root = Path(manifest_path_root(agent))
     run_id = new_run_id("eval")
     record = partial(append_record, log_path=root / "experiment_history.csv")
@@ -154,6 +158,7 @@ def main():
                     "reward_version": config.reward_version,
                     "hospital_admission_mode": config.admission_mode,
                     "congestion_reward_mode": config.congestion_reward_mode,
+                    "demand_rates_per_hour": list(config.demand_rates_per_hour),
                     "trace_decisions": args.trace_decisions})
     grouped = defaultdict(list)
     patient_panels = defaultdict(list)

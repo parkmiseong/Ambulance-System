@@ -1,0 +1,230 @@
+{
+  "generated_patients": 15,
+  "missions": 15,
+  "emergency_yield": {
+    "enabled": true,
+    "reaction_distance_m": 60.0,
+    "lateral_resolution_m": 0.4,
+    "signal_priority_included": true,
+    "implementation": "sumo_bluelight_sublane"
+  },
+  "arrived": 15,
+  "failed": 0,
+  "censored": 0,
+  "arrival_rate": 100.0,
+  "golden_rate": 100.0,
+  "golden_success": 15,
+  "reward": 127.88162079289636,
+  "avg_reward": 8.52544138619309,
+  "avg_time": 90.46666666666667,
+  "avg_wait": 0.0,
+  "p90_wait": 0.0,
+  "avg_arrival_time": 90.46666666666667,
+  "avg_travel_time": 90.46666666666667,
+  "peak_active": 3,
+  "peak_waiting": 1,
+  "queue_policy": "severity",
+  "failure_reasons": {},
+  "censor_reasons": {},
+  "route_failures": 0,
+  "route_diagnostics": {
+    "hospital_candidate_route_failure": 20,
+    "admission_requests": 15
+  },
+  "hospital_rejection_reasons": {},
+  "hospital_exclusion_reasons": {},
+  "hospital_admission_mode": "arrival",
+  "congestion_reward_mode": "balanced",
+  "admission_requests": 15,
+  "hospital_redirects": 0,
+  "rejection_count": 0,
+  "rejected_patients": 0,
+  "admission_rejection_reasons": {},
+  "ktas_stats": {
+    "1": {
+      "count": 2,
+      "arrived": 2,
+      "failed": 0,
+      "censored": 0,
+      "golden_success": 2,
+      "wait_total": 0.0
+    },
+    "2": {
+      "count": 0,
+      "arrived": 0,
+      "failed": 0,
+      "censored": 0,
+      "golden_success": 0,
+      "wait_total": 0
+    },
+    "3": {
+      "count": 2,
+      "arrived": 2,
+      "failed": 0,
+      "censored": 0,
+      "golden_success": 2,
+      "wait_total": 0.0
+    },
+    "4": {
+      "count": 5,
+      "arrived": 5,
+      "failed": 0,
+      "censored": 0,
+      "golden_success": 5,
+      "wait_total": 0.0
+    },
+    "5": {
+      "count": 6,
+      "arrived": 6,
+      "failed": 0,
+      "censored": 0,
+      "golden_success": 6,
+      "wait_total": 0.0
+    }
+  },
+  "simulation_end_time": 3601.0,
+  "load_std": 1.1636866703140785,
+  "peak_hospital_occupancy": [
+    0.43102847925409415,
+    0.46572095659989354,
+    0.49565023489915816,
+    0.38019430514526786,
+    0.6385627603635644,
+    0.5952169575138544,
+    0.5667689359890592,
+    0.5426202239470789,
+    0.4472280043824429,
+    0.5276262560817261,
+    0.5219382148420431,
+    0.528698962364344
+  ],
+  "remaining_reservations": 0,
+  "route_safety": {
+    "emergency_edges": 15762,
+    "components": 281,
+    "largest_component_edges": 15363,
+    "excluded_edges": 399,
+    "component_sizes": [
+      [
+        15363,
+        1
+      ],
+      [
+        50,
+        1
+      ],
+      [
+        28,
+        1
+      ],
+      [
+        10,
+        1
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        2,
+        10
+      ],
+      [
+        1,
+        263
+      ]
+    ],
+    "profile": "emergency_scc_lane_v1",
+    "original_sources": 1200,
+    "usable_sources": 1192,
+    "hospital_access_counts": {
+      "A1100004": 0,
+      "A1100012": 12,
+      "A1100015": 12,
+      "A1100018": 12,
+      "A1100057": 12,
+      "A1100141": 12,
+      "A1123234": 12,
+      "VIRTUAL_FAR_42_01": 9,
+      "VIRTUAL_FAR_42_02": 12,
+      "VIRTUAL_FAR_42_03": 12,
+      "VIRTUAL_FAR_42_04": 12,
+      "VIRTUAL_FAR_42_05": 12
+    }
+  },
+  "learning_reward": 127.88162079289636,
+  "unattributed_learning_reward": 0.0,
+  "learning_transitions": 0,
+  "avg_loss": 0.0,
+  "seed": 42,
+  "demand_scale": 1.0,
+  "reward_version": 4,
+  "observation_version": 5,
+  "pending_reward_feature": "estimate",
+  "golden_margin_feature": false,
+  "candidate_reward_feature": false,
+  "reward_components": {
+    "golden": 150.0,
+    "travel": -20.324444444444445,
+    "overtime": 0.0,
+    "mismatch": -8.329199999999995,
+    "occupancy": 6.535265237340765,
+    "overcrowding": 0.0,
+    "rejection": 0.0,
+    "route_failure": 0.0
+  },
+  "avg_reward_components": {
+    "golden": 10.0,
+    "travel": -1.354962962962963,
+    "overtime": 0.0,
+    "mismatch": -0.5552799999999997,
+    "occupancy": 0.435684349156051,
+    "overcrowding": 0.0,
+    "rejection": 0.0,
+    "route_failure": 0.0
+  },
+  "training_updates": 0,
+  "episode_updates": 0,
+  "target_updates": 0,
+  "total_decisions": 0,
+  "episode_decisions": 15,
+  "episode_exploratory_decisions": 0,
+  "exploration_rate": 0.0,
+  "selected_hospitals": {
+    "9": 1,
+    "5": 3,
+    "4": 4,
+    "10": 1,
+    "2": 1,
+    "7": 2,
+    "6": 1,
+    "11": 1,
+    "1": 1
+  },
+  "avg_selected_estimated_time": 80.6204220321386,
+  "avg_extra_estimated_time": 1.8945341606723418,
+  "hospital_transfer": null,
+  "virtual_hospital_mix": {
+    "profile_id": "tertiary2_ratio_v1",
+    "enabled": true,
+    "base_tertiary_count": 2,
+    "count": 5,
+    "weights": {
+      "local_center": 1,
+      "local_institution": 1,
+      "reported_er": 1
+    },
+    "counts": {
+      "tertiary": 2,
+      "local_center": 1,
+      "local_institution": 1,
+      "reported_er": 1
+    },
+    "assignment_seed": 42,
+    "allocation": "largest_remainder_stable_type_order"
+  }
+}

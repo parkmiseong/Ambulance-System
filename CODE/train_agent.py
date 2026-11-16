@@ -1,6 +1,5 @@
 """Train reproducible sequential DQN episodes with a shared evaluation engine."""
 import argparse
-import copy
 import contextlib
 import os
 from dataclasses import replace
@@ -10,13 +9,13 @@ from itertools import product
 from pathlib import Path
 import time
 
-import numpy as np
-
 from baseline import state_dimension
 from dqn_agent import DQNAmbulanceAgent
 from experiment_config import (SimulationConfig, LearningConfig, SCENARIOS, isolated_random_state,
                                parse_numbers, seed_everything, curriculum_multiplier,
                                network_architecture)
+from experiment_config import scenario_for_config
+from dashboard_demand import PATIENTS_PER_HOUR, DEFAULT_DURATION, demand_metadata
 from experiment_log import append_record, new_run_id
 from simulation import run_episode
 from simulation_setup import prepare_environment, make_manifest, manifest_signature
@@ -49,7 +48,7 @@ def validate_panel(env, hospitals, agent, config, scenario_ids, seeds,
             agent.epsilon = 0.
             agent.model.eval()
             for scenario_id, seed, demand in product(scenario_ids, seeds, levels):
-                scenario = SCENARIOS[scenario_id - 1]
+                scenario = scenario_for_config(SCENARIOS[scenario_id - 1], config)
                 panel_started = time.monotonic()
                 print(f"[Validation {len(results) + 1}/{len(scenario_ids) * len(seeds) * len(levels)}] "
                       f"scenario={scenario_id} seed={seed} demand x{demand:g} started", flush=True)
@@ -117,6 +116,8 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
                     validation_scenarios=list(validation_scenarios),
                     validation_demands=list(validation_demands),
                     cycle_curriculum=cycle_curriculum)
+    if config.demand_rates_per_hour:
+        manifest["demand_profile"] = demand_metadata()
     # Preserve existing all-scenario signatures and resume compatibility.
     if training_scenarios != all_training_scenarios:
         manifest["training_scenarios"] = list(training_scenarios)
@@ -167,6 +168,9 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
           f"pending_reward={config.pending_reward_feature}", flush=True)
     print(f"[Learning] gamma={learning_config.gamma:g} target={learning_config.target_sync_mode} "
           f"interval={learning_config.target_sync_interval} epsilon={learning_config.epsilon_schedule}", flush=True)
+    if config.demand_rates_per_hour:
+        print(f"[Demand] hourly rates={config.demand_rates_per_hour} x{config.demand_scale:g} | "
+              f"generation={config.arrival_steps}s | values are expectations, not fixed counts", flush=True)
     best_score = agent.metadata.get("best_validation_reward")
     metrics_dir = root / "training" / tag / run_id
     csv_path = metrics_dir / "training_metrics.csv"
@@ -192,7 +196,7 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     try:
         for episode in range(start_episode, start_episode + num_episodes):
             scenario_id = training_scenarios[(episode - 1) % len(training_scenarios)]
-            scenario = SCENARIOS[scenario_id - 1]
+            scenario = scenario_for_config(SCENARIOS[scenario_id - 1], config)
             multiplier = curriculum_multiplier(episode, curriculum, cycle=cycle_curriculum)
             episode_config = replace(config, demand_scale=config.demand_scale * multiplier)
             episode_started = time.monotonic()
@@ -262,12 +266,15 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
                 record(run_id, "training", "fixed_evaluation", episode=episode,
                        status="completed", model_path=str(model_path), metrics=validation)
                 score = validation["avg_reward"]
-                if score is not None and (best_score is None or score > best_score):
+                learned = not config.demand_rates_per_hour or getattr(agent, "training_updates", 0) > 0
+                if score is not None and learned and (best_score is None or score > best_score):
                     best_score = score
                     agent.metadata["best_validation_reward"] = score
                     with suppress_stdout(quiet):
                         agent.save_model(str(best_path), episode=episode)
                 print(f"[Validation] reward/patient={score}, arrival={validation['arrival_rate']:.1f}%")
+                if not learned:
+                    print("[Validation] No optimizer updates yet; best model was not promoted.", flush=True)
             with suppress_stdout(quiet):
                 agent.save_model(str(model_path), episode=episode)
                 agent.save_model(str(checkpoint_path), episode=episode, full_state=True)
@@ -335,7 +342,10 @@ def main():
     parser.add_argument("--queue-policy", choices=["severity", "fifo", "hybrid"], default="severity")
     parser.add_argument("--aging-seconds", type=float, default=300.)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--steps", type=int, default=500)
+    parser.add_argument("--steps", type=int,
+                        help="Patient generation seconds; default 3600 for gangnam, 500 for legacy.")
+    parser.add_argument("--demand-profile", choices=("gangnam", "legacy"), default="gangnam",
+                        help="Default: calibrated Gangnam hourly demand. legacy reproduces old dense experiments.")
     parser.add_argument("--demand-scale", type=float, default=1.)
     parser.add_argument("--curriculum", default="", help="Demand multipliers, e.g. 0.1,0.3,1; each stage lasts 9 episodes")
     parser.add_argument("--cycle-curriculum", action="store_true",
@@ -357,7 +367,9 @@ def main():
     args = parser.parse_args()
     try:
         config = SimulationConfig(
-            arrival_steps=args.steps, demand_scale=args.demand_scale,
+            arrival_steps=args.steps if args.steps is not None else (DEFAULT_DURATION if args.demand_profile == "gangnam" else 500),
+            demand_rates_per_hour=PATIENTS_PER_HOUR if args.demand_profile == "gangnam" else (),
+            demand_scale=args.demand_scale,
             max_wait=args.max_wait, mission_timeout=args.mission_timeout,
             treatment_seconds=args.treatment_seconds, bed_fraction=args.bed_fraction,
             seed=args.seed, candidate_limit=args.candidate_limit,

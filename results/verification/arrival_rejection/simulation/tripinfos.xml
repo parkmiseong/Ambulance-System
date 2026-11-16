@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-11-13T22:02:02.212787+09:00 by Eclipse SUMO sumo 1.27.1
+<!-- generated on 2026-11-14T19:57:15.385436+09:00 by Eclipse SUMO sumo 1.27.1
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="49228"/>
+        <remote-port value="58907"/>
     </traci_server>
 
     <random_number>
@@ -44,7 +44,7 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="amb_eval_1" depart="1.00" departLane="road_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="70.00" arrivalLane="hospital_a_0" arrivalPos="499.49" arrivalSpeed="0.06" duration="69.00" routeLength="1094.49" waitingTime="0.00" waitingCount="0" stopTime="1.00" timeLoss="6.72" rerouteNo="0" devices="tripinfo_amb_eval_1" vType="ambulance_custom" speedFactor="0.95" vaporized="traci"/>
-    <tripinfo id="amb_eval_2" depart="4.00" departLane="road_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="112.00" arrivalLane="hospital_b_0" arrivalPos="599.48" arrivalSpeed="0.06" duration="108.00" routeLength="1694.58" waitingTime="0.00" waitingCount="0" stopTime="2.00" timeLoss="21.46" rerouteNo="1" devices="tripinfo_amb_eval_2" vType="ambulance_custom" speedFactor="1.07" vaporized="traci"/>
-    <tripinfo id="amb_eval_3" depart="7.00" departLane="road_0" departPos="5.10" departSpeed="0.00" departDelay="4.00" arrival="515.00" arrivalLane="hospital_a_0" arrivalPos="499.50" arrivalSpeed="0.00" duration="508.00" routeLength="5325.66" waitingTime="2.00" waitingCount="2" stopTime="213.00" timeLoss="52.35" rerouteNo="2" devices="tripinfo_amb_eval_3" vType="ambulance_custom" speedFactor="1.16" vaporized="traci"/>
+    <tripinfo id="amb_eval_2" depart="4.00" departLane="road_1" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="66.00" arrivalLane="hospital_a_1" arrivalPos="499.50" arrivalSpeed="0.01" duration="62.00" routeLength="1094.50" waitingTime="0.00" waitingCount="0" stopTime="1.00" timeLoss="6.38" rerouteNo="0" devices="tripinfo_amb_eval_2" vType="ambulance_custom" speedFactor="1.07" vaporized="traci"/>
+    <tripinfo id="amb_eval_1" depart="1.00" departLane="road_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="112.00" arrivalLane="hospital_b_1" arrivalPos="599.50" arrivalSpeed="0.00" duration="111.00" routeLength="1694.60" waitingTime="1.00" waitingCount="1" stopTime="2.00" timeLoss="12.97" rerouteNo="1" devices="tripinfo_amb_eval_1" vType="ambulance_custom" speedFactor="0.95" vaporized="traci"/>
+    <tripinfo id="amb_eval_3" depart="7.00" departLane="road_1" departPos="5.10" departSpeed="0.00" departDelay="4.00" arrival="513.00" arrivalLane="hospital_a_1" arrivalPos="499.49" arrivalSpeed="0.05" duration="506.00" routeLength="5320.49" waitingTime="1.00" waitingCount="1" stopTime="213.00" timeLoss="52.08" rerouteNo="2" devices="tripinfo_amb_eval_3" vType="ambulance_custom" speedFactor="1.16" vaporized="traci"/>
 </tripinfos>

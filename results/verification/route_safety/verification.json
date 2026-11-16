@@ -1,0 +1,127 @@
+{
+  "date": "2026-11-14",
+  "timezone": "Asia/Seoul",
+  "regression": {
+    "passed": true,
+    "tests": 208
+  },
+  "network": {
+    "emergency_edges": 15762,
+    "components": 281,
+    "largest_component_edges": 15363,
+    "excluded_edges": 399,
+    "component_sizes": [
+      [
+        15363,
+        1
+      ],
+      [
+        50,
+        1
+      ],
+      [
+        28,
+        1
+      ],
+      [
+        10,
+        1
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        2,
+        10
+      ],
+      [
+        1,
+        263
+      ]
+    ]
+  },
+  "reported_source_replay": {
+    "arrived": true,
+    "edge_id": "-31755403#4",
+    "hospital_id": "A1100015",
+    "total_seconds": 67.0,
+    "limitation": "Single recorded patient replay starts at time 1; not identical traffic to the original time 1027."
+  },
+  "original_settings_full_run": {
+    "passed": true,
+    "reference": "results\\web_dashboard\\20261113_221013_bafb5e",
+    "patients": 15,
+    "arrived": 15,
+    "failed": 0,
+    "censored": 0,
+    "route_safety": {
+      "emergency_edges": 15762,
+      "components": 281,
+      "largest_component_edges": 15363,
+      "excluded_edges": 399,
+      "component_sizes": [
+        [
+          15363,
+          1
+        ],
+        [
+          50,
+          1
+        ],
+        [
+          28,
+          1
+        ],
+        [
+          10,
+          1
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          1,
+          263
+        ]
+      ],
+      "profile": "emergency_scc_lane_v1",
+      "original_sources": 1200,
+      "usable_sources": 1192,
+      "hospital_access_counts": {
+        "A1100004": 0,
+        "A1100012": 12,
+        "A1100015": 12,
+        "A1100018": 12,
+        "A1100057": 12,
+        "A1100141": 12,
+        "A1123234": 12,
+        "VIRTUAL_FAR_42_01": 9,
+        "VIRTUAL_FAR_42_02": 12,
+        "VIRTUAL_FAR_42_03": 12,
+        "VIRTUAL_FAR_42_04": 12,
+        "VIRTUAL_FAR_42_05": 12
+      }
+    },
+    "failure_reasons": {},
+    "model": "results/models/dqn_v5_3e44a827e947b192_best.pth",
+    "emergency_yield": true
+  },
+  "arrival_transfer_native": {
+    "passed": true,
+    "artifact": "results/verification/arrival_rejection/proof.json"
+  }
+}

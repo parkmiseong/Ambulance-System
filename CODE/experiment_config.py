@@ -34,8 +34,14 @@ class SimulationConfig:
     candidate_reward_feature: bool = False
     admission_mode: str = "precheck"
     congestion_reward_mode: str = "penalty"
+    demand_rates_per_hour: tuple = ()
 
     def __post_init__(self):
+        rates = tuple(self.demand_rates_per_hour)
+        if rates and (len(rates) != 3 or any(isinstance(r, bool) or not isinstance(r, (int, float))
+                                            or not math.isfinite(r) or not 0 <= r <= 3600 for r in rates)):
+            raise ValueError("demand_rates_per_hour requires three finite hourly rates in 0..3600.")
+        object.__setattr__(self, "demand_rates_per_hour", rates)
         if self.congestion_reward_mode not in ("penalty", "balanced"):
             raise ValueError("congestion_reward_mode must be penalty or balanced.")
         if self.admission_mode not in ("precheck", "request", "arrival"):
@@ -77,7 +83,24 @@ class SimulationConfig:
             data.pop("admission_mode")
         if self.congestion_reward_mode == "penalty":
             data.pop("congestion_reward_mode")
+        if not self.demand_rates_per_hour:
+            data.pop("demand_rates_per_hour")
         return data
+
+
+def scenario_for_config(scenario, config):
+    """Use recorded hourly rates for CLI training, validation and evaluation."""
+    if not config.demand_rates_per_hour:
+        return scenario
+    if "fixed_patient_count" in scenario:
+        raise ValueError("Hourly CLI demand cannot override fixed-count demand.")
+    scenario_id = int(scenario["id"])
+    if not 1 <= scenario_id <= 9:
+        raise ValueError("Hourly CLI scenarios must be in 1..9.")
+    rate = config.demand_rates_per_hour[(scenario_id - 1) // 3]
+    return dict(scenario, prob=rate / 3600., patients_per_hour=rate,
+                demand_profile_id="recorded_hourly_v1",
+                name=f"hourly{rate:.6f}_traffic{scenario['scale']}")
 
 
 

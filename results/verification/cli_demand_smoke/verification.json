@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "date": "2026-11-14",
+  "regression_tests": 215,
+  "rates_per_hour": [
+    1.9416666666666667,
+    2.1358333333333337,
+    2.33
+  ],
+  "smoke_duration_seconds": 30,
+  "actual_training_patients": 0,
+  "actual_validation_patients": 0,
+  "same_training_validation_rates": true,
+  "untrained_best_promoted": false,
+  "note": "CLI default 3600 seconds is checked by the CLI-default regression test; native smoke explicitly uses 30 seconds."
+}

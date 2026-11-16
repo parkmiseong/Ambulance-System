@@ -1,0 +1,40 @@
+{
+  "emergency_edges": 15762,
+  "components": 281,
+  "largest_component_edges": 15363,
+  "excluded_edges": 399,
+  "component_sizes": [
+    [
+      15363,
+      1
+    ],
+    [
+      50,
+      1
+    ],
+    [
+      28,
+      1
+    ],
+    [
+      10,
+      1
+    ],
+    [
+      8,
+      3
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      2,
+      10
+    ],
+    [
+      1,
+      263
+    ]
+  ]
+}

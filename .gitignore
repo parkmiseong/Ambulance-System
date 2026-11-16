@@ -1,0 +1,18 @@
+# Local Python environment and rebuildable caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Recreated SUMO outputs and per-run input copies
+results/**/edgeData.xml
+results/**/tripinfos.xml
+results/**/stats.xml
+results/**/output.add.xml
+results/**/background_repeated.trips.xml
+results/**/*.log
+
+# Local recovery archives; keep models, CSV, JSON and reports visible to Git
+/results/_archives/
