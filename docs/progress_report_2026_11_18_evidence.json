@@ -1,0 +1,6174 @@
+{
+  "report_date": "2026-11-18",
+  "report_scope": "Saved episode63 and completed validation60 observed while training continues; not a final baseline test.",
+  "source_history": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_sumo128_v6\\experiment_history.csv",
+  "episode63": {
+    "logged_at": "2026-11-18T14:12:39+09:00",
+    "run_id": "train_20261118_135543_7c9c68",
+    "metrics": {
+      "generated_patients": 26,
+      "missions": 26,
+      "emergency_yield": {
+        "enabled": true,
+        "reaction_distance_m": 60.0,
+        "lateral_resolution_m": 0.4,
+        "signal_priority_included": true,
+        "implementation": "sumo_bluelight_sublane"
+      },
+      "background_traffic": {
+        "period_seconds": 3600,
+        "until_seconds": 7202.0,
+        "source_trips": 14710,
+        "repeated_trips": 14719,
+        "sources": [
+          {
+            "file": "osm.passenger.trips.xml",
+            "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+          }
+        ],
+        "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+        "enabled": true,
+        "implementation": "periodic_original_passenger_v1"
+      },
+      "arrived": 26,
+      "failed": 0,
+      "censored": 0,
+      "arrival_rate": 100.0,
+      "golden_rate": 50.0,
+      "golden_success": 13,
+      "reward": -52.256078663757364,
+      "avg_reward": -2.009849179375283,
+      "avg_time": 275.46153846153845,
+      "avg_wait": 0.0,
+      "p90_wait": 0.0,
+      "avg_arrival_time": 275.46153846153845,
+      "avg_travel_time": 275.46153846153845,
+      "peak_active": 5,
+      "peak_waiting": 1,
+      "queue_policy": "severity",
+      "failure_reasons": {},
+      "censor_reasons": {},
+      "route_failures": 0,
+      "route_diagnostics": {
+        "hospital_candidate_route_failure": 31,
+        "exploratory_decisions": 18,
+        "admission_requests": 26
+      },
+      "hospital_rejection_reasons": {},
+      "hospital_exclusion_reasons": {},
+      "hospital_admission_mode": "arrival",
+      "congestion_reward_mode": "balanced",
+      "admission_requests": 26,
+      "hospital_redirects": 0,
+      "rejection_count": 0,
+      "rejected_patients": 0,
+      "admission_rejection_reasons": {},
+      "ktas_stats": {
+        "1": {
+          "count": 7,
+          "arrived": 7,
+          "failed": 0,
+          "censored": 0,
+          "golden_success": 1,
+          "wait_total": 0.0
+        },
+        "2": {
+          "count": 5,
+          "arrived": 5,
+          "failed": 0,
+          "censored": 0,
+          "golden_success": 1,
+          "wait_total": 0.0
+        },
+        "3": {
+          "count": 2,
+          "arrived": 2,
+          "failed": 0,
+          "censored": 0,
+          "golden_success": 1,
+          "wait_total": 0.0
+        },
+        "4": {
+          "count": 7,
+          "arrived": 7,
+          "failed": 0,
+          "censored": 0,
+          "golden_success": 6,
+          "wait_total": 0.0
+        },
+        "5": {
+          "count": 5,
+          "arrived": 5,
+          "failed": 0,
+          "censored": 0,
+          "golden_success": 4,
+          "wait_total": 0.0
+        }
+      },
+      "simulation_end_time": 3601.0,
+      "load_std": 4.712120714991611,
+      "peak_hospital_occupancy": [
+        0.5041822947408692,
+        0.7419142294316267,
+        0.45378837057446814,
+        0.433500733121352,
+        0.5754601365641028,
+        0.7766465091531118,
+        0.39248244175039926
+      ],
+      "remaining_reservations": 0,
+      "route_safety": {
+        "emergency_edges": 15762,
+        "components": 281,
+        "largest_component_edges": 15363,
+        "excluded_edges": 399,
+        "component_sizes": [
+          [
+            15363,
+            1
+          ],
+          [
+            50,
+            1
+          ],
+          [
+            28,
+            1
+          ],
+          [
+            10,
+            1
+          ],
+          [
+            8,
+            3
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            2,
+            10
+          ],
+          [
+            1,
+            263
+          ]
+        ],
+        "profile": "emergency_scc_lane_v1",
+        "original_sources": 1200,
+        "usable_sources": 1188,
+        "hospital_access_counts": {
+          "A1100004": 0,
+          "A1100012": 12,
+          "A1100015": 12,
+          "A1100018": 12,
+          "A1100057": 12,
+          "A1100141": 12,
+          "A1123234": 12
+        }
+      },
+      "learning_reward": -52.256078663757364,
+      "unattributed_learning_reward": 0.0,
+      "learning_transitions": 26,
+      "avg_loss": 0.017209533324393515,
+      "seed": 10105,
+      "demand_scale": 0.0138888888888889,
+      "demand_rates_per_hour": [],
+      "patients_per_hour": null,
+      "reward_version": 4,
+      "observation_version": 5,
+      "pending_reward_feature": "estimate",
+      "golden_margin_feature": false,
+      "candidate_reward_feature": false,
+      "reward_components": {
+        "golden": 130.0,
+        "travel": -122.8022222222222,
+        "overtime": -80.17555555555556,
+        "mismatch": -10.343399999999988,
+        "occupancy": 31.065099114020406,
+        "overcrowding": 0.0,
+        "rejection": 0.0,
+        "route_failure": 0.0
+      },
+      "avg_reward_components": {
+        "golden": 5.0,
+        "travel": -4.723162393162392,
+        "overtime": -3.083675213675214,
+        "mismatch": -0.3978230769230765,
+        "occupancy": 1.1948115043854002,
+        "overcrowding": 0.0,
+        "rejection": 0.0,
+        "route_failure": 0.0
+      },
+      "training_updates": 925,
+      "episode_updates": 26,
+      "target_updates": 4,
+      "total_decisions": 956,
+      "episode_decisions": 26,
+      "episode_exploratory_decisions": 18,
+      "exploration_rate": 0.6923076923076923,
+      "selected_hospitals": {
+        "5": 15,
+        "1": 2,
+        "2": 2,
+        "3": 1,
+        "6": 3,
+        "4": 3
+      },
+      "avg_selected_estimated_time": 177.39098952355465,
+      "avg_extra_estimated_time": 39.95092176320213,
+      "exploratory_decisions": 784,
+      "total_transitions": 956,
+      "counters_complete": true,
+      "epsilon": 0.6296345775255413,
+      "replay_memory": 956,
+      "total_exploration_rate": 0.8200836820083682
+    }
+  },
+  "validation60": {
+    "logged_at": "2026-11-18T13:33:10+09:00",
+    "run_id": "train_20261118_090925_63abe8",
+    "metrics": {
+      "generated_patients": 450,
+      "avg_reward": -2.3310483835197213,
+      "arrival_rate": 95.33333333333333,
+      "golden_rate": 65.11111111111111,
+      "results": [
+        {
+          "generated_patients": 10,
+          "missions": 10,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 10,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 80.0,
+          "golden_success": 8,
+          "reward": 68.60832478097245,
+          "avg_reward": 6.860832478097246,
+          "avg_time": 160.9,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 160.9,
+          "avg_travel_time": 160.9,
+          "peak_active": 2,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 10,
+            "exploratory_decisions": 0,
+            "admission_requests": 10
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 10,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3768.0,
+          "load_std": 2.3819045715047236,
+          "peak_hospital_occupancy": [
+            0.5264002241067189,
+            0.4186031664885782,
+            0.5242071905188825,
+            0.5000926981615932,
+            0.35528026854606765,
+            0.5614498861026594,
+            0.4212396982956025
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 68.60832478097245,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30001,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 80.0,
+            "travel": -30.47222222222223,
+            "overtime": -6.511111111111111,
+            "mismatch": -1.8017999999999992,
+            "occupancy": 27.39345811430578,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 8.0,
+            "travel": -3.047222222222223,
+            "overtime": -0.6511111111111111,
+            "mismatch": -0.18017999999999992,
+            "occupancy": 2.739345811430578,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 10,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 7,
+            "6": 2,
+            "4": 1
+          },
+          "avg_selected_estimated_time": 136.9360492958851,
+          "avg_extra_estimated_time": 26.00908888841646
+        },
+        {
+          "generated_patients": 14,
+          "missions": 14,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 14,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 64.28571428571429,
+          "golden_success": 9,
+          "reward": 6.186696481810902,
+          "avg_reward": 0.44190689155792157,
+          "avg_time": 163.0,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 163.0,
+          "avg_travel_time": 163.0,
+          "peak_active": 2,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 14,
+            "exploratory_decisions": 0,
+            "admission_requests": 14
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 14,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 0,
+              "arrived": 0,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0
+            },
+            "4": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3636.0,
+          "load_std": 2.6186146828319083,
+          "peak_hospital_occupancy": [
+            0.5520272844191823,
+            0.4848976551522411,
+            0.3290056682070704,
+            0.5353604824497533,
+            0.5899242332493448,
+            0.7563593193936671,
+            0.32475846734276265
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 6.186696481810902,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30002,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 90.0,
+            "travel": -53.37333333333333,
+            "overtime": -30.28,
+            "mismatch": -1.9487999999999968,
+            "occupancy": 1.7888298151442426,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 6.428571428571429,
+            "travel": -3.812380952380952,
+            "overtime": -2.162857142857143,
+            "mismatch": -0.13919999999999977,
+            "occupancy": 0.12777355822458875,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 14,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 8,
+            "1": 2,
+            "6": 2,
+            "2": 2
+          },
+          "avg_selected_estimated_time": 132.08840697526475,
+          "avg_extra_estimated_time": 26.930116166692443
+        },
+        {
+          "generated_patients": 7,
+          "missions": 7,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 7,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 57.142857142857146,
+          "golden_success": 4,
+          "reward": 16.129070245886137,
+          "avg_reward": 2.3041528922694483,
+          "avg_time": 187.14285714285714,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 187.14285714285714,
+          "avg_travel_time": 187.14285714285714,
+          "peak_active": 2,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 7,
+            "exploratory_decisions": 0,
+            "admission_requests": 7
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 7,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 1.4142135623730951,
+          "peak_hospital_occupancy": [
+            0.5715522624980918,
+            0.5822881653698593,
+            0.5105060340871812,
+            0.30655104917061315,
+            0.36551334034051025,
+            0.7184410709382009,
+            0.5944725676497364
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 16.129070245886137,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30003,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 40.0,
+            "travel": -23.996666666666666,
+            "overtime": -3.1111111111111125,
+            "mismatch": -0.9983999999999993,
+            "occupancy": 4.235248023663919,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 5.714285714285714,
+            "travel": -3.428095238095238,
+            "overtime": -0.44444444444444464,
+            "mismatch": -0.14262857142857133,
+            "occupancy": 0.6050354319519885,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 7,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "4": 2,
+            "5": 4,
+            "2": 1
+          },
+          "avg_selected_estimated_time": 148.4107715398757,
+          "avg_extra_estimated_time": 20.54865527658398
+        },
+        {
+          "generated_patients": 10,
+          "missions": 10,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 10,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 80.0,
+          "golden_success": 8,
+          "reward": 63.671175956551494,
+          "avg_reward": 6.36711759565515,
+          "avg_time": 167.1,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 167.1,
+          "avg_travel_time": 167.1,
+          "peak_active": 3,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 10,
+            "exploratory_decisions": 0,
+            "admission_requests": 10
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 10,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3786.0,
+          "load_std": 2.3211538298959886,
+          "peak_hospital_occupancy": [
+            0.5264002241067189,
+            0.4986031664885782,
+            0.5242071905188825,
+            0.5000926981615932,
+            0.35528026854606765,
+            0.5614498861026594,
+            0.34123969829560247
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 63.671175956551494,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30001,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 80.0,
+            "travel": -32.428888888888885,
+            "overtime": -8.777777777777779,
+            "mismatch": -2.5577999999999976,
+            "occupancy": 27.435642623218165,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 8.0,
+            "travel": -3.2428888888888885,
+            "overtime": -0.8777777777777779,
+            "mismatch": -0.2557799999999998,
+            "occupancy": 2.7435642623218164,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 10,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 7,
+            "4": 1,
+            "1": 1,
+            "6": 1
+          },
+          "avg_selected_estimated_time": 130.35905903736847,
+          "avg_extra_estimated_time": 16.9014448363178
+        },
+        {
+          "generated_patients": 14,
+          "missions": 14,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 14,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 57.142857142857146,
+          "golden_success": 8,
+          "reward": -10.348863856474079,
+          "avg_reward": -0.73920456117672,
+          "avg_time": 155.28571428571428,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 155.28571428571428,
+          "avg_travel_time": 155.28571428571428,
+          "peak_active": 3,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 14,
+            "exploratory_decisions": 0,
+            "admission_requests": 14
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 14,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 0,
+              "arrived": 0,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0
+            },
+            "4": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 2.6726124191242437,
+          "peak_hospital_occupancy": [
+            0.5520272844191823,
+            0.4848976551522411,
+            0.4090056682070704,
+            0.5353604824497533,
+            0.5899242332493448,
+            0.8363593193936671,
+            0.32475846734276265
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -10.348863856474079,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30002,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 80.0,
+            "travel": -53.266666666666666,
+            "overtime": -33.8,
+            "mismatch": -1.2287999999999966,
+            "occupancy": -2.053397189807413,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 5.714285714285714,
+            "travel": -3.8047619047619046,
+            "overtime": -2.414285714285714,
+            "mismatch": -0.08777142857142832,
+            "occupancy": -0.14667122784338663,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 14,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 8,
+            "1": 3,
+            "6": 1,
+            "2": 2
+          },
+          "avg_selected_estimated_time": 125.10923857305693,
+          "avg_extra_estimated_time": 18.33294585474792
+        },
+        {
+          "generated_patients": 7,
+          "missions": 7,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 7,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 57.142857142857146,
+          "golden_success": 4,
+          "reward": 14.144625801441697,
+          "avg_reward": 2.0206608287773853,
+          "avg_time": 193.14285714285714,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 193.14285714285714,
+          "avg_travel_time": 193.14285714285714,
+          "peak_active": 2,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 9,
+            "exploratory_decisions": 0,
+            "admission_requests": 7
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 7,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 1.4142135623730951,
+          "peak_hospital_occupancy": [
+            0.5715522624980918,
+            0.5822881653698593,
+            0.5105060340871812,
+            0.30655104917061315,
+            0.36551334034051025,
+            0.7184410709382009,
+            0.5944725676497364
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 14.144625801441697,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30003,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 40.0,
+            "travel": -24.89222222222222,
+            "overtime": -4.200000000000001,
+            "mismatch": -0.9983999999999993,
+            "occupancy": 4.235248023663919,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 5.714285714285714,
+            "travel": -3.5560317460317457,
+            "overtime": -0.6000000000000002,
+            "mismatch": -0.14262857142857133,
+            "occupancy": 0.6050354319519885,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 7,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "4": 2,
+            "5": 4,
+            "2": 1
+          },
+          "avg_selected_estimated_time": 157.9047603528349,
+          "avg_extra_estimated_time": 19.681820274030652
+        },
+        {
+          "generated_patients": 10,
+          "missions": 10,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 10,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 70.0,
+          "golden_success": 7,
+          "reward": 31.87784262321816,
+          "avg_reward": 3.187784262321816,
+          "avg_time": 213.2,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 213.2,
+          "avg_travel_time": 213.2,
+          "peak_active": 3,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 11,
+            "exploratory_decisions": 0,
+            "admission_requests": 10
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 10,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3781.0,
+          "load_std": 2.3211538298959886,
+          "peak_hospital_occupancy": [
+            0.5264002241067189,
+            0.4986031664885782,
+            0.5242071905188825,
+            0.5000926981615932,
+            0.35528026854606765,
+            0.5614498861026594,
+            0.34123969829560247
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 31.87784262321816,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30001,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 70.0,
+            "travel": -40.22222222222222,
+            "overtime": -22.77777777777778,
+            "mismatch": -2.5577999999999976,
+            "occupancy": 27.435642623218165,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 7.0,
+            "travel": -4.022222222222222,
+            "overtime": -2.2777777777777777,
+            "mismatch": -0.2557799999999998,
+            "occupancy": 2.7435642623218164,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 10,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 7,
+            "4": 1,
+            "1": 1,
+            "6": 1
+          },
+          "avg_selected_estimated_time": 139.42241778865883,
+          "avg_extra_estimated_time": 16.01844435524952
+        },
+        {
+          "generated_patients": 14,
+          "missions": 13,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 13,
+          "failed": 1,
+          "censored": 0,
+          "arrival_rate": 92.85714285714286,
+          "golden_rate": 57.142857142857146,
+          "golden_success": 8,
+          "reward": -100.8189817545687,
+          "avg_reward": -7.20135583961205,
+          "avg_time": 161.71428571428572,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 174.15384615384616,
+          "avg_travel_time": 174.15384615384616,
+          "peak_active": 2,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "no_valid_hospital": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 16,
+            "exploratory_decisions": 0,
+            "admission_requests": 13,
+            "no_valid_hospital": 1
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 2,
+            "insufficient_capability": 6
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 2,
+            "insufficient_capability": 6
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 13,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 3,
+              "arrived": 2,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 0,
+              "arrived": 0,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0
+            },
+            "4": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 2.356060357495806,
+          "peak_hospital_occupancy": [
+            0.5520272844191823,
+            0.4848976551522411,
+            0.3290056682070704,
+            0.5353604824497533,
+            0.5899242332493448,
+            0.7563593193936671,
+            0.32475846734276265
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -100.8189817545687,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30002,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 80.0,
+            "travel": -55.29555555555555,
+            "overtime": -41.97333333333333,
+            "mismatch": -1.9463999999999968,
+            "occupancy": 3.3963071343201863,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": -85.0
+          },
+          "avg_reward_components": {
+            "golden": 5.714285714285714,
+            "travel": -3.9496825396825392,
+            "overtime": -2.998095238095238,
+            "mismatch": -0.1390285714285712,
+            "occupancy": 0.24259336673715617,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": -6.071428571428571
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 13,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 7,
+            "1": 3,
+            "6": 2,
+            "2": 1
+          },
+          "avg_selected_estimated_time": 134.01909113237684,
+          "avg_extra_estimated_time": 17.504855489019747
+        },
+        {
+          "generated_patients": 7,
+          "missions": 7,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 7,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 57.142857142857146,
+          "golden_success": 4,
+          "reward": 5.499070245886143,
+          "avg_reward": 0.7855814636980204,
+          "avg_time": 208.14285714285714,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 208.14285714285714,
+          "avg_travel_time": 208.14285714285714,
+          "peak_active": 2,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 9,
+            "exploratory_decisions": 0,
+            "admission_requests": 7
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 7,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 1.4142135623730951,
+          "peak_hospital_occupancy": [
+            0.5715522624980918,
+            0.5822881653698593,
+            0.5105060340871812,
+            0.30655104917061315,
+            0.36551334034051025,
+            0.7184410709382009,
+            0.5944725676497364
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 5.499070245886143,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30003,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 40.0,
+            "travel": -27.20444444444444,
+            "overtime": -10.533333333333333,
+            "mismatch": -0.9983999999999993,
+            "occupancy": 4.235248023663919,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 5.714285714285714,
+            "travel": -3.8863492063492058,
+            "overtime": -1.5047619047619047,
+            "mismatch": -0.14262857142857133,
+            "occupancy": 0.6050354319519885,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 7,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "4": 2,
+            "5": 4,
+            "2": 1
+          },
+          "avg_selected_estimated_time": 159.5733303788637,
+          "avg_extra_estimated_time": 24.6368191488036
+        },
+        {
+          "generated_patients": 15,
+          "missions": 15,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 14,
+          "failed": 1,
+          "censored": 0,
+          "arrival_rate": 93.33333333333333,
+          "golden_rate": 66.66666666666667,
+          "golden_success": 10,
+          "reward": -46.26525218514674,
+          "avg_reward": -3.0843501456764497,
+          "avg_time": 201.8,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 183.78571428571428,
+          "avg_travel_time": 183.78571428571428,
+          "peak_active": 3,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "hospital_stop_missing": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 15,
+            "exploratory_decisions": 0,
+            "admission_requests": 14
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 14,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 6,
+              "arrived": 5,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3750.0,
+          "load_std": 4.050699108216522,
+          "peak_hospital_occupancy": [
+            0.5264002241067189,
+            0.4986031664885782,
+            0.6042071905188825,
+            0.5000926981615932,
+            0.35528026854606765,
+            0.6414498861026595,
+            0.26123969829560245
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -46.26525218514674,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30001,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 100.0,
+            "travel": -49.513333333333335,
+            "overtime": -23.58888888888889,
+            "mismatch": -4.898399999999997,
+            "occupancy": 16.735370037075477,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": -85.0
+          },
+          "avg_reward_components": {
+            "golden": 6.666666666666667,
+            "travel": -3.300888888888889,
+            "overtime": -1.5725925925925925,
+            "mismatch": -0.3265599999999998,
+            "occupancy": 1.1156913358050318,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": -5.666666666666667
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 15,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 12,
+            "1": 1,
+            "4": 1,
+            "2": 1
+          },
+          "avg_selected_estimated_time": 131.6495943250398,
+          "avg_extra_estimated_time": 25.21629779817616
+        },
+        {
+          "generated_patients": 20,
+          "missions": 20,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 20,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 65.0,
+          "golden_success": 13,
+          "reward": -10.43175816212721,
+          "avg_reward": -0.5215879081063605,
+          "avg_time": 168.4,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 168.4,
+          "avg_travel_time": 168.4,
+          "peak_active": 3,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 21,
+            "exploratory_decisions": 0,
+            "admission_requests": 21,
+            "admission_rejections": 1,
+            "capacity_deferrals": 1
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 1,
+            "insufficient_capability": 6,
+            "hospital_full_or_invalid_occupancy": 1
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 1,
+            "insufficient_capability": 6,
+            "hospital_full_or_invalid_occupancy": 1
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 21,
+          "hospital_redirects": 0,
+          "rejection_count": 1,
+          "rejected_patients": 1,
+          "admission_rejection_reasons": {
+            "hospital_full": 1
+          },
+          "ktas_stats": {
+            "1": {
+              "count": 7,
+              "arrived": 7,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 7,
+              "arrived": 7,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 7,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3709.0,
+          "load_std": 3.3135467156409146,
+          "peak_hospital_occupancy": [
+            0.5520272844191823,
+            0.5648976551522411,
+            0.4090056682070704,
+            0.5353604824497533,
+            0.5899242332493448,
+            0.8363593193936671,
+            0.40475846734276266
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -10.43175816212721,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30002,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 130.0,
+            "travel": -76.25111111111111,
+            "overtime": -47.33333333333333,
+            "mismatch": -5.411999999999993,
+            "occupancy": 3.382652252000585,
+            "overcrowding": -2.817965969683356,
+            "rejection": -12.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 6.5,
+            "travel": -3.812555555555556,
+            "overtime": -2.3666666666666663,
+            "mismatch": -0.2705999999999996,
+            "occupancy": 0.16913261260002926,
+            "overcrowding": -0.1408982984841678,
+            "rejection": -0.6,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 20,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 10,
+            "2": 4,
+            "6": 3,
+            "1": 3
+          },
+          "avg_selected_estimated_time": 120.04738948407926,
+          "avg_extra_estimated_time": 19.09930579096217
+        },
+        {
+          "generated_patients": 14,
+          "missions": 14,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 12,
+          "failed": 2,
+          "censored": 0,
+          "arrival_rate": 85.71428571428571,
+          "golden_rate": 64.28571428571429,
+          "golden_success": 9,
+          "reward": -122.87427549491903,
+          "avg_reward": -8.776733963922789,
+          "avg_time": 210.78571428571428,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 174.91666666666666,
+          "avg_travel_time": 174.91666666666666,
+          "peak_active": 3,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "hospital_stop_missing": 2
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 15,
+            "exploratory_decisions": 0,
+            "admission_requests": 12
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 12,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 5,
+              "arrived": 4,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 3,
+              "arrived": 2,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 2.0701966780270626,
+          "peak_hospital_occupancy": [
+            0.5715522624980918,
+            0.6622881653698592,
+            0.5105060340871812,
+            0.38655104917061317,
+            0.36551334034051025,
+            0.7184410709382009,
+            0.5944725676497364
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -122.87427549491903,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30003,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 90.0,
+            "travel": -37.02333333333334,
+            "overtime": -8.044444444444444,
+            "mismatch": -2.001599999999999,
+            "occupancy": 4.502453465162083,
+            "overcrowding": -0.3073511823033485,
+            "rejection": 0.0,
+            "route_failure": -170.0
+          },
+          "avg_reward_components": {
+            "golden": 6.428571428571429,
+            "travel": -2.64452380952381,
+            "overtime": -0.5746031746031746,
+            "mismatch": -0.1429714285714285,
+            "occupancy": 0.3216038189401488,
+            "overcrowding": -0.021953655878810607,
+            "rejection": 0.0,
+            "route_failure": -12.142857142857142
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 14,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "2": 2,
+            "4": 4,
+            "5": 6,
+            "1": 1,
+            "3": 1
+          },
+          "avg_selected_estimated_time": 140.28270712352327,
+          "avg_extra_estimated_time": 21.126311741498665
+        },
+        {
+          "generated_patients": 15,
+          "missions": 15,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 14,
+          "failed": 1,
+          "censored": 0,
+          "arrival_rate": 93.33333333333333,
+          "golden_rate": 66.66666666666667,
+          "golden_success": 10,
+          "reward": -37.49383093451067,
+          "avg_reward": -2.4995887289673777,
+          "avg_time": 185.0,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 166.42857142857142,
+          "avg_travel_time": 166.42857142857142,
+          "peak_active": 2,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "hospital_stop_missing": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 15,
+            "exploratory_decisions": 0,
+            "admission_requests": 14
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 14,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 6,
+              "arrived": 5,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3778.0,
+          "load_std": 4.453844933748542,
+          "peak_hospital_occupancy": [
+            0.5264002241067189,
+            0.4186031664885782,
+            0.5242071905188825,
+            0.5000926981615932,
+            0.35528026854606765,
+            0.6414498861026595,
+            0.34123969829560247
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -37.49383093451067,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30001,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 100.0,
+            "travel": -48.17222222222222,
+            "overtime": -20.61111111111111,
+            "mismatch": -4.927799999999998,
+            "occupancy": 21.217302398822667,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": -85.0
+          },
+          "avg_reward_components": {
+            "golden": 6.666666666666667,
+            "travel": -3.211481481481481,
+            "overtime": -1.374074074074074,
+            "mismatch": -0.32851999999999987,
+            "occupancy": 1.4144868265881778,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": -5.666666666666667
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 15,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 13,
+            "4": 1,
+            "6": 1
+          },
+          "avg_selected_estimated_time": 130.58503062419757,
+          "avg_extra_estimated_time": 23.76029497649536
+        },
+        {
+          "generated_patients": 20,
+          "missions": 20,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 20,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 65.0,
+          "golden_success": 13,
+          "reward": 7.873797393428353,
+          "avg_reward": 0.3936898696714176,
+          "avg_time": 155.1,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 155.1,
+          "avg_travel_time": 155.1,
+          "peak_active": 3,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 21,
+            "exploratory_decisions": 0,
+            "admission_requests": 21,
+            "admission_rejections": 1,
+            "capacity_deferrals": 1
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 1,
+            "insufficient_capability": 6,
+            "hospital_full_or_invalid_occupancy": 1
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 1,
+            "insufficient_capability": 6,
+            "hospital_full_or_invalid_occupancy": 1
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 21,
+          "hospital_redirects": 0,
+          "rejection_count": 1,
+          "rejected_patients": 1,
+          "admission_rejection_reasons": {
+            "hospital_full": 1
+          },
+          "ktas_stats": {
+            "1": {
+              "count": 7,
+              "arrived": 7,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 7,
+              "arrived": 7,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 6,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3728.0,
+          "load_std": 3.3135467156409146,
+          "peak_hospital_occupancy": [
+            0.5520272844191823,
+            0.5648976551522411,
+            0.4090056682070704,
+            0.5353604824497533,
+            0.5899242332493448,
+            0.8363593193936671,
+            0.32475846734276265
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 7.873797393428353,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30002,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 130.0,
+            "travel": -71.29222222222222,
+            "overtime": -33.986666666666665,
+            "mismatch": -5.411999999999994,
+            "occupancy": 3.382652252000584,
+            "overcrowding": -2.817965969683356,
+            "rejection": -12.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 6.5,
+            "travel": -3.564611111111111,
+            "overtime": -1.6993333333333331,
+            "mismatch": -0.2705999999999997,
+            "occupancy": 0.1691326126000292,
+            "overcrowding": -0.1408982984841678,
+            "rejection": -0.6,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 20,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 10,
+            "2": 4,
+            "6": 3,
+            "1": 3
+          },
+          "avg_selected_estimated_time": 124.28126992468901,
+          "avg_extra_estimated_time": 22.274011269511615
+        },
+        {
+          "generated_patients": 14,
+          "missions": 14,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 14,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 71.42857142857143,
+          "golden_success": 10,
+          "reward": 46.15036468386278,
+          "avg_reward": 3.296454620275913,
+          "avg_time": 192.78571428571428,
+          "avg_wait": 4.285714285714286,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 192.78571428571428,
+          "avg_travel_time": 188.5,
+          "peak_active": 3,
+          "peak_waiting": 2,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 16,
+            "exploratory_decisions": 0,
+            "admission_requests": 14,
+            "capacity_deferrals": 2
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 2,
+            "insufficient_capability": 12,
+            "hospital_full_or_invalid_occupancy": 2
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 2,
+            "insufficient_capability": 12,
+            "hospital_full_or_invalid_occupancy": 2
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 14,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 60.0
+            },
+            "3": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 2.0701966780270626,
+          "peak_hospital_occupancy": [
+            0.5715522624980918,
+            0.5822881653698593,
+            0.5905060340871813,
+            0.38655104917061317,
+            0.36551334034051025,
+            0.7984410709382008,
+            0.5944725676497364
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 46.15036468386278,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30003,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 100.0,
+            "travel": -47.05888888888889,
+            "overtime": -10.988888888888889,
+            "mismatch": -2.025599999999999,
+            "occupancy": 6.531093643943908,
+            "overcrowding": -0.3073511823033485,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 7.142857142857143,
+            "travel": -3.3613492063492063,
+            "overtime": -0.7849206349206349,
+            "mismatch": -0.14468571428571422,
+            "occupancy": 0.4665066888531363,
+            "overcrowding": -0.021953655878810607,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 14,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "2": 3,
+            "4": 3,
+            "3": 2,
+            "5": 6
+          },
+          "avg_selected_estimated_time": 149.62071651420618,
+          "avg_extra_estimated_time": 25.508329578567132
+        },
+        {
+          "generated_patients": 15,
+          "missions": 15,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 15,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 66.66666666666667,
+          "golden_success": 10,
+          "reward": 43.93757930879029,
+          "avg_reward": 2.9291719539193526,
+          "avg_time": 198.26666666666668,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 198.26666666666668,
+          "avg_travel_time": 198.26666666666668,
+          "peak_active": 3,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 17,
+            "exploratory_decisions": 0,
+            "admission_requests": 15
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 15,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 6,
+              "arrived": 6,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 5,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3821.0,
+          "load_std": 3.642156795423418,
+          "peak_hospital_occupancy": [
+            0.5264002241067189,
+            0.4986031664885782,
+            0.6042071905188825,
+            0.5000926981615932,
+            0.35528026854606765,
+            0.6414498861026595,
+            0.34123969829560247
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 43.93757930879029,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30001,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 100.0,
+            "travel": -55.86444444444444,
+            "overtime": -19.91111111111111,
+            "mismatch": -4.682399999999999,
+            "occupancy": 24.395534864345844,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 6.666666666666667,
+            "travel": -3.7242962962962958,
+            "overtime": -1.3274074074074074,
+            "mismatch": -0.3121599999999999,
+            "occupancy": 1.6263689909563896,
+            "overcrowding": 0.0,
+            "rejection": 0.0,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 15,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 11,
+            "1": 1,
+            "4": 1,
+            "6": 1,
+            "2": 1
+          },
+          "avg_selected_estimated_time": 140.82527141373484,
+          "avg_extra_estimated_time": 20.30259628747306
+        },
+        {
+          "generated_patients": 20,
+          "missions": 19,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 19,
+          "failed": 1,
+          "censored": 0,
+          "arrival_rate": 95.0,
+          "golden_rate": 55.0,
+          "golden_success": 11,
+          "reward": -109.16340951648408,
+          "avg_reward": -5.458170475824204,
+          "avg_time": 224.45,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 236.26315789473685,
+          "avg_travel_time": 236.26315789473685,
+          "peak_active": 4,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "no_valid_hospital": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 23,
+            "exploratory_decisions": 0,
+            "admission_requests": 19,
+            "no_valid_hospital": 1
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 3,
+            "insufficient_capability": 6
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 3,
+            "insufficient_capability": 6
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 19,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 7,
+              "arrived": 7,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 3,
+              "arrived": 2,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 7,
+              "arrived": 7,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 5,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 4015.0,
+          "load_std": 3.010186786529354,
+          "peak_hospital_occupancy": [
+            0.5520272844191823,
+            0.4848976551522411,
+            0.4090056682070704,
+            0.5353604824497533,
+            0.5899242332493448,
+            0.8363593193936671,
+            0.40475846734276266
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -109.16340951648408,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30002,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 110.0,
+            "travel": -81.29888888888888,
+            "overtime": -56.56,
+            "mismatch": -5.409599999999993,
+            "occupancy": 10.04440136229926,
+            "overcrowding": -0.939321989894452,
+            "rejection": 0.0,
+            "route_failure": -85.0
+          },
+          "avg_reward_components": {
+            "golden": 5.5,
+            "travel": -4.0649444444444445,
+            "overtime": -2.8280000000000003,
+            "mismatch": -0.27047999999999967,
+            "occupancy": 0.502220068114963,
+            "overcrowding": -0.0469660994947226,
+            "rejection": 0.0,
+            "route_failure": -4.25
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 19,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 9,
+            "2": 4,
+            "6": 3,
+            "1": 3
+          },
+          "avg_selected_estimated_time": 133.66474063542674,
+          "avg_extra_estimated_time": 25.902561587492382
+        },
+        {
+          "generated_patients": 14,
+          "missions": 14,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 13,
+          "failed": 1,
+          "censored": 0,
+          "arrival_rate": 92.85714285714286,
+          "golden_rate": 57.142857142857146,
+          "golden_success": 8,
+          "reward": -68.01506596326358,
+          "avg_reward": -4.85821899737597,
+          "avg_time": 212.92857142857142,
+          "avg_wait": 4.285714285714286,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 187.84615384615384,
+          "avg_travel_time": 183.23076923076923,
+          "peak_active": 3,
+          "peak_waiting": 2,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "vehicle_disappeared": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 17,
+            "exploratory_decisions": 0,
+            "admission_requests": 13,
+            "capacity_deferrals": 2
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 2,
+            "insufficient_capability": 12,
+            "hospital_full_or_invalid_occupancy": 2
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 2,
+            "insufficient_capability": 12,
+            "hospital_full_or_invalid_occupancy": 2
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 13,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 60.0
+            },
+            "3": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 3,
+              "arrived": 2,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 2.0701966780270626,
+          "peak_hospital_occupancy": [
+            0.5715522624980918,
+            0.6622881653698592,
+            0.5105060340871812,
+            0.38655104917061317,
+            0.36551334034051025,
+            0.7984410709382008,
+            0.5944725676497364
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -68.01506596326358,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30003,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 80.0,
+            "travel": -46.52444444444445,
+            "overtime": -16.466666666666665,
+            "mismatch": -2.003999999999999,
+            "occupancy": 2.2873963301508704,
+            "overcrowding": -0.3073511823033485,
+            "rejection": 0.0,
+            "route_failure": -85.0
+          },
+          "avg_reward_components": {
+            "golden": 5.714285714285714,
+            "travel": -3.3231746031746034,
+            "overtime": -1.176190476190476,
+            "mismatch": -0.14314285714285707,
+            "occupancy": 0.1633854521536336,
+            "overcrowding": -0.021953655878810607,
+            "rejection": 0.0,
+            "route_failure": -6.071428571428571
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 14,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "2": 2,
+            "4": 4,
+            "5": 6,
+            "1": 1,
+            "3": 1
+          },
+          "avg_selected_estimated_time": 154.1313721100496,
+          "avg_extra_estimated_time": 21.079410533005625
+        },
+        {
+          "generated_patients": 24,
+          "missions": 24,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 22,
+          "failed": 2,
+          "censored": 0,
+          "arrival_rate": 91.66666666666667,
+          "golden_rate": 75.0,
+          "golden_success": 18,
+          "reward": -50.22938184525499,
+          "avg_reward": -2.092890910218958,
+          "avg_time": 178.41666666666666,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 152.0909090909091,
+          "avg_travel_time": 152.0909090909091,
+          "peak_active": 4,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "hospital_stop_missing": 2
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 25,
+            "exploratory_decisions": 0,
+            "admission_requests": 23,
+            "admission_rejections": 1,
+            "hospital_redirects": 1
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 23,
+          "hospital_redirects": 1,
+          "rejection_count": 1,
+          "rejected_patients": 1,
+          "admission_rejection_reasons": {
+            "hospital_full": 1
+          },
+          "ktas_stats": {
+            "1": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 10,
+              "arrived": 9,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 8,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 3,
+              "arrived": 2,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3768.0,
+          "load_std": 4.836088822803073,
+          "peak_hospital_occupancy": [
+            0.5264002241067189,
+            0.5786031664885782,
+            0.6842071905188826,
+            0.5000926981615932,
+            0.35528026854606765,
+            0.8014498861026595,
+            0.4212396982956025
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -50.22938184525499,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30001,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 180.0,
+            "travel": -62.324444444444445,
+            "overtime": -11.955555555555556,
+            "mismatch": -5.969399999999997,
+            "occupancy": 32.02001815474502,
+            "overcrowding": 0.0,
+            "rejection": -12.0,
+            "route_failure": -170.0
+          },
+          "avg_reward_components": {
+            "golden": 7.5,
+            "travel": -2.5968518518518517,
+            "overtime": -0.4981481481481482,
+            "mismatch": -0.24872499999999986,
+            "occupancy": 1.3341674231143756,
+            "overcrowding": 0.0,
+            "rejection": -0.5,
+            "route_failure": -7.083333333333333
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 25,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "4": 2,
+            "6": 3,
+            "5": 16,
+            "1": 2,
+            "2": 2
+          },
+          "avg_selected_estimated_time": 123.92270754751854,
+          "avg_extra_estimated_time": 29.26781210022861
+        },
+        {
+          "generated_patients": 26,
+          "missions": 26,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 25,
+          "failed": 1,
+          "censored": 0,
+          "arrival_rate": 96.15384615384616,
+          "golden_rate": 61.53846153846154,
+          "golden_success": 16,
+          "reward": -50.927758803638355,
+          "avg_reward": -1.9587599539860905,
+          "avg_time": 167.96153846153845,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 156.36,
+          "avg_travel_time": 156.36,
+          "peak_active": 5,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "hospital_stop_missing": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 27,
+            "exploratory_decisions": 0,
+            "admission_requests": 25
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 25,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 8,
+              "arrived": 8,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 4,
+              "arrived": 3,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 9,
+              "arrived": 9,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 7,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3726.0,
+          "load_std": 4.164965639175214,
+          "peak_hospital_occupancy": [
+            0.5520272844191823,
+            0.4848976551522411,
+            0.48900566820707037,
+            0.5353604824497533,
+            0.5899242332493448,
+            0.8363593193936671,
+            0.40475846734276266
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -50.927758803638355,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30002,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 160.0,
+            "travel": -85.37777777777778,
+            "overtime": -38.74666666666666,
+            "mismatch": -7.39919999999999,
+            "occupancy": 10.292495590278332,
+            "overcrowding": -4.69660994947226,
+            "rejection": 0.0,
+            "route_failure": -85.0
+          },
+          "avg_reward_components": {
+            "golden": 6.153846153846154,
+            "travel": -3.2837606837606836,
+            "overtime": -1.4902564102564102,
+            "mismatch": -0.284584615384615,
+            "occupancy": 0.39586521501070504,
+            "overcrowding": -0.18063884421047155,
+            "rejection": 0.0,
+            "route_failure": -3.269230769230769
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 26,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 12,
+            "2": 7,
+            "6": 4,
+            "1": 3
+          },
+          "avg_selected_estimated_time": 127.4873155851765,
+          "avg_extra_estimated_time": 23.88507116301927
+        },
+        {
+          "generated_patients": 20,
+          "missions": 20,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 19,
+          "failed": 1,
+          "censored": 0,
+          "arrival_rate": 95.0,
+          "golden_rate": 65.0,
+          "golden_success": 13,
+          "reward": -53.26723925419381,
+          "avg_reward": -2.6633619627096907,
+          "avg_time": 192.05,
+          "avg_wait": 13.5,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 181.10526315789474,
+          "avg_travel_time": 166.89473684210526,
+          "peak_active": 3,
+          "peak_waiting": 2,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "hospital_stop_missing": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 33,
+            "exploratory_decisions": 0,
+            "admission_requests": 20,
+            "capacity_deferrals": 12,
+            "admission_rejections": 1
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 12,
+            "insufficient_capability": 72,
+            "hospital_full_or_invalid_occupancy": 12
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 12,
+            "insufficient_capability": 72,
+            "hospital_full_or_invalid_occupancy": 12
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 20,
+          "hospital_redirects": 0,
+          "rejection_count": 1,
+          "rejected_patients": 1,
+          "admission_rejection_reasons": {
+            "hospital_full": 1
+          },
+          "ktas_stats": {
+            "1": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 7,
+              "arrived": 6,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 270.0
+            },
+            "3": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 2.9485382057928993,
+          "peak_hospital_occupancy": [
+            0.5715522624980918,
+            0.6622881653698592,
+            0.5105060340871812,
+            0.38655104917061317,
+            0.44551334034051027,
+            0.7984410709382008,
+            0.5944725676497364
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -53.26723925419381,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30003,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 130.0,
+            "travel": -60.05333333333333,
+            "overtime": -19.111111111111114,
+            "mismatch": -6.388799999999995,
+            "occupancy": 0.20805873716067058,
+            "overcrowding": -0.9220535469100455,
+            "rejection": -12.0,
+            "route_failure": -85.0
+          },
+          "avg_reward_components": {
+            "golden": 6.5,
+            "travel": -3.0026666666666664,
+            "overtime": -0.9555555555555557,
+            "mismatch": -0.3194399999999998,
+            "occupancy": 0.01040293685803353,
+            "overcrowding": -0.046102677345502274,
+            "rejection": -0.6,
+            "route_failure": -4.25
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 20,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "2": 4,
+            "4": 4,
+            "3": 2,
+            "5": 9,
+            "1": 1
+          },
+          "avg_selected_estimated_time": 133.78735958925432,
+          "avg_extra_estimated_time": 19.851157532230893
+        },
+        {
+          "generated_patients": 24,
+          "missions": 24,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 21,
+          "failed": 3,
+          "censored": 0,
+          "arrival_rate": 87.5,
+          "golden_rate": 75.0,
+          "golden_success": 18,
+          "reward": -138.17415568584178,
+          "avg_reward": -5.757256486910074,
+          "avg_time": 203.91666666666666,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 168.0,
+          "avg_travel_time": 168.0,
+          "peak_active": 4,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "hospital_stop_missing": 3
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 25,
+            "exploratory_decisions": 0,
+            "admission_requests": 22,
+            "admission_rejections": 1,
+            "hospital_redirects": 1
+          },
+          "hospital_rejection_reasons": {},
+          "hospital_exclusion_reasons": {},
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 22,
+          "hospital_redirects": 1,
+          "rejection_count": 1,
+          "rejected_patients": 1,
+          "admission_rejection_reasons": {
+            "hospital_full": 1
+          },
+          "ktas_stats": {
+            "1": {
+              "count": 3,
+              "arrived": 2,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 4,
+              "arrived": 3,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 10,
+              "arrived": 9,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 9,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3763.0,
+          "load_std": 5.2333311668612,
+          "peak_hospital_occupancy": [
+            0.5264002241067189,
+            0.5786031664885782,
+            0.6042071905188825,
+            0.5000926981615932,
+            0.35528026854606765,
+            0.8014498861026595,
+            0.4212396982956025
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -138.17415568584178,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30001,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 180.0,
+            "travel": -61.412222222222226,
+            "overtime": -10.666666666666668,
+            "mismatch": -7.662599999999995,
+            "occupancy": 28.567333203047134,
+            "overcrowding": 0.0,
+            "rejection": -12.0,
+            "route_failure": -255.0
+          },
+          "avg_reward_components": {
+            "golden": 7.5,
+            "travel": -2.5588425925925926,
+            "overtime": -0.4444444444444445,
+            "mismatch": -0.3192749999999998,
+            "occupancy": 1.190305550126964,
+            "overcrowding": 0.0,
+            "rejection": -0.5,
+            "route_failure": -10.625
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 25,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "4": 2,
+            "6": 3,
+            "5": 17,
+            "1": 2,
+            "2": 1
+          },
+          "avg_selected_estimated_time": 129.47994556340353,
+          "avg_extra_estimated_time": 33.44483935431689
+        },
+        {
+          "generated_patients": 26,
+          "missions": 26,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 25,
+          "failed": 1,
+          "censored": 0,
+          "arrival_rate": 96.15384615384616,
+          "golden_rate": 61.53846153846154,
+          "golden_success": 16,
+          "reward": -95.17467072113163,
+          "avg_reward": -3.6605642585050626,
+          "avg_time": 208.57692307692307,
+          "avg_wait": 4.615384615384615,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 201.0,
+          "avg_travel_time": 196.2,
+          "peak_active": 5,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "hospital_stop_missing": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 34,
+            "exploratory_decisions": 0,
+            "admission_requests": 26,
+            "admission_rejections": 1,
+            "capacity_deferrals": 8
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 8,
+            "insufficient_capability": 48,
+            "hospital_full_or_invalid_occupancy": 8
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 8,
+            "insufficient_capability": 48,
+            "hospital_full_or_invalid_occupancy": 8
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 26,
+          "hospital_redirects": 0,
+          "rejection_count": 1,
+          "rejected_patients": 1,
+          "admission_rejection_reasons": {
+            "hospital_full": 1
+          },
+          "ktas_stats": {
+            "1": {
+              "count": 8,
+              "arrived": 7,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 120.0
+            },
+            "2": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 9,
+              "arrived": 9,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 7,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3717.0,
+          "load_std": 4.095791767666128,
+          "peak_hospital_occupancy": [
+            0.5520272844191823,
+            0.5648976551522411,
+            0.48900566820707037,
+            0.5353604824497533,
+            0.5899242332493448,
+            0.8363593193936671,
+            0.40475846734276266
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -95.17467072113163,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30002,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 160.0,
+            "travel": -98.22666666666665,
+            "overtime": -59.36888888888889,
+            "mismatch": -8.12159999999999,
+            "occupancy": 10.360450804107252,
+            "overcrowding": -2.817965969683356,
+            "rejection": -12.0,
+            "route_failure": -85.0
+          },
+          "avg_reward_components": {
+            "golden": 6.153846153846154,
+            "travel": -3.7779487179487172,
+            "overtime": -2.2834188034188037,
+            "mismatch": -0.3123692307692304,
+            "occupancy": 0.3984788770810482,
+            "overcrowding": -0.10838330652628292,
+            "rejection": -0.46153846153846156,
+            "route_failure": -3.269230769230769
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 26,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 12,
+            "2": 6,
+            "6": 5,
+            "1": 3
+          },
+          "avg_selected_estimated_time": 128.49647089697422,
+          "avg_extra_estimated_time": 23.937820036513017
+        },
+        {
+          "generated_patients": 20,
+          "missions": 20,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 20,
+          "failed": 0,
+          "censored": 0,
+          "arrival_rate": 100.0,
+          "golden_rate": 75.0,
+          "golden_success": 15,
+          "reward": 40.936039933540044,
+          "avg_reward": 2.046801996677002,
+          "avg_time": 173.75,
+          "avg_wait": 3.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 173.75,
+          "avg_travel_time": 170.75,
+          "peak_active": 3,
+          "peak_waiting": 2,
+          "queue_policy": "severity",
+          "failure_reasons": {},
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 39,
+            "exploratory_decisions": 0,
+            "admission_requests": 22,
+            "capacity_deferrals": 7,
+            "admission_rejections": 2
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 19,
+            "insufficient_capability": 42,
+            "hospital_full_or_invalid_occupancy": 7
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 19,
+            "insufficient_capability": 42,
+            "hospital_full_or_invalid_occupancy": 7
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 22,
+          "hospital_redirects": 0,
+          "rejection_count": 2,
+          "rejected_patients": 2,
+          "admission_rejection_reasons": {
+            "hospital_full": 2
+          },
+          "ktas_stats": {
+            "1": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 7,
+              "arrived": 7,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 60.0
+            },
+            "3": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 5,
+              "arrived": 5,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 5,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3601.0,
+          "load_std": 3.136356914300021,
+          "peak_hospital_occupancy": [
+            0.5715522624980918,
+            0.5822881653698593,
+            0.5905060340871813,
+            0.38655104917061317,
+            0.44551334034051027,
+            0.7984410709382008,
+            0.5944725676497364
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": 40.936039933540044,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30003,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 150.0,
+            "travel": -61.034444444444446,
+            "overtime": -14.577777777777778,
+            "mismatch": -6.391199999999995,
+            "occupancy": -2.138484297327694,
+            "overcrowding": -0.9220535469100455,
+            "rejection": -24.0,
+            "route_failure": 0.0
+          },
+          "avg_reward_components": {
+            "golden": 7.5,
+            "travel": -3.0517222222222222,
+            "overtime": -0.7288888888888889,
+            "mismatch": -0.31955999999999973,
+            "occupancy": -0.1069242148663847,
+            "overcrowding": -0.046102677345502274,
+            "rejection": -1.2,
+            "route_failure": 0.0
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 20,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "2": 5,
+            "4": 4,
+            "3": 2,
+            "5": 9
+          },
+          "avg_selected_estimated_time": 136.21770281679596,
+          "avg_extra_estimated_time": 17.69571299033019
+        },
+        {
+          "generated_patients": 24,
+          "missions": 23,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 22,
+          "failed": 2,
+          "censored": 0,
+          "arrival_rate": 91.66666666666667,
+          "golden_rate": 66.66666666666667,
+          "golden_success": 16,
+          "reward": -84.61990684875123,
+          "avg_reward": -3.525829452031301,
+          "avg_time": 176.95833333333334,
+          "avg_wait": 0.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 167.3181818181818,
+          "avg_travel_time": 167.3181818181818,
+          "peak_active": 4,
+          "peak_waiting": 1,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "no_valid_hospital": 1,
+            "vehicle_disappeared": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 30,
+            "exploratory_decisions": 0,
+            "admission_requests": 22,
+            "no_valid_hospital": 1
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 5,
+            "insufficient_capability": 6
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 5,
+            "insufficient_capability": 6
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 22,
+          "hospital_redirects": 0,
+          "rejection_count": 0,
+          "rejected_patients": 0,
+          "admission_rejection_reasons": {},
+          "ktas_stats": {
+            "1": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 4,
+              "arrived": 3,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 0.0
+            },
+            "3": {
+              "count": 10,
+              "arrived": 10,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 8,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 4,
+              "arrived": 3,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3786.0,
+          "load_std": 4.130523512800274,
+          "peak_hospital_occupancy": [
+            0.5264002241067189,
+            0.5786031664885782,
+            0.6042071905188825,
+            0.5000926981615932,
+            0.4352802685460676,
+            0.7214498861026595,
+            0.34123969829560247
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -84.61990684875123,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30001,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 160.0,
+            "travel": -71.55444444444444,
+            "overtime": -33.73333333333333,
+            "mismatch": -7.1699999999999955,
+            "occupancy": 38.19536903073757,
+            "overcrowding": -0.35749810171099206,
+            "rejection": 0.0,
+            "route_failure": -170.0
+          },
+          "avg_reward_components": {
+            "golden": 6.666666666666667,
+            "travel": -2.9814351851851852,
+            "overtime": -1.4055555555555552,
+            "mismatch": -0.2987499999999998,
+            "occupancy": 1.5914737096140652,
+            "overcrowding": -0.014895754237958003,
+            "rejection": 0.0,
+            "route_failure": -7.083333333333333
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 23,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "4": 3,
+            "5": 13,
+            "6": 3,
+            "2": 2,
+            "1": 2
+          },
+          "avg_selected_estimated_time": 132.71036576003,
+          "avg_extra_estimated_time": 26.63500898496145
+        },
+        {
+          "generated_patients": 26,
+          "missions": 25,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 24,
+          "failed": 2,
+          "censored": 0,
+          "arrival_rate": 92.3076923076923,
+          "golden_rate": 53.84615384615385,
+          "golden_success": 14,
+          "reward": -243.16341278909752,
+          "avg_reward": -9.352438953426828,
+          "avg_time": 230.46153846153845,
+          "avg_wait": 15.0,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 235.58333333333334,
+          "avg_travel_time": 219.33333333333334,
+          "peak_active": 5,
+          "peak_waiting": 2,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "vehicle_disappeared": 1,
+            "no_valid_hospital": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 56,
+            "exploratory_decisions": 0,
+            "admission_requests": 26,
+            "admission_rejections": 2,
+            "capacity_deferrals": 21,
+            "no_valid_hospital": 1
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 26,
+            "insufficient_capability": 132,
+            "hospital_full_or_invalid_occupancy": 21
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 26,
+            "insufficient_capability": 132,
+            "hospital_full_or_invalid_occupancy": 21
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 26,
+          "hospital_redirects": 0,
+          "rejection_count": 2,
+          "rejected_patients": 2,
+          "admission_rejection_reasons": {
+            "hospital_full": 2
+          },
+          "ktas_stats": {
+            "1": {
+              "count": 8,
+              "arrived": 7,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 1,
+              "wait_total": 330.0
+            },
+            "2": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 60.0
+            },
+            "3": {
+              "count": 2,
+              "arrived": 2,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 2,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 9,
+              "arrived": 8,
+              "failed": 1,
+              "censored": 0,
+              "golden_success": 5,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3863.0,
+          "load_std": 3.8861344310672696,
+          "peak_hospital_occupancy": [
+            0.5520272844191823,
+            0.5648976551522411,
+            0.48900566820707037,
+            0.5353604824497533,
+            0.5899242332493448,
+            0.8363593193936671,
+            0.40475846734276266
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -243.16341278909752,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30002,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 140.0,
+            "travel": -109.09888888888887,
+            "overtime": -74.14222222222222,
+            "mismatch": -7.161599999999991,
+            "occupancy": 4.996586281591454,
+            "overcrowding": -3.757287959577808,
+            "rejection": -24.0,
+            "route_failure": -170.0
+          },
+          "avg_reward_components": {
+            "golden": 5.384615384615385,
+            "travel": -4.19611111111111,
+            "overtime": -2.8516239316239314,
+            "mismatch": -0.2754461538461535,
+            "occupancy": 0.19217639544582515,
+            "overcrowding": -0.14451107536837723,
+            "rejection": -0.9230769230769231,
+            "route_failure": -6.538461538461538
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 25,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "5": 11,
+            "2": 7,
+            "6": 4,
+            "1": 3
+          },
+          "avg_selected_estimated_time": 140.39175753391675,
+          "avg_extra_estimated_time": 30.94389028954943
+        },
+        {
+          "generated_patients": 20,
+          "missions": 20,
+          "emergency_yield": {
+            "enabled": true,
+            "reaction_distance_m": 60.0,
+            "lateral_resolution_m": 0.4,
+            "signal_priority_included": true,
+            "implementation": "sumo_bluelight_sublane"
+          },
+          "background_traffic": {
+            "period_seconds": 3600,
+            "until_seconds": 7202.0,
+            "source_trips": 14710,
+            "repeated_trips": 14719,
+            "sources": [
+              {
+                "file": "osm.passenger.trips.xml",
+                "sha256": "e77372bfad96f955ba19f4d3817987682f046baea7420c3e395beeea9974a66f"
+              }
+            ],
+            "assumption": "원본 1시간 승용차 패턴 반복. 시간대별 실측 교통량을 의미하지 않음.",
+            "enabled": true,
+            "implementation": "periodic_original_passenger_v1"
+          },
+          "arrived": 18,
+          "failed": 2,
+          "censored": 0,
+          "arrival_rate": 90.0,
+          "golden_rate": 65.0,
+          "golden_success": 13,
+          "reward": -173.0183962238595,
+          "avg_reward": -8.650919811192974,
+          "avg_time": 229.55,
+          "avg_wait": 1.5,
+          "p90_wait": 0.0,
+          "avg_arrival_time": 189.44444444444446,
+          "avg_travel_time": 187.77777777777777,
+          "peak_active": 4,
+          "peak_waiting": 2,
+          "queue_policy": "severity",
+          "failure_reasons": {
+            "vehicle_disappeared": 1,
+            "hospital_stop_missing": 1
+          },
+          "censor_reasons": {},
+          "route_failures": 0,
+          "route_diagnostics": {
+            "hospital_candidate_route_failure": 32,
+            "exploratory_decisions": 0,
+            "admission_requests": 20,
+            "capacity_deferrals": 12,
+            "admission_rejections": 2
+          },
+          "hospital_rejection_reasons": {
+            "no_route": 12,
+            "insufficient_capability": 72,
+            "hospital_full_or_invalid_occupancy": 12
+          },
+          "hospital_exclusion_reasons": {
+            "no_route": 12,
+            "insufficient_capability": 72,
+            "hospital_full_or_invalid_occupancy": 12
+          },
+          "hospital_admission_mode": "arrival",
+          "congestion_reward_mode": "balanced",
+          "admission_requests": 20,
+          "hospital_redirects": 0,
+          "rejection_count": 2,
+          "rejected_patients": 2,
+          "admission_rejection_reasons": {
+            "hospital_full": 2
+          },
+          "ktas_stats": {
+            "1": {
+              "count": 1,
+              "arrived": 1,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 0,
+              "wait_total": 0.0
+            },
+            "2": {
+              "count": 7,
+              "arrived": 7,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 30.0
+            },
+            "3": {
+              "count": 4,
+              "arrived": 4,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 4,
+              "wait_total": 0.0
+            },
+            "4": {
+              "count": 3,
+              "arrived": 3,
+              "failed": 0,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            },
+            "5": {
+              "count": 5,
+              "arrived": 3,
+              "failed": 2,
+              "censored": 0,
+              "golden_success": 3,
+              "wait_total": 0.0
+            }
+          },
+          "simulation_end_time": 3624.0,
+          "load_std": 2.9485382057928993,
+          "peak_hospital_occupancy": [
+            0.5715522624980918,
+            0.5822881653698593,
+            0.5905060340871813,
+            0.38655104917061317,
+            0.36551334034051025,
+            0.7984410709382008,
+            0.5944725676497364
+          ],
+          "remaining_reservations": 0,
+          "route_safety": {
+            "emergency_edges": 15762,
+            "components": 281,
+            "largest_component_edges": 15363,
+            "excluded_edges": 399,
+            "component_sizes": [
+              [
+                15363,
+                1
+              ],
+              [
+                50,
+                1
+              ],
+              [
+                28,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                2,
+                10
+              ],
+              [
+                1,
+                263
+              ]
+            ],
+            "profile": "emergency_scc_lane_v1",
+            "original_sources": 1200,
+            "usable_sources": 1188,
+            "hospital_access_counts": {
+              "A1100004": 0,
+              "A1100012": 12,
+              "A1100015": 12,
+              "A1100018": 12,
+              "A1100057": 12,
+              "A1100141": 12,
+              "A1123234": 12
+            }
+          },
+          "learning_reward": -173.0183962238595,
+          "unattributed_learning_reward": 0.0,
+          "learning_transitions": 0,
+          "avg_loss": 0.0,
+          "seed": 30003,
+          "demand_scale": 0.0138888888888889,
+          "demand_rates_per_hour": [],
+          "patients_per_hour": null,
+          "reward_version": 4,
+          "observation_version": 5,
+          "pending_reward_feature": "estimate",
+          "golden_margin_feature": false,
+          "candidate_reward_feature": false,
+          "reward_components": {
+            "golden": 130.0,
+            "travel": -65.78888888888889,
+            "overtime": -34.888888888888886,
+            "mismatch": -3.755999999999997,
+            "occupancy": -3.3552137168683167,
+            "overcrowding": -1.229404729213394,
+            "rejection": -24.0,
+            "route_failure": -170.0
+          },
+          "avg_reward_components": {
+            "golden": 6.5,
+            "travel": -3.2894444444444444,
+            "overtime": -1.7444444444444442,
+            "mismatch": -0.18779999999999986,
+            "occupancy": -0.16776068584341583,
+            "overcrowding": -0.0614702364606697,
+            "rejection": -1.2,
+            "route_failure": -8.5
+          },
+          "training_updates": 861,
+          "episode_updates": 0,
+          "target_updates": 4,
+          "total_decisions": 892,
+          "episode_decisions": 20,
+          "episode_exploratory_decisions": 0,
+          "exploration_rate": 0.0,
+          "selected_hospitals": {
+            "2": 5,
+            "4": 5,
+            "3": 2,
+            "5": 8
+          },
+          "avg_selected_estimated_time": 145.12263788983813,
+          "avg_extra_estimated_time": 23.73744541413351
+        }
+      ]
+    }
+  },
+  "validation60_avg_reward_components": {
+    "golden": 6.511111111111111,
+    "travel": -3.3978271604938275,
+    "overtime": -1.548103703703704,
+    "mismatch": -0.24851199999999976,
+    "occupancy": 0.6882837724103635,
+    "overcrowding": -0.04933373617699802,
+    "rejection": -0.32,
+    "route_failure": -3.966666666666667
+  },
+  "checks": {
+    "state_dim": 93,
+    "failure_penalty": 85,
+    "counts_and_reward_sum_verified": true,
+    "report_local_links_verified": true
+  }
+}

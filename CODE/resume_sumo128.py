@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "results" / "all_scenarios_normal15_yield_repeat_sumo128_v6"
 
 
-def resume_to_target(output_root=DEFAULT_OUTPUT, target_episodes=45, eval_every=45):
+def resume_to_target(output_root=DEFAULT_OUTPUT, target_episodes=45, eval_every=9):
     import torch
     from experiment_config import LearningConfig, SimulationConfig
     from simulation_setup import manifest_signature
