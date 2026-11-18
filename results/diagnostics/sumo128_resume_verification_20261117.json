@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "tests_passed": 281,
+  "engine": {
+    "path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\.runtime\\sumo-1.28.0\\bin\\sumo.exe",
+    "sha256": "35d45c1166ceb5b72cce37676216f79124fcfe05920a496b14daee19acdaf9f3",
+    "version_line": "Eclipse SUMO sumo 1.28.0",
+    "version": "1.28.0"
+  },
+  "portable_archive_sha256": "822aa9c57a07a895200d536fd2b3fe8785e36baa9b97ecbe75688e08a636fb8e",
+  "original_install_preserved": true,
+  "source_completed_episode": 24,
+  "source_training_updates": 292,
+  "diagnostic_trial": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_trial\\sumo_crash_20261117_162947_fdc248",
+  "diagnostic_episode": 25,
+  "diagnostic_result": {
+    "generated_patients": 26,
+    "arrived": 26,
+    "failed": 0,
+    "censored": 0,
+    "simulation_end_time": 3601.0
+  },
+  "diagnostic_model_weights_saved": false,
+  "manifests_identical": true,
+  "source_checkpoint_unchanged": true,
+  "source_manifest_unchanged": true,
+  "resume_copy_files_verified": true,
+  "old_engine_guard_confirmed": true,
+  "resume_plan": {
+    "previous_episodes": 24,
+    "additional_episodes": 21,
+    "target_total_episodes": 45,
+    "eval_every": 45,
+    "resume": true,
+    "output_root": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_sumo128_v6",
+    "config": {
+      "arrival_steps": 3600,
+      "demand_scale": 0.0138888888888889,
+      "max_wait": 1800.0,
+      "mission_timeout": 1800.0,
+      "treatment_seconds": 900.0,
+      "bed_fraction": 0.08,
+      "occupancy_limit": 0.85,
+      "seed": 42,
+      "candidate_limit": 1200,
+      "reward_version": 4,
+      "observation_version": 5,
+      "pending_reward_feature": "estimate",
+      "golden_margin_feature": false,
+      "candidate_reward_feature": false,
+      "admission_mode": "arrival",
+      "congestion_reward_mode": "balanced",
+      "emergency_yield": true,
+      "repeat_background_traffic": true
+    },
+    "ambulance_count": 10,
+    "selected_binary": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\.runtime\\sumo-1.28.0\\bin\\sumo.exe",
+    "starts_training": false
+  },
+  "training_provenance": "mixed_engine_continuation",
+  "new_training_started": false
+}

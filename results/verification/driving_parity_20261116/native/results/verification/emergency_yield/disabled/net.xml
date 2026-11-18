@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-16T21:41:02.369949+09:00 by Eclipse SUMO netconvert 1.27.1
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\driving_parity_20261116\native\results\verification\emergency_yield\disabled\nodes.xml"/>
+        <edge-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\driving_parity_20261116\native\results\verification\emergency_yield\disabled\edges.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\verification\driving_parity_20261116\native\results\verification\emergency_yield\disabled\net.xml"/>
+    </output>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,1500.00,0.00" origBoundary="0.00,0.00,1500.00,0.00" projParameter="!"/>
+
+    <edge id=":b_0" function="internal">
+        <lane id=":b_0_0" index="0" speed="20.00" length="0.10" width="3.20" shape="600.00,-4.80 600.00,-4.80"/>
+        <lane id=":b_0_1" index="1" speed="20.00" length="0.10" width="3.20" shape="600.00,-1.60 600.00,-1.60"/>
+    </edge>
+
+    <edge id="exit" from="b" to="c" priority="-1">
+        <lane id="exit_0" index="0" speed="20.00" length="900.00" width="3.20" shape="600.00,-4.80 1500.00,-4.80"/>
+        <lane id="exit_1" index="1" speed="20.00" length="900.00" width="3.20" shape="600.00,-1.60 1500.00,-1.60"/>
+    </edge>
+    <edge id="road" from="a" to="b" priority="-1">
+        <lane id="road_0" index="0" speed="20.00" length="600.00" width="3.20" shape="0.00,-4.80 600.00,-4.80"/>
+        <lane id="road_1" index="1" speed="20.00" length="600.00" width="3.20" shape="0.00,-1.60 600.00,-1.60"/>
+    </edge>
+
+    <junction id="a" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-6.40"/>
+    <junction id="b" type="priority" x="600.00" y="0.00" incLanes="road_0 road_1" intLanes=":b_0_0 :b_0_1" shape="600.00,0.00 600.00,-6.40 600.00,0.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="c" type="dead_end" x="1500.00" y="0.00" incLanes="exit_0 exit_1" intLanes="" shape="1500.00,-6.40 1500.00,0.00"/>
+
+    <connection from="road" to="exit" fromLane="0" toLane="0" via=":b_0_0" dir="s" state="M"/>
+    <connection from="road" to="exit" fromLane="1" toLane="1" via=":b_0_1" dir="s" state="M"/>
+
+    <connection from=":b_0" to="exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":b_0" to="exit" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

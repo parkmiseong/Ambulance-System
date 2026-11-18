@@ -1,0 +1,8 @@
+{
+  "checkpoint": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_trial\\sumo_crash_20261117_162947_fdc248\\snapshot\\models\\checkpoint_v6_f560a1f65da40cc8.pth",
+  "manifest": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_trial\\sumo_crash_20261117_162947_fdc248\\snapshot\\experiment.json",
+  "source_checkpoint": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_v6\\training\\checkpoint_v6_f560a1f65da40cc8.pth",
+  "source_manifest": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_v6\\training\\experiment_v6_f560a1f65da40cc8.json",
+  "checkpoint_sha256": "9667572f0473c5a9e364321a6b57ef1ddb487400d6220c822f23775c1ab9db47",
+  "manifest_sha256": "e8bec41bfdb63ba0b8afc14be78af1c7fd19415cc9e508540e7c32c81f2ac1af"
+}

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\.runtime\\sumo-1.28.0\\bin\\duarouter.exe",
+    "--net-file",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\SUMO\\강남\\osm.net.xml.gz",
+    "--route-files",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\SUMO\\강남\\ambulance_routes.rou.xml",
+    "--output-file",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\duarouter_strict.rou.xml",
+    "--repair",
+    "false",
+    "--repair.from",
+    "false",
+    "--repair.to",
+    "false",
+    "--skip-new-routes",
+    "true",
+    "--ignore-errors",
+    "false",
+    "--log",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\duarouter_strict.log",
+    "--error-log",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\duarouter_strict_errors.log"
+  ],
+  "exit_code": 1,
+  "repair": false,
+  "ignore_errors": false,
+  "skip_new_routes": true,
+  "stdout": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\duarouter_stdout.txt",
+  "stderr": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\duarouter_stderr.txt"
+}

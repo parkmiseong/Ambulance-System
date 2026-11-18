@@ -1,0 +1,16 @@
+{
+  "source_checkpoint": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_v6\\training\\checkpoint_v6_f560a1f65da40cc8.pth",
+  "source_manifest": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_v6\\training\\experiment_v6_f560a1f65da40cc8.json",
+  "source_signature": "f560a1f65da40cc8",
+  "rebuilt_signature": "f560a1f65da40cc8",
+  "manifests_identical": true,
+  "differing_fields": [],
+  "target": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_sumo128_v6",
+  "source_completed_episode": 24,
+  "engine": {
+    "path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\.runtime\\sumo-1.28.0\\bin\\sumo.exe",
+    "sha256": "35d45c1166ceb5b72cce37676216f79124fcfe05920a496b14daee19acdaf9f3",
+    "version_line": "Eclipse SUMO sumo 1.28.0",
+    "version": "1.28.0"
+  }
+}

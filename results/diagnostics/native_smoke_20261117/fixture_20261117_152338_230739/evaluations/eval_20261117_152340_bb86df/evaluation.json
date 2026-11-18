@@ -1,0 +1,212 @@
+{
+  "run_id": "eval_20261117_152340_bb86df",
+  "seeds": [
+    32001
+  ],
+  "demand_levels": [
+    1.0
+  ],
+  "modes": [
+    "shortest_time",
+    "dqn"
+  ],
+  "experiment_signature": "ffb9f2b0cb139d50",
+  "model_kind": "best",
+  "model_episode": 0,
+  "evaluation_split": "test",
+  "learning_stats": {
+    "total_decisions": 0,
+    "exploratory_decisions": 0,
+    "total_transitions": 0,
+    "training_updates": 0,
+    "target_updates": 0,
+    "counters_complete": true,
+    "exploration_rate": 0.0
+  },
+  "requested_model": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\native_smoke_20261117\\fixture_20261117_152338_230739\\models\\dqn_v6_ffb9f2b0cb139d50_best.pth",
+  "reward_version": 4,
+  "hospital_admission_mode": "precheck",
+  "congestion_reward_mode": "penalty",
+  "demand_rates_per_hour": [],
+  "emergency_yield": {
+    "enabled": true,
+    "reaction_distance_m": 60.0,
+    "lateral_resolution_m": 0.4,
+    "signal_priority_included": true,
+    "implementation": "sumo_bluelight_sublane"
+  },
+  "trained_emergency_yield": {
+    "enabled": true,
+    "reaction_distance_m": 60.0,
+    "lateral_resolution_m": 0.4,
+    "signal_priority_included": true,
+    "implementation": "sumo_bluelight_sublane"
+  },
+  "trace_decisions": false,
+  "profile_source": "saved_web",
+  "evaluation_environment": {
+    "schema_version": 1,
+    "settings": {
+      "simulation": {
+        "arrival_steps": 5,
+        "max_wait": 10.0,
+        "mission_timeout": 60.0,
+        "treatment_seconds": 10.0,
+        "bed_fraction": 0.08,
+        "occupancy_limit": 0.85,
+        "reward_version": 4,
+        "admission_mode": "precheck",
+        "congestion_reward_mode": "penalty",
+        "candidate_limit": 1200
+      },
+      "scenarios": [
+        {
+          "id": 5,
+          "prob": 0.2,
+          "scale": 0.5,
+          "fixed_patient_count": 1
+        }
+      ],
+      "demand_levels": [
+        1.0
+      ],
+      "ambulance_count": 1,
+      "queue_policy": "severity",
+      "aging_seconds": 300.0,
+      "initial_occupancy_range": [
+        0.35,
+        0.5
+      ],
+      "hospitals": [
+        {
+          "id": "native_hospital",
+          "type": "권역응급의료센터",
+          "sumo_x": 230.0,
+          "sumo_y": 0.0,
+          "accepting": true
+        }
+      ],
+      "ambulance_edges": [
+        "road"
+      ],
+      "hospital_access_edges": [
+        [
+          "exit"
+        ]
+      ],
+      "effective_ambulance_edges": [
+        "road"
+      ],
+      "effective_hospital_access_edges": [
+        [
+          "exit"
+        ]
+      ],
+      "route_safety": null,
+      "emergency_yield": {
+        "enabled": true,
+        "reaction_distance_m": 60.0,
+        "lateral_resolution_m": 0.4,
+        "signal_priority_included": true,
+        "implementation": "sumo_bluelight_sublane"
+      },
+      "background_traffic": {
+        "repeat": true,
+        "period_seconds": 3600,
+        "implementation": "periodic_original_passenger_v1"
+      },
+      "reward_weights": {
+        "golden": 10.0,
+        "travel": 4.0,
+        "overtime": 8.0,
+        "mismatch": 24.0,
+        "occupancy": 8.0,
+        "rejection": 12.0,
+        "route_failure": 20.0,
+        "overcrowding": 5.0
+      },
+      "golden_time_limits": {
+        "1": 120.0,
+        "2": 180.0,
+        "3": 240.0,
+        "4": 300.0,
+        "5": 360.0
+      },
+      "reward_suitability": {
+        "1": [
+          1.0,
+          0.7,
+          0.05,
+          0.0
+        ],
+        "2": [
+          1.0,
+          0.9,
+          0.2,
+          0.0
+        ],
+        "3": [
+          0.9,
+          1.0,
+          0.7,
+          0.2
+        ],
+        "4": [
+          0.75,
+          0.9,
+          1.0,
+          0.85
+        ],
+        "5": [
+          0.65,
+          0.8,
+          0.95,
+          1.0
+        ]
+      },
+      "severity_uncertainty": 0.2,
+      "required_hospital_levels": {
+        "1": 3,
+        "2": 3,
+        "3": 2,
+        "4": 1,
+        "5": 1
+      },
+      "hospital_levels": {
+        "권역응급의료센터": 3,
+        "지역응급의료센터": 2,
+        "지역응급의료기관": 1,
+        "응급실운영신고기관": 1
+      },
+      "inputs": {
+        "status": "recorded",
+        "sumo_version": "Eclipse SUMO sumo 1.27.1",
+        "network": {
+          "status": "recorded",
+          "sha256": "0d4b0ed9a507db4204d7d791a103f92e4e7d2d47df732db69703ef7e9016c390"
+        },
+        "configuration_network": {
+          "status": "recorded",
+          "sha256": "0d4b0ed9a507db4204d7d791a103f92e4e7d2d47df732db69703ef7e9016c390"
+        },
+        "configuration": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "route_files": [
+          {
+            "status": "recorded",
+            "sha256": "5d1e726d2a96a7080bd88c60157c94b55e683918e4c04212f8b9f997b04b0f7a"
+          }
+        ],
+        "additional_files": []
+      }
+    },
+    "fingerprint": "d965408537a4d6917342f63314d688a850c7423d44c84e216b4ec75c8163979b"
+  },
+  "model_snapshot": {
+    "model_path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\native_smoke_20261117\\fixture_20261117_152338_230739\\evaluations\\eval_20261117_152340_bb86df\\models\\dqn_v6_ffb9f2b0cb139d50_best.pth",
+    "model_sha256": "d7a07ef62e4f42ae15444d05d029ac20ce154df9e01dd1f29e9f8b00b5e34a18",
+    "manifest_path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\native_smoke_20261117\\fixture_20261117_152338_230739\\evaluations\\eval_20261117_152340_bb86df\\experiment.json",
+    "manifest_sha256": "812161ff26561dbcc6f125febf668710318dbfc213eaca5ce9909efc450b711d",
+    "source_model_path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\native_smoke_20261117\\fixture_20261117_152338_230739\\models\\dqn_v6_ffb9f2b0cb139d50_best.pth",
+    "source_manifest_path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\native_smoke_20261117\\fixture_20261117_152338_230739\\experiment.json"
+  }
+}

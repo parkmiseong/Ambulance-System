@@ -1,0 +1,20 @@
+{
+  "verified_on": "2026-11-17",
+  "regression_tests": {
+    "passed": true,
+    "count": 259
+  },
+  "web_targeted_tests": {
+    "passed": true,
+    "count": 53
+  },
+  "native_cli": {
+    "passed": true,
+    "test_fixture_only": true,
+    "performance_comparison": false,
+    "source_best_unchanged": true,
+    "source_manifest_unchanged": true,
+    "proof": "native_cli/proof.json"
+  },
+  "native_background_proof": "../background_parity_20261116/native/proof.json"
+}

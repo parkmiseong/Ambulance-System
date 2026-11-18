@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17T22:02:15.854605+09:00 by Eclipse SUMO duarouter 1.28.0
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.net.xml.gz"/>
+        <route-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\ambulance_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\duarouter_strict.rou.xml"/>
+    </output>
+
+    <processing>
+        <repair value="false"/>
+        <repair.from value="false"/>
+        <repair.to value="false"/>
+        <skip-new-routes value="true"/>
+    </processing>
+
+    <report>
+        <log value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\duarouter_strict.log"/>
+        <error-log value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\duarouter_strict_errors.log"/>
+        <ignore-errors value="false"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ambulance" maxSpeed="35.00" vClass="emergency" guiShape="emergency" color="red">
+        <param key="has.bluelight.device" value="true"/>
+    </vType>
+    <vehicle id="amb_1113105" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1103108" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="89.41" probability="1.00000000" edges="1414486722#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1103000" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="89.41" probability="1.00000000" edges="1414486722#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1103102" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="89.41" probability="1.00000000" edges="1414486722#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1112105" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1112202" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1113103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1108000" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1108101" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1108201" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1117104" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1108103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1123101" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1113106" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1118000" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="329.06" probability="1.00000000" edges="46676451#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1118101" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="329.06" probability="1.00000000" edges="46676451#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1118103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="329.06" probability="1.00000000" edges="46676451#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1118201" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="329.06" probability="1.00000000" edges="46676451#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1114103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="39.05" probability="1.00000000" edges="-219076293#5 -219076293#3 -219076293#2 -219076293#1 -218906059#12 -218906059#11 -218906059#10 -218906059#8 -218906059#6 -218906059#4"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1115105" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="64.00" probability="1.00000000" edges="185582682#2 -185582682#2 -185582679#2 -185582679#1 -185582672#1 -185582672#0 -522799177#16 -522799177#15 -522799177#13 -522799177#12"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1103106" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1108102" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1106105" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="51.34" probability="1.00000000" edges="1091571410"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1119103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1119107" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1112108" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1121103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1121102" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1115103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="55.02" probability="1.00000000" edges="-182205806#1 -182205806#0 -182205795#3 -182205795#2 -182205795#1 -182205737 -182205815#0 -417991408#2 -182205781#1 -182205781#0"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1114106" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="57.15" probability="1.00000000" edges="183669462#2 -183669462#2 -183669462#0 -183669490#3 -183669490#2 -183669490#1 -183669490#0 -297298686#1 -297298686#0 -297298685#2"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1113000" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1113102" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1123103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1113201" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1113104" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1112106" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1123102" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1112107" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1103104" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1106103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="89.41" probability="1.00000000" edges="1414486722#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1103201" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="89.41" probability="1.00000000" edges="1414486722#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1123104" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1100106" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="89.41" probability="1.00000000" edges="1414486722#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1104103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="89.41" probability="1.00000000" edges="1414486722#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1126306" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1117103" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1117102" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1121101" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1117000" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1117401" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1117402" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1121201" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1126503" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1121104" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1108105" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1102102" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1112000" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1126502" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1118105" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="329.06" probability="1.00000000" edges="46676451#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1118102" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="329.06" probability="1.00000000" edges="46676451#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1117105" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1123201" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1123000" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1121105" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1113107" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1106102" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1121000" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1100212" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1114107" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="117.76" probability="1.00000000" edges="277554691 277554691-AddedOffRampEdge 277554573 277554571 277554572 417952865#0 -183669514#5 -183669514#4 -183669514#3 -183669514#2"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1100512" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="89.41" probability="1.00000000" edges="1414486722#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1117106" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="225.59" probability="1.00000000" edges="474954574#0 474954574#0-AddedOffRampEdge 413679361 585352847#1-AddedOnRampEdge 585352847#1 585352847#1-AddedOffRampEdge 1212097848 65391394-AddedOnRampEdge 65391394"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1118106" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="329.06" probability="1.00000000" edges="46676451#1"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="amb_1126307" type="ambulance" depart="0.00">
+        <routeDistribution last="0">
+            <route cost="329.06" probability="1.00000000" edges="46676451#1"/>
+        </routeDistribution>
+    </vehicle>
+</routes>

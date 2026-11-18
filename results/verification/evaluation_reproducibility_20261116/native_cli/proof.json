@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "test_fixture_only": true,
+  "performance_comparison": false,
+  "source_best_unchanged": true,
+  "source_manifest_unchanged": true,
+  "source_best": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\verification\\evaluation_reproducibility_20261116\\native_cli\\fixture_20261116_221945_57226b\\models\\dqn_v6_c0849a8b3f8fa919_best.pth",
+  "source_sha256": "d790e480ce25a87af97a71051363d1bbf71f3afaf5a8e5927d1d6cd781a753a7",
+  "evaluations": [
+    {
+      "run_id": "eval_20261116_221947_831912",
+      "run_type": "evaluation",
+      "profile_source": "saved_web",
+      "policies": [
+        "dqn",
+        "shortest_time"
+      ],
+      "patients_per_policy": 1,
+      "arrived_per_policy": 1,
+      "snapshot_sha256": "d790e480ce25a87af97a71051363d1bbf71f3afaf5a8e5927d1d6cd781a753a7",
+      "model_path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\verification\\evaluation_reproducibility_20261116\\native_cli\\fixture_20261116_221945_57226b\\evaluations\\eval_20261116_221947_831912\\models\\dqn_v6_c0849a8b3f8fa919_best.pth",
+      "evaluation_json": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\verification\\evaluation_reproducibility_20261116\\native_cli\\fixture_20261116_221945_57226b\\evaluations\\eval_20261116_221947_831912\\evaluation.json",
+      "environment_fingerprints": {
+        "policies": "5dad395eab16cfbd84ecb29041e242c760796c6186c5aedc8a1633ba511b7d62"
+      }
+    },
+    {
+      "run_id": "queue_compare_20261116_221948_48a1f3",
+      "run_type": "queue_comparison",
+      "profile_source": "saved_web",
+      "policies": [
+        "fifo",
+        "hybrid",
+        "severity"
+      ],
+      "patients_per_policy": 1,
+      "arrived_per_policy": 1,
+      "snapshot_sha256": "d790e480ce25a87af97a71051363d1bbf71f3afaf5a8e5927d1d6cd781a753a7",
+      "model_path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\verification\\evaluation_reproducibility_20261116\\native_cli\\fixture_20261116_221945_57226b\\evaluations\\queue_compare_20261116_221948_48a1f3\\models\\dqn_v6_c0849a8b3f8fa919_best.pth",
+      "evaluation_json": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\verification\\evaluation_reproducibility_20261116\\native_cli\\fixture_20261116_221945_57226b\\evaluations\\queue_compare_20261116_221948_48a1f3\\evaluation.json",
+      "environment_fingerprints": {
+        "fifo": "129ace90e187060c56466a286e382bf12df98bc0cc5f03f57a7ececee79252ae",
+        "severity": "5dad395eab16cfbd84ecb29041e242c760796c6186c5aedc8a1633ba511b7d62",
+        "hybrid": "183b3610c3326ebe420e6168ffb82475b855849bbc58e2b6d47ae06bafaef1a3"
+      }
+    }
+  ]
+}

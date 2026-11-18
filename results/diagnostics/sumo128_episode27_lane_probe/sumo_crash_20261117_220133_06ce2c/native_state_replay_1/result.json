@@ -1,0 +1,21 @@
+{
+  "diagnostic_only": true,
+  "new_training_started": false,
+  "model_weights_saved": false,
+  "state_time": 1100.0,
+  "last_successful_time": 1125.0,
+  "successful_steps": 25,
+  "error": null,
+  "status": "completed_without_failure",
+  "pid": 19752,
+  "current_trace_line": 37255,
+  "current_call": "traci.simulationStep",
+  "exit_code": 0,
+  "exit_code_hex": "0x00000000",
+  "source_files_unchanged": true,
+  "native_access_violation_reproduced": false,
+  "limitations": [
+    "Snapshot RNG was not saved; this is not a complete restoration of the original native state.",
+    "A successful short replay does not establish that the original crash is fixed."
+  ]
+}

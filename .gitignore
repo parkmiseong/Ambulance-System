@@ -1,5 +1,6 @@
 # Local Python environment and rebuildable caches
 .venv/
+.runtime/
 __pycache__/
 *.py[cod]
 .pytest_cache/

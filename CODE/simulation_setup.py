@@ -16,8 +16,9 @@ import traci
 from dqn_agent import DQNAmbulanceAgent
 from environment import SumoMedicalEnvironment
 from experiment_config import SCENARIOS
-from emergency_yield import LATERAL_RESOLUTION, REACTION_DISTANCE
+from emergency_yield import LATERAL_RESOLUTION, REACTION_DISTANCE, yield_settings
 from reward import GOLDEN_TIME_LIMITS, WEIGHTS
+from sumo_diagnostics import start_sumo_logged
 
 MAX_ESTIMATED_TRAVEL_TIME = 600.
 
@@ -60,7 +61,7 @@ def start_sumo(env, scenario, seed, gui=False, output_dir=None, quiet=False, eme
     if additional:
         command.extend(["--additional-files", ",".join(additional)])
     with suppress_sumo_stdout():
-        traci.start(command)
+        start_sumo_logged(env, traci, command, output)
         traci.vehicletype.copy("DEFAULT_VEHTYPE", "ambulance_custom")
         traci.vehicletype.setVehicleClass("ambulance_custom", "emergency")
         traci.vehicletype.setShapeClass("ambulance_custom", "emergency")
@@ -409,8 +410,10 @@ def get_reachable_hospital_routes(env, patient_edge, hospitals, edge_candidates=
 
 
 def prepare_environment(config, virtual_count=0, virtual_strategy="far", placement_seed=42,
-                        output_dir=None, quiet=False, emergency_yield=False, virtual_mix=None):
+                        output_dir=None, quiet=False, emergency_yield=None, virtual_mix=None):
     from experiment_config import seed_everything
+    if emergency_yield is None:
+        emergency_yield = config.emergency_yield
     seed_everything(config.seed)
     env = SumoMedicalEnvironment()
     try:
@@ -464,6 +467,11 @@ def make_manifest(env, hospitals, edges, access, config, ambulance_count, queue_
         "learning_reward_scale": learning_config.reward_scale,
         "learning_config": learning_config.to_dict(),
     }
+    if config.emergency_yield:
+        manifest["emergency_yield"] = yield_settings(True)
+    if config.repeat_background_traffic:
+        from dashboard_traffic import background_settings
+        manifest["background_traffic"] = background_settings(True)
     manifest["signature"] = manifest_signature(manifest)
     return manifest
 
@@ -511,7 +519,18 @@ def load_experiment(model_path):
     settings.setdefault("reward_version", 3 if manifest["version"] == 3 else 4)
     settings.setdefault("observation_version", manifest.get("state_schema_version", 3))
     settings.setdefault("pending_reward_feature", "zero" if settings["observation_version"] == 3 else "estimate")
+    # Older dashboard runs recorded the actual setting outside config.
+    settings.setdefault("emergency_yield", manifest.get("web_emergency_yield", {}).get("enabled", False))
+    legacy_background = manifest.get("web_scenario", {}).get("background_traffic")
+    settings.setdefault("repeat_background_traffic", isinstance(legacy_background, dict) and bool(legacy_background))
     config = SimulationConfig(**settings)
+    for key in ("emergency_yield", "web_emergency_yield"):
+        if key in manifest and manifest[key] != yield_settings(config.emergency_yield):
+            raise ValueError("Saved emergency driving settings do not match the current implementation.")
+    if "background_traffic" in manifest:
+        from dashboard_traffic import background_settings
+        if manifest["background_traffic"] != background_settings(config.repeat_background_traffic):
+            raise ValueError("Saved background traffic settings do not match the current implementation.")
     if (manifest.get("state_schema_version", 3) != config.observation_version
             or checkpoint.get("architecture", "flat_v3") != network_architecture(config)):
         raise ValueError("Observation version and model architecture do not match.")

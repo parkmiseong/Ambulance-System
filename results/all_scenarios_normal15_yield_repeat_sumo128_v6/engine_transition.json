@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "source_experiment": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_v6",
+  "resumed_experiment": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_sumo128_v6",
+  "source_checkpoint": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_v6\\training\\checkpoint_v6_f560a1f65da40cc8.pth",
+  "source_checkpoint_sha256": "9667572f0473c5a9e364321a6b57ef1ddb487400d6220c822f23775c1ab9db47",
+  "source_manifest_sha256": "e8bec41bfdb63ba0b8afc14be78af1c7fd19415cc9e508540e7c32c81f2ac1af",
+  "experiment_signature": "f560a1f65da40cc8",
+  "preflight": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\resume_preflight_20261117_163337_e7bc77\\preflight.json",
+  "source_completed_episode": 24,
+  "resume_start_episode": 25,
+  "learning_statistics": {
+    "total_decisions": 323,
+    "exploratory_decisions": 306,
+    "total_transitions": 323,
+    "training_updates": 292,
+    "target_updates": 1,
+    "counters_complete": true,
+    "exploration_rate": 0.9473684210526315
+  },
+  "source_engine": {
+    "path": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+    "version": "1.27.1",
+    "architecture": "AMD64",
+    "compiler": "MSVC 19.29.30133.0 Release",
+    "sha256": "8cc770aca4257d2cb821d91c0d346256c72c2983708137bc94789c75d00254b4",
+    "bytes": 6843392,
+    "pe_timestamp_hex": "0x6a3c6aab",
+    "coff_symbol_count": 0,
+    "evidence": "prior_diagnostic_report"
+  },
+  "source_engine_report": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo_crash_research_20261117.json",
+  "resumed_engine": {
+    "path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\.runtime\\sumo-1.28.0\\bin\\sumo.exe",
+    "sha256": "35d45c1166ceb5b72cce37676216f79124fcfe05920a496b14daee19acdaf9f3",
+    "version_line": "Eclipse SUMO sumo 1.28.0",
+    "version": "1.28.0"
+  },
+  "training_provenance": "mixed_engine_continuation",
+  "explanation": "The copied checkpoint retains training from the source engine. Future episodes use the recorded resumed engine; this is not a single-engine training run from episode 1.",
+  "source_history": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_v6\\experiment_history.csv",
+  "source_history_copied": false,
+  "source_best_copied": false,
+  "source_last": "copied_matching_episode",
+  "copied_files_sha256": {
+    "training\\checkpoint_v6_f560a1f65da40cc8.pth": "9667572f0473c5a9e364321a6b57ef1ddb487400d6220c822f23775c1ab9db47",
+    "training\\experiment_v6_f560a1f65da40cc8.json": "e8bec41bfdb63ba0b8afc14be78af1c7fd19415cc9e508540e7c32c81f2ac1af",
+    "models\\dqn_v6_f560a1f65da40cc8_last.pth": "ebbad0323b478b038f3ddedbf8301fd0cb41bb438f0d6f9b108dc0b426c40c3f"
+  }
+}

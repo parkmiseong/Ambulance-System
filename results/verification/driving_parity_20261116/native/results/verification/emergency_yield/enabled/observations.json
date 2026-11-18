@@ -1,0 +1,2775 @@
+[
+  {
+    "tick": 1,
+    "ambulance": {
+      "position": [
+        115.00000000000001,
+        -4.8
+      ],
+      "speed": 14.0,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          170.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          170.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 2,
+    "ambulance": {
+      "position": [
+        128.66453913149888,
+        -4.8
+      ],
+      "speed": 13.664539131498895,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          175.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          175.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left"
+    ]
+  },
+  {
+    "tick": 3,
+    "ambulance": {
+      "position": [
+        141.77505663994233,
+        -3.8
+      ],
+      "speed": 13.110517508443445,
+      "lateral": 1.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          180.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          180.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 4,
+    "ambulance": {
+      "position": [
+        154.58251477563752,
+        -3.0995
+      ],
+      "speed": 12.807458135695196,
+      "lateral": -1.4994999999999998
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          185.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          185.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 5,
+    "ambulance": {
+      "position": [
+        167.6351597576402,
+        -3.0995
+      ],
+      "speed": 13.052644982002676,
+      "lateral": -1.4994999999999998
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          190.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          190.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 6,
+    "ambulance": {
+      "position": [
+        181.17825160874054,
+        -3.0995
+      ],
+      "speed": 13.543091851100325,
+      "lateral": -1.4994999999999998
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          195.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          195.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 7,
+    "ambulance": {
+      "position": [
+        194.25836493030653,
+        -3.2
+      ],
+      "speed": 13.080113321566023,
+      "lateral": -1.6
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          200.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          200.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 8,
+    "ambulance": {
+      "position": [
+        207.21887895506802,
+        -3.2
+      ],
+      "speed": 12.960514024761505,
+      "lateral": -1.6
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          205.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          205.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 9,
+    "ambulance": {
+      "position": [
+        220.00577425637744,
+        -3.2
+      ],
+      "speed": 12.786895301309414,
+      "lateral": -1.6
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          210.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          210.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 10,
+    "ambulance": {
+      "position": [
+        233.49153379038904,
+        -3.2
+      ],
+      "speed": 13.485759534011596,
+      "lateral": -1.6
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          215.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          215.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 11,
+    "ambulance": {
+      "position": [
+        247.09309917204075,
+        -3.2
+      ],
+      "speed": 13.601565381651744,
+      "lateral": -1.6
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          219.99999999999997,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          219.99999999999997,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 12,
+    "ambulance": {
+      "position": [
+        260.7933117771055,
+        -4.1005
+      ],
+      "speed": 13.700212605064735,
+      "lateral": 0.6995
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          225.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          225.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 13,
+    "ambulance": {
+      "position": [
+        274.2201844140421,
+        -4.8
+      ],
+      "speed": 13.426872636936604,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          230.00000000000003,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          230.00000000000003,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 14,
+    "ambulance": {
+      "position": [
+        287.0336454282281,
+        -4.8
+      ],
+      "speed": 12.813461014186032,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          235.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          235.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 15,
+    "ambulance": {
+      "position": [
+        300.4421403291867,
+        -4.8
+      ],
+      "speed": 13.408494900958612,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          240.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          240.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 16,
+    "ambulance": {
+      "position": [
+        313.7818256798665,
+        -4.8
+      ],
+      "speed": 13.339685350679792,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          245.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          245.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 17,
+    "ambulance": {
+      "position": [
+        327.6714453371241,
+        -4.8
+      ],
+      "speed": 13.889619657257573,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          250.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          250.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 18,
+    "ambulance": {
+      "position": [
+        341.1171906109433,
+        -4.8
+      ],
+      "speed": 13.445745273819194,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          255.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          255.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 19,
+    "ambulance": {
+      "position": [
+        354.14775855727487,
+        -4.8
+      ],
+      "speed": 13.030567946331576,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          260.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          260.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": [
+      "left",
+      "right"
+    ]
+  },
+  {
+    "tick": 20,
+    "ambulance": {
+      "position": [
+        367.02055274937294,
+        -4.8
+      ],
+      "speed": 12.87279419209808,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          265.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          265.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 21,
+    "ambulance": {
+      "position": [
+        380.5997871766332,
+        -4.8
+      ],
+      "speed": 13.579234427260236,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          270.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          270.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 22,
+    "ambulance": {
+      "position": [
+        394.4644904567394,
+        -4.8
+      ],
+      "speed": 13.864703280106188,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          275.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          275.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 23,
+    "ambulance": {
+      "position": [
+        407.42174999888516,
+        -4.8
+      ],
+      "speed": 12.957259542145767,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          280.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          280.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 24,
+    "ambulance": {
+      "position": [
+        420.90846846045457,
+        -4.8
+      ],
+      "speed": 13.4867184615694,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          285.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          285.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 25,
+    "ambulance": {
+      "position": [
+        434.0923699483042,
+        -4.8
+      ],
+      "speed": 13.183901487849653,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          290.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          290.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 26,
+    "ambulance": {
+      "position": [
+        448.0455848467071,
+        -4.8
+      ],
+      "speed": 13.953214898402802,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          295.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          295.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 27,
+    "ambulance": {
+      "position": [
+        461.6557046436937,
+        -4.8
+      ],
+      "speed": 13.610119796986691,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          300.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          300.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 28,
+    "ambulance": {
+      "position": [
+        475.5937554617645,
+        -4.8
+      ],
+      "speed": 13.938050818070769,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          305.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          305.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 29,
+    "ambulance": {
+      "position": [
+        489.1098810543771,
+        -4.8
+      ],
+      "speed": 13.516125592612662,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          310.00000000000006,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          310.00000000000006,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 30,
+    "ambulance": {
+      "position": [
+        502.7687412970932,
+        -4.8
+      ],
+      "speed": 13.658860242716036,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          315.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          315.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 31,
+    "ambulance": {
+      "position": [
+        515.4810572331072,
+        -4.8
+      ],
+      "speed": 12.712315936014056,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          320.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          320.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 32,
+    "ambulance": {
+      "position": [
+        528.9673682836815,
+        -4.8
+      ],
+      "speed": 13.486311050574296,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          325.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          325.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 33,
+    "ambulance": {
+      "position": [
+        542.5675672432407,
+        -4.8
+      ],
+      "speed": 13.600198959559203,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          330.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          330.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 34,
+    "ambulance": {
+      "position": [
+        556.2801357610616,
+        -4.8
+      ],
+      "speed": 13.712568517820909,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          335.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          335.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 35,
+    "ambulance": {
+      "position": [
+        569.6379032236523,
+        -4.8
+      ],
+      "speed": 13.35776746259071,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          340.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          340.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 36,
+    "ambulance": {
+      "position": [
+        583.5626654779537,
+        -4.8
+      ],
+      "speed": 13.92476225430146,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          345.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          345.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 37,
+    "ambulance": {
+      "position": [
+        597.1860554197336,
+        -4.8
+      ],
+      "speed": 13.623389941779896,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          350.0,
+          -5.4995
+        ],
+        "lateral": -0.6995000000000001,
+        "rescueLane": "ambulance",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          350.0,
+          -0.9005000000000004
+        ],
+        "lateral": 0.6994999999999997,
+        "rescueLane": "ambulance",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 38,
+    "ambulance": {
+      "position": [
+        610.7806199161334,
+        -4.8
+      ],
+      "speed": 13.694564496399835,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          355.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          355.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 39,
+    "ambulance": {
+      "position": [
+        623.695325121004,
+        -4.8
+      ],
+      "speed": 12.914705204870552,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          360.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          360.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 40,
+    "ambulance": {
+      "position": [
+        637.1330209027276,
+        -4.8
+      ],
+      "speed": 13.437695781723596,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          364.99999999999994,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          364.99999999999994,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 41,
+    "ambulance": {
+      "position": [
+        650.996785962209,
+        -4.8
+      ],
+      "speed": 13.863765059481375,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          370.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          370.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 42,
+    "ambulance": {
+      "position": [
+        664.955478722765,
+        -4.8
+      ],
+      "speed": 13.958692760556005,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          375.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          375.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 43,
+    "ambulance": {
+      "position": [
+        677.9874460944905,
+        -4.8
+      ],
+      "speed": 13.031967371725477,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          380.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          380.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 44,
+    "ambulance": {
+      "position": [
+        691.1712404400341,
+        -4.8
+      ],
+      "speed": 13.18379434554372,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          385.00000000000006,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          385.00000000000006,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 45,
+    "ambulance": {
+      "position": [
+        704.7025893546872,
+        -4.8
+      ],
+      "speed": 13.531348914653062,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          390.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          390.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 46,
+    "ambulance": {
+      "position": [
+        718.4628450474934,
+        -4.8
+      ],
+      "speed": 13.760255692806094,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          395.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          395.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 47,
+    "ambulance": {
+      "position": [
+        731.9957409603054,
+        -4.8
+      ],
+      "speed": 13.53289591281209,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          400.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          400.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 48,
+    "ambulance": {
+      "position": [
+        745.6104522560489,
+        -4.8
+      ],
+      "speed": 13.614711295743472,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          405.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          405.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 49,
+    "ambulance": {
+      "position": [
+        758.8184423607074,
+        -4.8
+      ],
+      "speed": 13.20799010465853,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          410.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          410.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 50,
+    "ambulance": {
+      "position": [
+        772.4843845164635,
+        -4.8
+      ],
+      "speed": 13.665942155756056,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          415.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          415.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 51,
+    "ambulance": {
+      "position": [
+        785.9724710996727,
+        -4.8
+      ],
+      "speed": 13.488086583209224,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          420.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          420.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 52,
+    "ambulance": {
+      "position": [
+        799.088568551163,
+        -4.8
+      ],
+      "speed": 13.11609745149035,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          425.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          425.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 53,
+    "ambulance": {
+      "position": [
+        812.5567741544218,
+        -4.8
+      ],
+      "speed": 13.468205603258685,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          430.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          430.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 54,
+    "ambulance": {
+      "position": [
+        826.1894458681344,
+        -4.8
+      ],
+      "speed": 13.632671713712625,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          435.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          435.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 55,
+    "ambulance": {
+      "position": [
+        839.5265727436401,
+        -4.8
+      ],
+      "speed": 13.337126875505783,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          439.99999999999994,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          439.99999999999994,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 56,
+    "ambulance": {
+      "position": [
+        852.334677639557,
+        -4.8
+      ],
+      "speed": 12.808104895916767,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          445.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          445.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 57,
+    "ambulance": {
+      "position": [
+        865.4114852493394,
+        -4.8
+      ],
+      "speed": 13.076807609782554,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          450.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          450.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 58,
+    "ambulance": {
+      "position": [
+        879.140930590406,
+        -4.8
+      ],
+      "speed": 13.729445341066457,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          455.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          455.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 59,
+    "ambulance": {
+      "position": [
+        891.8922465019393,
+        -4.8
+      ],
+      "speed": 12.751315911533311,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          460.00000000000006,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          460.00000000000006,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 60,
+    "ambulance": {
+      "position": [
+        905.071269186423,
+        -4.8
+      ],
+      "speed": 13.179022684483789,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          465.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          465.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 61,
+    "ambulance": {
+      "position": [
+        918.4776617461814,
+        -4.8
+      ],
+      "speed": 13.406392559758388,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          470.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          470.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 62,
+    "ambulance": {
+      "position": [
+        931.439449690748,
+        -4.8
+      ],
+      "speed": 12.961787944566458,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          475.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          475.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 63,
+    "ambulance": {
+      "position": [
+        944.8835027121705,
+        -4.8
+      ],
+      "speed": 13.444053021422587,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          480.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          480.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 64,
+    "ambulance": {
+      "position": [
+        958.191079398943,
+        -4.8
+      ],
+      "speed": 13.307576686772517,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          485.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          485.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 65,
+    "ambulance": {
+      "position": [
+        972.0435765888774,
+        -4.8
+      ],
+      "speed": 13.852497189934365,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          490.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          490.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 66,
+    "ambulance": {
+      "position": [
+        985.816345058265,
+        -4.8
+      ],
+      "speed": 13.772768469387666,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          495.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          495.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 67,
+    "ambulance": {
+      "position": [
+        999.533076522569,
+        -4.8
+      ],
+      "speed": 13.71673146430403,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          500.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          500.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 68,
+    "ambulance": {
+      "position": [
+        1013.3023794019593,
+        -4.8
+      ],
+      "speed": 13.769302879390306,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          505.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          505.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 69,
+    "ambulance": {
+      "position": [
+        1026.0576657180673,
+        -4.8
+      ],
+      "speed": 12.75528631610796,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          510.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          510.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 70,
+    "ambulance": {
+      "position": [
+        1039.1037842771736,
+        -4.8
+      ],
+      "speed": 13.046118559106253,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          515.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          515.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 71,
+    "ambulance": {
+      "position": [
+        1051.8774283381645,
+        -4.8
+      ],
+      "speed": 12.773644060990772,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          520.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          520.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 72,
+    "ambulance": {
+      "position": [
+        1065.3576348443282,
+        -4.8
+      ],
+      "speed": 13.480206506163814,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          525.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          525.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 73,
+    "ambulance": {
+      "position": [
+        1078.2112632837843,
+        -4.8
+      ],
+      "speed": 12.853628439456225,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          530.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          530.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 74,
+    "ambulance": {
+      "position": [
+        1091.5455874484264,
+        -4.8
+      ],
+      "speed": 13.334324164642021,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          535.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          535.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 75,
+    "ambulance": {
+      "position": [
+        1104.7052537164882,
+        -4.8
+      ],
+      "speed": 13.159666268061846,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          540.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          540.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 76,
+    "ambulance": {
+      "position": [
+        1118.651972308941,
+        -4.8
+      ],
+      "speed": 13.946718592452816,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          545.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          545.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 77,
+    "ambulance": {
+      "position": [
+        1132.3740000483813,
+        -4.8
+      ],
+      "speed": 13.72202773944009,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          550.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          550.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 78,
+    "ambulance": {
+      "position": [
+        1145.7575437876162,
+        -4.8
+      ],
+      "speed": 13.383543739235028,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          555.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          555.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 79,
+    "ambulance": {
+      "position": [
+        1158.9296621673507,
+        -4.8
+      ],
+      "speed": 13.172118379734457,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          560.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          560.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  },
+  {
+    "tick": 80,
+    "ambulance": {
+      "position": [
+        1172.9155979970935,
+        -4.8
+      ],
+      "speed": 13.985935829742811,
+      "lateral": 0.0
+    },
+    "cars": [
+      {
+        "id": "right",
+        "position": [
+          565.0,
+          -4.8
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_0"
+      },
+      {
+        "id": "left",
+        "position": [
+          565.0,
+          -1.6
+        ],
+        "lateral": 0.0,
+        "rescueLane": "",
+        "lane": "road_1"
+      }
+    ],
+    "telemetry_yielding": []
+  }
+]

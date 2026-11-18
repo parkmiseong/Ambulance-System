@@ -1,0 +1,28 @@
+[
+  {
+    "passed": true,
+    "enabled": false,
+    "period_seconds": null,
+    "implementation": "original_route_files",
+    "departed_after_one_hour": []
+  },
+  {
+    "passed": true,
+    "enabled": true,
+    "period_seconds": 3600,
+    "implementation": "periodic_original_passenger_v1",
+    "departed_after_one_hour": [
+      "dashboard_repeat_1_0_first"
+    ],
+    "until_seconds": 3605,
+    "source_trips": 1,
+    "repeated_trips": 1,
+    "sources": [
+      {
+        "file": "trips.xml",
+        "sha256": "44273ae94b210fcb904a5dcdf2b1d930907868b2728abb3d64243d651811b15f"
+      }
+    ],
+    "assumption": "\uc6d0\ubcf8 1\uc2dc\uac04 \uc2b9\uc6a9\ucc28 \ud328\ud134 \ubc18\ubcf5. \uc2dc\uac04\ub300\ubcc4 \uc2e4\uce21 \uad50\ud1b5\ub7c9\uc744 \uc758\ubbf8\ud558\uc9c0 \uc54a\uc74c."
+  }
+]

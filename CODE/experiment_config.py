@@ -35,8 +35,15 @@ class SimulationConfig:
     admission_mode: str = "precheck"
     congestion_reward_mode: str = "penalty"
     demand_rates_per_hour: tuple = ()
+    # Missing in legacy manifests: preserve their original driving dynamics.
+    emergency_yield: bool = False
+    repeat_background_traffic: bool = False
 
     def __post_init__(self):
+        if type(self.emergency_yield) is not bool:
+            raise ValueError("emergency_yield must be boolean.")
+        if type(self.repeat_background_traffic) is not bool:
+            raise ValueError("repeat_background_traffic must be boolean.")
         rates = tuple(self.demand_rates_per_hour)
         if rates and (len(rates) != 3 or any(isinstance(r, bool) or not isinstance(r, (int, float))
                                             or not math.isfinite(r) or not 0 <= r <= 3600 for r in rates)):
@@ -85,6 +92,10 @@ class SimulationConfig:
             data.pop("congestion_reward_mode")
         if not self.demand_rates_per_hour:
             data.pop("demand_rates_per_hour")
+        if not self.emergency_yield:
+            data.pop("emergency_yield")
+        if not self.repeat_background_traffic:
+            data.pop("repeat_background_traffic")
         return data
 
 

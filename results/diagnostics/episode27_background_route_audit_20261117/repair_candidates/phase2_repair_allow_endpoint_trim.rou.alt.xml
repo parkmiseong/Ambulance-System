@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17T22:06:54.355316+09:00 by Eclipse SUMO duarouter 1.28.0
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.net.xml.gz"/>
+        <route-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\repair_candidates\phase2_unresolved_input.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\repair_candidates\phase2_repair_allow_endpoint_trim.rou.xml"/>
+    </output>
+
+    <processing>
+        <repair value="true"/>
+        <repair.from value="true"/>
+        <repair.to value="true"/>
+        <skip-new-routes value="true"/>
+    </processing>
+
+    <report>
+        <log value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\repair_candidates\phase2_repair_allow_endpoint_trim.log"/>
+        <error-log value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\repair_candidates\phase2_repair_allow_endpoint_trim_errors.log"/>
+        <ignore-errors value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+</routes>

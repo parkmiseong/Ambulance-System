@@ -1,0 +1,12 @@
+{
+  "source_url": "https://sumo.dlr.de/releases/1.28.0/sumo-win64-1.28.0.zip",
+  "official_sha256": "822aa9c57a07a895200d536fd2b3fe8785e36baa9b97ecbe75688e08a636fb8e",
+  "download_sha256": "822aa9c57a07a895200d536fd2b3fe8785e36baa9b97ecbe75688e08a636fb8e",
+  "archive": "C:\\Users\\emaet\\OneDrive\\\ubc14\ud0d5 \ud654\uba74\\STUDY\\VSCODE\\ambulance system\\.runtime\\downloads\\sumo-win64-1.28.0.zip",
+  "runtime": "C:\\Users\\emaet\\OneDrive\\\ubc14\ud0d5 \ud654\uba74\\STUDY\\VSCODE\\ambulance system\\.runtime\\sumo-1.28.0",
+  "binary": "C:\\Users\\emaet\\OneDrive\\\ubc14\ud0d5 \ud654\uba74\\STUDY\\VSCODE\\ambulance system\\.runtime\\sumo-1.28.0\\bin\\sumo.exe",
+  "binary_sha256": "35d45c1166ceb5b72cce37676216f79124fcfe05920a496b14daee19acdaf9f3",
+  "extracted_files": 1681,
+  "original_sumo_home": "C:\\Program Files (x86)\\Eclipse\\Sumo",
+  "system_install_modified": false
+}

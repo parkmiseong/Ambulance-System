@@ -2,6 +2,7 @@
 from contextlib import contextmanager, redirect_stdout
 import io
 import json
+import shutil
 from pathlib import Path
 import sys
 import tempfile
@@ -102,6 +103,24 @@ class TrainingScenarioTests(unittest.TestCase):
                                   training_scenarios=(1,), output_root=directory)
             episode.assert_not_called()
             self.assertEqual(checkpoint.read_bytes(), original)
+
+    def test_copied_experiment_resume_records_its_new_manifest_without_changing_source(self):
+        import torch
+        with tempfile.TemporaryDirectory() as directory, self.runners():
+            source = Path(directory) / "source"
+            copied = Path(directory) / "copied"
+            options = dict(num_episodes=1, eval_every=0, quiet=True, training_scenarios=(6,))
+            train_agent.train(output_root=source, **options)
+            source_checkpoint = next((source / "training").glob("checkpoint_*.pth"))
+            original = source_checkpoint.read_bytes()
+            shutil.copytree(source, copied)
+            train_agent.train(output_root=copied, resume=True, **options)
+            checkpoint = next((copied / "training").glob("checkpoint_*.pth"))
+            manifest = next((copied / "training").glob("experiment_*.json"))
+            payload = torch.load(checkpoint, map_location="cpu", weights_only=False)
+            self.assertEqual(Path(payload["metadata"]["manifest_path"]), manifest.resolve())
+            self.assertEqual(payload["episode"], 2)
+            self.assertEqual(source_checkpoint.read_bytes(), original)
 
     def test_cli_passes_training_selection_separately_from_validation(self):
         argv = ["train_agent.py", "--episodes", "54", "--train-scenarios", "6",

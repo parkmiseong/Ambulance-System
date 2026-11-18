@@ -1,5 +1,55 @@
 # Ambulance-System
 
+**최신 오류 진단:** SUMO 1.28.0의 27회차 충돌을 진단 사본에서도 재현했습니다. 배경 구급차 180개 정의 중 잘못된 경로 107개를 제외한 정상 73개 입력 사본은 같은 회차를 3회 모두 중단 없이 완료했습니다. 원본 26회·342 업데이트는 보존했으며, 실제 학습·평가 입력 변경은 아직 적용하지 않았습니다. [27회차 추적 및 73대 사본 검증 결과](docs/sumo_128_episode27_analysis_2026_11_17.md)를 참고해 주세요.
+
+SUMO 연결 종료·접근 위반 재현과 진단 명령은 [충돌 분석](docs/sumo_crash_analysis_2026_11_17.md)에 정리했습니다. 원본 체크포인트를 보존한 상태에서 동일 조건의 다음 에피소드만 진단할 수 있습니다.
+
+**SUMO 1.28.0에서도 실제 학습 25·26회 완료 후 27회차·시나리오 9에서 다시 충돌했습니다. 현재 단순 재개는 권장하지 않으며 원인을 확인 중입니다.** 새 폴더에는 **26회·342 업데이트**까지 저장되어 있고 원본 24회 모델은 보존했습니다. 재개 명령은 새 엔진과 저장 설정을 복원하는 기능을 유지하지만, 27회차 통과가 확인된 상태는 아닙니다. 최신 충돌 증거, 사전 25회차 진단과 실제 학습 결과의 구분, 향후 재개·best 평가 방법은 [재개 상태 안내](docs/sumo_128_resume_2026_11_17.md)를 참고해 주세요.
+
+교수님 면담 자료: [2쪽 PDF](docs/professor_meeting_2026_11_17/professor_meeting_brief.pdf) · [편집용 요약](docs/professor_meeting_2026_11_17/professor_meeting_brief.md) · [기술 부록](docs/professor_meeting_2026_11_17/technical_appendix.md)
+
+## 학습·평가 조건과 결과 재현성 보완 (2026-11-16)
+
+웹에서 학습한 모델의 CLI 평가는 저장된 수요·시나리오·고정 환자 수·초기 병원 점유율을 기본으로 복원합니다. 새 CLI 학습과 웹은 1시간 이후에도 같은 배경 교통 반복 규칙을 사용하며, 기존 모델은 저장된 원래 규칙으로 평가합니다. 모든 수요 설정에서 실제 가중치 업데이트가 0회이면 새 best 모델로 선정하지 않습니다.
+
+CLI 평가와 웹의 DQN 시뮬레이션은 사용한 best와 manifest의 사본·SHA256을 남기고 실제로 사본을 로드합니다. 실제 실행 환경의 fingerprint도 기록합니다. 모델을 비교할 때는 구급차 수·대기열·병원·환자 수요·교통 입력 등 평가 조건이 같은지 검사합니다. 조건 기록이 없는 과거 CLI 평가 로그는 기본적으로 비교를 거부하며, `--allow-legacy-environment`를 명시한 경우에만 조건 미검증 결과로 비교합니다.
+
+복원 방식, 기존 학습 재개, 모델 사본 경로와 교수님께 전달할 비교 절차는 [학습·평가 재현성 안내](docs/evaluation_reproducibility_2026_11_16.md)를 참고해 주세요.
+
+## 웹·CLI 차량 이동 규칙 통일 (2026-11-16)
+
+새 CLI 학습은 웹 기본값과 같이 **구급차 양보 ON**입니다. 동일한 `start_sumo()`와 `run_episode()`를 통해 긴급차 차종, blue-light 장치, 반응 거리 60m, 차로 내 횡방향 해상도 0.4m를 적용합니다. SUMO blue-light의 적색 신호 특례와 긴급 차로 변경도 포함됩니다. 교통 밀도에 따라 통로 형성 여부와 소요 시간은 달라집니다.
+
+- 학습: `--emergency-yield`가 기본이며, OFF 대조 실험은 `--no-emergency-yield`를 지정합니다.
+- 학습 중 검증: 해당 학습의 ON/OFF를 그대로 사용합니다.
+- CLI 평가·대기열 비교: 모델에 저장된 설정을 자동 복원합니다. 평가 시 `--emergency-yield` 또는 `--no-emergency-yield`를 명시하면 조건을 바꿀 수 있으며, 실제 평가 설정과 학습 당시 설정을 모두 로그에 남깁니다. 서로 다른 이동 설정의 결과는 합산·모델 비교하지 않습니다.
+- 웹: 화면의 ON/OFF 선택을 학습·검증·시뮬레이션과 저장 설정에 함께 반영합니다.
+
+새 manifest의 `config.emergency_yield`와 `emergency_yield`에 설정·세부 매개변수를 저장하고 실험 signature에 포함합니다. **기존 CLI 모델은 원래 OFF로 복원**하고, 과거 웹 모델은 `web_emergency_yield`를 복원합니다. 기존 CLI 학습의 양보와 배경 교통 반복이 모두 OFF였다면 원래 명령에 `--no-emergency-yield --no-repeat-background-traffic --resume`을 추가해 주세요. 양보만 ON으로 학습했던 실험은 `--emergency-yield --no-repeat-background-traffic --resume`으로 재개합니다. 실행 조건을 변경해 학습하려면 별도 실험으로 시작해야 하며, 실행 중인 프로세스에는 코드 수정이 소급 적용되지 않습니다.
+
+아래는 사용자가 선택한 **시간당 기대 환자 10/15/20명**, 전체 9개 시나리오, 웹과 같은 긴급차 이동·배경 교통 반복 규칙으로 새로 학습하는 PowerShell 명령입니다. `legacy`는 여기서 수요 계산식 선택이며 양보와 교통 반복은 ON입니다. 교통 반복 도입 전 실험과 구분되도록 새 출력 폴더를 사용합니다.
+
+```powershell
+.venv/Scripts/python.exe -B -u CODE/train_agent.py `
+  --demand-profile legacy --demand-scale 0.0138888888888889 `
+  --steps 3600 --episodes 90 `
+  --train-scenarios 1,2,3,4,5,6,7,8,9 `
+  --validation-scenarios 1,2,3,4,5,6,7,8,9 `
+  --eval-every 45 --validation-seeds 30001,30002,30003 `
+  --ambulances 10 --admission-mode arrival --congestion-reward balanced `
+  --emergency-yield --repeat-background-traffic --seed 42 `
+  --target-sync-mode updates --target-sync-interval 200 `
+  --quiet --output-root results/all_scenarios_normal15_yield_repeat_v6
+```
+
+평가는 항상 best 모델을 사용합니다. 아래 명령은 저장된 수요·양보·교통 반복 설정으로 모든 시나리오를 평가하고, 평가한 모델의 사본을 보관합니다.
+
+```powershell
+.venv/Scripts/python.exe -B CODE/run_scenarios.py `
+  --output-root results/all_scenarios_normal15_yield_repeat_v6 `
+  --scenario 0 --strategies shortest_time,heuristic,dqn --quiet
+```
+
 ## 환자 발생률 수정과 1~9번 시나리오 학습 (2026-11-14)
 
 **새 CLI 학습도 기본적으로 웹과 동일한 강남 기준 수요를 사용합니다.** 이전 CLI의 초당 0.2~0.4명 설정은 `--demand-profile legacy`를 지정할 때만 사용합니다. 기본 환자 발생 기간은 시뮬레이션 1시간(3,600초)입니다.
@@ -37,16 +87,16 @@
   --validation-scenarios 1,2,3,4,5,6,7,8,9 `
   --episodes 90 --steps 3600 --eval-every 9 `
   --admission-mode arrival --congestion-reward balanced `
-  --output-root results/all_scenarios_gangnam_v6
+  --output-root results/all_scenarios_gangnam_yield_repeat_v6
 ```
 
 현재 실행 중인 기존 고밀도 학습의 수요는 바뀌지 않습니다. 종료하려면 **그 학습 터미널에서 Ctrl+C**를 누른 뒤 위 명령을 새로 실행하세요. 이미 만든 모델과 결과는 보존하며, 새 수요 학습은 다른 출력 폴더로 시작합니다. 단지 새 코드를 저장하거나 웹을 새로고침하는 것으로 기존 학습 조건이 바뀌지는 않습니다.
 
-같은 실험을 이어서 학습할 때는 **원래와 동일한 옵션·출력 폴더에 `--resume`을 추가**합니다. `--episodes`는 추가로 학습할 회차입니다. 과거 고밀도 실험을 재개하려면 `--demand-profile legacy`와 원래 `--steps` 등을 명시하세요. 보정된 저밀도 실험에 고밀도 체크포인트를 혼합하지 않습니다.
+같은 실험을 이어서 학습할 때는 **원래와 동일한 옵션·출력 폴더에 `--resume`을 추가**합니다. `--episodes`는 추가로 학습할 회차입니다. 과거 고밀도 실험을 재개하려면 `--demand-profile legacy`와 원래 `--steps` 등을 명시하고, 양보 OFF로 학습한 기존 CLI 모델은 `--no-emergency-yield`, 배경 교통 반복 도입 전 CLI 모델은 `--no-repeat-background-traffic`도 추가해 주세요. 보정된 저밀도 실험에 고밀도 체크포인트를 혼합하지 않습니다.
 
 학습·검증·CLI 평가는 저장된 시간당 발생률을 공유합니다. 새 manifest의 `config.demand_rates_per_hour`에 실제 세 단계 수치를 저장하므로, 이후 JSON을 바꿔도 기존 모델 평가의 수요가 자동 변경되지 않습니다. 웹에서 해당 모델을 평가할 때는 웹에서 선택한 수요 설정이 우선합니다. 기존 `SCENARIOS`의 `.2/.3/.4`는 과거 실험 재현용으로 남겨 두며 보정 수요를 바꾸려고 수정하지 마세요.
 
-낮은 수요에서는 초기 몇 회 동안 학습 배치 32개를 채우지 못해 가중치 업데이트가 0회일 수 있습니다. 기간·에피소드를 늘려 경험을 확보하고 로그의 실제 `updates`를 확인하세요. 새 시간당 수요 학습은 업데이트가 한 번도 없으면 초기 모델을 best로 승격하지 않습니다. 이 CLI 명령의 구급차 양보 설정은 웹의 ON/OFF와 별개입니다.
+낮은 수요에서는 초기 몇 회 동안 학습 배치 32개를 채우지 못해 가중치 업데이트가 0회일 수 있습니다. 기간·에피소드를 늘려 경험을 확보하고 로그의 실제 `updates`를 확인해 주세요. `legacy`를 포함한 모든 수요 설정에서 업데이트가 한 번도 없으면 초기 모델을 새 best로 승격하지 않습니다. 위 CLI 명령의 구급차 양보와 배경 교통 반복 기본값은 웹과 동일하게 ON입니다.
 
 ## 웹 대시보드
 
@@ -472,6 +522,7 @@ python CODE/compare_queue_policies.py --scenario 1 --seeds 32001,32002,32003
 평가·비교는 항상 **고정 검증 기준 best 모델**을 사용합니다. 모델을 생략하면 선택한 저장 경로의 v3/v4/v5/v6 중 가장 최근 수정된 best를 고릅니다. `--model results/models/dqn_v5_<설정해시>_best.pth`로 특정 실험을 지정할 수 있습니다.
 `--model ..._last.pth`를 입력해도 같은 폴더·같은 실험의 `..._best.pth`로 연결하고 실제 선택을 표시합니다. best가 없으면 이유를 표시하고 종료합니다.
 별도 학습 폴더는 `--output-root results/scenario6_seed42`처럼 지정하며, 두 평가 CLI 모두 지원합니다. 평가 시작 출력과 로그에 실제 모델 경로·학습 회차·`model_kind=best`를 남깁니다.
+새 CLI 평가는 실행 전에 best와 manifest를 `evaluations/<평가 실행 ID>/`에 복사하고 그 사본을 사용합니다. 원본 best가 추가 학습으로 갱신되어도 평가에 사용한 가중치는 보존됩니다. 웹 모델의 조건 복원과 평가 환경 검사 규칙은 [학습·평가 재현성 안내](docs/evaluation_reproducibility_2026_11_16.md)를 확인해 주세요.
 학습 도중 검증은 새 best를 선정하기 위해 현재 학습 가중치를 평가합니다. 학습 재개와 replay 감사에는 해당 체크포인트를 사용합니다.
 `--scenario 0`은 9개 시나리오 전체이며, 조합 수만큼 SUMO 실행이 늘어납니다.
 최단거리 baseline은 병원 후보별 공통 도로 경로의 route length를 비교합니다.

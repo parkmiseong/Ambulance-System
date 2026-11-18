@@ -16,6 +16,11 @@ from web_dashboard import (Dashboard, LEVELS, RunStopped, ThreadingHTTPServer, h
                            model_hospital_counts, run_worker, validate_options)
 
 
+def frozen_model_fixture(model, run_id, directory):
+    directory = Path(directory)
+    return directory / "models" / Path(model).name, directory, {}
+
+
 class DashboardOptionsTests(unittest.TestCase):
     def test_real_hospital_admission_defaults_on_and_requires_a_boolean(self):
         self.assertTrue(validate_options({})["hospital_rejection"])
@@ -118,6 +123,7 @@ class VirtualHospitalConfigurationTests(unittest.TestCase):
             return None, hospitals, None, SimulationConfig(), {}
         with tempfile.TemporaryDirectory() as temp, patch("web_dashboard.OUTPUT", Path(temp)), \
              patch("web_dashboard.ROOT", Path(temp)), \
+             patch("evaluation_profile.freeze_evaluation_model", side_effect=frozen_model_fixture), \
              patch("torch.set_num_threads"), patch("simulation_setup.load_experiment", side_effect=restore), \
              patch("simulation_setup.prepare_environment") as prepare:
             options = validate_options(dict(mode="simulation", policy="dqn", virtual_count=2))
@@ -132,6 +138,7 @@ class VirtualHospitalConfigurationTests(unittest.TestCase):
         for count in (0, 4):
             with self.subTest(count=count), tempfile.TemporaryDirectory() as temp, \
                  patch("web_dashboard.OUTPUT", Path(temp)), patch("web_dashboard.ROOT", Path(temp)), \
+                 patch("evaluation_profile.freeze_evaluation_model", side_effect=frozen_model_fixture), \
                  patch("torch.set_num_threads"), \
                  patch("simulation_setup.load_experiment", return_value=(None, hospitals, SimpleNamespace(architecture="hospital_shared_v6"), SimulationConfig(), {})), \
                  patch("simulation_setup.prepare_environment", side_effect=RunStopped) as prepare:
@@ -144,6 +151,7 @@ class VirtualHospitalConfigurationTests(unittest.TestCase):
         events = queue.Queue()
         with tempfile.TemporaryDirectory() as temp, patch("web_dashboard.OUTPUT", Path(temp)), \
              patch("web_dashboard.ROOT", Path(temp)), patch("torch.set_num_threads"), patch("traceback.print_exc"), \
+             patch("evaluation_profile.freeze_evaluation_model", side_effect=frozen_model_fixture), \
              patch("simulation_setup.load_experiment", return_value=(None, [{"id": "real"}], SimpleNamespace(architecture="flat_v3"), SimulationConfig(), {})), \
              patch("simulation_setup.prepare_environment") as prepare:
             options = validate_options(dict(mode="simulation", policy="dqn", virtual_count=2))

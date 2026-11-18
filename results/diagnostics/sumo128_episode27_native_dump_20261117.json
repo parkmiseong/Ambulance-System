@@ -1,0 +1,58 @@
+{
+  "scope": "Read-only inspection of existing Windows minidump and recorded portable binary; no execution or changes to source evidence.",
+  "dump_path": "C:\\Users\\emaet\\AppData\\Local\\CrashDumps\\sumo.exe.7784.dmp",
+  "dump_sha256": "f2c924fee7c2686f21fbe86c18273035f6fd341741d949e1c014e865a17e363d",
+  "bytes": 2093236,
+  "modified_kst": "2026-11-17T21:42:00.132056+09:00",
+  "exception_thread": 21232,
+  "exception_code": "0xc0000005",
+  "exception_flags": "0x0",
+  "exception_address": "0x7ff6549e6789",
+  "exception_parameters": [
+    "0x0",
+    "0x70"
+  ],
+  "registers": {
+    "rax": "0x2cdef75b420",
+    "rcx": "0x2cdf1155210",
+    "rdx": "0x7ff654817930",
+    "rbx": "0x0",
+    "rsp": "0xd8e8efed40",
+    "rbp": "0xd8e8efefc0",
+    "rsi": "0x2cdef75b420",
+    "rdi": "0x0",
+    "r8": "0xd8e8efef70",
+    "r9": "0xd8e8efefc0",
+    "r10": "0x0",
+    "r11": "0x0",
+    "r12": "0xd8e8efef70",
+    "r13": "0xd8e8eff500",
+    "r14": "0x2cdf1155210",
+    "r15": "0xd8e8efef70",
+    "rip": "0x7ff6549e6789"
+  },
+  "module": {
+    "path": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\.runtime\\sumo-1.28.0\\bin\\sumo.exe",
+    "base": "0x7ff654510000",
+    "size": 7028736,
+    "timestamp": 1791417038,
+    "cv_size": 0,
+    "cv_rva": 0
+  },
+  "module_offset": "0x4d6789",
+  "binary_sha256": "35d45c1166ceb5b72cce37676216f79124fcfe05920a496b14daee19acdaf9f3",
+  "file_offset": "0x4d5b89",
+  "instruction_bytes": "41 8b 53 70 41 3b 52 70 4d 0f 4f d3 4c 0f 4f e5",
+  "nearby_bytes": "ed 80 b8 38 02 00 00 00 0f 85 62 04 00 00 4c 8b 5d 00 4d 8b e7 4d 8b 17 41 8b 53 70 41 3b 52 70 4d 0f 4f d3 4c 0f 4f e5 4d 3b da 75 21 49 8b 4f",
+  "context_size": 1232,
+  "instruction_assembly": "mov edx, dword ptr [r11 + 0x70]",
+  "access_kind": "read",
+  "attempted_address": "0x70",
+  "interpretation": "The native SUMO 1.28.0 instruction dereferenced R11=0 and read offset 0x70.",
+  "limitations": [
+    "The minidump SUMO module CodeView record is empty.",
+    "No source function/class/line or responsible vehicle can be asserted from this address alone.",
+    "Same NULL+0x70 read pattern as the previous 1.27.1 dumps does not establish the same function across builds."
+  ],
+  "source_dump_unchanged": true
+}

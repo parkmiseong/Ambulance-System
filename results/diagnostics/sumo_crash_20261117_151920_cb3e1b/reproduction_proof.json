@@ -1,0 +1,37 @@
+{
+  "expected_disconnect_reproduced": true,
+  "source_checkpoint_unchanged": true,
+  "source_manifest_unchanged": true,
+  "restored_episode": 24,
+  "diagnostic_episode": 25,
+  "scenario_id": 7,
+  "seed": 10067,
+  "source_training_updates": 292,
+  "last_successful_sim_time": 1300.0,
+  "exit_code_hex": "0xc0000005",
+  "last_traci_command": "traci.simulationStep()",
+  "completed_patients": 12,
+  "scheduled_patients": 26,
+  "active_vehicle_ids": [
+    "amb_e_14",
+    "amb_e_15"
+  ],
+  "original_tripinfo_records": 1324,
+  "diagnostic_tripinfo_records": 1324,
+  "tripinfo_records_identical": true,
+  "diagnostic_tripinfo_body_sha256": "2d4cfb4e88e9dcf0e2254612f24deb8fa779d1edca814bc39fc0ad938f4910b7",
+  "tests_passed": 269,
+  "normal_native_smoke": "results/diagnostics/native_smoke_20261117/proof.json",
+  "prior_instrumentation_attempt": {
+    "path": "results/diagnostics/sumo_crash_20261117_151519_f340c1",
+    "error": "PermissionError while replacing diagnostic state JSON on OneDrive",
+    "native_crash_reproduced": false,
+    "resolution": "Record last successful state in memory; save after the run and preserve primary errors."
+  },
+  "new_native_minidump_available": false,
+  "caveat": "The new run confirms the same native exit code and matching simulation output. The exact NULL pointer instruction/RVA is established by older minidumps; a new dump was not available.",
+  "tripinfo_comparison_method": "XML parse after appending the missing root closing tag; compare every tripinfo element",
+  "installed_sumo_binary_unchanged": true,
+  "installed_sumo_version": "1.27.1",
+  "normal_native_smoke_passed": true
+}

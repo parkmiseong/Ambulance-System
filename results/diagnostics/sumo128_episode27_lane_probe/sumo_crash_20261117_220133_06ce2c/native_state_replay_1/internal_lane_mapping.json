@@ -1,0 +1,490 @@
+[
+  {
+    "lane": ":11521951197_2_1",
+    "metadata": {
+      "edge": {
+        "id": ":11521951197_2",
+        "function": "internal"
+      },
+      "lane": {
+        "id": ":11521951197_2_1",
+        "index": "1",
+        "disallow": "tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone",
+        "speed": "27.78",
+        "length": "15.22",
+        "shape": "2531.24,2486.60 2531.47,2482.29 2532.41,2479.39 2533.41,2476.49 2533.81,2472.18"
+      }
+    },
+    "outgoing_connections": [
+      {
+        "from": ":11521951197_2",
+        "to": "521118064#0",
+        "fromLane": "1",
+        "toLane": "4",
+        "dir": "s",
+        "state": "M"
+      }
+    ],
+    "incoming_connections": [
+      {
+        "from": "555215394#2",
+        "to": "521118064#0",
+        "fromLane": "1",
+        "toLane": "4",
+        "via": ":11521951197_2_1",
+        "dir": "s",
+        "state": "M"
+      }
+    ]
+  },
+  {
+    "lane": ":11521951197_2_0",
+    "metadata": {
+      "edge": {
+        "id": ":11521951197_2",
+        "function": "internal"
+      },
+      "lane": {
+        "id": ":11521951197_2_0",
+        "index": "0",
+        "disallow": "tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone",
+        "speed": "27.78",
+        "length": "15.22",
+        "shape": "2528.05,2486.80 2528.27,2482.47 2529.21,2479.55 2530.22,2476.63 2530.62,2472.29"
+      }
+    },
+    "outgoing_connections": [
+      {
+        "from": ":11521951197_2",
+        "to": "521118064#0",
+        "fromLane": "0",
+        "toLane": "3",
+        "dir": "s",
+        "state": "M"
+      }
+    ],
+    "incoming_connections": [
+      {
+        "from": "555215394#2",
+        "to": "521118064#0",
+        "fromLane": "0",
+        "toLane": "3",
+        "via": ":11521951197_2_0",
+        "dir": "s",
+        "state": "M"
+      }
+    ]
+  },
+  {
+    "lane": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_6_0",
+    "metadata": {
+      "edge": {
+        "id": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_6",
+        "function": "internal"
+      },
+      "lane": {
+        "id": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_6_0",
+        "index": "0",
+        "disallow": "tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone",
+        "speed": "10.63",
+        "length": "12.92",
+        "shape": "2533.81,2471.98 2537.47,2471.25 2545.61,2470.61 2546.63,2470.56"
+      }
+    },
+    "outgoing_connections": [
+      {
+        "from": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_6",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_15_0",
+        "dir": "l",
+        "state": "m"
+      }
+    ],
+    "incoming_connections": [
+      {
+        "from": "521118064#0",
+        "to": "251118731#0",
+        "fromLane": "4",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_6_0",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "6",
+        "dir": "l",
+        "state": "o"
+      }
+    ]
+  },
+  {
+    "lane": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_15_0",
+    "metadata": {
+      "edge": {
+        "id": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_15",
+        "function": "internal"
+      },
+      "lane": {
+        "id": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_15_0",
+        "index": "0",
+        "disallow": "tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone",
+        "speed": "10.63",
+        "length": "11.56",
+        "shape": "2546.63,2470.56 2553.94,2470.15 2558.17,2469.93"
+      }
+    },
+    "outgoing_connections": [
+      {
+        "from": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_15",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "dir": "l",
+        "state": "M"
+      }
+    ],
+    "incoming_connections": [
+      {
+        "from": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_6",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_15_0",
+        "dir": "l",
+        "state": "m"
+      }
+    ]
+  },
+  {
+    "lane": "521118064#0_3",
+    "metadata": {
+      "edge": {
+        "id": "521118064#0",
+        "from": "11521951197",
+        "to": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "name": "동작대로",
+        "priority": "12",
+        "type": "highway.primary",
+        "spreadType": "center",
+        "shape": "2529.18,2479.57 2528.46,2447.79"
+      },
+      "lane": {
+        "id": "521118064#0_3",
+        "index": "3",
+        "disallow": "tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone",
+        "speed": "27.78",
+        "length": "0.20",
+        "shape": "2530.62,2472.29 2530.61,2472.09"
+      }
+    },
+    "outgoing_connections": [
+      {
+        "from": "521118064#0",
+        "to": "521118064#2",
+        "fromLane": "3",
+        "toLane": "3",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_0_3",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "3",
+        "dir": "s",
+        "state": "O"
+      }
+    ],
+    "incoming_connections": [
+      {
+        "from": "-251118729#0",
+        "to": "521118064#0",
+        "fromLane": "0",
+        "toLane": "3",
+        "via": ":11521951197_6_3",
+        "dir": "R",
+        "state": "m"
+      },
+      {
+        "from": "555215394#2",
+        "to": "521118064#0",
+        "fromLane": "0",
+        "toLane": "3",
+        "via": ":11521951197_2_0",
+        "dir": "s",
+        "state": "M"
+      },
+      {
+        "from": ":11521951197_2",
+        "to": "521118064#0",
+        "fromLane": "0",
+        "toLane": "3",
+        "dir": "s",
+        "state": "M"
+      },
+      {
+        "from": ":11521951197_6",
+        "to": "521118064#0",
+        "fromLane": "3",
+        "toLane": "3",
+        "dir": "R",
+        "state": "M"
+      }
+    ]
+  },
+  {
+    "lane": "521118064#0_4",
+    "metadata": {
+      "edge": {
+        "id": "521118064#0",
+        "from": "11521951197",
+        "to": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "name": "동작대로",
+        "priority": "12",
+        "type": "highway.primary",
+        "spreadType": "center",
+        "shape": "2529.18,2479.57 2528.46,2447.79"
+      },
+      "lane": {
+        "id": "521118064#0_4",
+        "index": "4",
+        "disallow": "tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone",
+        "speed": "27.78",
+        "length": "0.20",
+        "shape": "2533.81,2472.18 2533.81,2471.98"
+      }
+    },
+    "outgoing_connections": [
+      {
+        "from": "521118064#0",
+        "to": "521118064#2",
+        "fromLane": "4",
+        "toLane": "4",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_0_4",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "4",
+        "dir": "s",
+        "state": "O"
+      },
+      {
+        "from": "521118064#0",
+        "to": "521118064#2",
+        "fromLane": "4",
+        "toLane": "5",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_0_5",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "5",
+        "dir": "s",
+        "state": "O"
+      },
+      {
+        "from": "521118064#0",
+        "to": "251118731#0",
+        "fromLane": "4",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_6_0",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "6",
+        "dir": "l",
+        "state": "o"
+      }
+    ],
+    "incoming_connections": [
+      {
+        "from": "555215394#2",
+        "to": "521118064#0",
+        "fromLane": "1",
+        "toLane": "4",
+        "via": ":11521951197_2_1",
+        "dir": "s",
+        "state": "M"
+      },
+      {
+        "from": ":11521951197_2",
+        "to": "521118064#0",
+        "fromLane": "1",
+        "toLane": "4",
+        "dir": "s",
+        "state": "M"
+      }
+    ]
+  },
+  {
+    "lane": "521118064#0_5",
+    "metadata": {
+      "edge": {
+        "id": "521118064#0",
+        "from": "11521951197",
+        "to": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "name": "동작대로",
+        "priority": "12",
+        "type": "highway.primary",
+        "spreadType": "center",
+        "shape": "2529.18,2479.57 2528.46,2447.79"
+      },
+      "lane": {
+        "id": "521118064#0_5",
+        "index": "5",
+        "disallow": "tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone",
+        "speed": "27.78",
+        "length": "0.20",
+        "shape": "2537.01,2472.07 2537.01,2471.87"
+      }
+    },
+    "outgoing_connections": [
+      {
+        "from": "521118064#0",
+        "to": "521118065#0",
+        "fromLane": "5",
+        "toLane": "1",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_7_0",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "7",
+        "dir": "t",
+        "state": "o"
+      }
+    ],
+    "incoming_connections": [
+      {
+        "from": "555215394#2",
+        "to": "521118064#0",
+        "fromLane": "1",
+        "toLane": "5",
+        "via": ":11521951197_2_2",
+        "dir": "s",
+        "state": "M"
+      },
+      {
+        "from": ":11521951197_2",
+        "to": "521118064#0",
+        "fromLane": "2",
+        "toLane": "5",
+        "dir": "s",
+        "state": "M"
+      }
+    ]
+  },
+  {
+    "lane": "251118731#0_0",
+    "metadata": {
+      "edge": {
+        "id": "251118731#0",
+        "from": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "to": "4888858383",
+        "name": "방배천로2길",
+        "priority": "10",
+        "type": "highway.tertiary",
+        "shape": "2550.12,2472.27 2562.63,2471.13"
+      },
+      "lane": {
+        "id": "251118731#0_0",
+        "index": "0",
+        "disallow": "tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone",
+        "speed": "22.22",
+        "length": "0.69",
+        "shape": "2558.17,2469.93 2558.86,2469.87"
+      }
+    },
+    "outgoing_connections": [
+      {
+        "from": "251118731#0",
+        "to": "251118731#1",
+        "fromLane": "0",
+        "toLane": "0",
+        "via": ":4888858383_1_0",
+        "dir": "s",
+        "state": "M"
+      }
+    ],
+    "incoming_connections": [
+      {
+        "from": "-251118731#0",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_9_0",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "9",
+        "dir": "t",
+        "state": "o"
+      },
+      {
+        "from": "251118732#2",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_10_0",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "10",
+        "dir": "r",
+        "state": "o"
+      },
+      {
+        "from": "497290498#0",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_12_0",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "12",
+        "dir": "r",
+        "state": "O"
+      },
+      {
+        "from": "521118064#0",
+        "to": "251118731#0",
+        "fromLane": "4",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_6_0",
+        "tl": "cluster_11521951178_2578295008_4888858380_4888858384_#1more",
+        "linkIndex": "6",
+        "dir": "l",
+        "state": "o"
+      },
+      {
+        "from": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_6",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_15_0",
+        "dir": "l",
+        "state": "m"
+      },
+      {
+        "from": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_15",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "dir": "l",
+        "state": "M"
+      },
+      {
+        "from": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_9",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "via": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_17_0",
+        "dir": "t",
+        "state": "m"
+      },
+      {
+        "from": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_17",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "dir": "t",
+        "state": "M"
+      },
+      {
+        "from": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_10",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "dir": "r",
+        "state": "M"
+      },
+      {
+        "from": ":cluster_11521951178_2578295008_4888858380_4888858384_#1more_12",
+        "to": "251118731#0",
+        "fromLane": "0",
+        "toLane": "0",
+        "dir": "r",
+        "state": "M"
+      }
+    ]
+  }
+]

@@ -228,10 +228,14 @@ def run_worker(options, model_path, events, stop, paused, speed):
         from emergency_yield import nearby_traffic, yield_settings
         from dashboard_traffic import prepare_background
         from dashboard_environment import resize_inference_agent
+        from evaluation_audit import build_evaluation_environment
+        from evaluation_profile import freeze_evaluation_model
         from simulation_setup import prepare_environment, make_manifest, manifest_signature, load_experiment
 
         torch.set_num_threads(2)
         config = SimulationConfig(arrival_steps=options["duration"], seed=options["seed"],
+                                  emergency_yield=options["emergency_yield"],
+                                  repeat_background_traffic=True,
                                   congestion_reward_mode="balanced",
                                   admission_mode="arrival" if options["hospital_rejection"] else "precheck")
         scenario = dashboard_scenario(options, SCENARIOS)
@@ -244,11 +248,16 @@ def run_worker(options, model_path, events, stop, paused, speed):
              run_id=run_id, output=str(directory.relative_to(ROOT)))
         checkpoint()
         hospital_transfer = None
+        model_snapshot = None
         if policy == "dqn" and not training:
             if not model_path:
                 raise ValueError("사용 가능한 best 모델이 없습니다. 먼저 학습하거나 다른 정책을 선택하세요.")
-            env, hospitals, agent, original_config, manifest = load_experiment(model_path)
+            frozen_model, _, model_snapshot = freeze_evaluation_model(
+                model_path, run_id, directory / "evaluation_snapshot")
+            env, hospitals, agent, original_config, manifest = load_experiment(frozen_model)
             config = replace(original_config, arrival_steps=options["duration"],
+                             emergency_yield=options["emergency_yield"],
+                             repeat_background_traffic=True,
                              demand_rates_per_hour=(),
                              demand_scale=1., seed=options["seed"],
                              congestion_reward_mode="balanced",
@@ -312,9 +321,13 @@ def run_worker(options, model_path, events, stop, paused, speed):
         # The source checkpoint stays unchanged; changed sets are recorded for evaluation.
         checkpoint()
         hospital_lookup = {h["id"]: h for h in hospitals}
+        evaluation_environment = build_evaluation_environment(
+            env, hospitals, config, [scenario], [config.demand_scale],
+            options["ambulances"], "severity", 300, occupancy)
         (directory / "run.json").write_text(json.dumps({"run_id": run_id, "options": options,
             "hospitals": hospital_rows(hospitals), "scenario": public_scenario,
             "hospital_transfer": hospital_transfer,
+            "model_snapshot": model_snapshot, "evaluation_environment": evaluation_environment,
             "virtual_hospital_mix": virtual_mix_plan,
             "hospital_congestion": congestion_reward_profile(config.congestion_reward_mode),
             "hospital_admission": {"mode": config.admission_mode, "rejection_penalty": -WEIGHTS.rejection,
@@ -428,6 +441,8 @@ def run_worker(options, model_path, events, stop, paused, speed):
                                  initial_occupancy_range=occupancy, emergency_yield=options["emergency_yield"])
             result["hospital_transfer"] = hospital_transfer
             result["virtual_hospital_mix"] = virtual_mix_plan
+            result["model_snapshot"] = model_snapshot
+            result["evaluation_environment"] = evaluation_environment
             checkpoint()
             (directory / f"patients_episode{episode}.json").write_text(
                 json.dumps(episode_patients, ensure_ascii=False, indent=2), encoding="utf-8")

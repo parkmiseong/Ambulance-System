@@ -1,0 +1,31 @@
+{
+  "command": [
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\.runtime\\sumo-1.28.0\\bin\\duarouter.exe",
+    "--net-file",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\SUMO\\강남\\osm.net.xml.gz",
+    "--route-files",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\SUMO\\강남\\ambulance_routes.rou.xml",
+    "--output-file",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\repair_candidates_routing_enabled\\phase1_repair_same_endpoints.rou.xml",
+    "--repair",
+    "true",
+    "--repair.from",
+    "false",
+    "--repair.to",
+    "false",
+    "--ignore-errors",
+    "true",
+    "--skip-new-routes",
+    "false",
+    "--log",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\repair_candidates_routing_enabled\\phase1_repair_same_endpoints.log",
+    "--error-log",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\repair_candidates_routing_enabled\\phase1_repair_same_endpoints_errors.log"
+  ],
+  "exit_code": 0,
+  "repair": true,
+  "repair_from": false,
+  "repair_to": false,
+  "ignore_errors": true,
+  "output": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\repair_candidates_routing_enabled\\phase1_repair_same_endpoints.rou.xml"
+}

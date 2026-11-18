@@ -406,6 +406,7 @@ class ModelSelectionTests(unittest.TestCase):
 
     def test_best_validation_model_is_not_overwritten_by_last_episode(self):
         agent = FakeAgent()
+        agent.training_updates = 1
         result = dict(generated_patients=2, missions=2, arrived=1, failed=1, censored=0,
                       golden_rate=50., avg_wait=1., reward=-40., avg_reward=-20., avg_loss=.1)
         panel = [dict(avg_reward=-5., arrival_rate=50., golden_rate=50.),

@@ -1,0 +1,41 @@
+{
+  "status": "investigating_not_fixed",
+  "source_original_checkpoint_preserved": true,
+  "current_saved_episode": 26,
+  "current_saved_updates": 342,
+  "failure": {
+    "time_kst": "2026-11-17T21:42:00+09:00",
+    "episode": 27,
+    "scenario": 9,
+    "seed": 10069,
+    "last_loop_time": 1128.0,
+    "exit_code_hex": "0xc0000005",
+    "binary_version": "1.28.0"
+  },
+  "first_isolated_trial": {
+    "summary": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_episode27_replay\\sumo_crash_20261117_214851_ad10e9\\diagnostic_summary.json",
+    "status": "completed_without_failure",
+    "result": {
+      "generated_patients": 15,
+      "arrived": 15,
+      "failed": 0,
+      "censored": 0,
+      "simulation_end_time": 3601.0
+    },
+    "source_checkpoint_unchanged": true,
+    "source_manifest_unchanged": true,
+    "weights_saved": false,
+    "original_crash_reproduced": false,
+    "trajectory_difference_observed": true
+  },
+  "second_lane_probe": {
+    "status": "reproduced_native_access_violation",
+    "last_successful_time": 1124.0,
+    "summary": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_episode27_lane_probe\\sumo_crash_20261117_220133_06ce2c\\diagnostic_summary.json"
+  },
+  "code_tests_passed": 296,
+  "simulation_and_driving_settings_changed": false,
+  "new_training_started": false,
+  "user_selected_valid73_comparison": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_valid73_comparison_20261117.json",
+  "invalid_background_routes": 107
+}

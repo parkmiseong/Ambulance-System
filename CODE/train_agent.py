@@ -16,6 +16,7 @@ from experiment_config import (SimulationConfig, LearningConfig, SCENARIOS, isol
                                network_architecture)
 from experiment_config import scenario_for_config
 from dashboard_demand import PATIENTS_PER_HOUR, DEFAULT_DURATION, demand_metadata
+from emergency_yield import yield_settings
 from experiment_log import append_record, new_run_id
 from simulation import run_episode
 from simulation_setup import prepare_environment, make_manifest, manifest_signature
@@ -79,7 +80,7 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
           validation_seeds=(30001, 30002, 30003), validation_scenarios=(1,),
           output_root=None, quiet=False, trace_decisions=False, validation_demands=None,
           cycle_curriculum=False, training_scenarios=None, learning_config=None, max_updates=None):
-    config = config or SimulationConfig()
+    config = config or SimulationConfig(emergency_yield=True, repeat_background_traffic=True)
     learning_config = learning_config or LearningConfig()
     if max_updates is not None and (type(max_updates) is not int or max_updates < 1):
         raise ValueError("max_updates must be a positive cumulative update limit.")
@@ -104,6 +105,10 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
         replace(config, demand_scale=demand)
     seed_everything(config.seed)
     root = Path(output_root or PROJECT_ROOT / "results").resolve()
+    runtime_engine = None
+    if resume:
+        from prepare_resume_copy import validate_recorded_engine
+        runtime_engine = validate_recorded_engine(root)
     run_id = new_run_id("train")
     output = root / "sumo" / run_id
     record = partial(append_record, log_path=root / "experiment_history.csv")
@@ -130,7 +135,11 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     if resume:
         if not manifest_path.is_file() or not checkpoint_path.is_file():
-            raise FileNotFoundError(f"No compatible checkpoint: {checkpoint_path}. A new state version needs fresh training.")
+            raise FileNotFoundError(
+                f"No compatible checkpoint: {checkpoint_path}. Resume requires identical settings, including "
+                "emergency driving. Use --no-emergency-yield for legacy CLI checkpoints trained with yielding OFF; "
+                "use --no-repeat-background-traffic for legacy CLI checkpoints without periodic traffic. "
+                "Changed driving rules require a new experiment.")
         if json.loads(manifest_path.read_text(encoding="utf-8")) != manifest:
             raise ValueError("Resume settings differ from the saved experiment.")
     else:
@@ -150,6 +159,7 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     start_episode = 1
     if resume:
         agent.load_model(str(checkpoint_path), resume=True)
+        agent.metadata["manifest_path"] = str(manifest_path)
         start_episode = int(agent.loaded_episode) + 1
     previous_episodes = start_episode - 1
     target_episode = previous_episodes + num_episodes
@@ -162,12 +172,17 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
         raise ValueError("Validation seeds overlap the requested training seed range.")
     print(f"[Training] previous={previous_episodes} episodes | "
           f"additional={num_episodes} | target_total={target_episode}", flush=True)
+    if runtime_engine is not None:
+        print(f"[Engine] SUMO {runtime_engine.get('version')} | {runtime_engine['path']}", flush=True)
     if training_scenarios != all_training_scenarios:
         print(f"[Training scenarios] {','.join(map(str, training_scenarios))}", flush=True)
     print(f"[Observation] version={config.observation_version} dim={agent.state_dim} "
           f"pending_reward={config.pending_reward_feature}", flush=True)
     print(f"[Learning] gamma={learning_config.gamma:g} target={learning_config.target_sync_mode} "
           f"interval={learning_config.target_sync_interval} epsilon={learning_config.epsilon_schedule}", flush=True)
+    print(f"[Driving] emergency_yield={'ON' if config.emergency_yield else 'OFF'} "
+          f"reaction_distance_m={yield_settings(config.emergency_yield)['reaction_distance_m']}", flush=True)
+    print(f"[Traffic] repeat_background={'ON' if config.repeat_background_traffic else 'OFF'}", flush=True)
     if config.demand_rates_per_hour:
         print(f"[Demand] hourly rates={config.demand_rates_per_hour} x{config.demand_scale:g} | "
               f"generation={config.arrival_steps}s | values are expectations, not fixed counts", flush=True)
@@ -178,6 +193,8 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
     record(run_id, "training", "run_start", status="started",
            ambulance_limit=ambulance_count, model_path=str(model_path),
            metrics={"config": config.to_dict(), "learning_config": learning_config.to_dict(),
+                    "runtime_engine": runtime_engine,
+                    "emergency_yield": yield_settings(config.emergency_yield),
                     "max_updates": max_updates, "manifest_path": str(manifest_path),
                     "requested_episodes": num_episodes, "resume": resume,
                     "previous_episodes": previous_episodes,
@@ -266,7 +283,7 @@ def train(num_episodes=100, gui=False, ambulance_count=10, eval_every=5, resume=
                 record(run_id, "training", "fixed_evaluation", episode=episode,
                        status="completed", model_path=str(model_path), metrics=validation)
                 score = validation["avg_reward"]
-                learned = not config.demand_rates_per_hour or getattr(agent, "training_updates", 0) > 0
+                learned = getattr(agent, "training_updates", 0) > 0
                 if score is not None and learned and (best_score is None or score > best_score):
                     best_score = score
                     agent.metadata["best_validation_reward"] = score
@@ -310,6 +327,12 @@ def main():
     parser.add_argument("--eval-every", type=int, default=5)
     parser.add_argument("--ambulances", type=int, default=10)
     parser.add_argument("--gui", action="store_true")
+    parser.add_argument("--emergency-yield", action=argparse.BooleanOptionalAction, default=True,
+                        help="Match web driving: blue-light priority and sublane yielding ON by default. "
+                             "Use --no-emergency-yield to reproduce legacy CLI runs.")
+    parser.add_argument("--repeat-background-traffic", action=argparse.BooleanOptionalAction, default=True,
+                        help="Repeat original hourly passenger traffic through the drain period, matching web. "
+                             "Use --no-repeat-background-traffic to reproduce legacy CLI runs.")
     parser.add_argument("--quiet", action="store_true",
                         help="Hide SUMO/setup output; keep episode and validation summaries.")
     parser.add_argument("--resume", action="store_true")
@@ -375,7 +398,9 @@ def main():
             seed=args.seed, candidate_limit=args.candidate_limit,
             pending_reward_feature=args.pending_reward_feature,
             golden_margin_feature=args.golden_margin_feature,
-            candidate_reward_feature=args.candidate_reward_feature)
+            candidate_reward_feature=args.candidate_reward_feature,
+            emergency_yield=args.emergency_yield,
+            repeat_background_traffic=args.repeat_background_traffic)
         config = replace(config, admission_mode=args.admission_mode)
         config = replace(config, congestion_reward_mode=args.congestion_reward)
         learning = LearningConfig(gamma=args.gamma, learning_rate=args.learning_rate,

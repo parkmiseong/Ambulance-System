@@ -1,0 +1,54 @@
+....................................[Validation 1/3] scenario=1 seed=30001 demand x1 started
+[Validation] seed=30001 demand x1 completed in 0.0s
+[Validation 2/3] scenario=5 seed=30001 demand x1 started
+[Validation] seed=30001 demand x1 completed in 0.0s
+[Validation 3/3] scenario=9 seed=30001 demand x1 started
+[Validation] seed=30001 demand x1 completed in 0.0s
+.......................................................................................................................................[DQN] Saved: C:\Users\emaet\AppData\Local\Temp\tmpyz1q6ojz\checkpoint.pth
+...................[Training] previous=0 episodes | additional=2 | target_total=2
+[Observation] version=5 dim=27 pending_reward=estimate
+[Learning] gamma=0.95 target=updates interval=200 epsilon=updates_exponential
+[Driving] emergency_yield=OFF reaction_distance_m=None
+[Traffic] repeat_background=OFF
+[Experiment] hospitals=1, state_dim=27
+[Manifest] C:\Users\emaet\AppData\Local\Temp\tmphwrwkzye\training\experiment_v3_ffdb441e807afecd.json
+[Last model] C:\Users\emaet\AppData\Local\Temp\tmphwrwkzye\models\dqn_v3_ffdb441e807afecd_last.pth
+Episode 1/2 (previous=0, this_run=1/2) | scenario=1 p=0.2 traffic=0.3 | demand x1 | generated=2 arrived=1 failed=1 censored=0 | golden=50.0% wait=1.0s | reward/patient=-20.000 loss=0.1000 epsilon=0.5000 updates=0 explore=0.0%
+[Validation] reward/patient=-5.0, arrival=50.0%
+Episode 2/2 (previous=0, this_run=2/2) | scenario=2 p=0.2 traffic=0.5 | demand x1 | generated=2 arrived=1 failed=1 censored=0 | golden=50.0% wait=1.0s | reward/patient=-20.000 loss=0.1000 epsilon=0.5000 updates=0 explore=0.0%
+[Validation] reward/patient=-10.0, arrival=50.0%
+[Training completed] previous=0 + this_run=2 = total=2 episodes
+.[Training] previous=0 episodes | additional=1 | target_total=1
+[Observation] version=5 dim=27 pending_reward=estimate
+[Learning] gamma=0.95 target=updates interval=200 epsilon=updates_exponential
+[Driving] emergency_yield=OFF reaction_distance_m=None
+[Traffic] repeat_background=OFF
+Episode 1/1 (previous=0, this_run=1/1) | scenario=1 p=0.2 traffic=0.3 | demand x1 | generated=2 arrived=1 failed=1 censored=0 | golden=50.0% wait=1.0s | reward/patient=-20.000 loss=0.1000 epsilon=0.5000 updates=0 explore=0.0%
+.............................................[DQN] Saved: C:\Users\emaet\AppData\Local\Temp\tmp3m0l5b7w\legacy.pth
+.[DQN] Saved: C:\Users\emaet\AppData\Local\Temp\tmpkbhg34hy\checkpoint.pth
+.....[Training] previous=0 episodes | additional=1 | target_total=1
+[Observation] version=5 dim=27 pending_reward=estimate
+[Learning] gamma=0.95 target=updates interval=200 epsilon=updates_exponential
+[Driving] emergency_yield=ON reaction_distance_m=60.0
+[Traffic] repeat_background=ON
+Episode 1/1 (previous=0, this_run=1/1) | scenario=1 p=0.2 traffic=0.3 | demand x1 | generated=2 arrived=1 failed=1 censored=0 | golden=50.0% wait=1.0s | reward/patient=-20.000 loss=0.1000 epsilon=0.5000 updates=0 explore=0.0%
+[Validation] reward/patient=-5.0, arrival=50.0%
+[Validation] No optimizer updates yet; best model was not promoted.
+[Training completed] previous=0 + this_run=1 = total=1 episodes
+.[Validation 1/4] scenario=1 seed=1 demand x0.1 started
+[Validation] seed=1 demand x0.1 completed in 0.0s
+[Validation 2/4] scenario=1 seed=1 demand x0.3 started
+[Validation] seed=1 demand x0.3 completed in 0.0s
+[Validation 3/4] scenario=1 seed=2 demand x0.1 started
+[Validation] seed=2 demand x0.1 completed in 0.0s
+[Validation 4/4] scenario=1 seed=2 demand x0.3 started
+[Validation] seed=2 demand x0.3 completed in 0.0s
+.....[DQN] Saved: C:\Users\emaet\AppData\Local\Temp\tmpbmnf4f6e\model.pth
+[DQN] Saved: C:\Users\emaet\AppData\Local\Temp\tmpof3rg8rg\model.pth
+[DQN] Saved: C:\Users\emaet\AppData\Local\Temp\tmpi0wbw0vu\model.pth
+..[DQN] Saved: C:\Users\emaet\AppData\Local\Temp\tmpa3c1905m\checkpoint.pth
+..............................................
+----------------------------------------------------------------------
+Ran 296 tests in 6.708s
+
+OK

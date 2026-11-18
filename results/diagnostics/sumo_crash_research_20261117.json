@@ -1,0 +1,192 @@
+{
+  "as_of_kst": "2026-11-17T15:21:10+09:00",
+  "scope": "Read-only analysis of existing SUMO minidumps; no simulation replay or installation changes by this analysis.",
+  "installed_binary": {
+    "path": "C:\\Program Files (x86)\\Eclipse\\Sumo\\bin\\sumo.exe",
+    "version": "1.27.1",
+    "architecture": "AMD64",
+    "compiler": "MSVC 19.29.30133.0 Release",
+    "sha256": "8cc770aca4257d2cb821d91c0d346256c72c2983708137bc94789c75d00254b4",
+    "bytes": 6843392,
+    "pe_timestamp_hex": "0x6a3c6aab",
+    "coff_symbol_count": 0
+  },
+  "confirmed": {
+    "existing_dump_count": 6,
+    "all_dumps_same_exception_and_rva": true,
+    "failure": "Read access violation at NULL + 0x70 in native sumo.exe",
+    "instruction": {
+      "module_offset": "0x4b6882",
+      "preferred_image_address": "0x1404b6882",
+      "file_offset": "0x4b5c82",
+      "machine_bytes": "8b 40 70",
+      "assembly": "mov eax, dword ptr [rax + 0x70]",
+      "rax_at_exception": "0x0",
+      "preceding_instruction": "mov rax, qword ptr [rbx]",
+      "meaning": "An object/member pointer was NULL when the native engine attempted to read the field at offset 0x70."
+    },
+    "first_existing_dump_date": "2026-11-13",
+    "function_or_vehicle_identified": false
+  },
+  "symbols": {
+    "pdb_files_in_bin": [],
+    "sumo_codeview_records_empty": true,
+    "llvm_symbolizer_result": "?? / ??:0:0",
+    "limitation": "No SUMO PDB or COFF symbols were present, so function names, source lines, object class, vehicle and lane cannot be asserted from this evidence."
+  },
+  "access_notes": {
+    "wer_reportarchive_contents": "Access denied; no escalation attempted.",
+    "local_crashdumps": "Readable; originals were not modified."
+  },
+  "official_references": [
+    {
+      "url": "https://learn.microsoft.com/en-us/shows/inside/c0000005",
+      "supports": "0xC0000005 is an access violation; exception parameter 0=read and parameter 1=invalid address."
+    },
+    {
+      "url": "https://sumo.dlr.de/docs/ChangeLog.html",
+      "supports": "Version 1.28.0 (2026-10-08) lists sublane behavior fixes. No direct mapping to this crash offset was established."
+    },
+    {
+      "url": "https://newsroom.eclipse.org/news/community-news/eclipse-sumo-1271-now-available",
+      "supports": "1.27.1 already fixed a sublane crash with unusual turning lanes (regression in 1.27.0); that historical bug alone is not proof for this 1.27.1 crash."
+    },
+    {
+      "url": "https://sumo.dlr.de/docs/Simulation/Emergency.html",
+      "supports": "Blue-light and sublane settings affect native rescue-lane and emergency driving behavior; enabled settings are a diagnostic condition, not a proven cause."
+    }
+  ],
+  "unconfirmed": [
+    "The specific native function and source line",
+    "Whether bluelight, sublane, stopping, rerouting, network topology or another engine path triggers the NULL pointer",
+    "Whether changing SUMO version fixes this specific crash",
+    "RAM exhaustion or installation corruption"
+  ],
+  "suggested_next_steps": [
+    "Reproduce the exact checkpoint/episode with unchanged dynamics and capture SUMO logs, native exit code and the last successful simulation step/TraCI command.",
+    "Correlate the new replay crash address and time with these existing dumps; preserve the original checkpoint and model files.",
+    "If a later engine version is tested, keep it as a separate, explicitly labelled diagnostic comparison rather than silently changing the training environment."
+  ],
+  "dumps": [
+    {
+      "path": "C:\\Users\\emaet\\AppData\\Local\\CrashDumps\\sumo.exe.18536.dmp",
+      "sha256": "c4e5d112502efce38d8fa244168fbb289eba55ecb30ce6ad3674104ba9862ecc",
+      "bytes": 2059354,
+      "modified_kst": "2026-11-17T14:40:32+09:00",
+      "exception_thread": 21156,
+      "exception_code": "0xc0000005",
+      "exception_address": "0x7ff7d3516882",
+      "exception_parameters": [
+        "0x0",
+        "0x70"
+      ],
+      "access_kind": "read",
+      "attempted_address": "0x70",
+      "module_base": "0x7ff7d3060000",
+      "module_offset": "0x4b6882",
+      "rip": "0x7ff7d3516882",
+      "rax": "0x0",
+      "sumo_codeview_record_hex": ""
+    },
+    {
+      "path": "C:\\Users\\emaet\\AppData\\Local\\CrashDumps\\sumo.exe.22476.dmp",
+      "sha256": "1cc7670366163359ae490d011f2a86bc0e7474c0171a0e9952e0b26d1da3ff8f",
+      "bytes": 2058138,
+      "modified_kst": "2026-11-13T23:30:55+09:00",
+      "exception_thread": 7696,
+      "exception_code": "0xc0000005",
+      "exception_address": "0x7ff7ac536882",
+      "exception_parameters": [
+        "0x0",
+        "0x70"
+      ],
+      "access_kind": "read",
+      "attempted_address": "0x70",
+      "module_base": "0x7ff7ac080000",
+      "module_offset": "0x4b6882",
+      "rip": "0x7ff7ac536882",
+      "rax": "0x0",
+      "sumo_codeview_record_hex": ""
+    },
+    {
+      "path": "C:\\Users\\emaet\\AppData\\Local\\CrashDumps\\sumo.exe.33288.dmp",
+      "sha256": "56a0a2e3bc2b00a3e22601bcecc4617298847eab741ea24c5f97679d87b72431",
+      "bytes": 2058364,
+      "modified_kst": "2026-11-17T14:35:53+09:00",
+      "exception_thread": 12912,
+      "exception_code": "0xc0000005",
+      "exception_address": "0x7ff7d3516882",
+      "exception_parameters": [
+        "0x0",
+        "0x70"
+      ],
+      "access_kind": "read",
+      "attempted_address": "0x70",
+      "module_base": "0x7ff7d3060000",
+      "module_offset": "0x4b6882",
+      "rip": "0x7ff7d3516882",
+      "rax": "0x0",
+      "sumo_codeview_record_hex": ""
+    },
+    {
+      "path": "C:\\Users\\emaet\\AppData\\Local\\CrashDumps\\sumo.exe.620.dmp",
+      "sha256": "69a879f11bb946f9316c7c8914f4ca5982edfa7c98d05ef0d60ce1656a3b8d6f",
+      "bytes": 2059353,
+      "modified_kst": "2026-11-16T11:19:52+09:00",
+      "exception_thread": 21884,
+      "exception_code": "0xc0000005",
+      "exception_address": "0x7ff6f7c86882",
+      "exception_parameters": [
+        "0x0",
+        "0x70"
+      ],
+      "access_kind": "read",
+      "attempted_address": "0x70",
+      "module_base": "0x7ff6f77d0000",
+      "module_offset": "0x4b6882",
+      "rip": "0x7ff6f7c86882",
+      "rax": "0x0",
+      "sumo_codeview_record_hex": ""
+    },
+    {
+      "path": "C:\\Users\\emaet\\AppData\\Local\\CrashDumps\\sumo.exe.7248.dmp",
+      "sha256": "1c17d6361dcd8a86773cb21d54a4d60827a29abe4fb27607b1694a003c48ecaa",
+      "bytes": 2058302,
+      "modified_kst": "2026-11-13T21:45:49+09:00",
+      "exception_thread": 35752,
+      "exception_code": "0xc0000005",
+      "exception_address": "0x7ff6a98a6882",
+      "exception_parameters": [
+        "0x0",
+        "0x70"
+      ],
+      "access_kind": "read",
+      "attempted_address": "0x70",
+      "module_base": "0x7ff6a93f0000",
+      "module_offset": "0x4b6882",
+      "rip": "0x7ff6a98a6882",
+      "rax": "0x0",
+      "sumo_codeview_record_hex": ""
+    },
+    {
+      "path": "C:\\Users\\emaet\\AppData\\Local\\CrashDumps\\sumo.exe.9040.dmp",
+      "sha256": "3c3312d038f9d3a7a2f2908cf1c54a6c4509d9e4e663d3158ba28e984fd5fc97",
+      "bytes": 2059609,
+      "modified_kst": "2026-11-17T11:37:55+09:00",
+      "exception_thread": 608,
+      "exception_code": "0xc0000005",
+      "exception_address": "0x7ff656fd6882",
+      "exception_parameters": [
+        "0x0",
+        "0x70"
+      ],
+      "access_kind": "read",
+      "attempted_address": "0x70",
+      "module_base": "0x7ff656b20000",
+      "module_offset": "0x4b6882",
+      "rip": "0x7ff656fd6882",
+      "rax": "0x0",
+      "sumo_codeview_record_hex": ""
+    }
+  ]
+}

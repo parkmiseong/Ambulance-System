@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\CODE\diagnose_sumo_crash.py", line 143, in run_diagnostic
+    result = run_episode(env, hospitals, scenario, seed, "dqn", episode_config, agent=agent,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\CODE\simulation.py", line 379, in run_episode
+    manager.step(dispatch, finish, prefix="amb_e_" if training else "amb_eval_",
+  File "C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\CODE\ambulance_sim.py", line 202, in step
+    traci.simulationStep()
+  File "C:\Program Files (x86)\Eclipse\Sumo\tools\traci\main.py", line 200, in simulationStep
+    connection.check().simulationStep(step)
+  File "C:\Program Files (x86)\Eclipse\Sumo\tools\traci\connection.py", line 370, in simulationStep
+    result = self._sendCmd(tc.CMD_SIMSTEP, None, None, "D", step)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files (x86)\Eclipse\Sumo\tools\traci\connection.py", line 232, in _sendCmd
+    return self._sendExact()
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Program Files (x86)\Eclipse\Sumo\tools\traci\connection.py", line 137, in _sendExact
+    raise FatalTraCIError("Connection closed by SUMO.")
+traci.exceptions.FatalTraCIError: Connection closed by SUMO.

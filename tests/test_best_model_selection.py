@@ -83,10 +83,15 @@ class BestModelSelectionTests(unittest.TestCase):
                         golden_success=1, golden_rate=50., avg_reward=2., reward=4.,
                         avg_wait=0., reward_version=4)
         output = io.StringIO()
+        snapshot_dir = Path(root) / "mock_evaluation_snapshot"
+        snapshot_dir.mkdir(exist_ok=True)
+        snapshot = dict(manifest_path=str(snapshot_dir / "experiment.json"),
+                        model_sha256="fixture", manifest_sha256="fixture")
         with patch.object(sys, "argv", argv), \
              patch.object(module, "load_experiment",
                           return_value=(None, [], agent, SimulationConfig(), manifest)) as load, \
-             patch.object(module, "manifest_path_root", return_value=Path(root)), \
+             patch.object(module, "freeze_evaluation_model",
+                          side_effect=lambda model, run_id: (model, Path(root), dict(snapshot, model_path=str(model)))), \
              patch.object(module, "run_single", return_value=response), \
              patch.object(module, "append_record") as record, \
              redirect_stdout(output):

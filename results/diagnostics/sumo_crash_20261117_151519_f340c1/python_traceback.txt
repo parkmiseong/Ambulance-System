@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\CODE\diagnose_sumo_crash.py", line 129, in run_diagnostic
+    result = run_episode(env, hospitals, scenario, seed, "dqn", episode_config, agent=agent,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\CODE\simulation.py", line 383, in run_episode
+    on_step({"time": float(traci.simulation.getTime()),
+  File "C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\CODE\diagnose_sumo_crash.py", line 121, in observe
+    write_json(directory / "last_successful_state.json", dict(
+  File "C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\CODE\diagnose_sumo_crash.py", line 27, in write_json
+    temporary.replace(target)
+  File "C:\Users\emaet\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1188, in replace
+    os.replace(self, target)
+PermissionError: [WinError 5] 액세스가 거부되었습니다: 'C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo_crash_20261117_151519_f340c1\\last_successful_state.json.tmp' -> 'C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo_crash_20261117_151519_f340c1\\last_successful_state.json'

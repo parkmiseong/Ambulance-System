@@ -1,0 +1,115 @@
+{
+  "version": 6,
+  "state_schema_version": 5,
+  "config": {
+    "arrival_steps": 5,
+    "demand_scale": 1.0,
+    "max_wait": 10.0,
+    "mission_timeout": 60.0,
+    "treatment_seconds": 10.0,
+    "bed_fraction": 0.08,
+    "occupancy_limit": 0.85,
+    "seed": 42,
+    "candidate_limit": 1200,
+    "reward_version": 4,
+    "observation_version": 5,
+    "pending_reward_feature": "estimate",
+    "golden_margin_feature": false,
+    "candidate_reward_feature": false,
+    "emergency_yield": true,
+    "repeat_background_traffic": true
+  },
+  "ambulance_count": 1,
+  "queue_policy": "severity",
+  "aging_seconds": 300.0,
+  "curriculum": [],
+  "hospitals": [
+    {
+      "id": "native_hospital",
+      "name": "Native fixture hospital",
+      "type": "권역응급의료센터",
+      "occupancy": 0.4,
+      "sumo_x": 230.0,
+      "sumo_y": 0.0,
+      "accepting": true,
+      "reachable": true
+    }
+  ],
+  "ambulance_edges": [
+    "road"
+  ],
+  "hospital_access_edges": [
+    [
+      "exit"
+    ]
+  ],
+  "network_sha256": "faa6ca7db9c375c58e67bc5f97eaeb811ece9fbc6e7aec93e07c3181a2cf24ce",
+  "reward_weights": {
+    "golden": 10.0,
+    "travel": 4.0,
+    "overtime": 8.0,
+    "mismatch": 24.0,
+    "occupancy": 8.0,
+    "rejection": 12.0,
+    "route_failure": 20.0,
+    "overcrowding": 5.0
+  },
+  "golden_time_limits": {
+    "1": 120.0,
+    "2": 180.0,
+    "3": 240.0,
+    "4": 300.0,
+    "5": 360.0
+  },
+  "agent_architecture": "hospital_shared_v6",
+  "learning_reward_scale": 100.0,
+  "learning_config": {
+    "gamma": 0.95,
+    "learning_rate": 0.0005,
+    "batch_size": 32,
+    "replay_capacity": 30000,
+    "reward_scale": 100.0,
+    "target_sync_mode": "updates",
+    "target_sync_interval": 200,
+    "target_sync_episodes": 10,
+    "target_tau": 0.005,
+    "epsilon_start": 1.0,
+    "epsilon_min": 0.05,
+    "epsilon_decay": 0.9995,
+    "epsilon_schedule": "updates_exponential",
+    "epsilon_decay_decisions": 10000,
+    "gradient_clip_norm": 5.0
+  },
+  "emergency_yield": {
+    "enabled": true,
+    "reaction_distance_m": 60.0,
+    "lateral_resolution_m": 0.4,
+    "signal_priority_included": true,
+    "implementation": "sumo_bluelight_sublane"
+  },
+  "background_traffic": {
+    "enabled": true,
+    "period_seconds": 3600,
+    "implementation": "periodic_original_passenger_v1"
+  },
+  "signature": "c0849a8b3f8fa919",
+  "validation_seeds": [
+    30001
+  ],
+  "validation_demands": [
+    1.0
+  ],
+  "web_scenario": {
+    "id": 5,
+    "prob": 0.2,
+    "scale": 0.5,
+    "fixed_patient_count": 1,
+    "demand_mode": "count",
+    "patients_per_hour": 720.0,
+    "initial_occupancy_range": [
+      0.35,
+      0.5
+    ]
+  },
+  "test_fixture_only": true
+}

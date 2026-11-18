@@ -1,0 +1,17 @@
+{
+  "output_root": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_sumo128_v6",
+  "checkpoint": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_sumo128_v6\\training\\checkpoint_v6_f560a1f65da40cc8.pth",
+  "manifest": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_sumo128_v6\\training\\experiment_v6_f560a1f65da40cc8.json",
+  "preflight": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\resume_preflight_20261117_163337_e7bc77\\preflight.json",
+  "engine_transition": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_sumo128_v6\\engine_transition.json",
+  "source_completed_episode": 24,
+  "resume_start_episode": 25,
+  "manifests_identical": true,
+  "source_checkpoint_unchanged": true,
+  "source_manifest_unchanged": true,
+  "copied_files_sha256": {
+    "training\\checkpoint_v6_f560a1f65da40cc8.pth": "9667572f0473c5a9e364321a6b57ef1ddb487400d6220c822f23775c1ab9db47",
+    "training\\experiment_v6_f560a1f65da40cc8.json": "e8bec41bfdb63ba0b8afc14be78af1c7fd19415cc9e508540e7c32c81f2ac1af",
+    "models\\dqn_v6_f560a1f65da40cc8_last.pth": "ebbad0323b478b038f3ddedbf8301fd0cb41bb438f0d6f9b108dc0b426c40c3f"
+  }
+}

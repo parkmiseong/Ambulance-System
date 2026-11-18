@@ -9,6 +9,8 @@ import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"CODE"))
 from evaluation_metrics import paired_patient_comparison, episode_uncertainty, validate_test_seeds
 from compare_evaluations import compare_runs
+from evaluation_audit import build_evaluation_environment
+from experiment_config import SimulationConfig, SCENARIOS
 from reward import REWARD_COMPONENT_NAMES
 import run_scenarios
 import test_best_model_selection as best_fixtures
@@ -88,7 +90,9 @@ class EvaluationLogTests(unittest.TestCase):
                 model=run+("_last.pth" if last else "_best.pth")
                 w.writerow(dict(run_id=run,record_type="run_start",model_path=model,
                     metrics_json=json.dumps(dict(model_kind="last" if last else "best",
-                        model_episode=18 if run=="a" else 27,evaluation_split="test"))))
+                        model_episode=18 if run=="a" else 27,evaluation_split="test",
+                        evaluation_environment=build_evaluation_environment(
+                            None,[],SimulationConfig(),[SCENARIOS[0]],[1.],10,"severity",300,(.2,.6))))))
                 for seed in (1,2):
                     w.writerow(dict(run_id=run,record_type="mission",model_path=model,strategy="dqn",
                         scenario_id=1,metrics_json=json.dumps(patient(seed,1,value))))
@@ -100,6 +104,21 @@ class EvaluationLogTests(unittest.TestCase):
             result=compare_runs(p,["a","b"])
         self.assertEqual(result["runs"]["b"]["model_episode"],27)
         self.assertEqual(result["comparisons"][0]["delta"]["reward_per_patient"],2.)
+    def test_comparison_rejects_different_driving_rules(self):
+        from emergency_yield import yield_settings
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/"history.csv"; self.log(path)
+            with path.open(encoding="utf-8-sig",newline="") as stream:
+                reader=csv.DictReader(stream); fields=reader.fieldnames; rows=list(reader)
+            for row in rows:
+                if row["record_type"]=="run_start" and row["run_id"]=="b":
+                    data=json.loads(row["metrics_json"])
+                    data["emergency_yield"]=yield_settings(True)
+                    row["metrics_json"]=json.dumps(data)
+            with path.open("w",encoding="utf-8-sig",newline="") as stream:
+                writer=csv.DictWriter(stream,fieldnames=fields); writer.writeheader(); writer.writerows(rows)
+            with self.assertRaisesRegex(ValueError,"driving settings"):
+                compare_runs(path,["a","b"])
     def test_comparison_reads_different_experiment_logs(self):
         with tempfile.TemporaryDirectory() as d:
             original=Path(d)/"history.csv"; self.log(original)

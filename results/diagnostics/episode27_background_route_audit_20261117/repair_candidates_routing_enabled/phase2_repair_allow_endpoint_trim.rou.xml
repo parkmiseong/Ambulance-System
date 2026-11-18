@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-11-17T22:08:08.159443+09:00 by Eclipse SUMO duarouter 1.28.0
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\SUMO\강남\osm.net.xml.gz"/>
+        <route-files value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\repair_candidates_routing_enabled\phase2_unresolved_input.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\repair_candidates_routing_enabled\phase2_repair_allow_endpoint_trim.rou.xml"/>
+    </output>
+
+    <processing>
+        <repair value="true"/>
+        <repair.from value="true"/>
+        <repair.to value="true"/>
+        <skip-new-routes value="false"/>
+    </processing>
+
+    <report>
+        <log value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\repair_candidates_routing_enabled\phase2_repair_allow_endpoint_trim.log"/>
+        <error-log value="C:\Users\emaet\OneDrive\바탕 화면\STUDY\VSCODE\ambulance system\results\diagnostics\episode27_background_route_audit_20261117\repair_candidates_routing_enabled\phase2_repair_allow_endpoint_trim_errors.log"/>
+        <ignore-errors value="true"/>
+    </report>
+
+</duarouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ambulance" maxSpeed="35.00" vClass="emergency" guiShape="emergency" color="red">
+        <param key="has.bluelight.device" value="true"/>
+    </vType>
+    <vehicle id="amb_1110108" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1125000" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1125101" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1125201" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1114000" type="ambulance" depart="0.00">
+        <route edges="218683621#0 218683624 579996452#0"/>
+    </vehicle>
+    <vehicle id="amb_1114402" type="ambulance" depart="0.00">
+        <route edges="218683621#0 218683624 579996452#0"/>
+    </vehicle>
+    <vehicle id="amb_1115104" type="ambulance" depart="0.00">
+        <route edges="-365022596#4 -365022596#3 -167022957#1 -167022957#0 -218857638#1 -218857638#0 -560607461#13"/>
+    </vehicle>
+    <vehicle id="amb_1122102" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1122103" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1118104" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1110106" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1122104" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1109103" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1109104" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1125102" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1125103" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1111000" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1110000" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1111102" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1115102" type="ambulance" depart="0.00">
+        <route edges="-157476668#1 -157476668#0 -1467614243 -418148887 -156298912#2 -156298912#1 -156298912#0 -156298101#0 -251118731#8"/>
+    </vehicle>
+    <vehicle id="amb_1115000" type="ambulance" depart="0.00">
+        <route edges="-523144216#10 -523144216#9 -256650674#3 -256650674#2 -256650674#1 -256650674#0"/>
+    </vehicle>
+    <vehicle id="amb_1115401" type="ambulance" depart="0.00">
+        <route edges="-523144216#10 -523144216#9 -256650674#3 -256650674#2 -256650674#1 -256650674#0"/>
+    </vehicle>
+    <vehicle id="amb_1115402" type="ambulance" depart="0.00">
+        <route edges="-523144216#10 -523144216#9 -256650674#3 -256650674#2 -256650674#1 -256650674#0"/>
+    </vehicle>
+    <vehicle id="amb_1114104" type="ambulance" depart="0.00">
+        <route edges="525738548#3 -117795636#2 -117795636#1 -117795636#0 -417927288#3"/>
+    </vehicle>
+    <vehicle id="amb_1103105" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1111104" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1111101" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1110102" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1110201" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1111201" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1110103" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1122000" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1122101" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1122201" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1107104" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1103109" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1107000" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1107101" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1107103" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1109102" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1107201" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1104000" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1104401" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1104402" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1104105" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1104106" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1111105" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1111106" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1109101" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1109201" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1109000" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1107102" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1125104" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1107105" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1100211" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1127301" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1105107" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1127302" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1127303" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1127402" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1127401" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1127000" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1105103" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1126304" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1105000" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1105402" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1105401" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+    <vehicle id="amb_1127304" type="ambulance" depart="0.00">
+        <route edges="46709879 65369551#0"/>
+    </vehicle>
+</routes>

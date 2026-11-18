@@ -1,0 +1,5225 @@
+{
+  "schema_version": 1,
+  "source_net": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\SUMO\\강남\\osm.net.xml.gz",
+  "source_routes": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\SUMO\\강남\\ambulance_routes.rou.xml",
+  "source_hashes": {
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\SUMO\\강남\\osm.net.xml.gz": "02dde72bca46c540167f4960d4ffb8ce327979e1004d764e4b8014030dba7bf3",
+    "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\SUMO\\강남\\ambulance_routes.rou.xml": "1ca45b88fda1046f9a2b66c51bc7f56cc416f62355613ea1bb51c988c46fa4bc"
+  },
+  "source_inputs_unchanged": true,
+  "vehicle_types": {
+    "ambulance": {
+      "id": "ambulance",
+      "vClass": "emergency",
+      "guiShape": "emergency",
+      "maxSpeed": "35.0",
+      "color": "255,0,0",
+      "params": {
+        "has.bluelight.device": "true"
+      }
+    }
+  },
+  "summary": {
+    "vehicles": 180,
+    "valid_vehicles": 73,
+    "invalid_vehicles": 107,
+    "no_topological_lane_chain": 107,
+    "edge_without_emergency_lane": 103,
+    "missing_emergency_lane_connection": 98,
+    "no_permitted_departure_lane": 39,
+    "missing_lane_connection": 10,
+    "unique_route_count": 23,
+    "duplicate_route_group_count": 9,
+    "redundant_route_copies": 157,
+    "valid_unique_routes": 9,
+    "invalid_unique_routes": 14
+  },
+  "limitations": [
+    "Static topological feasibility permits allowed intra-edge lane changes; it does not assert sufficient maneuver distance.",
+    "No driving simulation, route repair, traffic filtering or training was performed.",
+    "Invalid input findings do not by themselves prove the native NULL-pointer crash cause."
+  ],
+  "route_groups": [
+    {
+      "route_group": 1,
+      "edges": [
+        "46709879",
+        "65369551#0",
+        "1336765175#0",
+        "-1336765180",
+        "-1336765178#3",
+        "-1336765178#2",
+        "-1336765178#1",
+        "-1336765178#0",
+        "-1336765177",
+        "-1336765176#1"
+      ],
+      "vehicle_count": 60,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "1336765175#0",
+        "-1336765180",
+        "-1336765178#3",
+        "-1336765178#2",
+        "-1336765178#1",
+        "-1336765178#0",
+        "-1336765177",
+        "-1336765176#1"
+      ],
+      "pair_checks": [
+        {
+          "before": "46709879",
+          "after": "65369551#0",
+          "adjacent_nodes": true,
+          "connection_count": 4,
+          "permitted_connection_count": 4,
+          "from_lanes": [
+            "46709879_1",
+            "46709879_2",
+            "46709879_3",
+            "46709879_4"
+          ],
+          "to_lanes": [
+            "65369551#0_0",
+            "65369551#0_1",
+            "65369551#0_2",
+            "65369551#0_3"
+          ]
+        },
+        {
+          "before": "65369551#0",
+          "after": "1336765175#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1336765175#0",
+          "after": "-1336765180",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1336765180",
+          "after": "-1336765178#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1336765178#3",
+          "after": "-1336765178#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1336765178#2",
+          "after": "-1336765178#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1336765178#1",
+          "after": "-1336765178#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1336765178#0",
+          "after": "-1336765177",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1336765177",
+          "after": "-1336765176#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1110108",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1125000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1125101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1125201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1122102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1122103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1118104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1110106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1122104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1109103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1109104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1125102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1125103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1111000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1110000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1111102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1103105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1111104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1111101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1110102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1110201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1111201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1110103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1122000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1122101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1122201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1107104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1103109",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1107000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1107101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1107103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1109102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1107201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1104000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1104401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1104402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1104105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1104106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1111105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1111106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1109101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1109201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1109000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1107102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1125104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1107105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1100211",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1127301",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1105107",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1127302",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1127303",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1127402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1127401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1127000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1105103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1126304",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1105000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1105402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1105401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1127304",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46709879_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 2,
+      "edges": [
+        "474954574#0",
+        "474954574#0-AddedOffRampEdge",
+        "413679361",
+        "585352847#1-AddedOnRampEdge",
+        "585352847#1",
+        "585352847#1-AddedOffRampEdge",
+        "1212097848",
+        "65391394-AddedOnRampEdge",
+        "65391394"
+      ],
+      "vehicle_count": 51,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [
+        {
+          "before": "474954574#0",
+          "after": "474954574#0-AddedOffRampEdge",
+          "adjacent_nodes": true,
+          "connection_count": 5,
+          "permitted_connection_count": 5,
+          "from_lanes": [
+            "474954574#0_0",
+            "474954574#0_1",
+            "474954574#0_2",
+            "474954574#0_3"
+          ],
+          "to_lanes": [
+            "474954574#0-AddedOffRampEdge_0",
+            "474954574#0-AddedOffRampEdge_1",
+            "474954574#0-AddedOffRampEdge_2",
+            "474954574#0-AddedOffRampEdge_3",
+            "474954574#0-AddedOffRampEdge_4"
+          ]
+        },
+        {
+          "before": "474954574#0-AddedOffRampEdge",
+          "after": "413679361",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "474954574#0-AddedOffRampEdge_4"
+          ],
+          "to_lanes": [
+            "413679361_0"
+          ]
+        },
+        {
+          "before": "413679361",
+          "after": "585352847#1-AddedOnRampEdge",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "413679361_0"
+          ],
+          "to_lanes": [
+            "585352847#1-AddedOnRampEdge_0"
+          ]
+        },
+        {
+          "before": "585352847#1-AddedOnRampEdge",
+          "after": "585352847#1",
+          "adjacent_nodes": true,
+          "connection_count": 4,
+          "permitted_connection_count": 4,
+          "from_lanes": [
+            "585352847#1-AddedOnRampEdge_1",
+            "585352847#1-AddedOnRampEdge_2",
+            "585352847#1-AddedOnRampEdge_3",
+            "585352847#1-AddedOnRampEdge_4"
+          ],
+          "to_lanes": [
+            "585352847#1_0",
+            "585352847#1_1",
+            "585352847#1_2",
+            "585352847#1_3"
+          ]
+        },
+        {
+          "before": "585352847#1",
+          "after": "585352847#1-AddedOffRampEdge",
+          "adjacent_nodes": true,
+          "connection_count": 5,
+          "permitted_connection_count": 5,
+          "from_lanes": [
+            "585352847#1_0",
+            "585352847#1_1",
+            "585352847#1_2",
+            "585352847#1_3"
+          ],
+          "to_lanes": [
+            "585352847#1-AddedOffRampEdge_0",
+            "585352847#1-AddedOffRampEdge_1",
+            "585352847#1-AddedOffRampEdge_2",
+            "585352847#1-AddedOffRampEdge_3",
+            "585352847#1-AddedOffRampEdge_4"
+          ]
+        },
+        {
+          "before": "585352847#1-AddedOffRampEdge",
+          "after": "1212097848",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "585352847#1-AddedOffRampEdge_0"
+          ],
+          "to_lanes": [
+            "1212097848_0"
+          ]
+        },
+        {
+          "before": "1212097848",
+          "after": "65391394-AddedOnRampEdge",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "1212097848_0"
+          ],
+          "to_lanes": [
+            "65391394-AddedOnRampEdge_0"
+          ]
+        },
+        {
+          "before": "65391394-AddedOnRampEdge",
+          "after": "65391394",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "65391394-AddedOnRampEdge_1"
+          ],
+          "to_lanes": [
+            "65391394_0"
+          ]
+        }
+      ],
+      "route_errors": [],
+      "vehicles": [
+        {
+          "id": "amb_1113105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1112105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1112202",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1113103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1108000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1108101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1108201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1117104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1108103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1123101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1113106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1103106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1108102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1119103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1119107",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1112108",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1121103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1121102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1113000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1113102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1123103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1113201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1113104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1112106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1123102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1112107",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1103104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1123104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1126306",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1117103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1117102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1121101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1117000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1117401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1117402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1121201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1126503",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1121104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1108105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1102102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1112000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1126502",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1117105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1123201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1123000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1121105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1113107",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1106102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1121000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1100212",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1117106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "474954574#0_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 3,
+      "edges": [
+        "1414486722#1"
+      ],
+      "vehicle_count": 8,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [],
+      "route_errors": [],
+      "vehicles": [
+        {
+          "id": "amb_1103108",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "1414486722#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1103000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "1414486722#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1103102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "1414486722#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1106103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "1414486722#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1103201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "1414486722#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1100106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "1414486722#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1104103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "1414486722#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1100512",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "1414486722#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        }
+      ]
+    },
+    {
+      "route_group": 4,
+      "edges": [
+        "1526903725#0",
+        "-1526903725#0",
+        "1526903725#0",
+        "-1526903725#0",
+        "1526903725#0",
+        "-1526903725#0",
+        "1526903725#0",
+        "-1526903725#0",
+        "1526903725#0",
+        "-1526903725#0"
+      ],
+      "vehicle_count": 22,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "1526903725#0",
+        "-1526903725#0",
+        "1526903725#0",
+        "-1526903725#0",
+        "1526903725#0",
+        "-1526903725#0",
+        "1526903725#0",
+        "-1526903725#0",
+        "1526903725#0",
+        "-1526903725#0"
+      ],
+      "pair_checks": [
+        {
+          "before": "1526903725#0",
+          "after": "-1526903725#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1526903725#0",
+          "after": "1526903725#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1526903725#0",
+          "after": "-1526903725#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1526903725#0",
+          "after": "1526903725#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1526903725#0",
+          "after": "-1526903725#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1526903725#0",
+          "after": "1526903725#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1526903725#0",
+          "after": "-1526903725#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1526903725#0",
+          "after": "1526903725#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1526903725#0",
+          "after": "-1526903725#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1116102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1119108",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1116000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1116401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1128102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1116402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1116104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1119000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1119102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1119401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1108104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1119104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1119402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1102103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1116103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1102000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1102101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1102201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1100213",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1128000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1128401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1128402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 5,
+      "edges": [
+        "358372844#1"
+      ],
+      "vehicle_count": 8,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "358372844#1"
+      ],
+      "pair_checks": [],
+      "route_errors": [
+        "edge_without_emergency_lane"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1120106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1120102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1114105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1120104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1120000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1120103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1120401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1120402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 6,
+      "edges": [
+        "218683621#0",
+        "218683624",
+        "579996452#0",
+        "-1528035974#7",
+        "-1528035974#6",
+        "-1528035974#5",
+        "-1528035974#4",
+        "-1528035974#3",
+        "-1528035974#2",
+        "-1528035974#1"
+      ],
+      "vehicle_count": 2,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "-1528035974#7",
+        "-1528035974#6",
+        "-1528035974#5",
+        "-1528035974#4",
+        "-1528035974#3",
+        "-1528035974#2",
+        "-1528035974#1"
+      ],
+      "pair_checks": [
+        {
+          "before": "218683621#0",
+          "after": "218683624",
+          "adjacent_nodes": true,
+          "connection_count": 2,
+          "permitted_connection_count": 2,
+          "from_lanes": [
+            "218683621#0_0",
+            "218683621#0_1"
+          ],
+          "to_lanes": [
+            "218683624_0",
+            "218683624_1"
+          ]
+        },
+        {
+          "before": "218683624",
+          "after": "579996452#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "218683624_1"
+          ],
+          "to_lanes": [
+            "579996452#0_1"
+          ]
+        },
+        {
+          "before": "579996452#0",
+          "after": "-1528035974#7",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#7",
+          "after": "-1528035974#6",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#6",
+          "after": "-1528035974#5",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#5",
+          "after": "-1528035974#4",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#4",
+          "after": "-1528035974#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#3",
+          "after": "-1528035974#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#2",
+          "after": "-1528035974#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1114000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "218683621#0_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1114402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "218683621#0_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 7,
+      "edges": [
+        "-1528035974#10",
+        "-1528035974#9",
+        "-1528035974#7",
+        "-1528035974#6",
+        "-1528035974#5",
+        "-1528035974#4",
+        "-1528035974#3",
+        "-1528035974#2",
+        "-1528035974#1",
+        "-1528035974#0"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "-1528035974#10",
+        "-1528035974#9",
+        "-1528035974#7",
+        "-1528035974#6",
+        "-1528035974#5",
+        "-1528035974#4",
+        "-1528035974#3",
+        "-1528035974#2",
+        "-1528035974#1",
+        "-1528035974#0"
+      ],
+      "pair_checks": [
+        {
+          "before": "-1528035974#10",
+          "after": "-1528035974#9",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#9",
+          "after": "-1528035974#7",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#7",
+          "after": "-1528035974#6",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#6",
+          "after": "-1528035974#5",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#5",
+          "after": "-1528035974#4",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#4",
+          "after": "-1528035974#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#3",
+          "after": "-1528035974#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#2",
+          "after": "-1528035974#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1528035974#1",
+          "after": "-1528035974#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1114401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 8,
+      "edges": [
+        "1044253264#1",
+        "1044253265#1",
+        "1044253265#2",
+        "-365022596#4",
+        "-365022596#3",
+        "-167022957#1",
+        "-167022957#0",
+        "-218857638#1",
+        "-218857638#0",
+        "-560607461#13"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "1044253264#1",
+        "1044253265#1",
+        "1044253265#2"
+      ],
+      "pair_checks": [
+        {
+          "before": "1044253264#1",
+          "after": "1044253265#1",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1044253265#1",
+          "after": "1044253265#2",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1044253265#2",
+          "after": "-365022596#4",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-365022596#4",
+          "after": "-365022596#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-365022596#4_0"
+          ],
+          "to_lanes": [
+            "-365022596#3_0"
+          ]
+        },
+        {
+          "before": "-365022596#3",
+          "after": "-167022957#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-365022596#3_0"
+          ],
+          "to_lanes": [
+            "-167022957#1_0"
+          ]
+        },
+        {
+          "before": "-167022957#1",
+          "after": "-167022957#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-167022957#1_0"
+          ],
+          "to_lanes": [
+            "-167022957#0_0"
+          ]
+        },
+        {
+          "before": "-167022957#0",
+          "after": "-218857638#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-167022957#0_0"
+          ],
+          "to_lanes": [
+            "-218857638#1_0"
+          ]
+        },
+        {
+          "before": "-218857638#1",
+          "after": "-218857638#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-218857638#1_0"
+          ],
+          "to_lanes": [
+            "-218857638#0_0"
+          ]
+        },
+        {
+          "before": "-218857638#0",
+          "after": "-560607461#13",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-218857638#0_0"
+          ],
+          "to_lanes": [
+            "-560607461#13_0"
+          ]
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection",
+        "missing_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1115104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 9,
+      "edges": [
+        "46676451#1"
+      ],
+      "vehicle_count": 8,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [],
+      "route_errors": [],
+      "vehicles": [
+        {
+          "id": "amb_1118000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46676451#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1118101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46676451#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1118103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46676451#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1118201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46676451#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1118105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46676451#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1118102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46676451#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1118106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46676451#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        },
+        {
+          "id": "amb_1126307",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "46676451#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        }
+      ]
+    },
+    {
+      "route_group": 10,
+      "edges": [
+        "-219076293#5",
+        "-219076293#3",
+        "-219076293#2",
+        "-219076293#1",
+        "-218906059#12",
+        "-218906059#11",
+        "-218906059#10",
+        "-218906059#8",
+        "-218906059#6",
+        "-218906059#4"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [
+        {
+          "before": "-219076293#5",
+          "after": "-219076293#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-219076293#5_0"
+          ],
+          "to_lanes": [
+            "-219076293#3_0"
+          ]
+        },
+        {
+          "before": "-219076293#3",
+          "after": "-219076293#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-219076293#3_0"
+          ],
+          "to_lanes": [
+            "-219076293#2_0"
+          ]
+        },
+        {
+          "before": "-219076293#2",
+          "after": "-219076293#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-219076293#2_0"
+          ],
+          "to_lanes": [
+            "-219076293#1_0"
+          ]
+        },
+        {
+          "before": "-219076293#1",
+          "after": "-218906059#12",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-219076293#1_0"
+          ],
+          "to_lanes": [
+            "-218906059#12_0"
+          ]
+        },
+        {
+          "before": "-218906059#12",
+          "after": "-218906059#11",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-218906059#12_0"
+          ],
+          "to_lanes": [
+            "-218906059#11_0"
+          ]
+        },
+        {
+          "before": "-218906059#11",
+          "after": "-218906059#10",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-218906059#11_0"
+          ],
+          "to_lanes": [
+            "-218906059#10_0"
+          ]
+        },
+        {
+          "before": "-218906059#10",
+          "after": "-218906059#8",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-218906059#10_0"
+          ],
+          "to_lanes": [
+            "-218906059#8_0"
+          ]
+        },
+        {
+          "before": "-218906059#8",
+          "after": "-218906059#6",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-218906059#8_0"
+          ],
+          "to_lanes": [
+            "-218906059#6_0"
+          ]
+        },
+        {
+          "before": "-218906059#6",
+          "after": "-218906059#4",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-218906059#6_0"
+          ],
+          "to_lanes": [
+            "-218906059#4_0"
+          ]
+        }
+      ],
+      "route_errors": [],
+      "vehicles": [
+        {
+          "id": "amb_1114103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "-219076293#5_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        }
+      ]
+    },
+    {
+      "route_group": 11,
+      "edges": [
+        "1518059200#4",
+        "-157476668#1",
+        "-157476668#0",
+        "-1467614243",
+        "-418148887",
+        "-156298912#2",
+        "-156298912#1",
+        "-156298912#0",
+        "-156298101#0",
+        "-251118731#8"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "1518059200#4"
+      ],
+      "pair_checks": [
+        {
+          "before": "1518059200#4",
+          "after": "-157476668#1",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-157476668#1",
+          "after": "-157476668#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-157476668#1_0"
+          ],
+          "to_lanes": [
+            "-157476668#0_0"
+          ]
+        },
+        {
+          "before": "-157476668#0",
+          "after": "-1467614243",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-157476668#0_0"
+          ],
+          "to_lanes": [
+            "-1467614243_0"
+          ]
+        },
+        {
+          "before": "-1467614243",
+          "after": "-418148887",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-1467614243_0"
+          ],
+          "to_lanes": [
+            "-418148887_0"
+          ]
+        },
+        {
+          "before": "-418148887",
+          "after": "-156298912#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-418148887_0"
+          ],
+          "to_lanes": [
+            "-156298912#2_0"
+          ]
+        },
+        {
+          "before": "-156298912#2",
+          "after": "-156298912#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-156298912#2_0"
+          ],
+          "to_lanes": [
+            "-156298912#1_0"
+          ]
+        },
+        {
+          "before": "-156298912#1",
+          "after": "-156298912#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-156298912#1_0"
+          ],
+          "to_lanes": [
+            "-156298912#0_0"
+          ]
+        },
+        {
+          "before": "-156298912#0",
+          "after": "-156298101#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-156298912#0_0"
+          ],
+          "to_lanes": [
+            "-156298101#0_0"
+          ]
+        },
+        {
+          "before": "-156298101#0",
+          "after": "-251118731#8",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-156298101#0_0"
+          ],
+          "to_lanes": [
+            "-251118731#8_0"
+          ]
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection",
+        "missing_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1115102",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 12,
+      "edges": [
+        "185582682#2",
+        "-185582682#2",
+        "-185582679#2",
+        "-185582679#1",
+        "-185582672#1",
+        "-185582672#0",
+        "-522799177#16",
+        "-522799177#15",
+        "-522799177#13",
+        "-522799177#12"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [
+        {
+          "before": "185582682#2",
+          "after": "-185582682#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "185582682#2_0"
+          ],
+          "to_lanes": [
+            "-185582682#2_0"
+          ]
+        },
+        {
+          "before": "-185582682#2",
+          "after": "-185582679#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-185582682#2_0"
+          ],
+          "to_lanes": [
+            "-185582679#2_0"
+          ]
+        },
+        {
+          "before": "-185582679#2",
+          "after": "-185582679#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-185582679#2_0"
+          ],
+          "to_lanes": [
+            "-185582679#1_0"
+          ]
+        },
+        {
+          "before": "-185582679#1",
+          "after": "-185582672#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-185582679#1_0"
+          ],
+          "to_lanes": [
+            "-185582672#1_0"
+          ]
+        },
+        {
+          "before": "-185582672#1",
+          "after": "-185582672#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-185582672#1_0"
+          ],
+          "to_lanes": [
+            "-185582672#0_0"
+          ]
+        },
+        {
+          "before": "-185582672#0",
+          "after": "-522799177#16",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-185582672#0_0"
+          ],
+          "to_lanes": [
+            "-522799177#16_0"
+          ]
+        },
+        {
+          "before": "-522799177#16",
+          "after": "-522799177#15",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-522799177#16_0"
+          ],
+          "to_lanes": [
+            "-522799177#15_0"
+          ]
+        },
+        {
+          "before": "-522799177#15",
+          "after": "-522799177#13",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-522799177#15_0"
+          ],
+          "to_lanes": [
+            "-522799177#13_0"
+          ]
+        },
+        {
+          "before": "-522799177#13",
+          "after": "-522799177#12",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-522799177#13_0"
+          ],
+          "to_lanes": [
+            "-522799177#12_0"
+          ]
+        }
+      ],
+      "route_errors": [],
+      "vehicles": [
+        {
+          "id": "amb_1115105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "185582682#2_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        }
+      ]
+    },
+    {
+      "route_group": 13,
+      "edges": [
+        "1232132204#3",
+        "1232132204#4",
+        "1232132204#5",
+        "-412953586#0",
+        "-523144216#10",
+        "-523144216#9",
+        "-256650674#3",
+        "-256650674#2",
+        "-256650674#1",
+        "-256650674#0"
+      ],
+      "vehicle_count": 3,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "1232132204#3",
+        "1232132204#4",
+        "1232132204#5",
+        "-412953586#0"
+      ],
+      "pair_checks": [
+        {
+          "before": "1232132204#3",
+          "after": "1232132204#4",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1232132204#4",
+          "after": "1232132204#5",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1232132204#5",
+          "after": "-412953586#0",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-412953586#0",
+          "after": "-523144216#10",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-523144216#10",
+          "after": "-523144216#9",
+          "adjacent_nodes": true,
+          "connection_count": 2,
+          "permitted_connection_count": 2,
+          "from_lanes": [
+            "-523144216#10_0",
+            "-523144216#10_1"
+          ],
+          "to_lanes": [
+            "-523144216#9_0",
+            "-523144216#9_1"
+          ]
+        },
+        {
+          "before": "-523144216#9",
+          "after": "-256650674#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-523144216#9_0"
+          ],
+          "to_lanes": [
+            "-256650674#3_0"
+          ]
+        },
+        {
+          "before": "-256650674#3",
+          "after": "-256650674#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-256650674#3_0"
+          ],
+          "to_lanes": [
+            "-256650674#2_0"
+          ]
+        },
+        {
+          "before": "-256650674#2",
+          "after": "-256650674#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-256650674#2_0"
+          ],
+          "to_lanes": [
+            "-256650674#1_0"
+          ]
+        },
+        {
+          "before": "-256650674#1",
+          "after": "-256650674#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-256650674#1_0"
+          ],
+          "to_lanes": [
+            "-256650674#0_0"
+          ]
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection",
+        "missing_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1115000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1115401",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1115402",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 14,
+      "edges": [
+        "1091571410"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [],
+      "route_errors": [],
+      "vehicles": [
+        {
+          "id": "amb_1106105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "1091571410_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        }
+      ]
+    },
+    {
+      "route_group": 15,
+      "edges": [
+        "-368612538",
+        "-368612537#2",
+        "-368612537#1",
+        "1232404767#5",
+        "1232404750#1",
+        "1232404773#1",
+        "1232404773#2",
+        "1232404782#1",
+        "1232404782#2",
+        "-1263449021#2"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "-368612538",
+        "-368612537#2",
+        "-368612537#1",
+        "1232404767#5",
+        "1232404750#1",
+        "1232404773#1",
+        "1232404773#2",
+        "1232404782#1",
+        "1232404782#2",
+        "-1263449021#2"
+      ],
+      "pair_checks": [
+        {
+          "before": "-368612538",
+          "after": "-368612537#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-368612537#2",
+          "after": "-368612537#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-368612537#1",
+          "after": "1232404767#5",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1232404767#5",
+          "after": "1232404750#1",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1232404750#1",
+          "after": "1232404773#1",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1232404773#1",
+          "after": "1232404773#2",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1232404773#2",
+          "after": "1232404782#1",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1232404782#1",
+          "after": "1232404782#2",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1232404782#2",
+          "after": "-1263449021#2",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection",
+        "missing_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1115106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 16,
+      "edges": [
+        "-182205806#1",
+        "-182205806#0",
+        "-182205795#3",
+        "-182205795#2",
+        "-182205795#1",
+        "-182205737",
+        "-182205815#0",
+        "-417991408#2",
+        "-182205781#1",
+        "-182205781#0"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [
+        {
+          "before": "-182205806#1",
+          "after": "-182205806#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-182205806#1_0"
+          ],
+          "to_lanes": [
+            "-182205806#0_0"
+          ]
+        },
+        {
+          "before": "-182205806#0",
+          "after": "-182205795#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-182205806#0_0"
+          ],
+          "to_lanes": [
+            "-182205795#3_0"
+          ]
+        },
+        {
+          "before": "-182205795#3",
+          "after": "-182205795#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-182205795#3_0"
+          ],
+          "to_lanes": [
+            "-182205795#2_0"
+          ]
+        },
+        {
+          "before": "-182205795#2",
+          "after": "-182205795#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-182205795#2_0"
+          ],
+          "to_lanes": [
+            "-182205795#1_0"
+          ]
+        },
+        {
+          "before": "-182205795#1",
+          "after": "-182205737",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-182205795#1_0"
+          ],
+          "to_lanes": [
+            "-182205737_0"
+          ]
+        },
+        {
+          "before": "-182205737",
+          "after": "-182205815#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-182205737_0"
+          ],
+          "to_lanes": [
+            "-182205815#0_0"
+          ]
+        },
+        {
+          "before": "-182205815#0",
+          "after": "-417991408#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-182205815#0_0"
+          ],
+          "to_lanes": [
+            "-417991408#2_0"
+          ]
+        },
+        {
+          "before": "-417991408#2",
+          "after": "-182205781#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-417991408#2_0"
+          ],
+          "to_lanes": [
+            "-182205781#1_0"
+          ]
+        },
+        {
+          "before": "-182205781#1",
+          "after": "-182205781#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-182205781#1_0"
+          ],
+          "to_lanes": [
+            "-182205781#0_0"
+          ]
+        }
+      ],
+      "route_errors": [],
+      "vehicles": [
+        {
+          "id": "amb_1115103",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "-182205806#1_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        }
+      ]
+    },
+    {
+      "route_group": 17,
+      "edges": [
+        "525738548#3",
+        "-117795636#2",
+        "-117795636#1",
+        "-117795636#0",
+        "-417927288#3",
+        "-117795651",
+        "-210332893#1",
+        "-117795653",
+        "-417927288#3",
+        "-117795651"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "-117795651",
+        "-210332893#1",
+        "-117795653",
+        "-117795651"
+      ],
+      "pair_checks": [
+        {
+          "before": "525738548#3",
+          "after": "-117795636#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "525738548#3_0"
+          ],
+          "to_lanes": [
+            "-117795636#2_0"
+          ]
+        },
+        {
+          "before": "-117795636#2",
+          "after": "-117795636#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-117795636#2_0"
+          ],
+          "to_lanes": [
+            "-117795636#1_0"
+          ]
+        },
+        {
+          "before": "-117795636#1",
+          "after": "-117795636#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-117795636#1_0"
+          ],
+          "to_lanes": [
+            "-117795636#0_0"
+          ]
+        },
+        {
+          "before": "-117795636#0",
+          "after": "-417927288#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-117795636#0_0"
+          ],
+          "to_lanes": [
+            "-417927288#3_0"
+          ]
+        },
+        {
+          "before": "-417927288#3",
+          "after": "-117795651",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-117795651",
+          "after": "-210332893#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-210332893#1",
+          "after": "-117795653",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-117795653",
+          "after": "-417927288#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-417927288#3",
+          "after": "-117795651",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1114104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "525738548#3_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 18,
+      "edges": [
+        "183669462#2",
+        "-183669462#2",
+        "-183669462#0",
+        "-183669490#3",
+        "-183669490#2",
+        "-183669490#1",
+        "-183669490#0",
+        "-297298686#1",
+        "-297298686#0",
+        "-297298685#2"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [
+        {
+          "before": "183669462#2",
+          "after": "-183669462#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "183669462#2_0"
+          ],
+          "to_lanes": [
+            "-183669462#2_0"
+          ]
+        },
+        {
+          "before": "-183669462#2",
+          "after": "-183669462#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-183669462#2_0"
+          ],
+          "to_lanes": [
+            "-183669462#0_0"
+          ]
+        },
+        {
+          "before": "-183669462#0",
+          "after": "-183669490#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-183669462#0_0"
+          ],
+          "to_lanes": [
+            "-183669490#3_0"
+          ]
+        },
+        {
+          "before": "-183669490#3",
+          "after": "-183669490#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-183669490#3_0"
+          ],
+          "to_lanes": [
+            "-183669490#2_0"
+          ]
+        },
+        {
+          "before": "-183669490#2",
+          "after": "-183669490#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-183669490#2_0"
+          ],
+          "to_lanes": [
+            "-183669490#1_0"
+          ]
+        },
+        {
+          "before": "-183669490#1",
+          "after": "-183669490#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-183669490#1_0"
+          ],
+          "to_lanes": [
+            "-183669490#0_0"
+          ]
+        },
+        {
+          "before": "-183669490#0",
+          "after": "-297298686#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-183669490#0_0"
+          ],
+          "to_lanes": [
+            "-297298686#1_0"
+          ]
+        },
+        {
+          "before": "-297298686#1",
+          "after": "-297298686#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-297298686#1_0"
+          ],
+          "to_lanes": [
+            "-297298686#0_0"
+          ]
+        },
+        {
+          "before": "-297298686#0",
+          "after": "-297298685#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-297298686#0_0"
+          ],
+          "to_lanes": [
+            "-297298685#2_0"
+          ]
+        }
+      ],
+      "route_errors": [],
+      "vehicles": [
+        {
+          "id": "amb_1114106",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "183669462#2_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": true
+        }
+      ]
+    },
+    {
+      "route_group": 19,
+      "edges": [
+        "-454158885#0",
+        "454158885#0",
+        "-454158885#0",
+        "454158885#0",
+        "-454158885#0",
+        "454158885#0",
+        "-454158885#0",
+        "454158885#0",
+        "-454158885#0",
+        "454158885#0"
+      ],
+      "vehicle_count": 4,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [
+        {
+          "before": "-454158885#0",
+          "after": "454158885#0",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "454158885#0",
+          "after": "-454158885#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "454158885#0_0"
+          ],
+          "to_lanes": [
+            "-454158885#0_0"
+          ]
+        },
+        {
+          "before": "-454158885#0",
+          "after": "454158885#0",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "454158885#0",
+          "after": "-454158885#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "454158885#0_0"
+          ],
+          "to_lanes": [
+            "-454158885#0_0"
+          ]
+        },
+        {
+          "before": "-454158885#0",
+          "after": "454158885#0",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "454158885#0",
+          "after": "-454158885#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "454158885#0_0"
+          ],
+          "to_lanes": [
+            "-454158885#0_0"
+          ]
+        },
+        {
+          "before": "-454158885#0",
+          "after": "454158885#0",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "454158885#0",
+          "after": "-454158885#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "454158885#0_0"
+          ],
+          "to_lanes": [
+            "-454158885#0_0"
+          ]
+        },
+        {
+          "before": "-454158885#0",
+          "after": "454158885#0",
+          "adjacent_nodes": true,
+          "connection_count": 0,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        }
+      ],
+      "route_errors": [
+        "missing_emergency_lane_connection",
+        "missing_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1106104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "-454158885#0_0"
+          ],
+          "valid": false,
+          "errors": [
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1106000",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "-454158885#0_0"
+          ],
+          "valid": false,
+          "errors": [
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1106101",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "-454158885#0_0"
+          ],
+          "valid": false,
+          "errors": [
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        },
+        {
+          "id": "amb_1106201",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "-454158885#0_0"
+          ],
+          "valid": false,
+          "errors": [
+            "missing_emergency_lane_connection",
+            "missing_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 20,
+      "edges": [
+        "560659940#1",
+        "-560659940#1",
+        "-1384270199#1",
+        "-1526305278#5",
+        "-1526305278#4",
+        "-1526305278#2",
+        "-1526305278#1",
+        "-1526305278#0",
+        "1526305278#0",
+        "-1526305278#0"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "560659940#1",
+        "-560659940#1",
+        "-1384270199#1",
+        "-1526305278#5",
+        "-1526305278#4",
+        "-1526305278#2",
+        "-1526305278#1",
+        "-1526305278#0",
+        "1526305278#0",
+        "-1526305278#0"
+      ],
+      "pair_checks": [
+        {
+          "before": "560659940#1",
+          "after": "-560659940#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-560659940#1",
+          "after": "-1384270199#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1384270199#1",
+          "after": "-1526305278#5",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1526305278#5",
+          "after": "-1526305278#4",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1526305278#4",
+          "after": "-1526305278#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1526305278#2",
+          "after": "-1526305278#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1526305278#1",
+          "after": "-1526305278#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-1526305278#0",
+          "after": "1526305278#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "1526305278#0",
+          "after": "-1526305278#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1102104",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 21,
+      "edges": [
+        "170333423#0",
+        "170333423#1",
+        "-170333434",
+        "-170333425#0",
+        "-920648903#1",
+        "-920648903#0",
+        "218790194#4",
+        "-218969108#3",
+        "-170333428",
+        "-920648903#0"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "-170333428"
+      ],
+      "pair_checks": [
+        {
+          "before": "170333423#0",
+          "after": "170333423#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "170333423#0_0"
+          ],
+          "to_lanes": [
+            "170333423#1_0"
+          ]
+        },
+        {
+          "before": "170333423#1",
+          "after": "-170333434",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "170333423#1_0"
+          ],
+          "to_lanes": [
+            "-170333434_0"
+          ]
+        },
+        {
+          "before": "-170333434",
+          "after": "-170333425#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-170333434_0"
+          ],
+          "to_lanes": [
+            "-170333425#0_0"
+          ]
+        },
+        {
+          "before": "-170333425#0",
+          "after": "-920648903#1",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-170333425#0_0"
+          ],
+          "to_lanes": [
+            "-920648903#1_0"
+          ]
+        },
+        {
+          "before": "-920648903#1",
+          "after": "-920648903#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-920648903#1_0"
+          ],
+          "to_lanes": [
+            "-920648903#0_0"
+          ]
+        },
+        {
+          "before": "-920648903#0",
+          "after": "218790194#4",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-920648903#0_0"
+          ],
+          "to_lanes": [
+            "218790194#4_0"
+          ]
+        },
+        {
+          "before": "218790194#4",
+          "after": "-218969108#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "218790194#4_0"
+          ],
+          "to_lanes": [
+            "-218969108#3_0"
+          ]
+        },
+        {
+          "before": "-218969108#3",
+          "after": "-170333428",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        },
+        {
+          "before": "-170333428",
+          "after": "-920648903#0",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 0,
+          "from_lanes": [],
+          "to_lanes": []
+        }
+      ],
+      "route_errors": [
+        "edge_without_emergency_lane",
+        "missing_emergency_lane_connection"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1120105",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "170333423#0_0"
+          ],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "missing_emergency_lane_connection",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 22,
+      "edges": [
+        "617416464"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [
+        "617416464"
+      ],
+      "pair_checks": [],
+      "route_errors": [
+        "edge_without_emergency_lane"
+      ],
+      "vehicles": [
+        {
+          "id": "amb_1126305",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [],
+          "valid": false,
+          "errors": [
+            "edge_without_emergency_lane",
+            "no_permitted_departure_lane",
+            "no_topological_lane_chain"
+          ],
+          "topological_lane_chain": false,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    },
+    {
+      "route_group": 23,
+      "edges": [
+        "277554691",
+        "277554691-AddedOffRampEdge",
+        "277554573",
+        "277554571",
+        "277554572",
+        "417952865#0",
+        "-183669514#5",
+        "-183669514#4",
+        "-183669514#3",
+        "-183669514#2"
+      ],
+      "vehicle_count": 1,
+      "missing_edges": [],
+      "forbidden_emergency_edges": [],
+      "pair_checks": [
+        {
+          "before": "277554691",
+          "after": "277554691-AddedOffRampEdge",
+          "adjacent_nodes": true,
+          "connection_count": 3,
+          "permitted_connection_count": 3,
+          "from_lanes": [
+            "277554691_0",
+            "277554691_1"
+          ],
+          "to_lanes": [
+            "277554691-AddedOffRampEdge_0",
+            "277554691-AddedOffRampEdge_1",
+            "277554691-AddedOffRampEdge_2"
+          ]
+        },
+        {
+          "before": "277554691-AddedOffRampEdge",
+          "after": "277554573",
+          "adjacent_nodes": true,
+          "connection_count": 2,
+          "permitted_connection_count": 2,
+          "from_lanes": [
+            "277554691-AddedOffRampEdge_1",
+            "277554691-AddedOffRampEdge_2"
+          ],
+          "to_lanes": [
+            "277554573_0",
+            "277554573_1"
+          ]
+        },
+        {
+          "before": "277554573",
+          "after": "277554571",
+          "adjacent_nodes": true,
+          "connection_count": 2,
+          "permitted_connection_count": 2,
+          "from_lanes": [
+            "277554573_0",
+            "277554573_1"
+          ],
+          "to_lanes": [
+            "277554571_0",
+            "277554571_1"
+          ]
+        },
+        {
+          "before": "277554571",
+          "after": "277554572",
+          "adjacent_nodes": true,
+          "connection_count": 2,
+          "permitted_connection_count": 2,
+          "from_lanes": [
+            "277554571_0",
+            "277554571_1"
+          ],
+          "to_lanes": [
+            "277554572_0",
+            "277554572_1"
+          ]
+        },
+        {
+          "before": "277554572",
+          "after": "417952865#0",
+          "adjacent_nodes": true,
+          "connection_count": 2,
+          "permitted_connection_count": 2,
+          "from_lanes": [
+            "277554572_0",
+            "277554572_1"
+          ],
+          "to_lanes": [
+            "417952865#0_0",
+            "417952865#0_1"
+          ]
+        },
+        {
+          "before": "417952865#0",
+          "after": "-183669514#5",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "417952865#0_1"
+          ],
+          "to_lanes": [
+            "-183669514#5_0"
+          ]
+        },
+        {
+          "before": "-183669514#5",
+          "after": "-183669514#4",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-183669514#5_0"
+          ],
+          "to_lanes": [
+            "-183669514#4_0"
+          ]
+        },
+        {
+          "before": "-183669514#4",
+          "after": "-183669514#3",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-183669514#4_0"
+          ],
+          "to_lanes": [
+            "-183669514#3_0"
+          ]
+        },
+        {
+          "before": "-183669514#3",
+          "after": "-183669514#2",
+          "adjacent_nodes": true,
+          "connection_count": 1,
+          "permitted_connection_count": 1,
+          "from_lanes": [
+            "-183669514#3_0"
+          ],
+          "to_lanes": [
+            "-183669514#2_0"
+          ]
+        }
+      ],
+      "route_errors": [],
+      "vehicles": [
+        {
+          "id": "amb_1114107",
+          "type": "ambulance",
+          "depart": "0.00",
+          "depart_lane": "first",
+          "permitted_departure_lanes": [
+            "277554691_0"
+          ],
+          "valid": true,
+          "errors": [],
+          "topological_lane_chain": true,
+          "continuous_lane_chain_without_lateral_changes": false
+        }
+      ]
+    }
+  ]
+}

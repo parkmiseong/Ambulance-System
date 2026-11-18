@@ -1,0 +1,103 @@
+{
+  "status": "user_selected_valid73_diagnostic_completed",
+  "engine": "SUMO 1.28.0",
+  "episode": 27,
+  "scenario_id": 9,
+  "seed": 10069,
+  "independent_processes": 3,
+  "native_completed_trials": 3,
+  "arrival_steps": 3600,
+  "training_source_episode": 26,
+  "training_source_updates": 342,
+  "original24_checkpoint_preserved": true,
+  "current26_checkpoint_sha256": "23ef780403057d4bcffcc6f73da3dfe332f1fecdb451040138206c58e8772183",
+  "candidate": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\episode27_background_route_audit_20261117\\valid73_candidate\\ambulance_routes.valid73.rou.xml",
+  "input_vehicle_definitions": {
+    "original": 180,
+    "retained": 73,
+    "excluded": 107,
+    "scenario_scale": 0.8
+  },
+  "driving_emergency_yield": true,
+  "passenger_repeat_unchanged": true,
+  "ambulance_limit": 10,
+  "tests_passed": 296,
+  "tests_log": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_episode27_tests_20261117_utf8.txt",
+  "trials": [
+    {
+      "trial": 1,
+      "summary": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_valid73_trial1\\sumo_crash_20261117_222040_020d39\\diagnostic_summary.json",
+      "native_completed": true,
+      "generated": 15,
+      "arrived": 14,
+      "failed": 1,
+      "censored": 0,
+      "simulation_end_time": 3601.0,
+      "failure_reasons": {
+        "hospital_stop_missing": 1
+      },
+      "source_checkpoint_unchanged": true,
+      "source_manifest_unchanged": true,
+      "input_integrity": {
+        "original_cfg": true,
+        "original_route": true,
+        "candidate_route": true,
+        "applied_cfg": true,
+        "applied_route": true
+      },
+      "model_weights_saved": false
+    },
+    {
+      "trial": 2,
+      "summary": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_valid73_trial2\\sumo_crash_20261117_222040_b5d831\\diagnostic_summary.json",
+      "native_completed": true,
+      "generated": 15,
+      "arrived": 15,
+      "failed": 0,
+      "censored": 0,
+      "simulation_end_time": 3601.0,
+      "failure_reasons": {},
+      "source_checkpoint_unchanged": true,
+      "source_manifest_unchanged": true,
+      "input_integrity": {
+        "original_cfg": true,
+        "original_route": true,
+        "candidate_route": true,
+        "applied_cfg": true,
+        "applied_route": true
+      },
+      "model_weights_saved": false
+    },
+    {
+      "trial": 3,
+      "summary": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo128_valid73_trial3\\sumo_crash_20261117_222040_b4307c\\diagnostic_summary.json",
+      "native_completed": true,
+      "generated": 15,
+      "arrived": 14,
+      "failed": 1,
+      "censored": 0,
+      "simulation_end_time": 3601.0,
+      "failure_reasons": {
+        "hospital_stop_missing": 1
+      },
+      "source_checkpoint_unchanged": true,
+      "source_manifest_unchanged": true,
+      "input_integrity": {
+        "original_cfg": true,
+        "original_route": true,
+        "candidate_route": true,
+        "applied_cfg": true,
+        "applied_route": true
+      },
+      "model_weights_saved": false
+    }
+  ],
+  "interpretation": {
+    "invalid_routes_caused_native_crash": "not_proven",
+    "all_scenarios_crash_free": "not_tested",
+    "performance_evaluation": false,
+    "native_fault_fixed": false,
+    "actual_training_profile_changed": false,
+    "new_training_started": false
+  }
+}

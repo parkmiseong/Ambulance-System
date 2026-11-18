@@ -1,0 +1,1215 @@
+{
+  "scope": "Offline PE .pdata and x64 unwind-code interpretation over captured minidump memory; no engine execution.",
+  "dump": "C:\\Users\\emaet\\AppData\\Local\\CrashDumps\\sumo.exe.7784.dmp",
+  "dump_sha256": "f2c924fee7c2686f21fbe86c18273035f6fd341741d949e1c014e865a17e363d",
+  "memory_region_count": 143,
+  "frames": [
+    {
+      "index": 0,
+      "module": "sumo.exe",
+      "rip": "0x7ff6549e6789",
+      "module_offset": "0x4d6789",
+      "rsp": "0xd8e8efed40",
+      "runtime_function": [
+        "0x4d6710",
+        "0x4d6ada",
+        "0x608bc4"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 85,
+          "op": 8,
+          "info": 14,
+          "operand": 3
+        },
+        {
+          "code_offset": 79,
+          "op": 8,
+          "info": 13,
+          "operand": 4
+        },
+        {
+          "code_offset": 73,
+          "op": 8,
+          "info": 12,
+          "operand": 5
+        },
+        {
+          "code_offset": 67,
+          "op": 8,
+          "info": 11,
+          "operand": 6
+        },
+        {
+          "code_offset": 61,
+          "op": 8,
+          "info": 10,
+          "operand": 7
+        },
+        {
+          "code_offset": 52,
+          "op": 8,
+          "info": 9,
+          "operand": 8
+        },
+        {
+          "code_offset": 44,
+          "op": 8,
+          "info": 7,
+          "operand": 10
+        },
+        {
+          "code_offset": 37,
+          "op": 8,
+          "info": 6,
+          "operand": 11
+        },
+        {
+          "code_offset": 33,
+          "op": 4,
+          "info": 3,
+          "operand": 32
+        },
+        {
+          "code_offset": 33,
+          "op": 1,
+          "info": 0,
+          "operand": 24
+        },
+        {
+          "code_offset": 26,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 24,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 22,
+          "op": 0,
+          "info": 13,
+          "operand": null
+        },
+        {
+          "code_offset": 20,
+          "op": 0,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 18,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        },
+        {
+          "code_offset": 17,
+          "op": 0,
+          "info": 6,
+          "operand": null
+        },
+        {
+          "code_offset": 16,
+          "op": 0,
+          "info": 5,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8efee38",
+      "return_address": "0x7ff6549daa4c",
+      "bytes_before_return": "e8 c4 bc 00 00"
+    },
+    {
+      "index": 1,
+      "module": "sumo.exe",
+      "rip": "0x7ff6549daa4c",
+      "module_offset": "0x4caa4c",
+      "rsp": "0xd8e8efee40",
+      "runtime_function": [
+        "0x4ca430",
+        "0x4ccb0c",
+        "0x608368"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 109,
+          "op": 8,
+          "info": 15,
+          "operand": 34
+        },
+        {
+          "code_offset": 101,
+          "op": 8,
+          "info": 14,
+          "operand": 35
+        },
+        {
+          "code_offset": 93,
+          "op": 8,
+          "info": 13,
+          "operand": 36
+        },
+        {
+          "code_offset": 85,
+          "op": 8,
+          "info": 12,
+          "operand": 37
+        },
+        {
+          "code_offset": 77,
+          "op": 8,
+          "info": 11,
+          "operand": 38
+        },
+        {
+          "code_offset": 69,
+          "op": 8,
+          "info": 10,
+          "operand": 39
+        },
+        {
+          "code_offset": 61,
+          "op": 8,
+          "info": 9,
+          "operand": 40
+        },
+        {
+          "code_offset": 53,
+          "op": 8,
+          "info": 8,
+          "operand": 41
+        },
+        {
+          "code_offset": 48,
+          "op": 8,
+          "info": 7,
+          "operand": 42
+        },
+        {
+          "code_offset": 44,
+          "op": 8,
+          "info": 6,
+          "operand": 43
+        },
+        {
+          "code_offset": 40,
+          "op": 1,
+          "info": 0,
+          "operand": 89
+        },
+        {
+          "code_offset": 26,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 24,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 22,
+          "op": 0,
+          "info": 13,
+          "operand": null
+        },
+        {
+          "code_offset": 20,
+          "op": 0,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 18,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        },
+        {
+          "code_offset": 17,
+          "op": 0,
+          "info": 6,
+          "operand": null
+        },
+        {
+          "code_offset": 16,
+          "op": 0,
+          "info": 3,
+          "operand": null
+        },
+        {
+          "code_offset": 15,
+          "op": 0,
+          "info": 5,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8eff148",
+      "return_address": "0x7ff6549e646e",
+      "bytes_before_return": "e8 c2 3f ff ff"
+    },
+    {
+      "index": 2,
+      "module": "sumo.exe",
+      "rip": "0x7ff6549e646e",
+      "module_offset": "0x4d646e",
+      "rsp": "0xd8e8eff150",
+      "runtime_function": [
+        "0x4d6290",
+        "0x4d65aa",
+        "0x608008"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 28,
+          "op": 8,
+          "info": 6,
+          "operand": 15
+        },
+        {
+          "code_offset": 20,
+          "op": 1,
+          "info": 0,
+          "operand": 33
+        },
+        {
+          "code_offset": 13,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 11,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 9,
+          "op": 0,
+          "info": 13,
+          "operand": null
+        },
+        {
+          "code_offset": 7,
+          "op": 0,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 5,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        },
+        {
+          "code_offset": 4,
+          "op": 0,
+          "info": 6,
+          "operand": null
+        },
+        {
+          "code_offset": 3,
+          "op": 0,
+          "info": 5,
+          "operand": null
+        },
+        {
+          "code_offset": 2,
+          "op": 0,
+          "info": 3,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8eff298",
+      "return_address": "0x7ff654840d3e",
+      "bytes_before_return": "c8 41 ff 52 48"
+    },
+    {
+      "index": 3,
+      "module": "sumo.exe",
+      "rip": "0x7ff654840d3e",
+      "module_offset": "0x330d3e",
+      "rsp": "0xd8e8eff2a0",
+      "runtime_function": [
+        "0x330940",
+        "0x330fc8",
+        "0x5e490c"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 65,
+          "op": 8,
+          "info": 9,
+          "operand": 52
+        },
+        {
+          "code_offset": 57,
+          "op": 8,
+          "info": 8,
+          "operand": 53
+        },
+        {
+          "code_offset": 52,
+          "op": 8,
+          "info": 7,
+          "operand": 54
+        },
+        {
+          "code_offset": 48,
+          "op": 8,
+          "info": 6,
+          "operand": 55
+        },
+        {
+          "code_offset": 44,
+          "op": 1,
+          "info": 0,
+          "operand": 113
+        },
+        {
+          "code_offset": 30,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 28,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 26,
+          "op": 0,
+          "info": 13,
+          "operand": null
+        },
+        {
+          "code_offset": 24,
+          "op": 0,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 22,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        },
+        {
+          "code_offset": 21,
+          "op": 0,
+          "info": 6,
+          "operand": null
+        },
+        {
+          "code_offset": 20,
+          "op": 0,
+          "info": 3,
+          "operand": null
+        },
+        {
+          "code_offset": 19,
+          "op": 0,
+          "info": 5,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8eff668",
+      "return_address": "0x7ff6548400b2",
+      "bytes_before_return": "e8 8e 08 00 00"
+    },
+    {
+      "index": 4,
+      "module": "sumo.exe",
+      "rip": "0x7ff6548400b2",
+      "module_offset": "0x3300b2",
+      "rsp": "0xd8e8eff670",
+      "runtime_function": [
+        "0x32ffa0",
+        "0x3301c7",
+        "0x5e4bac"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 17,
+          "op": 2,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 13,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 11,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 9,
+          "op": 0,
+          "info": 13,
+          "operand": null
+        },
+        {
+          "code_offset": 7,
+          "op": 0,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 5,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        },
+        {
+          "code_offset": 4,
+          "op": 0,
+          "info": 6,
+          "operand": null
+        },
+        {
+          "code_offset": 3,
+          "op": 0,
+          "info": 5,
+          "operand": null
+        },
+        {
+          "code_offset": 2,
+          "op": 0,
+          "info": 3,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8eff718",
+      "return_address": "0x7ff65483fe71",
+      "bytes_before_return": "e8 2f 01 00 00"
+    },
+    {
+      "index": 5,
+      "module": "sumo.exe",
+      "rip": "0x7ff65483fe71",
+      "module_offset": "0x32fe71",
+      "rsp": "0xd8e8eff720",
+      "runtime_function": [
+        "0x32f7f0",
+        "0x32ff96",
+        "0x5e4820"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 54,
+          "op": 8,
+          "info": 9,
+          "operand": 23
+        },
+        {
+          "code_offset": 49,
+          "op": 8,
+          "info": 8,
+          "operand": 24
+        },
+        {
+          "code_offset": 44,
+          "op": 8,
+          "info": 7,
+          "operand": 25
+        },
+        {
+          "code_offset": 40,
+          "op": 8,
+          "info": 6,
+          "operand": 26
+        },
+        {
+          "code_offset": 36,
+          "op": 4,
+          "info": 3,
+          "operand": 65
+        },
+        {
+          "code_offset": 36,
+          "op": 1,
+          "info": 0,
+          "operand": 54
+        },
+        {
+          "code_offset": 22,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 20,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 18,
+          "op": 0,
+          "info": 13,
+          "operand": null
+        },
+        {
+          "code_offset": 16,
+          "op": 0,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 14,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        },
+        {
+          "code_offset": 13,
+          "op": 0,
+          "info": 6,
+          "operand": null
+        },
+        {
+          "code_offset": 12,
+          "op": 0,
+          "info": 5,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8eff908",
+      "return_address": "0x7ff65483e361",
+      "bytes_before_return": "8b cf ff 50 10"
+    },
+    {
+      "index": 6,
+      "module": "sumo.exe",
+      "rip": "0x7ff65483e361",
+      "module_offset": "0x32e361",
+      "rsp": "0xd8e8eff910",
+      "runtime_function": [
+        "0x32e300",
+        "0x32e3f0",
+        "0x5e3f84"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 20,
+          "op": 4,
+          "info": 6,
+          "operand": 9
+        },
+        {
+          "code_offset": 20,
+          "op": 4,
+          "info": 3,
+          "operand": 7
+        },
+        {
+          "code_offset": 20,
+          "op": 2,
+          "info": 3,
+          "operand": null
+        },
+        {
+          "code_offset": 16,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8eff938",
+      "return_address": "0x7ff6547cf405",
+      "bytes_before_return": "e8 3b 65 ff ff"
+    },
+    {
+      "index": 7,
+      "module": "sumo.exe",
+      "rip": "0x7ff6547cf405",
+      "module_offset": "0x2bf405",
+      "rsp": "0xd8e8eff940",
+      "runtime_function": [
+        "0x2bf360",
+        "0x2bf557",
+        "0x5d8468"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 25,
+          "op": 8,
+          "info": 6,
+          "operand": 4
+        },
+        {
+          "code_offset": 20,
+          "op": 4,
+          "info": 3,
+          "operand": 19
+        },
+        {
+          "code_offset": 20,
+          "op": 2,
+          "info": 9,
+          "operand": null
+        },
+        {
+          "code_offset": 16,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 14,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 12,
+          "op": 0,
+          "info": 13,
+          "operand": null
+        },
+        {
+          "code_offset": 10,
+          "op": 0,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 8,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        },
+        {
+          "code_offset": 7,
+          "op": 0,
+          "info": 6,
+          "operand": null
+        },
+        {
+          "code_offset": 6,
+          "op": 0,
+          "info": 5,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8eff9c8",
+      "return_address": "0x7ff65476cd26",
+      "bytes_before_return": "e8 3a 26 06 00"
+    },
+    {
+      "index": 8,
+      "module": "sumo.exe",
+      "rip": "0x7ff65476cd26",
+      "module_offset": "0x25cd26",
+      "rsp": "0xd8e8eff9d0",
+      "runtime_function": [
+        "0x25c6a0",
+        "0x25cf30",
+        "0x5ce7f8"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 25,
+          "op": 1,
+          "info": 0,
+          "operand": 29
+        },
+        {
+          "code_offset": 13,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 11,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 9,
+          "op": 0,
+          "info": 13,
+          "operand": null
+        },
+        {
+          "code_offset": 7,
+          "op": 0,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 5,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        },
+        {
+          "code_offset": 4,
+          "op": 0,
+          "info": 6,
+          "operand": null
+        },
+        {
+          "code_offset": 3,
+          "op": 0,
+          "info": 3,
+          "operand": null
+        },
+        {
+          "code_offset": 2,
+          "op": 0,
+          "info": 5,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8effaf8",
+      "return_address": "0x7ff65476c38e",
+      "bytes_before_return": "e8 12 03 00 00"
+    },
+    {
+      "index": 9,
+      "module": "sumo.exe",
+      "rip": "0x7ff65476c38e",
+      "module_offset": "0x25c38e",
+      "rsp": "0xd8e8effb00",
+      "runtime_function": [
+        "0x25c220",
+        "0x25c6a0",
+        "0x5ce794"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 28,
+          "op": 4,
+          "info": 3,
+          "operand": 36
+        },
+        {
+          "code_offset": 28,
+          "op": 1,
+          "info": 0,
+          "operand": 26
+        },
+        {
+          "code_offset": 16,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 14,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 12,
+          "op": 0,
+          "info": 13,
+          "operand": null
+        },
+        {
+          "code_offset": 10,
+          "op": 0,
+          "info": 12,
+          "operand": null
+        },
+        {
+          "code_offset": 8,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        },
+        {
+          "code_offset": 7,
+          "op": 0,
+          "info": 6,
+          "operand": null
+        },
+        {
+          "code_offset": 6,
+          "op": 0,
+          "info": 5,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8effc08",
+      "return_address": "0x7ff654526a0b",
+      "bytes_before_return": "e8 15 58 24 00"
+    },
+    {
+      "index": 10,
+      "module": "sumo.exe",
+      "rip": "0x7ff654526a0b",
+      "module_offset": "0x16a0b",
+      "rsp": "0xd8e8effc10",
+      "runtime_function": [
+        "0x166c0",
+        "0x16be5",
+        "0x59a794"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 22,
+          "op": 4,
+          "info": 6,
+          "operand": 33
+        },
+        {
+          "code_offset": 22,
+          "op": 4,
+          "info": 3,
+          "operand": 32
+        },
+        {
+          "code_offset": 22,
+          "op": 1,
+          "info": 0,
+          "operand": 26
+        },
+        {
+          "code_offset": 15,
+          "op": 0,
+          "info": 15,
+          "operand": null
+        },
+        {
+          "code_offset": 13,
+          "op": 0,
+          "info": 14,
+          "operand": null
+        },
+        {
+          "code_offset": 11,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8effcf8",
+      "return_address": "0x7ff65499f8cf",
+      "bytes_before_return": "e8 f1 6d b8 ff"
+    },
+    {
+      "index": 11,
+      "module": "sumo.exe",
+      "rip": "0x7ff65499f8cf",
+      "module_offset": "0x48f8cf",
+      "rsp": "0xd8e8effd00",
+      "runtime_function": [
+        "0x48f7c0",
+        "0x48f93f",
+        "0x6038cc"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 15,
+          "op": 4,
+          "info": 6,
+          "operand": 9
+        },
+        {
+          "code_offset": 15,
+          "op": 4,
+          "info": 3,
+          "operand": 8
+        },
+        {
+          "code_offset": 15,
+          "op": 2,
+          "info": 5,
+          "operand": null
+        },
+        {
+          "code_offset": 11,
+          "op": 0,
+          "info": 7,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8effd38",
+      "return_address": "0x7ffb8604dda7"
+    },
+    {
+      "index": 12,
+      "module": "kernel32.dll",
+      "rip": "0x7ffb8604dda7",
+      "module_offset": "0x2dda7",
+      "rsp": "0xd8e8effd40",
+      "runtime_function": [
+        "0x2dd90",
+        "0x2dddd",
+        "0xa0c74"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 6,
+          "op": 2,
+          "info": 3,
+          "operand": null
+        },
+        {
+          "code_offset": 2,
+          "op": 0,
+          "info": 3,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8effd68",
+      "return_address": "0x7ffb86bd9c5c"
+    },
+    {
+      "index": 13,
+      "module": "ntdll.dll",
+      "rip": "0x7ffb86bd9c5c",
+      "module_offset": "0xc9c5c",
+      "rsp": "0xd8e8effd70",
+      "runtime_function": [
+        "0xc9c30",
+        "0xc9c8c",
+        "0x1b6bbc"
+      ],
+      "unwind_operations": [
+        {
+          "code_offset": 4,
+          "op": 2,
+          "info": 8,
+          "operand": null
+        }
+      ],
+      "return_address_stack_location": "0xd8e8effdb8",
+      "return_address": "0x0"
+    }
+  ],
+  "stop_reason": "Zero return address",
+  "limitations": [
+    "Addresses and unwind-derived call chain are evidence, but symbol names/source types are unavailable.",
+    "Epilog instruction interpretation is not implemented; frame accuracy should be assessed using call-site bytes.",
+    "Only unwind opcodes encountered in this dump were processed."
+  ],
+  "top_caller_restored_registers": {
+    "rbp": "0xd8e8efef50",
+    "rsi": "0x2cdef75b420",
+    "rdi": "0x0",
+    "r12": "0x0",
+    "r13": "0xd8e8eff500",
+    "r14": "0xd8e8eff601",
+    "r15": "0xd8e8eff3a0",
+    "rbx": "0x0"
+  },
+  "top_caller_captured_locals": {
+    "curr_lane": {
+      "address": "0xd8e8efef70",
+      "raw": "00 00 00 00 00 00 00 00",
+      "value": "0x0"
+    },
+    "curr_vector": {
+      "address": "0xd8e8efefa0",
+      "raw": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    "neigh_lane": {
+      "address": "0xd8e8efefc0",
+      "raw": "00 00 00 00 00 00 00 00",
+      "value": "0x0"
+    },
+    "neigh_vector": {
+      "address": "0xd8e8efeff0",
+      "raw": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    "best_lane": {
+      "address": "0xd8e8eff010",
+      "raw": "00 00 00 00 00 00 00 00",
+      "value": "0x0"
+    },
+    "best_vector": {
+      "address": "0xd8e8eff040",
+      "raw": "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
+    },
+    "neighLane_argument": {
+      "address": "0xd8e8eff198",
+      "raw": "a0 8f d8 da cd 02 00 00",
+      "value": "0x2cddad88fa0"
+    },
+    "checkOpposite_neigh_edge": {
+      "address": "0xd8e8efef38",
+      "raw": "b0 75 d0 da cd 02 00 00",
+      "value": "0x2cddad075b0"
+    },
+    "current_edge": {
+      "address": "0xd8e8efeef8",
+      "raw": "b0 75 d0 da cd 02 00 00",
+      "value": "0x2cddad075b0"
+    },
+    "preb_argument_home_slot": {
+      "address": "0xd8e8eff1a0",
+      "raw": "00 00 00 00 d8 00 00 00",
+      "value": "0xd800000000",
+      "note": "Raw argument home slot; optimized code may reuse this slot after the original argument is no longer needed. Do not interpret its current bytes as a live vector pointer."
+    }
+  },
+  "candidate_interpretation": "Conditional on the source/assembly function match, all curr/neigh/best LaneQ lane pointers and their continuation-vector storage remain zero. Restored R12=laneOffset, R15=prebOffset, R13 low byte=checkOpposite in the caller assembly.",
+  "raw_confirmed_facts": {
+    "binary_sha256": "35d45c1166ceb5b72cce37676216f79124fcfe05920a496b14daee19acdaf9f3",
+    "top_runtime_function": [
+      "0x4d6710",
+      "0x4d6ada",
+      "0x608bc4"
+    ],
+    "direct_call_edges": [
+      {
+        "callsite": "0x4caa47",
+        "target": "0x4d6710",
+        "return": "0x4caa4c"
+      },
+      {
+        "callsite": "0x4d6469",
+        "target": "0x4ca430",
+        "return": "0x4d646e"
+      }
+    ],
+    "indirect_call_edge": {
+      "callsite": "0x330d3a",
+      "instruction": "call qword ptr [r10+0x48]",
+      "return": "0x330d3e"
+    },
+    "top_argument_locations": {
+      "first": "RCX (preserved R14)",
+      "second": "XMM1 (preserved XMM14)",
+      "third": "R8 (preserved R15)",
+      "fourth": "R9 (preserved RBP)",
+      "fifth": "stack [entry RSP+0x28]"
+    },
+    "top_sequence": [
+      "0x4d6769: call 0x305e10; that target loads [RCX+0x230] into RAX and returns",
+      "0x4d6772: compare byte [RAX+0x238] with zero; nonzero branches toward return",
+      "0x4d677f: R11=[RBP]",
+      "0x4d6786: R10=[R15]",
+      "0x4d6789: EDX=[R11+0x70] (fault; R11=0)",
+      "0x4d678d: compare EDX with [R10+0x70]",
+      "conditional select between third/fourth struct",
+      "compare pointer differences [struct+0x38]-[struct+0x30], each divided by 8"
+    ],
+    "caller_struct_stride_bytes": 72,
+    "caller_default_initialization_rvas": [
+      "0x4ca56a",
+      "0x4ca57a",
+      "0x4ca58d"
+    ],
+    "wrapper_strings": {
+      "0x56d214": "right",
+      "0x56d224": "left",
+      "0x535d28": "current"
+    },
+    "stack_lane_pointer_fields_all_zero": true,
+    "stack_continuation_vector_fields_all_zero": true,
+    "stored_edge_addresses_equal": true,
+    "vehicle_and_model_heap_captured": false,
+    "heap_check_addresses": [
+      "0x2cdf1155210",
+      "0x2cdef75b420",
+      "0x2cddad88fa0"
+    ]
+  },
+  "source_comparison": {
+    "status": "Strong source/assembly correspondence; function names inferred without PDB, not symbol-resolved.",
+    "sources": [
+      {
+        "url": "https://github.com/eclipse-sumo/sumo/blob/v1_28_0/src/microsim/lcmodels/MSLCHelper.cpp#L39-L68",
+        "supports": "Five arguments, opposite-state early return, lane-index comparison, selected inner lane and continuation-length early return match the top function sequence."
+      },
+      {
+        "url": "https://github.com/eclipse-sumo/sumo/blob/v1_28_0/src/microsim/MSVehicle.h#L777-L798",
+        "supports": "LaneQ begins with a lane pointer; four doubles and an int/bool precede its vector, matching the observed 72-byte stride and vector at offset 0x30 in this binary."
+      },
+      {
+        "url": "https://github.com/eclipse-sumo/sumo/blob/v1_28_0/src/microsim/lcmodels/MSLCM_SL2015.cpp#L1038-L1083",
+        "supports": "The lane-pointer locals start null; they are assigned only in a best-lane search and asserted afterwards. The binary contains corresponding zero initialization and 72-byte indexing/copy."
+      },
+      {
+        "url": "https://github.com/eclipse-sumo/sumo/blob/v1_28_0/src/microsim/lcmodels/MSLCM_SL2015.cpp#L1220-L1237",
+        "supports": "The helper result is added to current and neighboring distances before strategic-change handling, matching the callsite and subsequent two additions."
+      },
+      {
+        "url": "https://github.com/eclipse-sumo/sumo/blob/v1_28_0/src/microsim/lcmodels/MSLCM_SL2015.cpp#L168-L208",
+        "supports": "The wrapper forms right/left/current labels before calling the inner implementation and then handling lateral-gap checks, matching the wrapper strings and call chain."
+      },
+      {
+        "url": "https://github.com/eclipse-sumo/sumo/blob/v1_28_0/src/microsim/MSLaneChangerSublane.cpp#L611-L683",
+        "supports": "Ordinary sublane-change checking derives a target from a lane offset, constructs leader/follower data and calls the virtual lane-change method; the observed caller matches this ordering."
+      }
+    ],
+    "candidate_frames": [
+      {
+        "rva": "0x4d6710",
+        "candidate": "MSLCHelper::getRoundaboutDistBonus",
+        "confidence": "strong correspondence; no symbols"
+      },
+      {
+        "rva": "0x4ca430",
+        "candidate": "MSLCM_SL2015::_wantsChangeSublane",
+        "confidence": "strong correspondence; no symbols"
+      },
+      {
+        "rva": "0x4d6290",
+        "candidate": "MSLCM_SL2015::wantsChangeSublane",
+        "confidence": "strong correspondence; no symbols"
+      },
+      {
+        "rva": "0x330940",
+        "candidate": "MSLaneChangerSublane::checkChangeSublane",
+        "confidence": "strong correspondence; no symbols"
+      }
+    ],
+    "inference": "The source-matched path is consistent with default LaneQ entries remaining unassigned after a failed best-lane search, followed by an unchecked lane-index read. The current evidence does not show why the search failed.",
+    "opposite_caveat": "The stored current/neighbor edge pointers are equal, and the matching caller is ordinary sublane checking, so a dedicated opposite-direction branch is not established. The source also normalizes internal lanes before searching; that mapping is a candidate to inspect during replay.",
+    "unconfirmed": [
+      "Which exact vehicle and lane caused the search failure",
+      "Whether the best-lane vector was empty, lacked the normalized lane, or failed another search condition",
+      "Whether blue-light behavior is causal",
+      "Exact source mapping verified by symbols or debug build"
+    ]
+  },
+  "disassembly_excerpts": [
+    {
+      "rva_start": "0x4d6710",
+      "rva_end": "0x4d67bf",
+      "stdout": "\n.runtime\\sumo-1.28.0\\bin\\sumo.exe:\tfile format coff-x86-64\n\nDisassembly of section .text:\n\n0000000140001000 <.text>:\n1404d6710: 48 8b c4                    \tmovq\t%rsp, %rax\n1404d6713: 48 89 58 08                 \tmovq\t%rbx, 0x8(%rax)\n1404d6717: 4c 89 48 20                 \tmovq\t%r9, 0x20(%rax)\n1404d671b: 4c 89 40 18                 \tmovq\t%r8, 0x18(%rax)\n1404d671f: 55                          \tpushq\t%rbp\n1404d6720: 56                          \tpushq\t%rsi\n1404d6721: 57                          \tpushq\t%rdi\n1404d6722: 41 54                       \tpushq\t%r12\n1404d6724: 41 55                       \tpushq\t%r13\n1404d6726: 41 56                       \tpushq\t%r14\n1404d6728: 41 57                       \tpushq\t%r15\n1404d672a: 48 81 ec c0 00 00 00        \tsubq\t$0xc0, %rsp\n1404d6731: 0f 29 70 b8                 \tmovaps\t%xmm6, -0x48(%rax)\n1404d6735: 49 8b e9                    \tmovq\t%r9, %rbp\n1404d6738: 0f 29 78 a8                 \tmovaps\t%xmm7, -0x58(%rax)\n1404d673c: 4d 8b f8                    \tmovq\t%r8, %r15\n1404d673f: 44 0f 29 48 88              \tmovaps\t%xmm9, -0x78(%rax)\n1404d6744: 4c 8b f1                    \tmovq\t%rcx, %r14\n1404d6747: 44 0f 29 54 24 70           \tmovaps\t%xmm10, 0x70(%rsp)\n1404d674d: 44 0f 29 5c 24 60           \tmovaps\t%xmm11, 0x60(%rsp)\n1404d6753: 44 0f 29 64 24 50           \tmovaps\t%xmm12, 0x50(%rsp)\n1404d6759: 44 0f 29 6c 24 40           \tmovaps\t%xmm13, 0x40(%rsp)\n1404d675f: 44 0f 29 74 24 30           \tmovaps\t%xmm14, 0x30(%rsp)\n1404d6765: 44 0f 28 f1                 \tmovaps\t%xmm1, %xmm14\n1404d6769: e8 a2 f6 e2 ff              \tcallq\t0x140305e10 <.text+0x304e10>\n1404d676e: 45 0f 57 ed                 \txorps\t%xmm13, %xmm13\n1404d6772: 80 b8 38 02 00 00 00        \tcmpb\t$0x0, 0x238(%rax)\n1404d6779: 0f 85 62 04 00 00           \tjne\t0x1404d6be1 <.text+0x4d5be1>\n1404d677f: 4c 8b 5d 00                 \tmovq\t(%rbp), %r11\n1404d6783: 4d 8b e7                    \tmovq\t%r15, %r12\n1404d6786: 4d 8b 17                    \tmovq\t(%r15), %r10\n1404d6789: 41 8b 53 70                 \tmovl\t0x70(%r11), %edx\n1404d678d: 41 3b 52 70                 \tcmpl\t0x70(%r10), %edx\n1404d6791: 4d 0f 4f d3                 \tcmovgq\t%r11, %r10\n1404d6795: 4c 0f 4f e5                 \tcmovgq\t%rbp, %r12\n1404d6799: 4d 3b da                    \tcmpq\t%r10, %r11\n1404d679c: 75 21                       \tjne\t0x1404d67bf <.text+0x4d57bf>\n1404d679e: 49 8b 4f 38                 \tmovq\t0x38(%r15), %rcx\n1404d67a2: 49 2b 4f 30                 \tsubq\t0x30(%r15), %rcx\n1404d67a6: 48 8b 45 38                 \tmovq\t0x38(%rbp), %rax\n1404d67aa: 48 2b 45 30                 \tsubq\t0x30(%rbp), %rax\n1404d67ae: 48 c1 f9 03                 \tsarq\t$0x3, %rcx\n1404d67b2: 48 c1 f8 03                 \tsarq\t$0x3, %rax\n1404d67b6: 48 3b c8                    \tcmpq\t%rax, %rcx\n1404d67b9: 0f 82 22 04 00 00           \tjb\t0x1404d6be1 <.text+0x4d5be1>\n"
+    },
+    {
+      "rva_start": "0x4ca56a",
+      "rva_end": "0x4ca692",
+      "stdout": "\n.runtime\\sumo-1.28.0\\bin\\sumo.exe:\tfile format coff-x86-64\n\nDisassembly of section .text:\n\n0000000140001000 <.text>:\n1404ca56a: 4c 89 75 20                 \tmovq\t%r14, 0x20(%rbp)\n1404ca56e: 0f 57 c0                    \txorps\t%xmm0, %xmm0\n1404ca571: 66 0f 7f 45 50              \tmovdqa\t%xmm0, 0x50(%rbp)\n1404ca576: 4c 89 75 60                 \tmovq\t%r14, 0x60(%rbp)\n1404ca57a: 4c 89 75 70                 \tmovq\t%r14, 0x70(%rbp)\n1404ca57e: 66 0f 7f 85 a0 00 00 00     \tmovdqa\t%xmm0, 0xa0(%rbp)\n1404ca586: 4c 89 b5 b0 00 00 00        \tmovq\t%r14, 0xb0(%rbp)\n1404ca58d: 4c 89 b5 c0 00 00 00        \tmovq\t%r14, 0xc0(%rbp)\n1404ca594: 66 0f 7f 85 f0 00 00 00     \tmovdqa\t%xmm0, 0xf0(%rbp)\n1404ca59c: 4c 89 b5 00 01 00 00        \tmovq\t%r14, 0x100(%rbp)\n1404ca5a3: 44 89 b5 00 02 00 00        \tmovl\t%r14d, 0x200(%rbp)\n1404ca5aa: 45 0f 57 c9                 \txorps\t%xmm9, %xmm9\n1404ca5ae: 45 0f 57 e4                 \txorps\t%xmm12, %xmm12\n1404ca5b2: 45 0f 57 db                 \txorps\t%xmm11, %xmm11\n1404ca5b6: 48 8b 4e 08                 \tmovq\t0x8(%rsi), %rcx\n1404ca5ba: 48 8b 01                    \tmovq\t(%rcx), %rax\n1404ca5bd: ff 90 90 00 00 00           \tcallq\t*0x90(%rax)\n1404ca5c3: 48 8b f8                    \tmovq\t%rax, %rdi\n1404ca5c6: 48 8b 88 e8 01 00 00        \tmovq\t0x1e8(%rax), %rcx\n1404ca5cd: 83 79 60 05                 \tcmpl\t$0x5, 0x60(%rcx)\n1404ca5d1: 75 23                       \tjne\t0x1404ca5f6 <.text+0x4c95f6>\n1404ca5d3: 80 be 38 02 00 00 00        \tcmpb\t$0x0, 0x238(%rsi)\n1404ca5da: 74 0d                       \tje\t0x1404ca5e9 <.text+0x4c95e9>\n1404ca5dc: 48 8b c8                    \tmovq\t%rax, %rcx\n1404ca5df: e8 ac 94 da ff              \tcallq\t0x140273a90 <.text+0x272a90>\n1404ca5e4: 48 8b f8                    \tmovq\t%rax, %rdi\n1404ca5e7: eb 0d                       \tjmp\t0x1404ca5f6 <.text+0x4c95f6>\n1404ca5e9: 48 8b 80 88 02 00 00        \tmovq\t0x288(%rax), %rax\n1404ca5f0: 48 8b 08                    \tmovq\t(%rax), %rcx\n1404ca5f3: 48 8b 39                    \tmovq\t(%rcx), %rdi\n1404ca5f6: 48 8b 9d 48 02 00 00        \tmovq\t0x248(%rbp), %rbx\n1404ca5fd: 48 8b 9b e8 01 00 00        \tmovq\t0x1e8(%rbx), %rbx\n1404ca604: 48 89 5d e8                 \tmovq\t%rbx, -0x18(%rbp)\n1404ca608: 48 8b 4e 08                 \tmovq\t0x8(%rsi), %rcx\n1404ca60c: 48 8b 01                    \tmovq\t(%rcx), %rax\n1404ca60f: ff 90 90 00 00 00           \tcallq\t*0x90(%rax)\n1404ca615: 48 8b 88 e8 01 00 00        \tmovq\t0x1e8(%rax), %rcx\n1404ca61c: 48 89 4d a8                 \tmovq\t%rcx, -0x58(%rbp)\n1404ca620: 48 3b d9                    \tcmpq\t%rcx, %rbx\n1404ca623: 41 0f 95 c5                 \tsetne\t%r13b\n1404ca627: 45 8b fc                    \tmovl\t%r12d, %r15d\n1404ca62a: 45 0f 45 fe                 \tcmovnel\t%r14d, %r15d\n1404ca62e: 41 8b de                    \tmovl\t%r14d, %ebx\n1404ca631: 4c 8b b5 50 02 00 00        \tmovq\t0x250(%rbp), %r14\n1404ca638: 4d 8b 06                    \tmovq\t(%r14), %r8\n1404ca63b: 49 8b 4e 08                 \tmovq\t0x8(%r14), %rcx\n1404ca63f: 49 2b c8                    \tsubq\t%r8, %rcx\n1404ca642: 48 b8 39 8e e3 38 8e e3 38 0e       \tmovabsq\t$0xe38e38e38e38e39, %rax # imm = 0xE38E38E38E38E39\n1404ca64c: 48 f7 e9                    \timulq\t%rcx\n1404ca64f: 48 c1 fa 02                 \tsarq\t$0x2, %rdx\n1404ca653: 48 8b c2                    \tmovq\t%rdx, %rax\n1404ca656: 48 c1 e8 3f                 \tshrq\t$0x3f, %rax\n1404ca65a: 48 03 d0                    \taddq\t%rax, %rdx\n1404ca65d: 85 d2                       \ttestl\t%edx, %edx\n1404ca65f: 0f 8e a4 01 00 00           \tjle\t0x1404ca809 <.text+0x4c9809>\n1404ca665: 66 66 66 0f 1f 84 00 00 00 00 00    \tnopw\t(%rax,%rax)\n1404ca670: 8b c3                       \tmovl\t%ebx, %eax\n1404ca672: 48 8d 0c c0                 \tleaq\t(%rax,%rax,8), %rcx\n1404ca676: 4d 8b 0c c8                 \tmovq\t(%r8,%rcx,8), %r9\n1404ca67a: 4c 3b cf                    \tcmpq\t%rdi, %r9\n1404ca67d: 75 08                       \tjne\t0x1404ca687 <.text+0x4c9687>\n1404ca67f: 42 8d 04 23                 \tleal\t(%rbx,%r12), %eax\n1404ca683: 85 c0                       \ttestl\t%eax, %eax\n1404ca685: 79 0b                       \tjns\t0x1404ca692 <.text+0x4c9692>\n1404ca687: ff c3                       \tincl\t%ebx\n1404ca689: 3b da                       \tcmpl\t%edx, %ebx\n1404ca68b: 7c e3                       \tjl\t0x1404ca670 <.text+0x4c9670>\n1404ca68d: e9 77 01 00 00              \tjmp\t0x1404ca809 <.text+0x4c9809>\n"
+    },
+    {
+      "rva_start": "0x4caa27",
+      "rva_end": "0x4caa69",
+      "stdout": "\n.runtime\\sumo-1.28.0\\bin\\sumo.exe:\tfile format coff-x86-64\n\nDisassembly of section .text:\n\n0000000140001000 <.text>:\n1404caa27: 48 8d 85 c0 00 00 00        \tleaq\t0xc0(%rbp), %rax\n1404caa2e: 48 89 44 24 20              \tmovq\t%rax, 0x20(%rsp)\n1404caa33: 4c 8d 4d 70                 \tleaq\t0x70(%rbp), %r9\n1404caa37: 4c 8d 45 20                 \tleaq\t0x20(%rbp), %r8\n1404caa3b: f2 0f 10 8e 60 03 00 00     \tmovsd\t0x360(%rsi), %xmm1\n1404caa43: 48 8b 4e 08                 \tmovq\t0x8(%rsi), %rcx\n1404caa47: e8 c4 bc 00 00              \tcallq\t0x1404d6710 <.text+0x4d5710>\n1404caa4c: 0f 28 f0                    \tmovaps\t%xmm0, %xmm6\n1404caa4f: f2 44 0f 58 e0              \taddsd\t%xmm0, %xmm12\n1404caa54: f2 44 0f 11 65 c0           \tmovsd\t%xmm12, -0x40(%rbp)\n1404caa5a: 44 0f 28 c0                 \tmovaps\t%xmm0, %xmm8\n1404caa5e: f2 45 0f 58 c3              \taddsd\t%xmm11, %xmm8\n1404caa63: f2 44 0f 11 45 88           \tmovsd\t%xmm8, -0x78(%rbp)\n"
+    },
+    {
+      "rva_start": "0x4d637b",
+      "rva_end": "0x4d6470",
+      "stdout": "\n.runtime\\sumo-1.28.0\\bin\\sumo.exe:\tfile format coff-x86-64\n\nDisassembly of section .text:\n\n0000000140001000 <.text>:\n1404d637b: 88 05 dd 20 1b 00           \tmovb\t%al, 0x1b20dd(%rip)     # 0x14068845e\n1404d6381: 83 fe ff                    \tcmpl\t$-0x1, %esi\n1404d6384: 75 09                       \tjne\t0x1404d638f <.text+0x4d538f>\n1404d6386: 48 8d 1d 87 6e 09 00        \tleaq\t0x96e87(%rip), %rbx     # 0x14056d214\n1404d638d: eb 15                       \tjmp\t0x1404d63a4 <.text+0x4d53a4>\n1404d638f: 48 8d 05 8e 6e 09 00        \tleaq\t0x96e8e(%rip), %rax     # 0x14056d224\n1404d6396: 48 8d 1d 8b f9 05 00        \tleaq\t0x5f98b(%rip), %rbx     # 0x140535d28\n1404d639d: 83 fe 01                    \tcmpl\t$0x1, %esi\n1404d63a0: 48 0f 44 d8                 \tcmoveq\t%rax, %rbx\n1404d63a4: 0f 57 c0                    \txorps\t%xmm0, %xmm0\n1404d63a7: 0f 11 84 24 c8 00 00 00     \tmovups\t%xmm0, 0xc8(%rsp)\n1404d63af: 33 c0                       \txorl\t%eax, %eax\n1404d63b1: 48 89 84 24 d8 00 00 00     \tmovq\t%rax, 0xd8(%rsp)\n1404d63b9: 48 89 84 24 e0 00 00 00     \tmovq\t%rax, 0xe0(%rsp)\n1404d63c1: 48 8b cb                    \tmovq\t%rbx, %rcx\n1404d63c4: e8 e3 9e fb ff              \tcallq\t0x1404902ac <.text+0x48f2ac>\n1404d63c9: 4c 8b c0                    \tmovq\t%rax, %r8\n1404d63cc: 48 8b d3                    \tmovq\t%rbx, %rdx\n1404d63cf: 48 8d 8c 24 c8 00 00 00     \tleaq\t0xc8(%rsp), %rcx\n1404d63d7: e8 24 fd b3 ff              \tcallq\t0x140016100 <.text+0x15100>\n1404d63dc: 90                          \tnop\n1404d63dd: 48 8b 84 24 88 00 00 00     \tmovq\t0x88(%rsp), %rax\n1404d63e5: 48 89 44 24 78              \tmovq\t%rax, 0x78(%rsp)\n1404d63ea: 4c 89 74 24 70              \tmovq\t%r14, 0x70(%rsp)\n1404d63ef: 48 89 6c 24 68              \tmovq\t%rbp, 0x68(%rsp)\n1404d63f4: 48 8b 84 24 a8 00 00 00     \tmovq\t0xa8(%rsp), %rax\n1404d63fc: 48 89 44 24 60              \tmovq\t%rax, 0x60(%rsp)\n1404d6401: 48 8b 84 24 b0 00 00 00     \tmovq\t0xb0(%rsp), %rax\n1404d6409: 48 89 44 24 58              \tmovq\t%rax, 0x58(%rsp)\n1404d640e: 48 8b 84 24 b8 00 00 00     \tmovq\t0xb8(%rsp), %rax\n1404d6416: 48 89 44 24 50              \tmovq\t%rax, 0x50(%rsp)\n1404d641b: 48 8b 84 24 90 00 00 00     \tmovq\t0x90(%rsp), %rax\n1404d6423: 48 89 44 24 48              \tmovq\t%rax, 0x48(%rsp)\n1404d6428: 48 8b 84 24 98 00 00 00     \tmovq\t0x98(%rsp), %rax\n1404d6430: 48 89 44 24 40              \tmovq\t%rax, 0x40(%rsp)\n1404d6435: 48 8b 84 24 a0 00 00 00     \tmovq\t0xa0(%rsp), %rax\n1404d643d: 48 89 44 24 38              \tmovq\t%rax, 0x38(%rsp)\n1404d6442: 48 8b 9c 24 c0 00 00 00     \tmovq\t0xc0(%rsp), %rbx\n1404d644a: 48 89 5c 24 30              \tmovq\t%rbx, 0x30(%rsp)\n1404d644f: 4c 89 6c 24 28              \tmovq\t%r13, 0x28(%rsp)\n1404d6454: 4c 89 64 24 20              \tmovq\t%r12, 0x20(%rsp)\n1404d6459: 4d 8b cf                    \tmovq\t%r15, %r9\n1404d645c: 44 8b 84 24 80 00 00 00     \tmovl\t0x80(%rsp), %r8d\n1404d6464: 8b d6                       \tmovl\t%esi, %edx\n1404d6466: 48 8b cf                    \tmovq\t%rdi, %rcx\n1404d6469: e8 c2 3f ff ff              \tcallq\t0x1404ca430 <.text+0x4c9430>\n1404d646e: 8b d0                       \tmovl\t%eax, %edx\n"
+    },
+    {
+      "rva_start": "0x330ce2",
+      "rva_end": "0x330d4a",
+      "stdout": "\n.runtime\\sumo-1.28.0\\bin\\sumo.exe:\tfile format coff-x86-64\n\nDisassembly of section .text:\n\n0000000140001000 <.text>:\n140330ce2: 48 89 4c 24 50              \tmovq\t%rcx, 0x50(%rsp)\n140330ce7: 48 8b 4d 98                 \tmovq\t-0x68(%rbp), %rcx\n140330ceb: 48 89 4c 24 48              \tmovq\t%rcx, 0x48(%rsp)\n140330cf0: 48 8d 8d e0 01 00 00        \tleaq\t0x1e0(%rbp), %rcx\n140330cf7: 48 89 4c 24 40              \tmovq\t%rcx, 0x40(%rsp)\n140330cfc: 48 8d 4d 60                 \tleaq\t0x60(%rbp), %rcx\n140330d00: 48 89 4c 24 38              \tmovq\t%rcx, 0x38(%rsp)\n140330d05: 48 8d 4d 00                 \tleaq\t(%rbp), %rcx\n140330d09: 48 89 4c 24 30              \tmovq\t%rcx, 0x30(%rsp)\n140330d0e: 48 8d 8d 80 01 00 00        \tleaq\t0x180(%rbp), %rcx\n140330d15: 48 89 4c 24 28              \tmovq\t%rcx, 0x28(%rsp)\n140330d1a: 48 8d 8d 20 01 00 00        \tleaq\t0x120(%rbp), %rcx\n140330d21: 48 89 4c 24 20              \tmovq\t%rcx, 0x20(%rsp)\n140330d26: 4c 8d 8d c0 00 00 00        \tleaq\t0xc0(%rbp), %r9\n140330d2d: 44 8b 85 e0 02 00 00        \tmovl\t0x2e0(%rbp), %r8d\n140330d34: 41 8b d5                    \tmovl\t%r13d, %edx\n140330d37: 48 8b c8                    \tmovq\t%rax, %rcx\n140330d3a: 41 ff 52 48                 \tcallq\t*0x48(%r10)\n140330d3e: 8b f8                       \tmovl\t%eax, %edi\n140330d40: 80 7b 2a 00                 \tcmpb\t$0x0, 0x2a(%rbx)\n140330d44: 0f 84 76 01 00 00           \tje\t0x140330ec0 <.text+0x32fec0>\n"
+    }
+  ],
+  "dump_still_unchanged": true
+}

@@ -1,4 +1,4 @@
-"""Repeat the supplied one-hour passenger demand for long dashboard episodes."""
+"""Shared periodic passenger demand for web and CLI episodes."""
 import copy
 import hashlib
 import math
@@ -6,6 +6,12 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 PERIOD = 3600
+
+
+def background_settings(enabled):
+    """Portable driving-input settings; legacy runs keep their original files."""
+    return dict(enabled=enabled, period_seconds=PERIOD if enabled else None,
+                implementation="periodic_original_passenger_v1" if enabled else "original_route_files")
 
 
 def prepare_background(cfg_file, directory, until, checkpoint=lambda: None):

@@ -1,0 +1,2 @@
+﻿episode,scenario,patients,missions,arrived,failed,reward,avg_reward,avg_loss,epsilon,episode_seconds,previous_episodes,run_episode,training_updates,episode_updates,target_updates,total_decisions,episode_decisions,episode_exploratory_decisions,exploration_rate
+46,1,10,10,10,0,68.90920860360632,6.890920860360632,0.01741647543385625,0.72174634309131,164.35899999999674,45,1,652,10,3,683,10,9,0.9

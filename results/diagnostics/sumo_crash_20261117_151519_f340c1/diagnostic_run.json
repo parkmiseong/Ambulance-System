@@ -1,0 +1,73 @@
+{
+  "diagnostic_only": true,
+  "saves_model_weights": false,
+  "snapshot": {
+    "checkpoint": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo_crash_20261117_151519_f340c1\\snapshot\\models\\checkpoint_v6_f560a1f65da40cc8.pth",
+    "manifest": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo_crash_20261117_151519_f340c1\\snapshot\\experiment.json",
+    "source_checkpoint": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_v6\\training\\checkpoint_v6_f560a1f65da40cc8.pth",
+    "source_manifest": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\all_scenarios_normal15_yield_repeat_v6\\training\\experiment_v6_f560a1f65da40cc8.json",
+    "checkpoint_sha256": "9667572f0473c5a9e364321a6b57ef1ddb487400d6220c822f23775c1ab9db47",
+    "manifest_sha256": "e8bec41bfdb63ba0b8afc14be78af1c7fd19415cc9e508540e7c32c81f2ac1af"
+  },
+  "previous_episode": 24,
+  "episode": 25,
+  "seed": 10067,
+  "scenario": {
+    "id": 7,
+    "prob": 0.4,
+    "scale": 0.3,
+    "name": "demand0.4-traffic0.3"
+  },
+  "config": {
+    "arrival_steps": 3600,
+    "demand_scale": 0.0138888888888889,
+    "max_wait": 1800.0,
+    "mission_timeout": 1800.0,
+    "treatment_seconds": 900.0,
+    "bed_fraction": 0.08,
+    "occupancy_limit": 0.85,
+    "seed": 42,
+    "candidate_limit": 1200,
+    "reward_version": 4,
+    "observation_version": 5,
+    "pending_reward_feature": "estimate",
+    "golden_margin_feature": false,
+    "candidate_reward_feature": false,
+    "admission_mode": "arrival",
+    "congestion_reward_mode": "balanced",
+    "emergency_yield": true,
+    "repeat_background_traffic": true
+  },
+  "learning_config": {
+    "gamma": 0.95,
+    "learning_rate": 0.0005,
+    "batch_size": 32,
+    "replay_capacity": 30000,
+    "reward_scale": 100.0,
+    "target_sync_mode": "updates",
+    "target_sync_interval": 200,
+    "target_sync_episodes": 10,
+    "target_tau": 0.005,
+    "epsilon_start": 1.0,
+    "epsilon_min": 0.05,
+    "epsilon_decay": 0.9995,
+    "epsilon_schedule": "updates_exponential",
+    "epsilon_decay_decisions": 10000,
+    "gradient_clip_norm": 5.0
+  },
+  "ambulance_count": 10,
+  "queue_policy": "severity",
+  "aging_seconds": 300.0,
+  "epsilon": 0.8641261514866426,
+  "replay_size": 323,
+  "learning_before": {
+    "total_decisions": 323,
+    "exploratory_decisions": 306,
+    "total_transitions": 323,
+    "training_updates": 292,
+    "target_updates": 1,
+    "counters_complete": true,
+    "exploration_rate": 0.9473684210526315
+  },
+  "sumo_output": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo_crash_20261117_151519_f340c1\\sumo\\episode25"
+}

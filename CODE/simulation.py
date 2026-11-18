@@ -19,6 +19,8 @@ from reward import (GOLDEN_TIME_LIMITS, calculate_reward, normalize_ktas, failur
 from simulation_setup import start_sumo, get_reachable_hospital_routes, _hospital_access_edges
 from traffic_router import TrafficRouter
 from emergency_yield import yield_settings
+from dashboard_traffic import background_settings
+from sumo_diagnostics import diagnostic_step, record_sumo_failure, close_sumo_safely
 
 
 def choose(mode, router, patient_pos, ktas, hospitals, state, agent, actions, *,
@@ -45,8 +47,10 @@ def choose(mode, router, patient_pos, ktas, hospitals, state, agent, actions, *,
 def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
                 training=False, gui=False, ambulance_count=10, queue_policy="severity",
                 aging_seconds=300, output_dir=None, on_outcome=None, quiet=False,
-                on_decision=None, on_step=None, initial_occupancy_range=None, emergency_yield=False,
+                on_decision=None, on_step=None, initial_occupancy_range=None, emergency_yield=None,
                 on_rejection=None):
+    if emergency_yield is None:
+        emergency_yield = config.emergency_yield
     if training and (mode != "dqn" or agent is None):
         raise ValueError("Training requires a DQN agent.")
     if not 1 <= ambulance_count <= 10:
@@ -56,7 +60,7 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
             or not 0 <= occupancy_range[0] <= occupancy_range[1] <= 1):
         raise ValueError("initial_occupancy_range must satisfy 0 <= low <= high <= 1.")
     seed_everything(seed)
-    scenario = scenario_for_config(scenario, config)
+    scenario = dict(scenario_for_config(scenario, config))
     hospitals = copy.deepcopy(base_hospitals)
     occupancy_rng = random.Random(seed + 200000)
     for hospital in hospitals:
@@ -351,10 +355,17 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
         if on_outcome:
             on_outcome(row)
 
+    primary_exception = None
     try:
+        if config.repeat_background_traffic and "_route_files" not in scenario:
+            from dashboard_traffic import prepare_background
+            background_dir = Path(output_dir or Path(__file__).resolve().parents[1] / "results" / "sumo")
+            routes, background = prepare_background(env.cfg_file, background_dir, config.drain_deadline)
+            scenario.update(_route_files=routes, background_traffic=background)
         start_sumo(env, scenario, seed, gui=gui, output_dir=output_dir, quiet=quiet,
                    emergency_yield=emergency_yield)
         traci.simulationStep()  # The first scheduled occurrence is SUMO time 1.
+        diagnostic_step(env, traci)
         traffic.reset()
         while traci.simulation.getTime() <= config.drain_deadline:
             now = float(traci.simulation.getTime())
@@ -367,6 +378,7 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
                 manager.enqueue(dict(schedule[int(now)]))
             manager.step(dispatch, finish, prefix="amb_e_" if training else "amb_eval_",
                          on_hospital_arrival=on_hospital_arrival if arrival_admission else None)
+            diagnostic_step(env, traci)
             if on_step is not None:
                 on_step({"time": float(traci.simulation.getTime()),
                          "hospitals": hospitals, "manager": manager, "outcomes": outcomes,
@@ -384,9 +396,16 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
         if transitions is not None:
             transitions.close()
         end_time = float(traci.simulation.getTime())
+    except BaseException as exc:
+        primary_exception = exc
+        record_sumo_failure(env, traci, exc, dict(
+            phase="run_episode", seed=seed, mode=mode, scenario_id=scenario.get("id"),
+            last_loop_time=locals().get("now"), completed=len(outcomes),
+            generated=len(schedule), waiting=len(manager.waiting),
+            active_vehicle_ids=list(manager.active), config=config.to_dict()))
+        raise
     finally:
-        if traci.isLoaded():
-            traci.close()
+        close_sumo_safely(env, traci, primary_exception)
     generated = len(schedule)
     if len(outcomes) != generated:
         raise RuntimeError(f"Outcome accounting mismatch: {len(outcomes)} != {generated}")
@@ -411,6 +430,8 @@ def run_episode(env, base_hospitals, scenario, seed, mode, config, agent=None,
     return {
         "generated_patients": generated, "missions": sum(assignments.values()),
         "emergency_yield": yield_settings(emergency_yield),
+        "background_traffic": {**(scenario.get("background_traffic") or {}),
+                               **background_settings(config.repeat_background_traffic)},
         "arrived": arrived, "failed": generated - arrived - censored, "censored": censored,
         "arrival_rate": 100. * arrived / generated if generated else 0.,
         "golden_rate": 100. * golden / generated if generated else 0.,

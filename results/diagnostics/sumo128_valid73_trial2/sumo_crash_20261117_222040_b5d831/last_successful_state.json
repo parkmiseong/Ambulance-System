@@ -1,0 +1,44 @@
+{
+  "time": 3601.0,
+  "waiting": 0,
+  "completed": 15,
+  "active": [],
+  "learning_updates": 356,
+  "hospitals": [
+    {
+      "id": "A1100004",
+      "occupancy": 0.38160845082562844,
+      "admitted_count": 0
+    },
+    {
+      "id": "A1100012",
+      "occupancy": 0.41589509728613083,
+      "admitted_count": 0
+    },
+    {
+      "id": "A1100015",
+      "occupancy": 0.4868772156381043,
+      "admitted_count": 0
+    },
+    {
+      "id": "A1100018",
+      "occupancy": 0.31903133905506886,
+      "admitted_count": 0
+    },
+    {
+      "id": "A1100057",
+      "occupancy": 0.5558074385356437,
+      "admitted_count": 1
+    },
+    {
+      "id": "A1100141",
+      "occupancy": 0.3490020788118059,
+      "admitted_count": 1
+    },
+    {
+      "id": "A1123234",
+      "occupancy": 0.3815062455363195,
+      "admitted_count": 0
+    }
+  ]
+}

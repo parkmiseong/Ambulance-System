@@ -1,0 +1,34 @@
+{
+  "status": "reproduced_failure",
+  "episode": 25,
+  "seed": 10067,
+  "scenario_id": 7,
+  "failure": {
+    "type": "PermissionError",
+    "message": "[WinError 5] 액세스가 거부되었습니다: 'C:\\\\Users\\\\emaet\\\\OneDrive\\\\바탕 화면\\\\STUDY\\\\VSCODE\\\\ambulance system\\\\results\\\\diagnostics\\\\sumo_crash_20261117_151519_f340c1\\\\last_successful_state.json.tmp' -> 'C:\\\\Users\\\\emaet\\\\OneDrive\\\\바탕 화면\\\\STUDY\\\\VSCODE\\\\ambulance system\\\\results\\\\diagnostics\\\\sumo_crash_20261117_151519_f340c1\\\\last_successful_state.json'",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\CODE\\diagnose_sumo_crash.py\", line 129, in run_diagnostic\n    result = run_episode(env, hospitals, scenario, seed, \"dqn\", episode_config, agent=agent,\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\CODE\\simulation.py\", line 383, in run_episode\n    on_step({\"time\": float(traci.simulation.getTime()),\n  File \"C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\CODE\\diagnose_sumo_crash.py\", line 121, in observe\n    write_json(directory / \"last_successful_state.json\", dict(\n  File \"C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\CODE\\diagnose_sumo_crash.py\", line 27, in write_json\n    temporary.replace(target)\n  File \"C:\\Users\\emaet\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\pathlib.py\", line 1188, in replace\n    os.replace(self, target)\nPermissionError: [WinError 5] 액세스가 거부되었습니다: 'C:\\\\Users\\\\emaet\\\\OneDrive\\\\바탕 화면\\\\STUDY\\\\VSCODE\\\\ambulance system\\\\results\\\\diagnostics\\\\sumo_crash_20261117_151519_f340c1\\\\last_successful_state.json.tmp' -> 'C:\\\\Users\\\\emaet\\\\OneDrive\\\\바탕 화면\\\\STUDY\\\\VSCODE\\\\ambulance system\\\\results\\\\diagnostics\\\\sumo_crash_20261117_151519_f340c1\\\\last_successful_state.json'\n"
+  },
+  "result": null,
+  "source_checkpoint_unchanged": true,
+  "source_manifest_unchanged": true,
+  "learning_before": {
+    "total_decisions": 323,
+    "exploratory_decisions": 306,
+    "total_transitions": 323,
+    "training_updates": 292,
+    "target_updates": 1,
+    "counters_complete": true,
+    "exploration_rate": 0.9473684210526315
+  },
+  "learning_after": {
+    "total_decisions": 334,
+    "exploratory_decisions": 317,
+    "total_transitions": 333,
+    "training_updates": 302,
+    "target_updates": 1,
+    "counters_complete": true,
+    "exploration_rate": 0.9491017964071856
+  },
+  "model_weights_saved": false,
+  "output": "C:\\Users\\emaet\\OneDrive\\바탕 화면\\STUDY\\VSCODE\\ambulance system\\results\\diagnostics\\sumo_crash_20261117_151519_f340c1"
+}

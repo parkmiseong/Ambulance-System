@@ -1,0 +1,16 @@
+[
+  {
+    "model": "results\\v6_s6_updates_s42\\models\\dqn_v6_919eaa77a75fac3a_best.pth",
+    "episode": 36,
+    "emergency_yield": false,
+    "hospitals": 9,
+    "manifest_signature": "919eaa77a75fac3a"
+  },
+  {
+    "model": "results\\web_dashboard\\20261113_141910_faca24\\models\\dqn_v6_643c8c7d641a2d21_best.pth",
+    "episode": 1,
+    "emergency_yield": false,
+    "hospitals": 9,
+    "manifest_signature": "643c8c7d641a2d21"
+  }
+]

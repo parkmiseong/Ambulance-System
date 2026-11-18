@@ -1,0 +1,148 @@
+Warning: Repaired route of vehicle 'amb_1110108'.
+Warning: Repaired route of vehicle 'amb_1125000'.
+Warning: Repaired route of vehicle 'amb_1125101'.
+Warning: Repaired route of vehicle 'amb_1125201'.
+Warning: Could not find new starting edge for vehicle 'amb_1116102'.
+Warning: The vehicle 'amb_1116102' has no valid route.
+Warning: Vehicle 'amb_1120106' is not allowed to depart on edge '358372844#1'.
+Warning: The vehicle 'amb_1120106' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1119108'.
+Warning: The vehicle 'amb_1119108' has no valid route.
+Warning: Repaired route of vehicle 'amb_1114000'.
+Warning: Repaired route of vehicle 'amb_1114402'.
+Warning: Could not find new starting edge for vehicle 'amb_1114401'.
+Warning: The vehicle 'amb_1114401' has no valid route.
+Warning: Repaired route of vehicle 'amb_1115104'.
+Warning: Repaired route of vehicle 'amb_1122102'.
+Warning: Repaired route of vehicle 'amb_1122103'.
+Warning: Vehicle 'amb_1120102' is not allowed to depart on edge '358372844#1'.
+Warning: The vehicle 'amb_1120102' has no valid route.
+Warning: Repaired route of vehicle 'amb_1118104'.
+Warning: Repaired route of vehicle 'amb_1110106'.
+Warning: Repaired route of vehicle 'amb_1122104'.
+Warning: Repaired route of vehicle 'amb_1109103'.
+Warning: Repaired route of vehicle 'amb_1109104'.
+Warning: Repaired route of vehicle 'amb_1125102'.
+Warning: Repaired route of vehicle 'amb_1125103'.
+Warning: Repaired route of vehicle 'amb_1111000'.
+Warning: Repaired route of vehicle 'amb_1110000'.
+Warning: Repaired route of vehicle 'amb_1111102'.
+Warning: Could not find new starting edge for vehicle 'amb_1116000'.
+Warning: The vehicle 'amb_1116000' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1116401'.
+Warning: The vehicle 'amb_1116401' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1128102'.
+Warning: The vehicle 'amb_1128102' has no valid route.
+Warning: Repaired route of vehicle 'amb_1115102'.
+Warning: Could not find new starting edge for vehicle 'amb_1116402'.
+Warning: The vehicle 'amb_1116402' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1116104'.
+Warning: The vehicle 'amb_1116104' has no valid route.
+Warning: Repaired route of vehicle 'amb_1115000'.
+Warning: Repaired route of vehicle 'amb_1115401'.
+Warning: Repaired route of vehicle 'amb_1115402'.
+Warning: Could not find new starting edge for vehicle 'amb_1119000'.
+Warning: The vehicle 'amb_1119000' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1119102'.
+Warning: The vehicle 'amb_1119102' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1119401'.
+Warning: The vehicle 'amb_1119401' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1108104'.
+Warning: The vehicle 'amb_1108104' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1119104'.
+Warning: The vehicle 'amb_1119104' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1119402'.
+Warning: The vehicle 'amb_1119402' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1115106'.
+Warning: The vehicle 'amb_1115106' has no valid route.
+Warning: Repaired route of vehicle 'amb_1114104'.
+Warning: Vehicle 'amb_1114105' is not allowed to depart on edge '358372844#1'.
+Warning: The vehicle 'amb_1114105' has no valid route.
+Warning: Vehicle 'amb_1120104' is not allowed to depart on edge '358372844#1'.
+Warning: The vehicle 'amb_1120104' has no valid route.
+Warning: No connection between edge '-454158885#0' and edge '454158885#0' found.
+Warning: Mandatory edge '454158885#0' not reachable by vehicle 'amb_1106104'.
+Warning: The vehicle 'amb_1106104' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1102103'.
+Warning: The vehicle 'amb_1102103' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1116103'.
+Warning: The vehicle 'amb_1116103' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1102104'.
+Warning: The vehicle 'amb_1102104' has no valid route.
+Warning: Repaired route of vehicle 'amb_1103105'.
+Warning: Repaired route of vehicle 'amb_1111104'.
+Warning: Repaired route of vehicle 'amb_1111101'.
+Warning: Repaired route of vehicle 'amb_1110102'.
+Warning: Repaired route of vehicle 'amb_1110201'.
+Warning: Repaired route of vehicle 'amb_1111201'.
+Warning: Repaired route of vehicle 'amb_1110103'.
+Warning: Vehicle 'amb_1120000' is not allowed to depart on edge '358372844#1'.
+Warning: The vehicle 'amb_1120000' has no valid route.
+Warning: Vehicle 'amb_1120103' is not allowed to depart on edge '358372844#1'.
+Warning: The vehicle 'amb_1120103' has no valid route.
+Warning: Vehicle 'amb_1120401' is not allowed to depart on edge '358372844#1'.
+Warning: The vehicle 'amb_1120401' has no valid route.
+Warning: Vehicle 'amb_1120402' is not allowed to depart on edge '358372844#1'.
+Warning: The vehicle 'amb_1120402' has no valid route.
+Warning: Repaired route of vehicle 'amb_1122000'.
+Warning: Repaired route of vehicle 'amb_1122101'.
+Warning: Repaired route of vehicle 'amb_1122201'.
+Warning: Repaired route of vehicle 'amb_1107104'.
+Warning: Repaired route of vehicle 'amb_1103109'.
+Warning: Repaired route of vehicle 'amb_1107000'.
+Warning: Repaired route of vehicle 'amb_1107101'.
+Warning: Repaired route of vehicle 'amb_1107103'.
+Warning: Repaired route of vehicle 'amb_1109102'.
+Warning: Repaired route of vehicle 'amb_1107201'.
+Warning: Repaired route of vehicle 'amb_1104000'.
+Warning: Repaired route of vehicle 'amb_1104401'.
+Warning: Repaired route of vehicle 'amb_1104402'.
+Warning: Repaired route of vehicle 'amb_1104105'.
+Warning: Repaired route of vehicle 'amb_1104106'.
+Warning: Repaired route of vehicle 'amb_1111105'.
+Warning: Repaired route of vehicle 'amb_1111106'.
+Warning: Repaired route of vehicle 'amb_1109101'.
+Warning: Repaired route of vehicle 'amb_1109201'.
+Warning: Repaired route of vehicle 'amb_1109000'.
+Warning: Repaired route of vehicle 'amb_1107102'.
+Warning: Repaired route of vehicle 'amb_1125104'.
+Warning: No connection between edge '-454158885#0' and edge '454158885#0' found.
+Warning: Mandatory edge '454158885#0' not reachable by vehicle 'amb_1106000'.
+Warning: The vehicle 'amb_1106000' has no valid route.
+Warning: No connection between edge '-454158885#0' and edge '454158885#0' found.
+Warning: Mandatory edge '454158885#0' not reachable by vehicle 'amb_1106101'.
+Warning: The vehicle 'amb_1106101' has no valid route.
+Warning: No connection between edge '-454158885#0' and edge '454158885#0' found.
+Warning: Mandatory edge '454158885#0' not reachable by vehicle 'amb_1106201'.
+Warning: The vehicle 'amb_1106201' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1102000'.
+Warning: The vehicle 'amb_1102000' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1102101'.
+Warning: The vehicle 'amb_1102101' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1102201'.
+Warning: The vehicle 'amb_1102201' has no valid route.
+Warning: Repaired route of vehicle 'amb_1107105'.
+Warning: Vehicle 'amb_1126305' is not allowed to depart on edge '617416464'.
+Warning: The vehicle 'amb_1126305' has no valid route.
+Warning: Repaired route of vehicle 'amb_1100211'.
+Warning: Could not find new starting edge for vehicle 'amb_1100213'.
+Warning: The vehicle 'amb_1100213' has no valid route.
+Warning: Repaired route of vehicle 'amb_1127301'.
+Warning: Repaired route of vehicle 'amb_1105107'.
+Warning: Repaired route of vehicle 'amb_1127302'.
+Warning: Repaired route of vehicle 'amb_1127303'.
+Warning: Repaired route of vehicle 'amb_1127402'.
+Warning: Repaired route of vehicle 'amb_1127401'.
+Warning: Repaired route of vehicle 'amb_1127000'.
+Warning: Repaired route of vehicle 'amb_1105103'.
+Warning: Repaired route of vehicle 'amb_1126304'.
+Warning: Repaired route of vehicle 'amb_1105000'.
+Warning: Repaired route of vehicle 'amb_1105402'.
+Warning: Repaired route of vehicle 'amb_1105401'.
+Warning: Repaired route of vehicle 'amb_1127304'.
+Warning: Could not find new starting edge for vehicle 'amb_1128000'.
+Warning: The vehicle 'amb_1128000' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1128401'.
+Warning: The vehicle 'amb_1128401' has no valid route.
+Warning: Could not find new starting edge for vehicle 'amb_1128402'.
+Warning: The vehicle 'amb_1128402' has no valid route.
